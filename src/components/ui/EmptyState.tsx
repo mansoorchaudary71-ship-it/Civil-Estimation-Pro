@@ -13,7 +13,7 @@ export function EmptyState({
   icon = <Calculator className="w-12 h-12 text-slate-300 dark:text-slate-600" />
 }: EmptyStateProps) {
   return (
-    <div className="w-full flex justify-center items-center p-12 border-2 border-dashed border-border-color rounded-3xl bg-slate-50/50 dark:bg-slate-900/20 text-center animate-in fade-in duration-500 min-h-[300px]">
+    <div className="w-full flex justify-center items-center p-12 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl bg-slate-50/50 dark:bg-slate-900/20 text-center animate-in fade-in duration-500 min-h-[300px]">
       <div className="flex flex-col items-center max-w-sm">
         <div className="mb-4 bg-bg-card p-6 rounded-full shadow-sm ring-1 ring-slate-100 dark:ring-slate-800">
           {icon}

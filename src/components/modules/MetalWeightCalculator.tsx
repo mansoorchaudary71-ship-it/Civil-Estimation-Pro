@@ -85,7 +85,7 @@ export default function MetalWeightCalculator() {
  id: "Square tubing bar",
  label: "Square Tubing",
  icon: SquareDashed,
- color: "text-gray-500 bg-gray-100 ",
+ color: "text-slate-500 bg-gray-100 ",
  },
  {
  id: "Tee Bar",
@@ -242,8 +242,8 @@ export default function MetalWeightCalculator() {
  "Total Weight": `${totalWeight.toFixed(2)} kg`,
  };
  return (
- <div className="w-full h-full bg-[#F5F5F7] text-text-primary p-6 md:p-8"><div className="max-w-4xl mx-auto"><div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-200 mb-8"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
- <label className="text-xs font-bold text-gray-700 uppercase block mb-1.5">
+ <div className="w-full h-full bg-[#F5F5F7] text-slate-900 dark:text-white p-6 md:p-8"><div className="max-w-4xl mx-auto"><div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-200 mb-8"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
+ <label className="text-base font-medium uppercase block mb-1.5">
  Element Length (m)
  </label>
  <input
@@ -267,14 +267,14 @@ export default function MetalWeightCalculator() {
  </div>
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
  {/* Inputs Section */}
- <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-[2rem] border border-border-color shadow-sm">
+ <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm">
  <h3 className="font-bold text-xl mb-6">
  {activeProfile} Dimensions
  </h3>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
  {activeProfile === "Round bar" && (
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Diameter (mm)
  </label>
  <input
@@ -288,7 +288,7 @@ export default function MetalWeightCalculator() {
  )}
  {activeProfile === "Square bar" && (
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Side Width (mm)
  </label>
  <input
@@ -303,7 +303,7 @@ export default function MetalWeightCalculator() {
  {activeProfile === "Round pipe bar" && (
  <>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Outer Diameter (mm)
  </label>
  <input
@@ -315,7 +315,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Wall Thickness (mm)
  </label>
  <input
@@ -330,7 +330,7 @@ export default function MetalWeightCalculator() {
  )}
  {activeProfile === "Hexagonal bar" && (
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Size Across Flats (mm)
  </label>
  <input
@@ -345,7 +345,7 @@ export default function MetalWeightCalculator() {
  {activeProfile === "Square tubing bar" && (
  <>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Outer Width (mm)
  </label>
  <input
@@ -357,7 +357,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Wall Thickness (mm)
  </label>
  <input
@@ -373,7 +373,7 @@ export default function MetalWeightCalculator() {
  {activeProfile === "Tee Bar" && (
  <>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Flange Width (mm)
  </label>
  <input
@@ -385,7 +385,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Total Height (mm)
  </label>
  <input
@@ -397,7 +397,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Thickness (mm)
  </label>
  <input
@@ -413,7 +413,7 @@ export default function MetalWeightCalculator() {
  {["Beam bar", "Channel shape"].includes(activeProfile) && (
  <>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Flange Width (mm)
  </label>
  <input
@@ -425,7 +425,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Depth / Height (mm)
  </label>
  <input
@@ -437,7 +437,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Flange Thickness (mm)
  </label>
  <input
@@ -449,7 +449,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Web Thickness (mm)
  </label>
  <input
@@ -465,7 +465,7 @@ export default function MetalWeightCalculator() {
  {activeProfile === "Angle shape" && (
  <>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Leg 1 Length (mm)
  </label>
  <input
@@ -477,7 +477,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Leg 2 Length (mm)
  </label>
  <input
@@ -489,7 +489,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Thickness (mm)
  </label>
  <input
@@ -505,7 +505,7 @@ export default function MetalWeightCalculator() {
  {["Flat shape", "Sheet shape"].includes(activeProfile) && (
  <>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Width (mm)
  </label>
  <input
@@ -517,7 +517,7 @@ export default function MetalWeightCalculator() {
  />
  </div>
  <div>
- <label className="text-xs font-bold text-gray-700 uppercase">
+ <label className="text-base font-medium uppercase">
  Thickness (mm)
  </label>
  <input

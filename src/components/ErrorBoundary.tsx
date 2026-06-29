@@ -28,8 +28,8 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="p-8 text-red-500 bg-red-50">
           <h1>Sorry.. there was an error</h1>
-          <pre className="mt-4 text-xs whitespace-pre-wrap">{this.state.error?.toString()}</pre>
-          <pre className="mt-4 text-xs whitespace-pre-wrap">{this.state.error?.stack}</pre>
+          <pre className="mt-4 text-sm whitespace-pre-wrap">{this.state.error?.toString()}</pre>
+          <pre className="mt-4 text-sm whitespace-pre-wrap">{this.state.error?.stack}</pre>
         </div>
       );
     }

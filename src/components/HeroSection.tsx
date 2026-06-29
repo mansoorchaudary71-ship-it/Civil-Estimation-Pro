@@ -20,22 +20,22 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         >
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-sm mb-8">
-            <span className="px-2 py-0.5 rounded-full bg-[#FF5F15]/10 text-[#FF5F15] text-xs font-bold uppercase tracking-wider">
+            <span className="px-2 py-0.5 rounded-full bg-[#FF5F15]/10 text-[#FF5F15] text-base font-medium uppercase tracking-wider">
               New
             </span>
-            <span className="text-sm font-medium text-gray-700 pr-2">
+            <span className="text-sm font-medium text-slate-700 pr-2">
               AI-Powered Estimations
             </span>
           </div>
 
           {/* Headline */}
-          <h1 className="sm: md:text-7xl leading-[1.1] mb-6 text-2xl font-semibold text-gray-900 tracking-tight">
+          <h1 className="sm: md:text-7xl leading-[1.1] mb-6 text-xl font-semibold text-slate-800 tracking-tight">
             Build Smarter. <br className="hidden sm:block" />
             <span className="text-[#FF5F15]">Estimate Faster.</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="md: max-w-2xl px-4 mb-10 text-base font-normal text-gray-600 leading-relaxed">
+          <p className="md: max-w-2xl px-4 mb-10 text-base font-normal text-slate-600 leading-relaxed">
             The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
           </p>
 
@@ -49,10 +49,10 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              className="w-full sm:w-auto px-8 py-4 rounded-full text-gray-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95 text-base font-semibold"
+              className="w-full sm:w-auto px-8 py-4 rounded-full text-slate-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95 text-base font-semibold"
             >
               <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
-                <Play className="w-3 h-3 fill-current text-gray-700" />
+                <Play className="w-3 h-3 fill-current text-slate-700" />
               </div>
               Watch Demo
             </button>
@@ -141,8 +141,8 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="leading-tight text-lg font-medium text-gray-800 mb-4">30+ Professional Tools</h4>
-                <p className=" text-base font-normal text-gray-600 leading-relaxed">Verified to global standards</p>
+                <h4 className="leading-tight text-lg font-medium text-slate-800 mb-4">30+ Professional Tools</h4>
+                <p className=" text-base font-normal text-slate-600 leading-relaxed">Verified to global standards</p>
               </div>
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-gray-100">
@@ -153,7 +153,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                   </div>
                 ))}
               </div>
-              <span className="text-xs font-bold text-gray-700">10k+ Trust Us</span>
+              <span className="text-base font-medium">10k+ Trust Us</span>
             </div>
           </motion.div>
 
@@ -169,7 +169,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <Star key={i} className="w-4 h-4 fill-[#FF5F15] text-[#FF5F15]" />
               ))}
             </div>
-            <p className="mb-4 text-base font-normal text-gray-600 leading-relaxed">
+            <p className="mb-4 text-base font-normal text-slate-600 leading-relaxed">
               "Zero calculation errors and saves hours of manual Excel entries."
             </p>
             <div className="flex items-center gap-3 pt-3 border-t border-gray-100">
@@ -177,8 +177,8 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <img src="https://i.pravatar.cc/100?img=33" alt="Michael R." className="w-full h-full object-cover" />
               </div>
               <div>
-                <p className=" text-base font-normal text-gray-600 leading-relaxed">Michael R.</p>
-                <p className=" text-base font-normal text-gray-600 leading-relaxed">Civil Engineer</p>
+                <p className=" text-base font-normal text-slate-600 leading-relaxed">Michael R.</p>
+                <p className=" text-base font-normal text-slate-600 leading-relaxed">Civil Engineer</p>
               </div>
             </div>
           </motion.div>
@@ -192,21 +192,21 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="w-full max-w-4xl mx-auto mt-12 pt-8 border-t border-gray-200/60"
         >
-          <p className="mb-6 text-base font-normal text-gray-600 leading-relaxed">Trusted by global practitioners and firms</p>
+          <p className="mb-6 text-base font-normal text-slate-600 leading-relaxed">Trusted by global practitioners and firms</p>
           <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
             {/* Placeholder Logos */}
-            <div className="text-xl font-bold tracking-tighter text-gray-800 flex items-center gap-2">
+            <div className="text-xl font-bold tracking-tighter text-slate-800 flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-gray-800"></div> BuildCorp
             </div>
-            <div className="text-xl font-black tracking-widest text-gray-800 flex items-center gap-1">
+            <div className="text-xl font-black tracking-widest text-slate-800 flex items-center gap-1">
               <div className="w-4 h-6 bg-gray-800 -skew-x-12"></div>
               <div className="w-4 h-6 bg-gray-800 -skew-x-12"></div>
               NEXUS
             </div>
-            <div className="text-xl font-bold font-serif italic text-gray-800 flex items-center gap-2">
+            <div className="text-xl font-bold font-serif italic text-slate-800 flex items-center gap-2">
               <div className="w-6 h-6 rounded-full border-4 border-gray-800"></div> Architechs
             </div>
-            <div className="text-xl font-extrabold uppercase text-gray-800 flex items-center gap-1">
+            <div className="text-xl font-extrabold uppercase text-slate-800 flex items-center gap-1">
               <div className="w-3 h-6 bg-gray-800"></div>
               <div className="w-3 h-6 bg-gray-800"></div>
               <div className="w-3 h-6 bg-gray-800"></div>

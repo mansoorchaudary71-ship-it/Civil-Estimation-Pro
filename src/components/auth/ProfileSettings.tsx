@@ -77,13 +77,13 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-border-color"
+          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-slate-200 dark:border-slate-700"
         >
-          <div className="flex items-center justify-between px-6 py-5 border-b border-border-color">
-            <h2 className="text-text-primary text-xl font-semibold text-gray-900 tracking-tight mb-4">Profile Settings</h2>
+          <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-700">
+            <h2 className="text-slate-900 dark:text-white text-xl font-semibold text-slate-900 tracking-tight mb-4">Profile Settings</h2>
             <button
               onClick={onClose}
-              className="p-2 text-gray-500 hover:text-gray-600 rounded-full hover:bg-slate-100 transition-colors text-base font-semibold"
+              className="p-2 text-slate-500 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors text-base font-semibold"
             >
               <X className="w-5 h-5" />
             </button>
@@ -95,53 +95,53 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 {photoURL ? (
                   <img src={photoURL} alt="User Profile Details Settings Photo" title="Profile Avatar" loading="lazy" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-10 h-10 text-gray-700" />
+                  <User className="w-10 h-10 text-slate-700" />
                 )}
                 <div className="absolute inset-0 bg-slate-50/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Camera className="w-6 h-6 text-gray-900" />
+                  <Camera className="w-6 h-6 text-slate-900" />
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-gray-700 mb-1">Display Name</label>
+                <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Display Name</label>
                 <div className="relative flex items-center">
-                  <User className="absolute left-3.5 w-5 h-5 text-gray-700" />
+                  <User className="absolute left-3.5 w-5 h-5 text-slate-700" />
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-gray-700 mb-1">Photo URL</label>
+                <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Photo URL</label>
                 <div className="relative flex items-center">
-                  <Camera className="absolute left-3.5 w-5 h-5 text-gray-700" />
+                  <Camera className="absolute left-3.5 w-5 h-5 text-slate-700" />
                   <input
                      type="url"
                      value={photoURL}
                      onChange={(e) => setPhotoURL(e.target.value)}
                      placeholder="https://example.com/avatar.png"
-                     className="w-full pl-11 pr-4 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                     className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
 
               {/* Theme Toggle */}
               <div>
-                <label className="block mb-2 uppercase tracking-wider text-sm font-medium text-gray-700 mb-1">Appearance</label>
+                <label className="block mb-2 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Appearance</label>
                 <button
                   type="button"
                   onClick={toggleTheme}
-                  className="w-full flex items-center justify-between p-3 bg-white border border-border-color rounded-[24px] hover:bg-slate-50 transition-colors text-base font-semibold"
+                  className="w-full flex items-center justify-between p-3 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] hover:bg-slate-50 transition-colors text-base font-semibold"
                 >
                   <div className="flex items-center gap-3">
                     {getThemeIcon()}
-                    <span className="text-sm font-bold text-text-primary">
+                    <span className="text-base font-medium text-slate-900 dark:text-white">
                       {getThemeLabel()}
                     </span>
                   </div>

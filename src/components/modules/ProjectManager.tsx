@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useProjects, Project } from '../../context/ProjectContext';
 import { auth } from '../../lib/firebase';
-import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route } from 'lucide-react';
+import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route, Save } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { CalculationHistory } from '../ui/CalculationHistory';
 
@@ -320,12 +320,12 @@ export default function ProjectManager() {
                  <div>
                    <h3 className="leading-tight text-lg font-medium text-gray-800 mb-4">{proj.name}</h3>
                    <div className="flex items-center gap-2 mt-2">
-                     <span className="px-2.5 py-1 bg-slate-100 text-gray-600 text-xs font-bold rounded-full">{proj.type}</span>
+                     <span className="px-2.5 py-1 bg-slate-100 text-gray-600 text-base font-medium rounded-full">{proj.type}</span>
                      {activeProjectId === proj.id && (
-                       <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">Active</span>
+                       <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-base font-medium rounded-full">Active</span>
                      )}
                      {proj.memberIds.length > 1 && (
-                       <span className="px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">Shared</span>
+                       <span className="px-2.5 py-1 bg-amber-100 text-amber-700 text-base font-medium rounded-full">Shared</span>
                      )}
                    </div>
                  </div>
@@ -338,7 +338,7 @@ export default function ProjectManager() {
                  <div className="flex items-center gap-2 text-sm text-gray-500">
                     <Calendar className="w-4 h-4" /> Started {proj.startDate ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(proj.startDate)) : 'N/A'}
                  </div>
-                 <div className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+                 <div className="flex items-center gap-2 text-base font-medium">
                     <BarChart3 className="w-4 h-4" /> {proj.estimates.length} calculations saved
                  </div>
               </div>
@@ -359,7 +359,7 @@ export default function ProjectManager() {
                  
                  <button 
                    onClick={() => toggleCompareSelect(proj.id)}
-                   className={`w-full py-2 text-xs font-bold rounded-[24px] transition-colors border ${isCompare ? 'bg-emerald-50 text-emerald-700 border-emerald-200   ' : 'bg-transparent text-slate-400 border-slate-200 hover:border-slate-300  :'}`}
+                   className={`w-full py-2 text-base font-medium rounded-[24px] transition-colors border ${isCompare ? 'bg-emerald-50 text-emerald-700 border-emerald-200   ' : 'bg-transparent text-slate-400 border-slate-200 hover:border-slate-300  :'}`}
                  >
                    {isCompare ? "Selected for Compare" : "Select to Compare"}
                  </button>
@@ -417,7 +417,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
            transition={{ duration: 0.5, delay: 0.2 + (i * 0.1), ease: [0.23, 1, 0.32, 1] }}
            className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
          >
-            <h1 className="tabular-nums mb-6 flex items-center gap-2 text-2xl font-semibold text-gray-900 tracking-tight">
+            <h1 className="tabular-nums mb-6 flex items-center gap-2 text-xl font-semibold text-slate-800 tracking-tight">
                <span className="w-6 h-6 rounded-full bg-indigo-500 text-white shadow-md flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
             </h1>
@@ -425,9 +425,9 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
             <div className="space-y-6">
               <div className="p-4 bg-emerald-50/50 backdrop-blur-md rounded-[24px] border border-emerald-100/50 shadow-sm text-gray-800 rounded-[24px]">
                  <p className="text-emerald-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Cost estimate</p>
-                 <p className="text-3xl tabular-nums tracking-tight text-emerald-600 text-base font-normal text-gray-600 leading-relaxed">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                 <p className="text-xl tabular-nums tracking-tight text-emerald-600 text-base font-normal text-gray-600 leading-relaxed">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                  {i === 1 && t1.cost !== 0 && (
-                    <p className={`text-sm font-bold ${t2.cost > t1.cost ? 'text-rose-500' : 'text-emerald-500'} mt-1`}>
+                    <p className={`text-base font-medium ${t2.cost > t1.cost ? 'text-rose-500' : 'text-emerald-500'} mt-1`}>
                        {Math.abs(t2.cost - t1.cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} difference
                     </p>
                  )}
@@ -461,10 +461,18 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
   );
 }
 function ProjectDetail({ project, onBack }: { project: Project, onBack: () => void }) {
-  const { deleteEstimate, updateProject, addMember, removeMember } = useProjects();
+  const { deleteEstimate, updateProject, addMember, removeMember, saveVersion } = useProjects();
   const [inflationRate, setInflationRate] = useState<number>(0);
   const [wasteFactor, setWasteFactor] = useState<number>(0);
   const [budget, setBudget] = useState<number>(project.budget || 0);
+
+  const handleSaveVersion = async () => {
+    const versionName = prompt("Enter a name for this version snapshot (e.g., 'Option A', 'v2'):", `${project.name} - Version`);
+    if (versionName) {
+      await saveVersion(project.id, versionName);
+      alert(`Version '${versionName}' saved successfully. You can now compare it in the main project list.`);
+    }
+  };
 
   const uid = auth.currentUser?.uid;
   const userRole = uid ? project.roles[uid] : 'viewer';
@@ -579,13 +587,16 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       <span className="px-3 py-1 bg-white/60 shadow-sm text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block backdrop-blur-md">
                          {project.type}
                       </span>
-                      <h1 className="md:text-[clamp(1.75rem,5vw,2.5rem)] break-all tabular-nums mb-2 text-2xl font-semibold text-gray-900 tracking-tight mb-6">{project.name}</h1>
+                      <h1 className="md:text-[clamp(1.75rem,5vw,2.5rem)] break-all tabular-nums mb-2 text-xl font-semibold text-slate-800 tracking-tight mb-6">{project.name}</h1>
                       <div className="flex items-center gap-4 text-gray-500 font-medium">
                          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {project.location}</span>
                          <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> Started {project.startDate ? new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date(project.startDate)) : 'N/A'}</span>
                       </div>
                    </div>
                    <div className="flex gap-2">
+                      <button onClick={handleSaveVersion} className="p-3 bg-emerald-50/50 hover:bg-emerald-100/60 text-emerald-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold" title="Save Version Snapshot">
+                         <Save className="w-5 h-5" />
+                      </button>
                       <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-gray-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
@@ -598,7 +609,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                    <div className="bg-emerald-50/50 backdrop-blur-md p-5 rounded-[24px] border border-emerald-100/50">
                      <p className="text-emerald-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Estimated Cost</p>
-                     <p className="text-3xl tabular-nums tracking-tight text-emerald-600 text-base font-normal text-gray-600 leading-relaxed">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                     <p className="text-xl tabular-nums tracking-tight text-emerald-600 text-base font-normal text-gray-600 leading-relaxed">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                    </div>
                    <div className="bg-rose-50/50 backdrop-blur-md p-5 rounded-[24px] border border-rose-100/50">
                      <p className="text-rose-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Budget</p>
@@ -607,20 +618,20 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           type="number" inputMode="decimal" 
                           value={budget || ''} 
                           onChange={(e) => { const v = Number(e.target.value); setBudget(v); updateProject(project.id, { budget: v }); }}
-                          className="w-full text-3xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none"
+                          className="w-full text-xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none"
                           placeholder="0.00"
                        />
                      ) : (
-                       <p className="text-3xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent">${budget.toLocaleString()}</p>
+                       <p className="text-xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent">${budget.toLocaleString()}</p>
                      )}
                    </div>
                    <div className="bg-indigo-50/50 backdrop-blur-md p-5 rounded-[24px] border border-indigo-100/50">
                      <p className="text-indigo-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Calculations Run</p>
-                     <p className="text-3xl tabular-nums tracking-tight text-indigo-600 text-base font-normal text-gray-600 leading-relaxed">{project.estimates.length}</p>
+                     <p className="text-xl tabular-nums tracking-tight text-indigo-600 text-base font-normal text-gray-600 leading-relaxed">{project.estimates.length}</p>
                    </div>
                    <div className="bg-amber-50/50 backdrop-blur-md p-5 rounded-[24px] border border-amber-100/50">
                      <p className="text-amber-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Materials</p>
-                     <p className="text-3xl tabular-nums tracking-tight text-amber-600 text-base font-normal text-gray-600 leading-relaxed">{Object.keys(aggregatedMaterials).length}</p>
+                     <p className="text-xl tabular-nums tracking-tight text-amber-600 text-base font-normal text-gray-600 leading-relaxed">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
 
@@ -721,7 +732,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                        <div className="flex-1">
                           <div className="flex justify-between">
                             <h4 className=" text-lg font-medium text-gray-800 mb-4">{est.name}</h4>
-                            <span className="text-sm font-bold text-indigo-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            <span className="text-base font-medium text-indigo-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                           </div>
                           <p className="mb-2 text-base font-normal text-gray-600 leading-relaxed">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(est.date))} • {est.category}</p>
                           
@@ -729,12 +740,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           {est.materials && Object.keys(est.materials).length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                                {Object.entries(est.materials).slice(0, 4).map(([mat, data]) => (
-                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-gray-600 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
+                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-gray-600 rounded text-base font-medium shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
                                    {mat}: {(data.quantity * qtyMultiplier).toFixed(1)} {data.unit}
                                  </span>
                                ))}
                                {Object.keys(est.materials).length > 4 && (
-                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-gray-500 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
+                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-gray-500 rounded text-base font-medium shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
                                    +{Object.keys(est.materials).length - 4} more
                                  </span>
                                )}
@@ -768,7 +779,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                        <div key={est.id} className="flex-1 min-w-[280px]">
                          <div className="flex flex-col items-center mb-4">
                            <div className="w-5 h-5 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] border-4 border-white mb-2 z-10"></div>
-                           <div className="text-sm font-bold text-indigo-600">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(est.date))}</div>
+                           <div className="text-base font-medium text-indigo-600">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(est.date))}</div>
                          </div>
                          <div className="bg-white border border-slate-200 rounded-[24px] p-5 shadow-[0_4px_14px_rgba(15,23,42,0.02)] hover:shadow-lg hover:-translate-y-1 transition-all">
                            <h4 className="font-semibold text-gray-800 mb-1 truncate" title={est.name}>{est.name}</h4>
@@ -799,7 +810,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                              <div className="pt-3 border-t border-slate-100">
                                <div className="flex justify-between items-center">
                                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Est. Task Cost</span>
-                                 <span className="text-sm font-bold text-emerald-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                                 <span className="text-base font-medium text-emerald-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
                                </div>
                              </div>
                            </div>
@@ -866,7 +877,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                          if (window.confirm('Remove this member?')) {
                            removeMember(project.id, memberUid).catch(e => alert(e.message));
                          }
-                       }} className="text-rose-500 hover:text-rose-600 text-xs font-bold px-2 py-1 bg-rose-50 rounded">Remove</button>
+                       }} className="text-rose-500 hover:text-rose-600 text-base font-medium px-2 py-1 bg-rose-50 rounded">Remove</button>
                      )}
                    </div>
                  ))}

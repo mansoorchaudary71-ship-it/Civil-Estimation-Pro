@@ -15,7 +15,7 @@ import {
 export default function HouseSpecs() {
   const { specs, updateSpecs } = useHouseSpecs();
   return (
-    <div className="w-full h-full bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-slate-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -47,7 +47,7 @@ export default function HouseSpecs() {
           {/* Concrete / Structure */}
           <GlassCard
             title="Concrete Mix"
-            icon={<Layers className="w-5 h-5 text-gray-700" />}
+            icon={<Layers className="w-5 h-5 text-slate-700" />}
             color="gray"
           >
             <div className="space-y-4">
@@ -153,7 +153,7 @@ export default function HouseSpecs() {
                   { label: "Bare", value: "bare" },
                 ]}
               />
-              <p className="mt-4 text-base font-normal text-gray-600 leading-relaxed">
+              <p className="mt-4 text-base font-normal text-slate-600 leading-relaxed">
                 {specs.ceiling.type === "pop" &&
                   "Standard Plaster of Paris finishes offering smooth surfaces."}
                 {specs.ceiling.type === "gypsum" &&
@@ -268,7 +268,7 @@ function GlassCard({
 }) {
   const bgColors: Record<string, string> = {
     red: "bg-red-500/10 border-red-500/20 text-red-600",
-    gray: "bg-gray-500/10 border-gray-500/20 text-gray-600",
+    gray: "bg-gray-500/10 border-gray-500/20 text-slate-600",
     teal: "bg-teal-500/10 border-teal-500/20 text-teal-600",
     amber: "bg-amber-500/10 border-amber-500/20 text-amber-600",
     indigo: "bg-indigo-500/10 border-indigo-500/20 text-indigo-600",
@@ -281,7 +281,7 @@ function GlassCard({
         <div className={`p-2.5 rounded-[24px] ${bgColors[color]}`}>
           {icon}
         </div>
-        <h3 className=" text-lg font-medium text-gray-800 mb-4">
+        <h3 className=" text-lg font-medium text-slate-800 mb-4">
           {title}
         </h3>
       </div>
@@ -292,12 +292,12 @@ function GlassCard({
 function SelectInput({ label, value, options, onChange }: any) {
   return (
     <div>
-      <label className="block uppercase tracking-widest mb-1.5 text-sm font-medium text-gray-700 mb-1">
+      <label className="block uppercase tracking-widest mb-1.5 text-sm font-medium text-slate-700 mb-1">
         {label}
       </label>
       <div className="relative">
         <select
-          className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors text-base font-normal"
+          className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors text-base font-normal"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
@@ -307,7 +307,7 @@ function SelectInput({ label, value, options, onChange }: any) {
             </option>
           ))}
         </select>
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-700">
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -331,17 +331,17 @@ function NumberInput({ label, value, onChange, desc }: any) {
   return (
     <div className="relative group/tooltip">
       {tooltipText && (
-         <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-white text-gray-900 text-xs p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
+         <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-white text-slate-900 text-sm p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
            {tooltipText}
          </div>
       )}
-      <label className="block uppercase tracking-widest mb-1.5 cursor-help text-sm font-medium text-gray-700 mb-1">
+      <label className="block uppercase tracking-widest mb-1.5 cursor-help text-sm font-medium text-slate-700 mb-1">
         {label}
       </label>
       <input
         type="number" inputMode="decimal"
         step="any"
-        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px] text-base font-normal"
+        className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px] text-base font-normal"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -355,7 +355,7 @@ function ToggleGroup({ value, onChange, options }: any) {
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-[24px] transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-700  hover:text-gray-700 hover:bg-gray-200/50"}`}
+          className={`flex-1 py-2.5 px-3 text-base font-medium rounded-[24px] transition-all duration-300 ${value === opt.value ? "bg-white text-slate-800 shadow-sm" : "text-slate-700  hover:text-slate-700 hover:bg-gray-200/50"}`}
         >
           {opt.label}
         </button>

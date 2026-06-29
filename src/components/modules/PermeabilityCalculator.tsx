@@ -104,7 +104,7 @@ export default function PermeabilityCalculator() {
                         <div className="flex bg-slate-100 p-1 rounded-xl mb-6">
                             <button
                                 onClick={() => setTestMethod("constant")}
-                                className={`flex-1 px-3 py-2 rounded-lg text-sm font-bold transition-all ${
+                                className={`flex-1 px-3 py-2 rounded-lg text-base font-medium transition-all ${
                                     testMethod === "constant" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"
                                 }`}
                             >
@@ -112,7 +112,7 @@ export default function PermeabilityCalculator() {
                             </button>
                             <button
                                 onClick={() => setTestMethod("falling")}
-                                className={`flex-1 px-3 py-2 rounded-lg text-sm font-bold transition-all ${
+                                className={`flex-1 px-3 py-2 rounded-lg text-base font-medium transition-all ${
                                     testMethod === "falling" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"
                                 }`}
                             >
@@ -120,7 +120,7 @@ export default function PermeabilityCalculator() {
                             </button>
                         </div>
 
-                        <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Sample Details</h3>
+                        <h3 className="text-base font-medium mb-3 border-b border-slate-100 pb-2">Sample Details</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <NumberInput label="Sample Length (L)" unit="cm" value={lengthSample} onChange={setLengthSample} />
                             <NumberInput label="Sample Area (A)" unit="cm²" value={areaSample} onChange={setAreaSample} />
@@ -131,7 +131,7 @@ export default function PermeabilityCalculator() {
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">
+                        <h3 className="text-base font-medium mb-3 border-b border-slate-100 pb-2">
                             {testMethod === "constant" ? "Constant Head Data" : "Falling Head Data"}
                         </h3>
                         <div className="space-y-4">
@@ -166,7 +166,7 @@ export default function PermeabilityCalculator() {
                              <div className="bg-white border border-slate-200 p-5 rounded-2xl flex items-center justify-between">
                                  <div>
                                      <span className="block text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-1">Soil Classification</span>
-                                     <span className="text-sm font-bold text-slate-800">{results.soilClass}</span>
+                                     <span className="text-base font-medium">{results.soilClass}</span>
                                  </div>
                                  <Filter className="w-8 h-8 text-blue-500/50" />
                              </div>
@@ -184,7 +184,7 @@ export default function PermeabilityCalculator() {
                         </div>
 
                         <div className="mt-8 border-t border-blue-100 pt-6">
-                             <h4 className="text-sm font-bold text-blue-900 flex items-center gap-2 mb-4">
+                             <h4 className="text-base font-medium text-blue-900 flex items-center gap-2 mb-4">
                                  <Calculator className="w-4 h-4" /> Darcy's Law Application
                              </h4>
                              {testMethod === "constant" ? (

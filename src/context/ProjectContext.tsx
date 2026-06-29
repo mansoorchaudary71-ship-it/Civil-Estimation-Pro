@@ -39,6 +39,7 @@ interface ProjectContextType {
   addProject: (project: Omit<Project, 'id' | 'estimates' | 'ownerId' | 'memberIds' | 'roles' | 'createdAt' | 'updatedAt'>) => Promise<void>;
   updateProject: (id: string, data: Partial<Omit<Project, 'id' | 'estimates' | 'ownerId' | 'createdAt'>>) => Promise<void>;
   deleteProject: (id: string) => Promise<void>;
+  saveVersion: (projectId: string, versionName: string) => Promise<void>;
   addEstimateToProject: (projectId: string, estimate: Omit<ProjectEstimate, 'id' | 'projectId' | 'date' | 'createdAt' | 'updatedAt'>) => Promise<void>;
   deleteEstimate: (projectId: string, estimateId: string) => Promise<void>;
   addMember: (projectId: string, email: string, role: 'editor' | 'viewer') => Promise<void>;
@@ -152,6 +153,52 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const saveVersion = async (projectId: string, versionName: string) => {
+    if (!user) return;
+    const projectToClone = projects.find(p => p.id === projectId);
+    if (!projectToClone) return;
+
+    try {
+      const newProjectId = doc(collection(db, 'projects')).id;
+      const now = Date.now();
+      
+      const newProject = {
+        name: versionName,
+        location: projectToClone.location,
+        type: projectToClone.type,
+        startDate: projectToClone.startDate,
+        budget: projectToClone.budget,
+        ownerId: user.uid,
+        memberIds: [user.uid],
+        roles: { [user.uid]: 'owner' },
+        memberEmails: { [user.uid]: user.email || '' },
+        createdAt: now,
+        updatedAt: now
+      };
+      
+      await setDoc(doc(db, 'projects', newProjectId), newProject);
+      
+      // Clone all estimates
+      for (const est of projectToClone.estimates) {
+        const newEstId = doc(collection(db, `projects/${newProjectId}/estimates`)).id;
+        const newEst = {
+          projectId: newProjectId,
+          toolId: est.toolId,
+          name: est.name,
+          cost: est.cost,
+          materials: est.materials || {},
+          date: new Date().toISOString(),
+          category: est.category,
+          createdAt: now,
+          updatedAt: now
+        };
+        await setDoc(doc(db, `projects/${newProjectId}/estimates`, newEstId), newEst);
+      }
+    } catch (error) {
+      handleFirestoreError(error, OperationType.CREATE, 'projects');
+    }
+  };
+
   const addEstimateToProject = async (projectId: string, estimate: Omit<ProjectEstimate, 'id' | 'projectId' | 'date' | 'createdAt' | 'updatedAt'>) => {
     try {
       const newEstId = doc(collection(db, `projects/${projectId}/estimates`)).id;
@@ -232,7 +279,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   return (
     <ProjectContext.Provider value={{
       projects, activeProjectId, setActiveProjectId,
-      addProject, updateProject, deleteProject,
+      addProject, updateProject, deleteProject, saveVersion,
       addEstimateToProject, deleteEstimate, addMember, removeMember,
       canEditProject
     }}>

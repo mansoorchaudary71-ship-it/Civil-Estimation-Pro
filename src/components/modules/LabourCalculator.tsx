@@ -177,7 +177,7 @@ export default function LabourCalculator() {
   };
 
   return (
-    <div className="w-full h-full bg-transparent text-text-primary p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
@@ -194,7 +194,7 @@ export default function LabourCalculator() {
         
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Main Workspace */}
-          <div className="lg:col-span-3 bg-bg-card rounded-[24px] shadow-sm border border-border-color overflow-hidden">
+          <div className="lg:col-span-3 bg-bg-card rounded-[24px] shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="p-6 md:p-8 space-y-6">
               
               <div className="flex justify-between items-center border-b border-slate-100 pb-2">
@@ -224,7 +224,7 @@ export default function LabourCalculator() {
                       )}
                       
                       <div className="flex items-center gap-3 pr-10 border-b border-slate-100 pb-4">
-                        <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-xs">
+                        <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-sm">
                           {index + 1}
                         </div>
                         <select 
@@ -240,7 +240,7 @@ export default function LabourCalculator() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                         <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><Hammer className="w-3 h-3"/> Quantity required</label>
+                          <label className="text-base font-medium uppercase tracking-wider flex items-center gap-1"><Hammer className="w-3 h-3"/> Quantity required</label>
                           <div className="flex gap-2">
                             <input 
                               type="number" inputMode="decimal" 
@@ -258,7 +258,7 @@ export default function LabourCalculator() {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><HardHat className="w-3 h-3 text-amber-500"/> Skilled ({task.skilledRole})</label>
+                          <label className="text-base font-medium uppercase tracking-wider flex items-center gap-1"><HardHat className="w-3 h-3 text-amber-500"/> Skilled ({task.skilledRole})</label>
                           <div className="flex gap-2 items-center">
                             <input 
                               type="number" inputMode="decimal" 
@@ -267,7 +267,7 @@ export default function LabourCalculator() {
                               className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                               placeholder="Qty"
                             />
-                            <span className="text-sm font-semibold text-slate-600">×</span>
+                            <span className="text-base font-medium">×</span>
                             <div className="relative flex-1">
                                 <span className="absolute left-3 top-2.5 text-slate-600 text-sm">
                                     {settings.currency.substring(0,2)}
@@ -284,7 +284,7 @@ export default function LabourCalculator() {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><Users className="w-3 h-3 text-sky-500"/> Unskilled ({task.unskilledRole})</label>
+                          <label className="text-base font-medium uppercase tracking-wider flex items-center gap-1"><Users className="w-3 h-3 text-sky-500"/> Unskilled ({task.unskilledRole})</label>
                           <div className="flex gap-2 items-center">
                             <input 
                               type="number" inputMode="decimal" 
@@ -293,7 +293,7 @@ export default function LabourCalculator() {
                               className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                               placeholder="Qty"
                             />
-                            <span className="text-sm font-semibold text-slate-600">×</span>
+                            <span className="text-base font-medium">×</span>
                             <div className="relative flex-1">
                                 <span className="absolute left-3 top-2.5 text-slate-600 text-sm">
                                     {settings.currency.substring(0,2)}
@@ -310,15 +310,15 @@ export default function LabourCalculator() {
                         </div>
                         
                         <div className="flex flex-col justify-end lg:items-end">
-                           <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 lg:hidden">Task Total Cost</div>
-                           <div className="text-2xl font-semibold tabular-nums tracking-tight text-indigo-600">
+                           <div className="text-base font-medium uppercase tracking-wider mb-2 lg:hidden">Task Total Cost</div>
+                           <div className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-indigo-600">
                              {formatCurrency(calculation.total)}
                            </div>
                         </div>
                       </div>
                       
                       {/* Sub-analytics for the item */}
-                      <div className="pt-2 flex flex-wrap gap-4 text-xs font-medium text-slate-500 bg-slate-50 p-4 rounded-[24px] border border-slate-100 mt-2">
+                      <div className="pt-2 flex flex-wrap gap-4 text-sm font-medium text-slate-500 bg-slate-50 p-4 rounded-[24px] border border-slate-100 mt-2">
                          <div className="flex items-center gap-1.5 w-full md:w-auto">
                             <CalendarClock className="w-4 h-4 text-emerald-500" />
                             Est. Timeline: <span className="font-bold text-emerald-700 max-w-full text-base">{calculation.days} Days</span>
@@ -332,7 +332,7 @@ export default function LabourCalculator() {
                             <input type="number" inputMode="decimal" 
                                   value={task.outputPerWorker} 
                                   onChange={(e) => updateTask(task.id, 'outputPerWorker', parseFloat(e.target.value) || 0)}
-                                  className="w-16 bg-white border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-xs" />
+                                  className="w-16 bg-white border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-sm" />
                             <span className="text-slate-500">{task.unit} per {task.isUnskilledDriven ? task.unskilledRole : task.skilledRole} / day</span>
                          </div>
                       </div>
@@ -346,11 +346,11 @@ export default function LabourCalculator() {
           {/* Sidebar Summary */}
           <div className="space-y-6">
             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
-              <h3 className="font-bold text-slate-500 uppercase tracking-wider text-xs mb-4">Overall Project Labour</h3>
+              <h3 className="font-bold text-slate-500 uppercase tracking-wider text-sm mb-4">Overall Project Labour</h3>
               
               <div className="space-y-5">
                 <div>
-                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-slate-900">{formatCurrency(totalCost)}</p>
+                  <p className="text-xl font-semibold tabular-nums tracking-tight text-slate-900">{formatCurrency(totalCost)}</p>
                   <p className="text-sm text-slate-500 mt-1">Total Labour Estimate</p>
                 </div>
                 
@@ -359,13 +359,13 @@ export default function LabourCalculator() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-lg font-bold text-rose-400 w-full truncate">{formatCurrency(overallBurnRate)}</p>
-                    <p className="text-xs text-slate-600 mt-0.5">Average Daily Burn</p>
+                    <p className="text-sm text-slate-600 mt-0.5">Average Daily Burn</p>
                   </div>
                   <div>
                     <p className="text-lg font-bold text-emerald-400 flex items-center gap-1">
-                      {sequentialDays} <span className="text-xs">Days</span>
+                      {sequentialDays} <span className="text-sm">Days</span>
                     </p>
-                    <p className="text-xs text-slate-600 mt-0.5">Total Duration</p>
+                    <p className="text-sm text-slate-600 mt-0.5">Total Duration</p>
                   </div>
                 </div>
                 
@@ -373,9 +373,9 @@ export default function LabourCalculator() {
 
                 <div>
                    <p className="text-lg font-bold text-sky-400 flex items-center gap-1">
-                      {tasks.reduce((sum, t) => sum + t.skilledCount + t.unskilledCount, 0)} <span className="text-xs">Workers</span>
+                      {tasks.reduce((sum, t) => sum + t.skilledCount + t.unskilledCount, 0)} <span className="text-sm">Workers</span>
                    </p>
-                   <p className="text-xs text-slate-600 mt-0.5">Max Workforce Required</p>
+                   <p className="text-sm text-slate-600 mt-0.5">Max Workforce Required</p>
                 </div>
               </div>
             </div>
@@ -384,10 +384,10 @@ export default function LabourCalculator() {
               <h3 className="font-bold text-indigo-800 text-sm mb-2 flex items-center gap-2">
                 <CheckCircle className="w-4 h-4" /> Labour Allocation Logic
               </h3>
-              <p className="text-xs text-indigo-700 leading-relaxed mb-3">
+              <p className="text-sm text-indigo-700 leading-relaxed mb-3">
                 Calculations are built on standard labor efficiency constants indicating standard output given a standard gang configuration.
               </p>
-              <p className="text-xs text-indigo-700 leading-relaxed font-semibold">
+              <p className="text-sm text-indigo-700 leading-relaxed font-semibold">
                 Daily Burn Rate = Skilled Wages + Unskilled Wages
               </p>
             </div>

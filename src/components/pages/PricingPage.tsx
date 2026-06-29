@@ -68,7 +68,7 @@ export default function PricingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+            className="text-2xl md:text-xl font-semibold text-slate-800 dark:text-white"
           >
             Pricing that scales with your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-amber-500">engineering needs</span>
           </motion.h1>
@@ -93,7 +93,7 @@ export default function PricingPage() {
             <button 
               onClick={() => setIsAnnual(false)}
               className={cn(
-                "px-6 py-2 rounded-full text-sm font-bold transition-all z-10 w-32",
+                "px-6 py-2 rounded-full text-base font-medium transition-all z-10 w-32",
                 !isAnnual ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400 hover:text-slate-700"
               )}
             >
@@ -102,7 +102,7 @@ export default function PricingPage() {
             <button 
               onClick={() => setIsAnnual(true)}
               className={cn(
-                "px-6 py-2 rounded-full text-sm font-bold transition-all z-10 w-32",
+                "px-6 py-2 rounded-full text-base font-medium transition-all z-10 w-32",
                 isAnnual ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400 hover:text-slate-700"
               )}
             >
@@ -135,7 +135,7 @@ export default function PricingPage() {
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Free</h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm h-10">Essential tools for students and hobbyists.</p>
               <div className="my-6">
-                <span className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">$0</span>
+                <span className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">$0</span>
                 <span className="text-slate-500 dark:text-slate-400 font-medium">/mo</span>
               </div>
               <button className="w-full py-3 px-4 rounded-xl font-bold border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-colors text-slate-700 dark:text-slate-300">
@@ -159,7 +159,7 @@ export default function PricingPage() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="bg-white dark:bg-slate-900 rounded-[2rem] border-2 border-amber-400/50 dark:border-amber-500/50 shadow-[0_0_40px_-10px_rgba(245,158,11,0.2)] md:-my-6 relative overflow-hidden flex flex-col z-10"
           >
-            <div className="absolute top-0 left-0 right-0 py-1.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-center text-xs font-bold tracking-widest uppercase">
+            <div className="absolute top-0 left-0 right-0 py-1.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-center text-base font-medium tracking-widest uppercase">
               Most Popular
             </div>
             <div className="p-8 pb-6 border-b border-slate-100 dark:border-slate-800 bg-gradient-to-br from-amber-50/50 to-white dark:from-slate-800/80 dark:to-slate-900 pt-12">
@@ -168,13 +168,13 @@ export default function PricingPage() {
               </h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm h-10">Advanced features for professional estimators.</p>
               <div className="my-6">
-                <span className="text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+                <span className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
                   ${isAnnual ? '39' : '65'}
                 </span>
                 <span className="text-slate-500 dark:text-slate-400 font-medium">/mo</span>
                 {isAnnual && <div className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">Billed $468 yearly</div>}
               </div>
-              <button className="w-full py-3.5 px-4 rounded-xl font-bold bg-slate-900 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-white dark:text-white shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5">
+              <button className="w-full py-3.5 px-4 rounded-xl font-bold bg-slate-900 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-slate-900 dark:text-white shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5">
                 Start 14-Day Free Trial
               </button>
             </div>
@@ -198,7 +198,7 @@ export default function PricingPage() {
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Team</h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm h-10">Collaboration and admin controls for agencies.</p>
               <div className="my-6">
-                <span className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+                <span className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
                   ${isAnnual ? '89' : '149'}
                 </span>
                 <span className="text-slate-500 dark:text-slate-400 font-medium">/mo</span>
@@ -220,7 +220,7 @@ export default function PricingPage() {
         
         {/* Trusted By Strip */}
         <div className="border-y border-slate-200 dark:border-slate-800/50 py-12 mb-24">
-          <p className="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Trusted by teams at</p>
+          <p className="text-center text-base font-medium uppercase tracking-widest mb-8">Trusted by teams at</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             {LOGOS.map((logo, idx) => (
               <img 
@@ -237,10 +237,10 @@ export default function PricingPage() {
         {/* ROI Calculator Widget */}
         <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden mb-24 flex flex-col md:flex-row">
           <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center bg-slate-50 dark:bg-slate-800/40">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">How much time will you save?</h3>
+            <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">How much time will you save?</h3>
             <p className="text-slate-500 dark:text-slate-400 mb-8">Drag the slider to see how Civil AI pays for itself.</p>
             
-            <label className="text-sm font-bold text-slate-700 dark:text-slate-300 block mb-4 flex justify-between">
+            <label className="text-base font-medium dark:text-slate-300 block mb-4 flex justify-between">
               <span>BOQs created per month</span>
               <span className="text-indigo-600 dark:text-indigo-400">{boqCount}</span>
             </label>
@@ -256,13 +256,13 @@ export default function PricingPage() {
           <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center gap-8 bg-indigo-600 dark:bg-indigo-900 text-white">
             <div>
               <p className="text-indigo-200 font-medium mb-1 text-sm uppercase tracking-wider">Hours Saved</p>
-              <div className="text-5xl font-black">{hoursSaved}<span className="text-2xl font-medium text-indigo-300"> hrs</span></div>
+              <div className="text-2xl font-black">{hoursSaved}<span className="text-2xl font-medium text-indigo-300"> hrs</span></div>
             </div>
             <div className="h-px bg-indigo-500/50 w-full" />
             <div>
               <p className="text-indigo-200 font-medium mb-1 text-sm uppercase tracking-wider">Money Saved</p>
-              <div className="text-5xl font-black">${moneySaved}<span className="text-2xl font-medium text-indigo-300"> /mo</span></div>
-              <p className="text-indigo-300 text-xs mt-2">*Based on typical industry estimating time and avg hourly rate.</p>
+              <div className="text-2xl font-black">${moneySaved}<span className="text-2xl font-medium text-indigo-300"> /mo</span></div>
+              <p className="text-indigo-300 text-sm mt-2">*Based on typical industry estimating time and avg hourly rate.</p>
             </div>
           </div>
         </div>

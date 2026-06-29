@@ -57,10 +57,10 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
         <div className="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 text-center max-w-2xl mx-auto mb-12">
-          <h2 className="md: tabular-nums mb-4 text-xl font-semibold text-gray-900 tracking-tight">
+          <h2 className="md: tabular-nums mb-4 text-xl font-semibold text-slate-900 tracking-tight">
             Complete Estimation Workflow
           </h2>
-          <p className=" text-base font-normal text-gray-600 leading-relaxed">
+          <p className=" text-base font-normal text-slate-600 leading-relaxed">
             No Engineer Needed. Complete BOQ in Minutes.
           </p>
         </div>
@@ -79,15 +79,15 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
                       <step.icon className="w-6 h-6" />
                     </div>
                     {/* Number Badge */}
-                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-white text-gray-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white">
+                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-white text-slate-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white">
                       {step.number}
                     </div>
                   </div>
 
-                  <h3 className="mb-2 group-hover:text-purple-600 transition-colors text-lg font-medium text-gray-800 mb-4">
+                  <h3 className="mb-2 group-hover:text-purple-600 transition-colors text-lg font-medium text-slate-800 mb-4">
                     {step.title}
                   </h3>
-                  <p className="px-4 text-base font-normal text-gray-600 leading-relaxed">
+                  <p className="px-4 text-base font-normal text-slate-600 leading-relaxed">
                     {step.description}
                   </p>
 
@@ -99,7 +99,7 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
 
                 {/* Arrow Connector for Desktop over the generic line */}
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:flex absolute top-[calc(4rem-0.75rem)] -right-6 w-12 h-6 items-center justify-center z-20 text-gray-700 group-hover:text-purple-500 group-hover:translate-x-1 transition-all duration-300">
+                  <div className="hidden lg:flex absolute top-[calc(4rem-0.75rem)] -right-6 w-12 h-6 items-center justify-center z-20 text-slate-700 group-hover:text-purple-500 group-hover:translate-x-1 transition-all duration-300">
                     <ArrowRight className="w-6 h-6" />
                   </div>
                 )}

@@ -93,7 +93,7 @@ export default function GradientCalculator() {
         description="Dynamic slope calculator for road cambers, longitudinal gradients, and vertical curve profiles."
       />
       <div className="bg-white  border border-slate-200  p-6 rounded-[24px] shadow-sm">
-         <h2 className="flex items-center gap-2 mb-6 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+         <h2 className="flex items-center gap-2 mb-6 text-xl font-semibold text-slate-900 tracking-tight mb-4">
           <Route className="w-6 h-6 text-emerald-600" />
           Highway Gradient & Slope Engineering
         </h2>
@@ -101,19 +101,19 @@ export default function GradientCalculator() {
         <div className="flex bg-slate-100 p-1 rounded-[16px] mb-6 overflow-x-auto hide-scrollbar">
             <button 
                 onClick={() => setActiveTab("longitudinal")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-white text-emerald-700 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-base font-medium rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Longitudinal Profile
             </button>
             <button 
                 onClick={() => setActiveTab("camber")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "camber" ? "bg-white text-emerald-700 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-base font-medium rounded-[12px] transition-all ${activeTab === "camber" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Crossfall / Camber
             </button>
             <button 
                 onClick={() => setActiveTab("vertical_curve")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-white text-emerald-700 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-base font-medium rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Vertical Curve Checks
             </button>
@@ -124,14 +124,14 @@ export default function GradientCalculator() {
                 
                 {activeTab === "longitudinal" && (
                     <div className="animate-in fade-in slide-in-from-bottom-4">
-                        <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Profile Inputs</h3>
+                        <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-slate-800 mb-4">Profile Inputs</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <NumberInput label="Start Chainage" unit="m" value={startChainage} onChange={setStartChainage} />
                             <NumberInput label="End Chainage" unit="m" value={endChainage} onChange={setEndChainage} />
                             <NumberInput label="Start Elevation" unit="m" value={startElevation} onChange={setStartElevation} />
                             <NumberInput label="Gradient (+/-)" unit="%" value={longGradient} onChange={setLongGradient} />
                         </div>
-                        <p className="mt-4 text-base font-normal text-gray-600 leading-relaxed">
+                        <p className="mt-4 text-base font-normal text-slate-600 leading-relaxed">
                             Positive gradient indicates an uphill slope. Negative indicates downhill. Output is interpolated linearly.
                         </p>
                     </div>
@@ -139,7 +139,7 @@ export default function GradientCalculator() {
 
                 {activeTab === "camber" && (
                     <div className="animate-in fade-in slide-in-from-bottom-4">
-                        <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Road Cross-Section</h3>
+                        <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-slate-800 mb-4">Road Cross-Section</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <NumberInput label="Centerline Elev (CL)" unit="m" value={centerElevation} onChange={setCenterElevation} />
                             <NumberInput label="Lane Width (Half)" unit="m" value={roadWidth} onChange={setRoadWidth} />
@@ -147,7 +147,7 @@ export default function GradientCalculator() {
                                <NumberInput label="Normal Crossfall / Camber" unit="%" value={camberSlope} onChange={setCamberSlope} />
                             </div>
                         </div>
-                        <p className="mt-4 text-base font-normal text-gray-600 leading-relaxed">
+                        <p className="mt-4 text-base font-normal text-slate-600 leading-relaxed">
                             Camber is usually negative falling away from the centerline for drainage purposes.
                         </p>
                     </div>
@@ -155,7 +155,7 @@ export default function GradientCalculator() {
 
                 {activeTab === "vertical_curve" && (
                     <div className="animate-in fade-in slide-in-from-bottom-4">
-                        <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Vertical Alignment</h3>
+                        <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-slate-800 mb-4">Vertical Alignment</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <NumberInput label="Grade 1 (g1)" unit="%" value={g1} onChange={setG1} />
                             <NumberInput label="Grade 2 (g2)" unit="%" value={g2} onChange={setG2} />
@@ -163,7 +163,7 @@ export default function GradientCalculator() {
                                <NumberInput label="Design Speed (V)" unit="km/h" value={designSpeed} onChange={setDesignSpeed} />
                             </div>
                         </div>
-                        <p className="mt-4 text-base font-normal text-gray-600 leading-relaxed">
+                        <p className="mt-4 text-base font-normal text-slate-600 leading-relaxed">
                             Basic check for minimum curve length based on K-Value approximations for stopping/headlight sight distance.
                         </p>
                     </div>
@@ -187,13 +187,13 @@ export default function GradientCalculator() {
                             <ResultCard title="Slope Ratio" value={longitudinalResults.ratioStr} unit="1:N" variant="neutral" />
                         </div>
                         <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                             <h4 className="text-xs mb-2 text-lg font-medium text-gray-800 mb-4">Midpoint Interpolation</h4>
+                             <h4 className="text-sm mb-2 text-lg font-medium text-slate-800 mb-4">Midpoint Interpolation</h4>
                              <div className="flex justify-between items-end">
                                  <div>
-                                     <p className=" text-base font-normal text-gray-600 leading-relaxed">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
-                                     <p className="font-mono text-base font-normal text-gray-600 leading-relaxed">{longitudinalResults.midElev.toFixed(3)} m</p>
+                                     <p className=" text-base font-normal text-slate-600 leading-relaxed">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
+                                     <p className="font-mono text-base font-normal text-slate-600 leading-relaxed">{longitudinalResults.midElev.toFixed(3)} m</p>
                                  </div>
-                                 <ArrowRight className="text-gray-700 w-4 h-4 mb-1" />
+                                 <ArrowRight className="text-slate-700 w-4 h-4 mb-1" />
                              </div>
                         </div>
                     </MaterialSummary>
@@ -214,8 +214,8 @@ export default function GradientCalculator() {
                         </div>
                         <div className="mt-6 bg-slate-50 h-24 rounded-2xl border border-slate-200 flex items-center justify-center relative overflow-hidden">
                              <div className="absolute w-full h-[2px] bg-slate-300" style={{ transform: `rotate(${Math.min(10, Math.max(-10, Number(camberSlope)))}deg)` }}></div>
-                             <div className="absolute top-2 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-600 bg-slate-50 px-2 rounded-full">CL: {Number(centerElevation).toFixed(3)}</div>
-                             <div className="absolute bottom-2 text-rose-500 font-bold text-xs bg-rose-50 px-2 rounded-full">Edge: {camberResults.edgeElev.toFixed(3)}</div>
+                             <div className="absolute top-2 left-1/2 -translate-x-1/2 text-base font-medium bg-slate-50 px-2 rounded-full">CL: {Number(centerElevation).toFixed(3)}</div>
+                             <div className="absolute bottom-2 text-rose-500 font-bold text-sm bg-rose-50 px-2 rounded-full">Edge: {camberResults.edgeElev.toFixed(3)}</div>
                         </div>
                     </MaterialSummary>
                 )}
@@ -238,13 +238,13 @@ export default function GradientCalculator() {
                         <div className="mt-6 flex flex-col gap-3">
                              <div className={`p-4 rounded-2xl border flex items-start justify-between ${vcResults.A > 0.5 ? "bg-teal-50 border-teal-200" : "bg-slate-50 border-slate-200"}`}>
                                  <div>
-                                     <h4 className={`text-sm font-bold ${vcResults.A > 0.5 ? "text-teal-900" : "text-gray-800"}`}>Curve Requirement</h4>
-                                     <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Based on grade difference and comfort standard.</p>
+                                     <h4 className={`text-base font-medium ${vcResults.A > 0.5 ? "text-teal-900" : "text-slate-800"}`}>Curve Requirement</h4>
+                                     <p className="mt-1 text-base font-normal text-slate-600 leading-relaxed">Based on grade difference and comfort standard.</p>
                                  </div>
                                  {vcResults.A > 0.5 ? (
-                                    <span className="bg-teal-200 text-teal-800 text-xs font-bold px-2 py-1 rounded-full uppercase flex items-center gap-1"><CheckCircle2 className="w-3 h-3"/> Required</span>
+                                    <span className="bg-teal-200 text-teal-800 text-base font-medium px-2 py-1 rounded-full uppercase flex items-center gap-1"><CheckCircle2 className="w-3 h-3"/> Required</span>
                                  ) : (
-                                    <span className="bg-slate-200 text-gray-600 text-xs font-bold px-2 py-1 rounded-full uppercase">Not Strictly Required</span>
+                                    <span className="bg-slate-200 text-slate-600 text-base font-medium px-2 py-1 rounded-full uppercase">Not Strictly Required</span>
                                  )}
                              </div>
                         </div>

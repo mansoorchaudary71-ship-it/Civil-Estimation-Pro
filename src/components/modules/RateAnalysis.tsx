@@ -76,7 +76,7 @@ export default function RateAnalysis() {
       };
     }, [rates]);
   return (
-    <div className="w-full h-full bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-slate-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -88,10 +88,10 @@ export default function RateAnalysis() {
                   <Database className="w-6 h-6" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                  <h2 className="text-xl font-bold tracking-tight text-slate-800">
                     Global Material Rates
                   </h2>
-                  <p className="text-xs font-semibold text-gray-700 mt-1 uppercase tracking-wider">
+                  <p className="text-base font-medium mt-1 uppercase tracking-wider">
                     Updates globally in real-time
                   </p>
                 </div>
@@ -154,7 +154,7 @@ export default function RateAnalysis() {
                   }
                 />
                 <div className="col-span-1 sm:col-span-2 pt-4 pb-2">
-                  <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest border-b border-gray-100 pb-2">
+                  <h3 className="text-base font-medium uppercase tracking-widest border-b border-gray-100 pb-2">
                     Finishing & Labor
                   </h3>
                 </div>
@@ -209,7 +209,7 @@ export default function RateAnalysis() {
                     <div className="font-bold text-slate-700">
                       Contractor Overhead & Profit
                     </div>
-                    <div className="text-xs text-slate-500 font-medium">
+                    <div className="text-sm text-slate-500 font-medium">
                       Applied to composite items
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export default function RateAnalysis() {
                   </div>
                 </div>
                 <div className="mb-6">
-                  <h4 className="text-2xl font-bold tabular-nums tracking-tight text-slate-900 leading-tight">
+                  <h4 className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-slate-900 leading-tight">
                     1.0 m³ Concrete
                   </h4>
                   <p className="text-teal-400/80 font-mono text-sm mt-1 mb-4 border-b border-slate-100 pb-4">
@@ -397,11 +397,11 @@ export default function RateAnalysis() {
                     </span>
                   </div>
                   <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 backdrop-blur-md rounded-[24px] px-4 py-3 border border-slate-100 mt-4 flex items-center justify-between">
-                    <span className="text-[10px] sm:text-xs font-bold tracking-tight uppercase tracking-[0.15em] text-slate-300">
+                    <span className="text-[10px] sm:text-base font-medium tracking-tight uppercase tracking-[0.15em] text-slate-300">
                       Analyzed Rate
                     </span>
                     <div className="flex items-end gap-1">
-                      <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all sm:text-[clamp(1.75rem,5vw,2.5rem)] break-all tracking-tight font-bold tabular-nums tracking-tight text-text-primary leading-none whitespace-nowrap">
+                      <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all sm:text-[clamp(1.75rem,5vw,2.5rem)] break-all tracking-tight font-bold tabular-nums tracking-tight text-slate-900 dark:text-white leading-none whitespace-nowrap">
                         {formatCurrency(compositeCalc.finalRate)}
                       </span>
                       <span className="text-sm font-medium text-teal-400 pb-0.5">
@@ -453,21 +453,21 @@ function InputCard({
   return (
     <div className="group bg-gray-50/50 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-100 hover:border-emerald-200 px-4 py-3 rounded-[24px] transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
       <div className="flex justify-between items-center mb-3">
-        <label className="text-xs font-bold text-gray-700 tracking-wide">
+        <label className="text-base font-medium tracking-wide">
           {label}
         </label>
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 font-bold mb-0.5 pointer-events-none">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-700 font-bold mb-0.5 pointer-events-none">
               {symbol}
             </span>
             <input
               type="number" inputMode="decimal"
               min="0"
               step="any"
-              className={`w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] py-2.5 text-lg font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? "pl-10" : "pl-7"}`}
+              className={`w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] py-2.5 text-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? "pl-10" : "pl-7"}`}
               value={value}
               onChange={(e) => {
                 const num = parseFloat(e.target.value);
@@ -476,7 +476,7 @@ function InputCard({
               }}
             />
           </div>
-          <span className="text-xs font-bold text-gray-700 uppercase w-10 text-right">
+          <span className="text-base font-medium uppercase w-10 text-right">
             {unit}
           </span>
         </div>

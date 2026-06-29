@@ -105,7 +105,7 @@ function SolarCalculator() {
           />
 
           <div className="w-full">
-            <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
+            <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
               Available Roof Area (Optional)
             </label>
             <div className="relative flex items-center">
@@ -119,7 +119,7 @@ function SolarCalculator() {
               <select
                 value={areaUnit}
                 onChange={(e) => setAreaUnit(e.target.value as "sqft" | "sqm")}
-                className="h-[46px] bg-slate-100 border border-slate-200 rounded-r-xl px-4 text-gray-700 font-bold outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="h-[46px] bg-slate-100 border border-slate-200 rounded-r-xl px-4 text-slate-700 font-bold outline-none focus:ring-2 focus:ring-blue-500/50"
               >
                 <option value="sqft">Sq Ft</option>
                 <option value="sqm">Sq M</option>
@@ -152,7 +152,7 @@ function SolarCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-gray-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -197,7 +197,7 @@ function WaterHeaterCalculator() {
                totalUnit="Liters per Day (LPD)"
              />
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-gray-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -277,13 +277,13 @@ function AcCalculator() {
           />
           
           <div>
-            <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
+            <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
               Sunlight Exposure
             </label>
             <select
               value={sunlight}
               onChange={(e) => setSunlight(e.target.value as any)}
-              className="w-full h-[46px] bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-gray-700 font-medium outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full h-[46px] bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-slate-700 font-medium outline-none focus:ring-2 focus:ring-blue-500/50"
             >
               <option value="shaded">Shaded (-10% BTU)</option>
               <option value="normal">Normal</option>
@@ -291,7 +291,7 @@ function AcCalculator() {
             </select>
           </div>
           
-          <label className="flex items-center gap-2 cursor-pointer pt-2 text-sm font-medium text-gray-700 mb-1 block">
+          <label className="flex items-center gap-2 cursor-pointer pt-2 text-sm font-medium text-slate-700 mb-1 block">
             <input 
               type="checkbox" 
               checked={isKitchen} 
@@ -326,7 +326,7 @@ function AcCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-gray-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter room dimensions to calculate required AC tonnage.
             </div>
           )}

@@ -141,7 +141,7 @@ export default function LintelDesignTool() {
          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-5 space-y-6">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Opening & Wall</h3>
+                  <h3 className="text-base font-medium mb-3 border-b border-slate-100 pb-2">Opening & Wall</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <NumberInput label="Clear Span" unit="m" value={clearSpan} onChange={setClearSpan} />
                     <NumberInput label="Wall Thickness" unit="mm" value={wallThickness} onChange={setWallThickness} />
@@ -154,7 +154,7 @@ export default function LintelDesignTool() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Proposed Section</h3>
+                  <h3 className="text-base font-medium mb-3 border-b border-slate-100 pb-2">Proposed Section</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <NumberInput label="Lintel Depth (D)" unit="mm" value={lintelDepth} onChange={setLintelDepth} />
                     <NumberInput label="Bearing Provided" unit="mm" value={bearingLength} onChange={setBearingLength} />
@@ -189,7 +189,7 @@ export default function LintelDesignTool() {
                         <div className="mt-4 p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-start gap-3">
                             <AlertTriangle className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
                             <div>
-                                <p className="text-sm font-bold text-rose-900 mb-1">Section Depth Unsafe</p>
+                                <p className="text-base font-medium text-rose-900 mb-1">Section Depth Unsafe</p>
                                 <p className="text-sm text-rose-700">Minimum required depth: <strong className="font-mono">{results.requiredDepth.toFixed(0)} mm</strong>. Consider increasing depth or using a doubly reinforced section.</p>
                             </div>
                         </div>
@@ -241,7 +241,7 @@ export default function LintelDesignTool() {
                 {/* Diagram visual guide */}
                 <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 relative overflow-hidden h-40 flex items-end justify-center mt-2 group">
                    <div className="absolute inset-x-0 bottom-0 border-b-8 border-slate-300 w-3/4 mx-auto rounded"></div>
-                   <div className="absolute bottom-2 inset-x-0 flex justify-between px-10 text-xs font-bold text-slate-600">
+                   <div className="absolute bottom-2 inset-x-0 flex justify-between px-10 text-base font-medium">
                       <span>Support ({Number(bearingLength)}mm)</span>
                       <span>Span ({Number(clearSpan)}m)</span>
                       <span>Support ({Number(bearingLength)}mm)</span>
@@ -250,11 +250,11 @@ export default function LintelDesignTool() {
                    {results.isArchAction ? (
                      <div className="absolute bottom-2 w-[60%] flex flex-col items-center">
                         <Triangle className="w-full text-indigo-200 mb-[-10%]" strokeWidth={1} fill="currentColor" />
-                        <span className="absolute top-1/2 text-indigo-900 font-bold text-xs">60° Dispersion</span>
+                        <span className="absolute top-1/2 text-indigo-900 font-bold text-sm">60° Dispersion</span>
                      </div>
                    ) : (
                      <div className="absolute bottom-2 w-[60%] h-24 bg-orange-100 border-x border-t border-orange-200 border-dashed rounded-t flex items-center justify-center">
-                         <span className="text-orange-800 font-bold text-xs opacity-60">Rectangular Load Zone</span>
+                         <span className="text-orange-800 font-bold text-sm opacity-60">Rectangular Load Zone</span>
                      </div>
                    )}
                 </div>

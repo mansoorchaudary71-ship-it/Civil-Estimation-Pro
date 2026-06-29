@@ -205,13 +205,13 @@ export default function AreaSpaceCalculator() {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
       <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
-        <h1 className="tabular-nums flex items-center gap-3 mb-2 text-2xl font-semibold text-gray-900 tracking-tight mb-6">
+        <h1 className="tabular-nums flex items-center gap-3 mb-2 text-xl font-semibold text-slate-800 tracking-tight mb-6">
           <div className="p-3 bg-indigo-50  text-indigo-600  rounded-[24px]">
             <Ruler className="w-8 h-8" />
           </div>
           Plot Area Calculator — Irregular Land, RERA & IS Code Compliant
         </h1>
-        <p className="mt-2 text-base font-normal text-gray-600 leading-relaxed">
+        <p className="mt-2 text-base font-normal text-slate-600 leading-relaxed">
           Professional standard area computation with geometric triangulation, RERA matrices, roof pitch multi-factor, and IS Code opening deductions.
         </p>
       </div>
@@ -236,11 +236,11 @@ export default function AreaSpaceCalculator() {
           {/* TAB 1: SHAPES */}
           {activeTab === "shape" && (
             <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
-              <h3 className="mb-6 flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
+              <h3 className="mb-6 flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
                 <Square className="w-5 h-5 text-indigo-500" /> 2D Shape Calculator
               </h3>
               <div className="mb-6 overflow-x-auto pb-2 flex gap-2">
-                <select value={shapeType} onChange={(e) => setShapeType(e.target.value)} className="w-full sm:w-auto px-4 py-3 bg-slate-50  border border-slate-200  rounded-xl font-bold text-gray-800  focus:ring-2 focus:ring-indigo-500">
+                <select value={shapeType} onChange={(e) => setShapeType(e.target.value)} className="w-full sm:w-auto px-4 py-3 bg-slate-50  border border-slate-200  rounded-xl font-bold text-slate-800  focus:ring-2 focus:ring-indigo-500">
                   <option value="rectangle">Rectangle</option>
                   <option value="square">Square</option>
                   <option value="triangle">Triangle</option>
@@ -255,33 +255,33 @@ export default function AreaSpaceCalculator() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 {shapeType === "rectangle" && (
                   <>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Length ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Width ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.width} onChange={(e) => handleShapeParam("width", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Length ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Width ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.width} onChange={(e) => handleShapeParam("width", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                   </>
                 )}
                 {shapeType === "square" && (
-                  <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Side Length ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                  <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Side Length ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                 )}
                 {shapeType === "circle" && (
-                  <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Radius ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.radius} onChange={(e) => handleShapeParam("radius", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                  <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Radius ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.radius} onChange={(e) => handleShapeParam("radius", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                 )}
                 {shapeType === "triangle" && (
                   <>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Side A ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Side B ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Side C ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideC} onChange={(e) => handleShapeParam("sideC", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Side A ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Side B ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Side C ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideC} onChange={(e) => handleShapeParam("sideC", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                   </>
                 )}
                 {shapeType === "trapezoid" && (
                   <>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Parallel Side A ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Parallel Side B ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                    <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Height distance ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.height} onChange={(e) => handleShapeParam("height", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Parallel Side A ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Parallel Side B ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Height distance ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.height} onChange={(e) => handleShapeParam("height", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                   </>
                 )}
                 {shapeType === "polygon" && (
                   <div className="col-span-1 md:col-span-2">
-                    <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Polygon Coordinates (x,y in {uLen})</label>
+                    <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Polygon Coordinates (x,y in {uLen})</label>
                     <div className="space-y-2">
                       {polygonCoords.map((coord, idx) => (
                         <div key={idx} className="flex gap-2">
@@ -301,18 +301,18 @@ export default function AreaSpaceCalculator() {
           {/* TAB 2: PLOT MEASUREMENT */}
           {activeTab === "plot" && (
             <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
-              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 <MapIcon className="w-5 h-5 text-emerald-500" /> Calculate Irregular Plot Area Using Geometric Triangulation
               </h2>
-              <p className="mb-6 text-base font-normal text-gray-600 leading-relaxed">
+              <p className="mb-6 text-base font-normal text-slate-600 leading-relaxed">
                 Calculates the exact area of irregular plots by dividing them into two triangles with a measured diagonal.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div><label className="block uppercase mb-2 text-sm font-medium text-gray-700 mb-1">North Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.n} onChange={(e) => setPlotBounds({ ...plotBounds, n: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900  focus:ring-emerald-500" /></div>
-                <div><label className="block uppercase mb-2 text-sm font-medium text-gray-700 mb-1">South Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.s} onChange={(e) => setPlotBounds({ ...plotBounds, s: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900  focus:ring-emerald-500" /></div>
-                <div><label className="block uppercase mb-2 text-sm font-medium text-gray-700 mb-1">East Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.e} onChange={(e) => setPlotBounds({ ...plotBounds, e: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900  focus:ring-emerald-500" /></div>
-                <div><label className="block uppercase mb-2 text-sm font-medium text-gray-700 mb-1">West Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.w} onChange={(e) => setPlotBounds({ ...plotBounds, w: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900  focus:ring-emerald-500" /></div>
-                <div className="col-span-2 md:col-span-1"><label className="block uppercase mb-2 text-indigo-500 text-sm font-medium text-gray-700 mb-1">Diagonal NW-SE ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.d} onChange={(e) => setPlotBounds({ ...plotBounds, d: +e.target.value })} className="w-full px-4 py-2.5 bg-indigo-50  border border-indigo-200  rounded-[16px] text-indigo-900  focus:ring-indigo-500" /></div>
+                <div><label className="block uppercase mb-2 text-sm font-medium text-slate-700 mb-1">North Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.n} onChange={(e) => setPlotBounds({ ...plotBounds, n: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div><label className="block uppercase mb-2 text-sm font-medium text-slate-700 mb-1">South Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.s} onChange={(e) => setPlotBounds({ ...plotBounds, s: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div><label className="block uppercase mb-2 text-sm font-medium text-slate-700 mb-1">East Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.e} onChange={(e) => setPlotBounds({ ...plotBounds, e: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div><label className="block uppercase mb-2 text-sm font-medium text-slate-700 mb-1">West Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.w} onChange={(e) => setPlotBounds({ ...plotBounds, w: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div className="col-span-2 md:col-span-1"><label className="block uppercase mb-2 text-indigo-500 text-sm font-medium text-slate-700 mb-1">Diagonal NW-SE ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.d} onChange={(e) => setPlotBounds({ ...plotBounds, d: +e.target.value })} className="w-full px-4 py-2.5 bg-indigo-50  border border-indigo-200  rounded-[16px] text-indigo-900  focus:ring-indigo-500" /></div>
               </div>
             </div>
           )}
@@ -320,15 +320,15 @@ export default function AreaSpaceCalculator() {
           {/* TAB 3: PROPERTY RERA */}
           {activeTab === "property" && (
             <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
-              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 <Home className="w-5 h-5 text-purple-500" /> RERA Carpet Area Calculator (NBC/RERA Compliant)
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Net Carpet Area ({uArea})</label><input type="number" inputMode="decimal" value={propParams.carpetReq} onChange={(e) => handlePropParam("carpetReq", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Internal Partition Walls (%)</label><input type="number" inputMode="decimal" value={propParams.internalWallsPerc} onChange={(e) => handlePropParam("internalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">External Walls (%)</label><input type="number" inputMode="decimal" value={propParams.externalWallsPerc} onChange={(e) => handlePropParam("externalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Balcony/Terrace ({uArea})</label><input type="number" inputMode="decimal" value={propParams.balconyArea} onChange={(e) => handlePropParam("balconyArea", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Common Spaces Share (%)</label><input type="number" inputMode="decimal" value={propParams.commonAreaPerc} onChange={(e) => handlePropParam("commonAreaPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Net Carpet Area ({uArea})</label><input type="number" inputMode="decimal" value={propParams.carpetReq} onChange={(e) => handlePropParam("carpetReq", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Internal Partition Walls (%)</label><input type="number" inputMode="decimal" value={propParams.internalWallsPerc} onChange={(e) => handlePropParam("internalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">External Walls (%)</label><input type="number" inputMode="decimal" value={propParams.externalWallsPerc} onChange={(e) => handlePropParam("externalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Balcony/Terrace ({uArea})</label><input type="number" inputMode="decimal" value={propParams.balconyArea} onChange={(e) => handlePropParam("balconyArea", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Common Spaces Share (%)</label><input type="number" inputMode="decimal" value={propParams.commonAreaPerc} onChange={(e) => handlePropParam("commonAreaPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
               </div>
             </div>
           )}
@@ -336,34 +336,34 @@ export default function AreaSpaceCalculator() {
           {/* TAB 4: PLASTER DEDUCTIONS */}
           {activeTab === "plaster" && (
             <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
-              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 <PaintBucket className="w-5 h-5 text-rose-500" /> IS Code Opening Deductions for Accurate Net Area
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Wall Length ({uLen})</label><input type="number" inputMode="decimal" value={wallLen} onChange={(e) => setWallLen(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Wall Height ({uLen})</label><input type="number" inputMode="decimal" value={wallHt} onChange={(e) => setWallHt(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Wall Length ({uLen})</label><input type="number" inputMode="decimal" value={wallLen} onChange={(e) => setWallLen(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Wall Height ({uLen})</label><input type="number" inputMode="decimal" value={wallHt} onChange={(e) => setWallHt(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                 <div className="col-span-2 md:col-span-1 flex flex-col justify-center">
-                  <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Faces Plastered</label>
-                  <select value={bothFaces ? "2" : "1"} onChange={(e) => setBothFaces(e.target.value === "2")} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900  focus:ring-2 focus:ring-rose-500">
+                  <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Faces Plastered</label>
+                  <select value={bothFaces ? "2" : "1"} onChange={(e) => setBothFaces(e.target.value === "2")} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-2 focus:ring-rose-500">
                     <option value="1">Single Face</option>
                     <option value="2">Both Faces</option>
                   </select>
                 </div>
               </div>
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Jamb Depth ({uLen}) <span className="font-normal text-gray-500">(For large openings {'>3'}sq.m)</span></label>
-                <input type="number" inputMode="decimal" value={jambDepth} onChange={(e) => setJambDepth(+e.target.value)} className="w-full md:w-1/3 px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " />
+                <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Jamb Depth ({uLen}) <span className="font-normal text-slate-500">(For large openings {'>3'}sq.m)</span></label>
+                <input type="number" inputMode="decimal" value={jambDepth} onChange={(e) => setJambDepth(+e.target.value)} className="w-full md:w-1/3 px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " />
               </div>
 
               <hr className="my-6 border-slate-200 " />
               
-              <h4 className="mb-4 text-lg font-medium text-gray-800">Openings (Doors / Windows)</h4>
+              <h4 className="mb-4 text-lg font-medium text-slate-800">Openings (Doors / Windows)</h4>
               <div className="space-y-3">
                 {openings.map((op, idx) => (
                   <div key={idx} className="flex flex-wrap md:flex-nowrap gap-3 items-end">
-                    <div className="w-[45%] md:w-auto flex-1"><label className="block mb-1 text-sm font-medium text-gray-700">Width ({uLen})</label><input type="number" inputMode="decimal" value={op.w} onChange={(e) => { const newOp = [...openings]; newOp[idx].w = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-gray-900  focus:ring-rose-500" /></div>
-                    <div className="w-[45%] md:w-auto flex-1"><label className="block mb-1 text-sm font-medium text-gray-700">Height ({uLen})</label><input type="number" inputMode="decimal" value={op.h} onChange={(e) => { const newOp = [...openings]; newOp[idx].h = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-gray-900  focus:ring-rose-500" /></div>
-                    <div className="w-auto flex-1"><label className="block mb-1 text-sm font-medium text-gray-700">Count</label><input type="number" inputMode="decimal" value={op.count} onChange={(e) => { const newOp = [...openings]; newOp[idx].count = Math.max(1, parseInt(e.target.value) || 1); setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-gray-900  focus:ring-rose-500" /></div>
+                    <div className="w-[45%] md:w-auto flex-1"><label className="block mb-1 text-sm font-medium text-slate-700">Width ({uLen})</label><input type="number" inputMode="decimal" value={op.w} onChange={(e) => { const newOp = [...openings]; newOp[idx].w = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
+                    <div className="w-[45%] md:w-auto flex-1"><label className="block mb-1 text-sm font-medium text-slate-700">Height ({uLen})</label><input type="number" inputMode="decimal" value={op.h} onChange={(e) => { const newOp = [...openings]; newOp[idx].h = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
+                    <div className="w-auto flex-1"><label className="block mb-1 text-sm font-medium text-slate-700">Count</label><input type="number" inputMode="decimal" value={op.count} onChange={(e) => { const newOp = [...openings]; newOp[idx].count = Math.max(1, parseInt(e.target.value) || 1); setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
                     <button onClick={() => setOpenings(openings.filter((_, i) => i !== idx))} className="px-3 py-3 bg-rose-50  text-rose-500 rounded-xl font-bold hover:bg-rose-100  transition"><Trash2 className="w-5 h-5" /></button>
                   </div>
                 ))}
@@ -375,14 +375,14 @@ export default function AreaSpaceCalculator() {
           {/* TAB 5: ROOF PITCH */}
           {activeTab === "roof" && (
             <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
-              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 <Layers className="w-5 h-5 text-amber-500" /> Roof Pitch Area with Multi-Factor Correction
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Horizontal Area ({uArea})</label><input type="number" inputMode="decimal" value={roofParams.floorArea} onChange={(e) => setRoofParams({ ...roofParams, floorArea: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Roof Pitch Angle (°)</label><input type="number" inputMode="decimal" value={roofParams.pitchAngle} onChange={(e) => setRoofParams({ ...roofParams, pitchAngle: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Roof Overhang ({uLen})</label><input type="number" inputMode="decimal" value={roofParams.overhang} onChange={(e) => setRoofParams({ ...roofParams, overhang: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
-                <div><label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Eaves Perimeter / Length ({uLen})</label><input type="number" inputMode="decimal" value={roofParams.perimeterLength} onChange={(e) => setRoofParams({ ...roofParams, perimeterLength: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-gray-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Horizontal Area ({uArea})</label><input type="number" inputMode="decimal" value={roofParams.floorArea} onChange={(e) => setRoofParams({ ...roofParams, floorArea: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Roof Pitch Angle (°)</label><input type="number" inputMode="decimal" value={roofParams.pitchAngle} onChange={(e) => setRoofParams({ ...roofParams, pitchAngle: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Roof Overhang ({uLen})</label><input type="number" inputMode="decimal" value={roofParams.overhang} onChange={(e) => setRoofParams({ ...roofParams, overhang: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Eaves Perimeter / Length ({uLen})</label><input type="number" inputMode="decimal" value={roofParams.perimeterLength} onChange={(e) => setRoofParams({ ...roofParams, perimeterLength: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
               </div>
             </div>
           )}
@@ -391,21 +391,21 @@ export default function AreaSpaceCalculator() {
         {/* RESULTS PANEL (RIGHT) */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white/90  backdrop-blur-xl border border-white/20  p-8 rounded-[2rem] shadow-sm sticky top-6">
-            <h3 className="tabular-nums mb-6 flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
+            <h3 className="tabular-nums mb-6 flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
               <Calculator className="w-5 h-5 text-indigo-600 " /> Calculation Results
             </h3>
 
             {activeTab === "shape" && (
               <div className="space-y-4">
                 <div className="p-4 bg-indigo-50  rounded-[24px] border border-indigo-100  shadow-sm text-indigo-900 ">
-                  <p className="text-indigo-600 uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Net Area</p>
-                  <p className="text-4xl font-black tabular-nums tracking-tight text-base font-normal text-gray-600 leading-relaxed">
+                  <p className="text-indigo-600 uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">Total Net Area</p>
+                  <p className="text-2xl font-black tabular-nums tracking-tight text-base font-normal text-slate-600 leading-relaxed">
                     {shapeData.area.toFixed(2)} <span className="text-xl font-medium opacity-60">{uArea}</span>
                   </p>
                 </div>
-                <div className="p-4 bg-slate-50  rounded-[24px] border border-slate-100  shadow-sm text-gray-800 ">
-                  <p className="uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">Perimeter</p>
-                  <p className=" text-base font-normal text-gray-600 leading-relaxed">
+                <div className="p-4 bg-slate-50  rounded-[24px] border border-slate-100  shadow-sm text-slate-800 ">
+                  <p className="uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">Perimeter</p>
+                  <p className=" text-base font-normal text-slate-600 leading-relaxed">
                     {shapeData.perimeter.toFixed(2)} <span className="text-base opacity-50">{uLen}</span>
                   </p>
                 </div>
@@ -415,18 +415,18 @@ export default function AreaSpaceCalculator() {
             {activeTab === "plot" && (
               <div className="space-y-4">
                 <div className="p-4 bg-emerald-50  rounded-[24px] border border-emerald-100  text-emerald-900  shadow-sm">
-                  <p className="text-emerald-600 uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">Triangulated Land Area</p>
-                  <p className="text-4xl font-black tabular-nums tracking-tight text-base font-normal text-gray-600 leading-relaxed">
+                  <p className="text-emerald-600 uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">Triangulated Land Area</p>
+                  <p className="text-2xl font-black tabular-nums tracking-tight text-base font-normal text-slate-600 leading-relaxed">
                     {Number.isNaN(boundsArea.total) ? "Invalid" : boundsArea.total.toFixed(2)} <span className="text-xl opacity-60 font-medium">{uArea}</span>
                   </p>
                   <div className="mt-4 pt-4 border-t border-emerald-200/50  text-sm font-medium opacity-80 grid gap-2">
-                    <p className="flex justify-between text-base font-normal text-gray-600 leading-relaxed"><span>Sub-triangle 1 (North):</span> <span>{Number.isNaN(boundsArea.area1) ? "-" : boundsArea.area1.toFixed(2)} {uArea}</span></p>
-                    <p className="flex justify-between text-base font-normal text-gray-600 leading-relaxed"><span>Sub-triangle 2 (South):</span> <span>{Number.isNaN(boundsArea.area2) ? "-" : boundsArea.area2.toFixed(2)} {uArea}</span></p>
+                    <p className="flex justify-between text-base font-normal text-slate-600 leading-relaxed"><span>Sub-triangle 1 (North):</span> <span>{Number.isNaN(boundsArea.area1) ? "-" : boundsArea.area1.toFixed(2)} {uArea}</span></p>
+                    <p className="flex justify-between text-base font-normal text-slate-600 leading-relaxed"><span>Sub-triangle 2 (South):</span> <span>{Number.isNaN(boundsArea.area2) ? "-" : boundsArea.area2.toFixed(2)} {uArea}</span></p>
                   </div>
                 </div>
-                <div className="p-4 bg-slate-50  rounded-[24px] border border-slate-100  text-gray-800  shadow-sm">
-                  <p className="uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">Outer Perimeter</p>
-                  <p className=" text-base font-normal text-gray-600 leading-relaxed">{boundsArea.perimeter.toFixed(2)} <span className="text-base opacity-50">{uLen}</span></p>
+                <div className="p-4 bg-slate-50  rounded-[24px] border border-slate-100  text-slate-800  shadow-sm">
+                  <p className="uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">Outer Perimeter</p>
+                  <p className=" text-base font-normal text-slate-600 leading-relaxed">{boundsArea.perimeter.toFixed(2)} <span className="text-base opacity-50">{uLen}</span></p>
                 </div>
               </div>
             )}
@@ -434,28 +434,28 @@ export default function AreaSpaceCalculator() {
             {activeTab === "property" && (
               <div className="space-y-3">
                 <div className="p-5 bg-purple-50  rounded-[24px] border border-purple-100  mb-4 shadow-sm">
-                  <p className="text-purple-600 uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">RERA Carpet Area</p>
-                  <p className="text-4xl font-black tabular-nums tracking-tight text-purple-700 text-base font-normal text-gray-600 leading-relaxed">
+                  <p className="text-purple-600 uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">RERA Carpet Area</p>
+                  <p className="text-2xl font-black tabular-nums tracking-tight text-purple-700 text-base font-normal text-slate-600 leading-relaxed">
                     {propertyCalc.reraCarpetArea.toFixed(2)} <span className="text-xl font-medium opacity-60">{uArea}</span>
                   </p>
-                  <div className="mt-3 pt-3 border-t border-purple-200/50  text-xs text-purple-800  font-semibold leading-relaxed">
+                  <div className="mt-3 pt-3 border-t border-purple-200/50  text-sm text-purple-800  font-semibold leading-relaxed">
                     Legally defined space encompassing net usable area + internal partition walls (Excludes balconies/external walls).
                   </div>
                 </div>
-                <div className="flex justify-between items-center py-2.5 border-b border-slate-100  text-gray-800  font-medium">
-                  <span className="text-sm text-gray-600 ">Trad. Carpet Area</span>
+                <div className="flex justify-between items-center py-2.5 border-b border-slate-100  text-slate-800  font-medium">
+                  <span className="text-sm text-slate-600 ">Trad. Carpet Area</span>
                   <span className="font-bold">{propertyCalc.traditionalCarpet.toFixed(2)} {uArea}</span>
                 </div>
-                <div className="flex justify-between items-center py-2.5 border-b border-slate-100  text-gray-800  font-medium">
-                  <span className="text-sm text-gray-600  flex flex-col"><span>Plinth Area</span><span className="text-xs text-gray-600 ">IS 3861 bounds</span></span>
+                <div className="flex justify-between items-center py-2.5 border-b border-slate-100  text-slate-800  font-medium">
+                  <span className="text-sm text-slate-600  flex flex-col"><span>Plinth Area</span><span className="text-sm text-slate-600 ">IS 3861 bounds</span></span>
                   <span className="font-bold">{propertyCalc.plinthArea.toFixed(2)} {uArea}</span>
                 </div>
-                <div className="flex justify-between items-center py-2.5 border-b border-slate-100  text-gray-800  font-medium">
-                  <span className="text-sm text-gray-600 ">Built-Up Area</span>
+                <div className="flex justify-between items-center py-2.5 border-b border-slate-100  text-slate-800  font-medium">
+                  <span className="text-sm text-slate-600 ">Built-Up Area</span>
                   <span className="font-bold text-sky-600 ">{propertyCalc.builtUpArea.toFixed(2)} {uArea}</span>
                 </div>
-                <div className="flex justify-between items-center py-2.5 text-gray-800  font-medium">
-                  <span className="text-sm text-gray-600 ">Super Built-Up</span>
+                <div className="flex justify-between items-center py-2.5 text-slate-800  font-medium">
+                  <span className="text-sm text-slate-600 ">Super Built-Up</span>
                   <span className="font-bold text-emerald-600 ">{propertyCalc.superBuiltUpArea.toFixed(2)} {uArea}</span>
                 </div>
               </div>
@@ -464,13 +464,13 @@ export default function AreaSpaceCalculator() {
             {activeTab === "roof" && (
               <div className="space-y-4">
                 <div className="p-5 bg-amber-50  rounded-[24px] border border-amber-100  text-amber-900  shadow-sm">
-                  <p className="text-amber-600 uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">True Sloped Roof Area</p>
-                  <p className="text-4xl font-black tabular-nums tracking-tight text-base font-normal text-gray-600 leading-relaxed">
+                  <p className="text-amber-600 uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">True Sloped Roof Area</p>
+                  <p className="text-2xl font-black tabular-nums tracking-tight text-base font-normal text-slate-600 leading-relaxed">
                     {roofCalc.trueRoofArea.toFixed(2)} <span className="text-xl opacity-60 font-medium">{uArea}</span>
                   </p>
                   <div className="mt-4 pt-4 border-t border-amber-200/50  text-sm opacity-80 grid gap-2 font-medium">
-                    <p className="flex justify-between text-base font-normal text-gray-600 leading-relaxed"><span>Base + Overhangs:</span> <span>{roofCalc.totalHorizontalArea.toFixed(2)} {uArea}</span></p>
-                    <p className="flex justify-between text-amber-600 text-base font-normal text-gray-600 leading-relaxed"><span>Pitch Multiplier (Secant):</span> <span>{(1 / Math.cos((roofParams.pitchAngle * Math.PI) / 180)).toFixed(3)}x</span></p>
+                    <p className="flex justify-between text-base font-normal text-slate-600 leading-relaxed"><span>Base + Overhangs:</span> <span>{roofCalc.totalHorizontalArea.toFixed(2)} {uArea}</span></p>
+                    <p className="flex justify-between text-amber-600 text-base font-normal text-slate-600 leading-relaxed"><span>Pitch Multiplier (Secant):</span> <span>{(1 / Math.cos((roofParams.pitchAngle * Math.PI) / 180)).toFixed(3)}x</span></p>
                   </div>
                 </div>
               </div>
@@ -479,25 +479,25 @@ export default function AreaSpaceCalculator() {
             {activeTab === "plaster" && (
               <div className="space-y-4">
                 <div className="p-5 bg-rose-50  rounded-[24px] border border-rose-100  text-rose-900  shadow-sm">
-                  <p className="text-rose-600 uppercase tracking-widest mb-1 text-base font-normal text-gray-600 leading-relaxed">Net Plastering Area</p>
-                  <p className="text-4xl font-black tabular-nums tracking-tight text-base font-normal text-gray-600 leading-relaxed">
+                  <p className="text-rose-600 uppercase tracking-widest mb-1 text-base font-normal text-slate-600 leading-relaxed">Net Plastering Area</p>
+                  <p className="text-2xl font-black tabular-nums tracking-tight text-base font-normal text-slate-600 leading-relaxed">
                     {plasterCalc.netArea.toFixed(2)} <span className="text-xl opacity-60 font-medium">{uArea}</span>
                   </p>
                   <div className="mt-4 pt-4 border-t border-rose-200/50  text-sm font-medium grid gap-2 text-rose-800/80 ">
-                      <p className="flex justify-between text-base font-normal text-gray-600 leading-relaxed"><span>Wall Gross Area:</span> <span>{plasterCalc.grossArea.toFixed(2)} {uArea}</span></p>
-                      <p className="flex justify-between text-rose-600 text-base font-normal text-gray-600 leading-relaxed"><span>Opening Deductions:</span> <span>- {plasterCalc.totalDeduction.toFixed(2)} {uArea}</span></p>
-                      <p className="flex justify-between text-base font-normal text-gray-600 leading-relaxed"><span>Jambs Added:</span> <span>+ {plasterCalc.jambAddition.toFixed(2)} {uArea}</span></p>
+                      <p className="flex justify-between text-base font-normal text-slate-600 leading-relaxed"><span>Wall Gross Area:</span> <span>{plasterCalc.grossArea.toFixed(2)} {uArea}</span></p>
+                      <p className="flex justify-between text-rose-600 text-base font-normal text-slate-600 leading-relaxed"><span>Opening Deductions:</span> <span>- {plasterCalc.totalDeduction.toFixed(2)} {uArea}</span></p>
+                      <p className="flex justify-between text-base font-normal text-slate-600 leading-relaxed"><span>Jambs Added:</span> <span>+ {plasterCalc.jambAddition.toFixed(2)} {uArea}</span></p>
                   </div>
                 </div>
               </div>
             )}
 
             {/* CTA BOQ Banner */}
-            <div className="mt-6 p-5 rounded-[20px] bg-gradient-to-br from-indigo-500 to-indigo-600 shadow-md text-gray-900">
-              <h4 className="flex items-center gap-2 mb-2 text-lg font-medium text-gray-800 mb-4">
+            <div className="mt-6 p-5 rounded-[20px] bg-gradient-to-br from-indigo-500 to-indigo-600 shadow-md text-slate-900">
+              <h4 className="flex items-center gap-2 mb-2 text-lg font-medium text-slate-800 mb-4">
                 📄 Turn this calculation into a full BOQ
               </h4>
-              <p className="text-indigo-100 mb-4 text-base font-normal text-gray-600 leading-relaxed">
+              <p className="text-indigo-100 mb-4 text-base font-normal text-slate-600 leading-relaxed">
                 Your area is ready. Generate material quantities and cost summary in 3 clicks.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -516,7 +516,7 @@ export default function AreaSpaceCalculator() {
 
       {activeTab === "plaster" && plasterCalc.steps.length > 0 && (
         <div className="mt-8">
-            <h3 className="mb-4 text-lg font-medium text-gray-800">IS 1200 Deduction Proof</h3>
+            <h3 className="mb-4 text-lg font-medium text-slate-800">IS 1200 Deduction Proof</h3>
             <DetailedCalculationDisplay steps={plasterCalc.steps as any} />
         </div>
       )}
@@ -524,8 +524,8 @@ export default function AreaSpaceCalculator() {
       {/* SEO SECTIONS */}
       <div className="mt-16 space-y-12">
         <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
-          <h2 className="mb-4 text-xl font-semibold text-gray-900 tracking-tight">How to Use the Plot Area Calculator</h2>
-          <div className="text-gray-600  space-y-4">
+          <h2 className="mb-4 text-xl font-semibold text-slate-900 tracking-tight">How to Use the Plot Area Calculator</h2>
+          <div className="text-slate-600  space-y-4">
             <p>1. <strong>Select your module:</strong> Choose between Triangulation, RERA Property Area, or Roof Pitch.</p>
             <p>2. <strong>Input dimensions:</strong> Enter values in your preferred unit system (Metric or Imperial) which can be set in the global settings.</p>
             <p>3. <strong>For Irregular Plots:</strong> Input all 4 edges and 1 diagonal length. The calculator uses geometric triangulation automatically.</p>
@@ -534,8 +534,8 @@ export default function AreaSpaceCalculator() {
         </section>
 
         <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
-          <h2 className="mb-4 text-xl font-semibold text-gray-900 tracking-tight">Methodology & Engineering Standards</h2>
-          <div className="text-gray-600  space-y-4">
+          <h2 className="mb-4 text-xl font-semibold text-slate-900 tracking-tight">Methodology & Engineering Standards</h2>
+          <div className="text-slate-600  space-y-4">
             <p>Our <strong>Plot Area Calculator</strong> strictly adheres to the following industry guidelines:</p>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>IS 1200 (Part 1, 4, 12):</strong> Rules for deduction of openings in plastering and masonry work. For plastering, no deductions are made for openings under 0.5 sq.m.</li>
@@ -551,8 +551,8 @@ export default function AreaSpaceCalculator() {
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="mb-1 text-lg font-medium text-gray-800 mb-4">Expert Reviewed</h3>
-              <div className="text-sm text-gray-600  space-y-1">
+              <h3 className="mb-1 text-lg font-medium text-slate-800 mb-4">Expert Reviewed</h3>
+              <div className="text-sm text-slate-600  space-y-1">
                 <p><strong>Reviewed by:</strong> Civil Estimation Pro Engineering Team</p>
                 <p><strong>Qualifications:</strong> B.Tech Civil Engineering · 8 years in QS practice</p>
                 <p><strong>Last reviewed:</strong> June 2025</p>

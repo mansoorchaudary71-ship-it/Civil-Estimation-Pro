@@ -196,7 +196,7 @@ export default function SolarRoofCalculator() {
         <div className="relative">
           <input 
             type={type} step={step} value={value} onChange={onChange}
-            className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-400 font-medium min-h-[44px]"
+            className="w-full bg-white dark:bg-slate-800 border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-400 font-medium min-h-[44px]"
           />
           {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-medium pointer-events-none">{unit}</span>}
         </div>
@@ -213,9 +213,9 @@ export default function SolarRoofCalculator() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-3">
                <Sun className="w-4 h-4 text-indigo-600" />
-               <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">Pro Solar Evaluator</span>
+               <span className="text-base font-medium text-indigo-600 uppercase tracking-wider">Pro Solar Evaluator</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+            <h1 className="text-xl md:text-xl font-semibold text-slate-800 tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
               Solar Energy System Calculator
             </h1>
             <p className="text-slate-500 mt-2 max-w-2xl">Complete end-to-end solar array, inverter, and financial payback analysis for PK, IN, and UAE markets.</p>
@@ -240,7 +240,7 @@ export default function SolarRoofCalculator() {
                 <button 
                   key={mod.id}
                   onClick={() => setActiveTab(mod.id)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all border ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-base font-medium whitespace-nowrap transition-all border ${
                     isActive ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-slate-50 text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900"
                   }`}
                 >
@@ -256,7 +256,7 @@ export default function SolarRoofCalculator() {
             
             {activeTab === 1 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Home className="text-indigo-600"/> Site & Load Assessment</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Home className="text-indigo-600"/> Site & Load Assessment</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col">
                     <label className="text-sm text-slate-700 font-medium mb-1.5 min-w-[200px]">Location / City</label>
@@ -283,7 +283,7 @@ export default function SolarRoofCalculator() {
 
             {activeTab === 2 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Sun className="text-indigo-600"/> Solar Potential & Sizing</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Sun className="text-indigo-600"/> Solar Potential & Sizing</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <InputField label="Peak Sun Hours (PSH)" value={psh} onChange={(e:any) => setPsh(Number(e.target.value))} step="0.1" unit="hrs/day" />
                   <InputField label="Available Roof Area" value={availableRoofArea} onChange={(e:any) => setAvailableRoofArea(Number(e.target.value))} unit="m²" />
@@ -295,14 +295,14 @@ export default function SolarRoofCalculator() {
                 <div className="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-xl flex flex-col md:flex-row gap-6 justify-between items-center text-center md:text-left">
                   <div>
                     <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Required Array Size</p>
-                    <p className="text-3xl font-bold text-indigo-600">{actualKw.toFixed(2)} kWp</p>
+                    <p className="text-xl font-bold text-indigo-600">{actualKw.toFixed(2)} kWp</p>
                   </div>
                   <div className="hidden md:block w-px h-12 bg-indigo-200"></div>
                   <div>
                     <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Number of Panels</p>
-                    <p className="text-3xl font-bold text-indigo-600">{numPanels} <span className="text-lg">units</span></p>
+                    <p className="text-xl font-bold text-indigo-600">{numPanels} <span className="text-lg">units</span></p>
                     {numPanels > maxPanels && (
-                      <p className="text-rose-600 text-xs font-bold mt-1.5 flex items-center justify-center md:justify-start gap-1">
+                      <p className="text-rose-600 text-base font-medium mt-1.5 flex items-center justify-center md:justify-start gap-1">
                         <AlertCircle className="w-3.5 h-3.5"/> Exceeds max {maxPanels} panels
                       </p>
                     )}
@@ -310,7 +310,7 @@ export default function SolarRoofCalculator() {
                   <div className="hidden md:block w-px h-12 bg-indigo-200"></div>
                   <div>
                     <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Roof Spacing Needed</p>
-                    <p className="text-3xl font-bold text-indigo-600">{roofAreaRequired.toFixed(0)} <span className="text-lg">m²</span></p>
+                    <p className="text-xl font-bold text-indigo-600">{roofAreaRequired.toFixed(0)} <span className="text-lg">m²</span></p>
                   </div>
                 </div>
                 <div className="mt-4 p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between hover:border-slate-300 transition-all">
@@ -319,27 +319,27 @@ export default function SolarRoofCalculator() {
                       <Home className="w-5 h-5 text-slate-500" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">Maximum Installable Capacity</p>
-                      <p className="text-xs text-slate-500">Based on {availableRoofArea} m² available area</p>
+                      <p className="text-base font-medium">Maximum Installable Capacity</p>
+                      <p className="text-sm text-slate-500">Based on {availableRoofArea} m² available area</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-bold text-indigo-600">{maxPanels} Panels</p>
-                    <p className="text-xs font-bold text-slate-500">{maxKw.toFixed(2)} kWp Limit</p>
+                    <p className="text-base font-medium">{maxKw.toFixed(2)} kWp Limit</p>
                   </div>
                 </div>
                 
                 {/* Visual Grid */}
                 <div className="mt-4 w-full bg-white border border-slate-200 rounded-xl p-4 min-h-[160px] flex flex-wrap gap-1.5 content-start justify-center relative overflow-hidden">
                   <div className="w-full flex justify-between items-center mb-4">
-                    <p className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                    <p className="text-base font-medium flex items-center gap-2">
                       <Grid className="w-4 h-4 text-indigo-500" /> Roof Layout Visualization
                     </p>
                     <div className="flex gap-4">
-                       <p className="text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                       <p className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
                          <span className="w-2 h-2 rounded-full bg-indigo-500"></span> Valid Panel
                        </p>
-                       <p className="text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                       <p className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
                          <span className="w-2 h-2 rounded-full bg-rose-500"></span> Exceeds Limit
                        </p>
                     </div>
@@ -362,7 +362,7 @@ export default function SolarRoofCalculator() {
                     </motion.div>
                   ))}
                   {numPanels > 150 && (
-                     <div className="w-full mt-4 py-2 text-center text-xs font-bold text-slate-500 bg-slate-50 rounded-lg">
+                     <div className="w-full mt-4 py-2 text-center text-base font-medium bg-slate-50 rounded-lg">
                         + {numPanels - 150} more panels not shown due to performance limits
                      </div>
                   )}
@@ -377,7 +377,7 @@ export default function SolarRoofCalculator() {
 
             {activeTab === 3 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Battery className="text-indigo-600"/> Inverter & Battery Size</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Battery className="text-indigo-600"/> Inverter & Battery Size</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <InputField label="Inverter Efficiency" value={inverterEfficiency} onChange={(e:any) => setInverterEfficiency(Number(e.target.value))} unit="%" />
                   {gridType !== "On-Grid" ? (
@@ -404,7 +404,7 @@ export default function SolarRoofCalculator() {
 
             {activeTab === 4 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><DollarSign className="text-indigo-600"/> Cost Estimations</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><DollarSign className="text-indigo-600"/> Cost Estimations</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col">
                     <label className="text-sm text-slate-700 font-medium mb-1.5 min-w-[200px]">Currency</label>
@@ -426,7 +426,7 @@ export default function SolarRoofCalculator() {
 
             {activeTab === 5 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Zap className="text-indigo-600"/> Production & Savings</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Zap className="text-indigo-600"/> Production & Savings</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <InputField label="Grid Tariff / Unit Rate" value={gridTariff} onChange={(e:any) => setGridTariff(Number(e.target.value))} unit={`${currency} / kWh`} />
                   {gridType !== "Off-Grid" && <InputField label="Net Metering Export Rate" value={exportRate} onChange={(e:any) => setExportRate(Number(e.target.value))} unit="% of Import Tariff" />}
@@ -435,20 +435,20 @@ export default function SolarRoofCalculator() {
                 
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Daily Generation</p>
-                     <p className="text-2xl font-bold text-slate-900">{dailyGen.toFixed(1)} <span className="text-sm font-medium text-slate-500">kWh</span></p>
+                     <p className="text-slate-500 text-base font-medium uppercase tracking-wider mb-2">Daily Generation</p>
+                     <p className="text-xl font-semibold text-slate-800">{dailyGen.toFixed(1)} <span className="text-sm font-medium text-slate-500">kWh</span></p>
                   </div>
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Monthly Gen.</p>
-                     <p className="text-2xl font-bold text-slate-900">{monthlyGen.toFixed(0)} <span className="text-sm font-medium text-slate-500">kWh</span></p>
+                     <p className="text-slate-500 text-base font-medium uppercase tracking-wider mb-2">Monthly Gen.</p>
+                     <p className="text-xl font-semibold text-slate-800">{monthlyGen.toFixed(0)} <span className="text-sm font-medium text-slate-500">kWh</span></p>
                   </div>
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Year 1 Savings</p>
-                     <p className="text-2xl font-bold text-emerald-600">{formatCurrency(annualSavingsAmount).replace(/[^\d\.,]/g,'')} <span className="text-sm font-medium text-emerald-600/50">{currency}</span></p>
+                     <p className="text-slate-500 text-base font-medium uppercase tracking-wider mb-2">Year 1 Savings</p>
+                     <p className="text-xl font-semibold text-slate-800 text-emerald-600">{formatCurrency(annualSavingsAmount).replace(/[^\d\.,]/g,'')} <span className="text-sm font-medium text-emerald-600/50">{currency}</span></p>
                   </div>
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">CO₂ Offsets (Yr)</p>
-                     <p className="text-2xl font-bold text-indigo-500">{annualCo2.toFixed(0)} <span className="text-sm font-medium text-indigo-500/50">kg</span></p>
+                     <p className="text-slate-500 text-base font-medium uppercase tracking-wider mb-2">CO₂ Offsets (Yr)</p>
+                     <p className="text-xl font-semibold text-slate-800 text-indigo-500">{annualCo2.toFixed(0)} <span className="text-sm font-medium text-indigo-500/50">kg</span></p>
                   </div>
                 </div>
               </div>
@@ -456,7 +456,7 @@ export default function SolarRoofCalculator() {
 
             {activeTab === 6 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><BarChart3 className="text-indigo-600"/> Financial Analysis & ROI</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><BarChart3 className="text-indigo-600"/> Financial Analysis & ROI</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <InputField label="Maintenance Cost" value={maintenancePercent} onChange={(e:any) => setMaintenancePercent(Number(e.target.value))} step="0.1" unit="% of system / yr" />
                   <InputField label="Tariff Escalation Rate" value={tariffEscalation} onChange={(e:any) => setTariffEscalation(Number(e.target.value))} unit="% / yr" />
@@ -478,14 +478,14 @@ export default function SolarRoofCalculator() {
                           className={`w-full rounded-t-sm transition-all duration-500 ${isPositive ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-rose-400 hover:bg-rose-300'}`} 
                           style={{ height: `${heightPrc}%`, minHeight: '4px' }}
                         />
-                        <div className="opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 border border-slate-700 shadow-xl pointer-events-none transition-opacity">
+                        <div className="opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 text-white text-sm py-1 px-2 rounded whitespace-nowrap z-10 border border-slate-700 shadow-xl pointer-events-none transition-opacity">
                           Yr {cf.year}: {formatCurrency(cf.cumProfit)}
                         </div>
                       </div>
                     )
                   })}
                 </div>
-                <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium">
+                <div className="flex justify-between text-sm text-slate-500 mt-2 font-medium">
                   <span>Year 1</span>
                   <span>Year 10</span>
                   <span>Year {lifespan}</span>
@@ -495,13 +495,13 @@ export default function SolarRoofCalculator() {
 
             {activeTab === 7 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Calculator className="text-indigo-600"/> Final Report Summary</h2>
+                <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Calculator className="text-indigo-600"/> Final Report Summary</h2>
                 <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-50 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
                    
                    <div className="flex justify-between items-start mb-10 relative z-10">
                      <div>
-                       <h3 className="text-3xl font-bold font-heading mb-1 text-slate-900">{actualKw.toFixed(2)} kWp Solar {gridType}</h3>
+                       <h3 className="text-xl font-bold font-heading mb-1 text-slate-900">{actualKw.toFixed(2)} kWp Solar {gridType}</h3>
                        <p className="text-slate-500">{city} Base Design • {numPanels} Panels • {recInverterKva} kVA Inverter</p>
                      </div>
                      <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 font-bold text-sm border border-emerald-200">
@@ -512,29 +512,29 @@ export default function SolarRoofCalculator() {
                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 relative z-10 border-b border-slate-200 pb-10">
                      <div>
                        <p className="text-slate-500 text-sm font-medium mb-1">Total Turnkey Cost</p>
-                       <p className="text-3xl font-bold text-slate-900">{formatCurrency(totalSystemCost)}</p>
+                       <p className="text-xl font-bold text-slate-900">{formatCurrency(totalSystemCost)}</p>
                      </div>
                      <div>
                        <p className="text-slate-500 text-sm font-medium mb-1">Payback Period</p>
-                       <p className="text-3xl font-bold text-indigo-600">{simplePayback.toFixed(1)} <span className="text-xl">Years</span></p>
+                       <p className="text-xl font-bold text-indigo-600">{simplePayback.toFixed(1)} <span className="text-xl">Years</span></p>
                      </div>
                      <div>
                        <p className="text-slate-500 text-sm font-medium mb-1">Year 1 Savings</p>
-                       <p className="text-3xl font-bold text-emerald-600">{formatCurrency(netAnnualSavingsYear1)}</p>
+                       <p className="text-xl font-bold text-emerald-600">{formatCurrency(netAnnualSavingsYear1)}</p>
                      </div>
                      <div>
                        <p className="text-slate-500 text-sm font-medium mb-1">Lifetime Savings</p>
-                       <p className="text-3xl font-bold text-emerald-600">{formatCurrency(lifetimeSavings)}</p>
+                       <p className="text-xl font-bold text-emerald-600">{formatCurrency(lifetimeSavings)}</p>
                      </div>
                      {hasBattery && (
                      <div>
                        <p className="text-slate-500 text-sm font-medium mb-1">Battery Storage</p>
-                       <p className="text-3xl font-bold text-slate-900">{actualBattKwh.toFixed(1)} <span className="text-xl">kWh</span></p>
+                       <p className="text-xl font-bold text-slate-900">{actualBattKwh.toFixed(1)} <span className="text-xl">kWh</span></p>
                      </div>
                      )}
                      <div>
                        <p className="text-slate-500 text-sm font-medium mb-1">CO₂ Offset</p>
-                       <p className="text-3xl font-bold text-indigo-500">{(annualCo2 * lifespan / 1000).toFixed(1)} <span className="text-xl">Tons</span></p>
+                       <p className="text-xl font-bold text-indigo-500">{(annualCo2 * lifespan / 1000).toFixed(1)} <span className="text-xl">Tons</span></p>
                      </div>
                    </div>
                    
@@ -620,7 +620,7 @@ export default function SolarRoofCalculator() {
              
              {/* Cost Breakdown Mini Bar */}
              <div className="mt-6 space-y-2">
-                <div className="flex justify-between text-xs text-slate-500 font-medium px-1">
+                <div className="flex justify-between text-sm text-slate-500 font-medium px-1">
                    <span>Hardware</span>
                    <span>Labor/Misc</span>
                 </div>

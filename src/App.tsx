@@ -106,11 +106,26 @@ const ModuleWrapper = ({ id, title, onNavigate, children }: { id: string, title:
   const toolInfo = ALL_TOOLS.find(t => t.id === id);
   const category = toolInfo?.category || "General";
   const actualTitle = toolInfo?.title || title;
+  const subtitle = toolInfo?.desc || "Standard Engineering Tool";
+  const Icon = toolInfo?.icon;
+
+  let themeType: 'default' | 'earth' | 'steel' | 'ocean' | 'emerald' | 'sunset' = 'default';
+  if (category.includes('Geotechnical') || category.includes('Earthworks') || category.includes('Soil')) {
+    themeType = 'earth';
+  } else if (category.includes('Steel') || category.includes('RCC') || category.includes('Reinforcement') || category.includes('Structural')) {
+    themeType = 'steel';
+  } else if (category.includes('Water') || category.includes('Plumbing')) {
+    themeType = 'ocean';
+  } else if (category.includes('Energy') || category.includes('Solar') || category.includes('Sustainability') || category.includes('Environmental')) {
+    themeType = 'emerald';
+  } else if (category.includes('Architecture') || category.includes('Finishes') || category.includes('Interiors')) {
+    themeType = 'sunset';
+  }
 
   return (
     <div className="flex-1 flex flex-col min-h-0 relative w-full h-full overflow-y-auto overflow-x-hidden bg-transparent">
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 flex-1 flex flex-col">
-        <ToolHeader id={id} title={actualTitle} />
+        <ToolHeader id={id} title={actualTitle} themeType={themeType} subtitle={subtitle} icon={Icon} />
         {children}
         
         <div className="mt-12 space-y-8 pb-16 print:hidden">

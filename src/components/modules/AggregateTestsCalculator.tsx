@@ -150,7 +150,7 @@ export default function AggregateTestsCalculator() {
   ] as const;
 
   return (
-    <div className="w-full h-full bg-transparent text-gray-900 p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-slate-900 p-6 md:p-8">
       <SEO 
         title="Aggregate Tests Calculator" 
         description="Calculate aggregate impact value, crushing value, abrasion, and water absorption." 
@@ -167,30 +167,30 @@ export default function AggregateTestsCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
           <div 
-            className="bg-bg-card p-6 md:p-8 rounded-[24px] shadow-md border border-border-color flex flex-col gap-6"
+            className="bg-bg-card p-6 md:p-8 rounded-[24px] shadow-md border border-slate-200 dark:border-slate-700 flex flex-col gap-6"
             onChange={(e) => {
               if ((e.target as HTMLElement).tagName === 'INPUT') {
                 if (hasData) resetEstimate();
               }
             }}
           >
-            <h3 className="border-b border-border-color pb-3 text-text-primary text-lg font-medium text-gray-800 mb-4">
+            <h3 className="border-b border-slate-200 dark:border-slate-700 pb-3 text-slate-900 dark:text-white text-lg font-medium text-slate-800 mb-4">
               Laboratory Data Inputs
             </h3>
 
             {activeTab === "impact" && (
               <div className="grid gap-4">
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight of empty container (W1) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={aivW1} onChange={e => setAivW1(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight of empty container (W1) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={aivW1} onChange={e => setAivW1(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight of container + aggregate (W2) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={aivW2} onChange={e => setAivW2(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight of container + aggregate (W2) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={aivW2} onChange={e => setAivW2(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight passing 2.36mm sieve (W3) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={aivW3} onChange={e => setAivW3(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight passing 2.36mm sieve (W3) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={aivW3} onChange={e => setAivW3(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -198,16 +198,16 @@ export default function AggregateTestsCalculator() {
             {activeTab === "crushing" && (
               <div className="grid gap-4">
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight of empty container (W1) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={acvW1} onChange={e => setAcvW1(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight of empty container (W1) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={acvW1} onChange={e => setAcvW1(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight of container + aggregate (W2) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={acvW2} onChange={e => setAcvW2(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight of container + aggregate (W2) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={acvW2} onChange={e => setAcvW2(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight passing 2.36mm sieve limit (W3) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={acvW3} onChange={e => setAcvW3(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight passing 2.36mm sieve limit (W3) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={acvW3} onChange={e => setAcvW3(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -215,12 +215,12 @@ export default function AggregateTestsCalculator() {
             {activeTab === "abrasion" && (
               <div className="grid gap-4">
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Original Weight of sample (W1) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={laW1} onChange={e => setLaW1(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Original Weight of sample (W1) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={laW1} onChange={e => setLaW1(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight passing 1.7mm sieve (W2) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={laW2} onChange={e => setLaW2(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight passing 1.7mm sieve (W2) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={laW2} onChange={e => setLaW2(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -228,16 +228,16 @@ export default function AggregateTestsCalculator() {
             {activeTab === "water-absorption" && (
               <div className="grid gap-4">
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight of SSD aggregate in air (W1) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={waW1} onChange={e => setWaW1(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight of SSD aggregate in air (W1) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={waW1} onChange={e => setWaW1(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Weight of aggregate in water (W2) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={waW2} onChange={e => setWaW2(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Weight of aggregate in water (W2) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={waW2} onChange={e => setWaW2(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
-                  <label className="uppercase text-sm font-medium text-gray-700 mb-1 block">Oven dry weight in air (W3) in g</label>
-                  <input type="number" inputMode="decimal" min="0" value={waW3} onChange={e => setWaW3(e.target.value)} className="mt-1 w-full bg-white border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <label className="uppercase text-sm font-medium text-slate-700 mb-1 block">Oven dry weight in air (W3) in g</label>
+                  <input type="number" inputMode="decimal" min="0" value={waW3} onChange={e => setWaW3(e.target.value)} className="mt-1 w-full bg-white border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -259,7 +259,7 @@ export default function AggregateTestsCalculator() {
             ) : hasData ? (
               <div className="bg-white border border-slate-200 border-l-[4px] border-l-[#6B46C1] p-6 md:p-8 rounded-[24px] shadow-sm w-full transition-all">
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="uppercase st text-lg font-medium text-gray-800 mb-4">
+                  <h3 className="uppercase st text-lg font-medium text-slate-800 mb-4">
                     Lab Report Summary
                   </h3>
                   <Download className="w-5 h-5 text-indigo-500 cursor-pointer hover:text-indigo-600 transition-colors" />
@@ -270,8 +270,8 @@ export default function AggregateTestsCalculator() {
                     const isUnsuitable = valStr.includes("UNSUITABLE") || valStr.includes("HIGH POROSITY") || valStr.includes("Flagged");
                     return (
                       <div key={key} className="flex justify-between border-b border-slate-100 pb-3 items-center">
-                        <span className="text-gray-500 font-semibold text-sm w-1/2">{key}</span>
-                        <span className={`text-right font-mono font-bold py-1 px-3 rounded-[16px] text-sm ${isUnsuitable ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-50 text-gray-800 border border-slate-200'}`}>
+                        <span className="text-slate-500 font-semibold text-sm w-1/2">{key}</span>
+                        <span className={`text-right font-mono font-bold py-1 px-3 rounded-[16px] text-sm ${isUnsuitable ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-50 text-slate-800 border border-slate-200'}`}>
                           {val}
                         </span>
                       </div>
@@ -280,10 +280,10 @@ export default function AggregateTestsCalculator() {
                 </div>
               </div>
             ) : (
-              <div className="bg-white rounded-[24px] p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center h-full min-h-[300px] w-full">
-                <Box className="w-12 h-12 text-gray-700 mb-4" />
-                <h3 className=" text-lg font-medium text-gray-800 mb-4">Waiting for Input</h3>
-                <p className="mt-2 max-w-sm text-base font-normal text-gray-600 leading-relaxed">
+              <div className="bg-white rounded-[24px] p-8 border-2 border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center text-center h-full min-h-[300px] w-full">
+                <Box className="w-12 h-12 text-slate-700 mb-4" />
+                <h3 className=" text-lg font-medium text-slate-800 mb-4">Waiting for Input</h3>
+                <p className="mt-2 max-w-sm text-base font-normal text-slate-600 leading-relaxed">
                   Enter your test values on the left and generate a summarized lab report.
                 </p>
               </div>

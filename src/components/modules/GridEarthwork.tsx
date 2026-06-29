@@ -62,10 +62,10 @@ export default function GridEarthworkEstimator() {
   const isCut = avgDepth > 0;
   const isFill = avgDepth < 0;
   return (
-    <div className="w-full bg-transparent text-gray-900 font-sans mt-4">
+    <div className="w-full bg-transparent text-slate-900 font-sans mt-4">
       <div className="space-y-8">
         <div className="mb-4">
-          <h2 className="bg-gradient-to-r bg-clip-text text-transparent pb-1 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+          <h2 className="bg-gradient-to-r bg-clip-text text-transparent pb-1 text-xl font-semibold text-slate-900 tracking-tight mb-4">
             Grid Method Volume
           </h2>
           <GlobalSettingsToggle align="left" showCurrency={false} />
@@ -77,37 +77,37 @@ export default function GridEarthworkEstimator() {
                 <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Grid2X2 className="w-5 h-5" />
                 </div>
-                <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
+                <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
                   Grid Dimensions
                 </h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Length [{unitL}]
                   </label>
                   <input
                     type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={gridLength}
                     onChange={(e) => setGridLength(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Width [{unitL}]
                   </label>
                   <input
                     type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={gridWidth}
                     onChange={(e) => setGridWidth(e.target.value)}
                   />
                 </div>
               </div>
-              <div className="mt-4 p-3 bg-gray-50 rounded-[24px] font-medium text-gray-600 flex justify-between">
+              <div className="mt-4 p-3 bg-gray-50 rounded-[24px] font-medium text-slate-600 flex justify-between">
                 <span>Grid Area:</span>
-                <span className="font-bold text-gray-800">
+                <span className="font-bold text-slate-800">
                   {area.toFixed(2)} {unitA}
                 </span>
               </div>
@@ -117,7 +117,7 @@ export default function GridEarthworkEstimator() {
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[24px]">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
+                <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
                   Corner Elevations
                 </h2>
               </div>
@@ -127,15 +127,15 @@ export default function GridEarthworkEstimator() {
                 <div className="absolute left-1/2 top-6 bottom-6 w-0.5 bg-gray-100 -translate-x-1/2" />
                 {/* Top Left */}
                 <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
-                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-gray-800 mb-4">
+                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Top Left
-                    <span className="text-xs uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
+                    <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
                       Corner 1
                     </span>
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
                       <input
@@ -148,7 +148,7 @@ export default function GridEarthworkEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
                       <input
@@ -164,15 +164,15 @@ export default function GridEarthworkEstimator() {
                 </div>
                 {/* Top Right */}
                 <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
-                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-gray-800 mb-4">
+                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Top Right
-                    <span className="text-xs uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
+                    <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
                       Corner 2
                     </span>
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
                       <input
@@ -185,7 +185,7 @@ export default function GridEarthworkEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
                       <input
@@ -201,15 +201,15 @@ export default function GridEarthworkEstimator() {
                 </div>
                 {/* Bottom Left */}
                 <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
-                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-gray-800 mb-4">
+                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Bottom Left
-                    <span className="text-xs uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
+                    <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
                       Corner 3
                     </span>
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
                       <input
@@ -222,7 +222,7 @@ export default function GridEarthworkEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
                       <input
@@ -238,15 +238,15 @@ export default function GridEarthworkEstimator() {
                 </div>
                 {/* Bottom Right */}
                 <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
-                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-gray-800 mb-4">
+                  <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Bottom Right
-                    <span className="text-xs uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
+                    <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
                       Corner 4
                     </span>
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
                       <input
@@ -259,7 +259,7 @@ export default function GridEarthworkEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-gray-700">
+                      <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
                       <input

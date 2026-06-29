@@ -51,7 +51,7 @@ export default function SocialProofSection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="md: lg: text-xl font-semibold text-gray-900 tracking-tight mb-4">
+          <h2 className="md: lg: text-xl font-semibold text-slate-900 tracking-tight mb-4">
             Trusted by <span className="text-orange-500">10,000+</span> Engineers
           </h2>
         </div>
@@ -71,16 +71,16 @@ export default function SocialProofSection() {
                 ))}
               </div>
               
-              <p className="mb-6 flex-1 text-base font-normal text-gray-600 leading-relaxed">
+              <p className="mb-6 flex-1 text-base font-normal text-slate-600 leading-relaxed">
                 "{t.quote}"
               </p>
               
               <div className="flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-gray-900 font-bold text-base shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 font-bold text-base shadow-sm">
                   {t.initials}
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 text-base">{t.name}</div>
+                  <div className="font-bold text-slate-900 text-base">{t.name}</div>
                   <div className="text-sm text-orange-500 font-medium tracking-wide">{t.title}</div>
                 </div>
               </div>

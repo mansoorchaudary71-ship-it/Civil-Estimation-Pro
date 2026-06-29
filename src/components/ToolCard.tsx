@@ -115,7 +115,7 @@ export default function ToolCard({
           </motion.div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400">
+          <span className="font-mono text-base font-medium tracking-widest text-slate-500 dark:text-slate-400">
             {mod.id?.slice(0, 2).toUpperCase() || "01"}
           </span>
           <button

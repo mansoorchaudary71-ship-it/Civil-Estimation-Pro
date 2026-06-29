@@ -14,12 +14,12 @@ export default function RaftFoundationDesigner() {
          </h2>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold mb-2">Soil Bearing Capacity (kN/m²)</label>
-              <input type="number" inputMode="decimal" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[44px]" value={sbc} onChange={e => setSbc(e.target.value)} />
+              <label className="block text-base font-medium mb-2">Soil Bearing Capacity (kN/m²)</label>
+              <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 rounded-xl px-4 py-3 min-h-[44px]" value={sbc} onChange={e => setSbc(e.target.value)} />
             </div>
             <div>
-              <label className="block text-sm font-semibold mb-2">Total Raft Area (m²)</label>
-              <input type="number" inputMode="decimal" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[44px]" value={area} onChange={e => setArea(e.target.value)} />
+              <label className="block text-base font-medium mb-2">Total Raft Area (m²)</label>
+              <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 rounded-xl px-4 py-3 min-h-[44px]" value={area} onChange={e => setArea(e.target.value)} />
             </div>
          </div>
          <div className="mt-8 p-6 bg-slate-50 dark:bg-slate-800 rounded-[24px]">

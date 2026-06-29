@@ -48,7 +48,7 @@ export default function MobileLandingPage() {
             </div>
             <div className="flex items-center gap-4">
               <Search className="w-5 h-5 text-slate-600" />
-              <button className="text-sm font-semibold text-slate-900 hidden sm:block">Login</button>
+              <button className="text-base font-medium hidden sm:block">Login</button>
               <Menu className="w-6 h-6 text-slate-900 sm:hidden" />
             </div>
           </header>
@@ -59,11 +59,11 @@ export default function MobileLandingPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/50 shadow-sm mb-6">
               <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-              <span className="text-xs font-semibold text-slate-700 tracking-wide uppercase">NEW: AI-Powered Estimations</span>
+              <span className="text-base font-medium tracking-wide uppercase">NEW: AI-Powered Estimations</span>
             </div>
 
             {/* Headlines */}
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-[1.1]">
+            <h1 className="text-2xl md:text-xl font-semibold text-slate-800 mb-4 leading-[1.1]">
               <span className="text-slate-400 block mb-1">Build Smarter.</span>
               <span className="text-slate-900">Estimate <span className="text-orange-500">Faster.</span></span>
             </h1>

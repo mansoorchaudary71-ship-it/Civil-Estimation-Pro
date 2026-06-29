@@ -55,7 +55,7 @@ export default function SearchAndFilterBar({
         <div className="w-full max-w-2xl">
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-              <Search className="w-5 h-5 text-gray-600 group-focus-within:text-indigo-500 transition-colors" />
+              <Search className="w-5 h-5 text-slate-600 group-focus-within:text-indigo-500 transition-colors" />
             </div>
             <input
               type="text"
@@ -67,7 +67,7 @@ export default function SearchAndFilterBar({
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               placeholder="Search tools, materials, or calculations..."
-              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-gray-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-base"
+              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-base"
             />
 
             {/* Suggestions Dropdown */}
@@ -88,8 +88,8 @@ export default function SearchAndFilterBar({
                     }}
                     className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors group/item"
                   >
-                    <span className="text-sm font-semibold text-gray-800 group-hover/item:text-indigo-600 transition-colors">{tool.name}</span>
-                    <span className="text-xs font-bold tracking-wider uppercase text-gray-600 bg-slate-100 px-2 py-0.5 rounded-full">{tool.category}</span>
+                    <span className="text-base font-medium group-hover/item:text-indigo-600 transition-colors">{tool.name}</span>
+                    <span className="text-base font-medium tracking-wider uppercase text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">{tool.category}</span>
                   </button>
                 ))}
               </div>
@@ -98,14 +98,14 @@ export default function SearchAndFilterBar({
           
           {/* Popular Chips (hidden mobile, visible md+) */}
           <div className="hidden md:flex items-center gap-2 mt-3 pl-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-600 flex items-center gap-1">
+            <span className="text-base font-medium uppercase tracking-wider text-slate-600 flex items-center gap-1">
               <Sparkles className="w-3 h-3 text-indigo-400" /> Popular:
             </span>
             {popularSearches.map((chip, idx) => (
               <button
                 key={idx}
                 onClick={() => setSearchTerm(chip)}
-                className="text-xs font-medium text-gray-500 bg-white hover:bg-indigo-50 hover:text-indigo-600 px-3 py-1.5 rounded-lg transition-colors border border-slate-200 shadow-sm"
+                className="text-sm font-medium text-slate-500 bg-white hover:bg-indigo-50 hover:text-indigo-600 px-3 py-1.5 rounded-lg transition-colors border border-slate-200 shadow-sm"
               >
                 {chip}
               </button>
@@ -130,14 +130,14 @@ export default function SearchAndFilterBar({
                     relative flex items-center justify-center flex-shrink-0 gap-2 px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-300 snap-start
                     ${isActive 
                       ? "bg-indigo-600 text-white font-bold shadow-[0_4px_12px_rgba(79,70,229,0.3)] border border-indigo-500" 
-                      : "bg-[#F0F4F8] text-gray-500 hover:text-gray-700 shadow-[2px_2px_6px_rgba(163,177,198,0.3),-2px_-2px_6px_rgba(255,255,255,0.8)] border border-white"}
+                      : "bg-[#F0F4F8] text-slate-500 hover:text-slate-700 shadow-[2px_2px_6px_rgba(163,177,198,0.3),-2px_-2px_6px_rgba(255,255,255,0.8)] border border-white"}
                   `}
                 >
                   <span className="text-sm">{cat.name}</span>
                   <span 
                     className={`
-                      flex items-center justify-center px-2 py-0.5 text-xs font-bold rounded-full
-                      ${isActive ? "bg-indigo-800 text-indigo-100" : "bg-slate-200 text-gray-500"}
+                      flex items-center justify-center px-2 py-0.5 text-base font-medium rounded-full
+                      ${isActive ? "bg-indigo-800 text-indigo-100" : "bg-slate-200 text-slate-500"}
                     `}
                   >
                     {cat.count}
@@ -149,8 +149,8 @@ export default function SearchAndFilterBar({
         </div>
 
         {/* Results Count Line */}
-        <div className="text-sm font-medium text-gray-500 pl-1 mt-1">
-          Showing <span className="text-gray-800 font-bold">{totalFilteredCount}</span> tools in <span className="text-indigo-600 font-bold">{activeCategory}</span>
+        <div className="text-sm font-medium text-slate-500 pl-1 mt-1">
+          Showing <span className="text-slate-800 font-bold">{totalFilteredCount}</span> tools in <span className="text-indigo-600 font-bold">{activeCategory}</span>
         </div>
 
       </div>

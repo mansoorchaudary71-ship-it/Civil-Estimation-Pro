@@ -29,7 +29,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
-    <div className="bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-6 shadow-sm border border-border-color/50">
+    <div className="bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-6 shadow-sm border border-slate-200 dark:border-slate-700/50">
       <h4 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
         <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-black">
           {idx + 1}
@@ -41,13 +41,13 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
         {/* Scientific Derivation */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
+            <h5 className="text-base font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
               <Beaker className="w-4 h-4" /> Core Equation
             </h5>
             {step.insight && (
               <button
                 onClick={() => setShowInsight(!showInsight)}
-                className="text-xs flex items-center gap-1.5 font-bold text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 rounded-full"
+                className="text-sm flex items-center gap-1.5 font-bold text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 rounded-full"
                 title="View Scientific Justification"
               >
                 <Lightbulb className="w-3.5 h-3.5" />
@@ -55,7 +55,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
               </button>
             )}
           </div>
-          <div className="bg-bg-primary/50 rounded-xl p-4 border border-border-color overflow-x-auto text-sm sm:text-base font-mono font-semibold text-slate-700 dark:text-slate-300">
+          <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700 overflow-x-auto text-sm sm:text-base font-mono font-semibold text-slate-700 dark:text-slate-300">
             {step.equation}
           </div>
         </div>
@@ -63,14 +63,14 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
         {/* Variable Breakdown */}
         {step.variables && step.variables.length > 0 && (
           <div>
-            <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+            <h5 className="text-base font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
               Input Variables
             </h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               {step.variables.map((v, vIdx) => (
                 <div
                   key={vIdx}
-                  className="flex justify-between items-center px-4 py-3 bg-bg-primary/50 rounded-xl border border-border-color"
+                  className="flex justify-between items-center px-4 py-3 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700"
                 >
                   <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                     {v.name}
@@ -96,7 +96,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
           <div className="flex gap-3 p-4 sm:p-5 rounded-[16px] bg-indigo-50/70 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 animate-in fade-in slide-in-from-top-2 duration-300">
             <Lightbulb className="w-5 h-5 text-indigo-500 dark:text-indigo-400 shrink-0 mt-0.5" />
             <div>
-               <h5 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
+               <h5 className="text-base font-medium uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
                  Engineering Justification
                </h5>
                <p className="text-sm sm:text-base font-semibold text-indigo-900 dark:text-indigo-100 leading-relaxed">
@@ -108,7 +108,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
 
         {/* Step-by-Step Substitution */}
         <div className="bg-slate-800 dark:bg-slate-900/40 rounded-[16px] p-4 sm:p-5 text-white">
-          <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+          <h5 className="text-base font-medium uppercase tracking-wider text-slate-400 mb-3">
             Computation
           </h5>
           <div className="font-mono text-sm sm:text-base text-slate-300 mb-4 whitespace-nowrap overflow-x-auto pb-2 border-b border-slate-700/50">
@@ -166,7 +166,7 @@ export function DetailedCalculationDisplay({
               </p>
             </div>
           </div>
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-bg-primary text-slate-500 dark:text-slate-400 transition-transform duration-300 shrink-0">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 transition-transform duration-300 shrink-0">
             {isOpen ? <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6" /> : <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6" />}
           </div>
         </button>

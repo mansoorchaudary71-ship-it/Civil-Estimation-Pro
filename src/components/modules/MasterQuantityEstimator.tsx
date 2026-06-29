@@ -132,7 +132,7 @@ export default function MasterQuantityEstimator({
       className={
         isEmbedded
           ? "w-full"
-          : "w-full h-full bg-transparent text-text-primary p-6 md:p-8"
+          : "w-full h-full bg-transparent text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
       {!isEmbedded && (
@@ -248,7 +248,7 @@ export default function MasterQuantityEstimator({
                       
                       {activeCalculator.sharedDependencies && activeCalculator.sharedDependencies.length > 0 && (
                          <div className="pt-6 border-t border-slate-100 dark:border-slate-700/50 mt-4">
-                           <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3 ml-1">Linked State Inputs</p>
+                           <p className="text-base font-medium uppercase tracking-wider mb-3 ml-1">Linked State Inputs</p>
                            <div className="bg-slate-50/70 p-1 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-[20px] overflow-hidden shadow-sm">
                              {activeCalculator.sharedDependencies.map((dep, idx) => (
                                <div key={dep} className={`flex justify-between items-center px-4 py-3.5 transition-colors hover:bg-slate-100/50 dark:hover:bg-slate-800/50 ${idx !== 0 ? 'border-t border-slate-200 dark:border-slate-700' : ''}`}>

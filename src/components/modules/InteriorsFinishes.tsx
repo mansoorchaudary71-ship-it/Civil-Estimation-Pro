@@ -430,7 +430,7 @@ function DoorsWindowsCalculator() {
     return (
       <div className="mt-8 p-5 bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px]">
         <div className="flex items-center justify-between mb-4">
-          <h4 className="text-sm font-bold text-slate-700">Proportional Preview</h4>
+          <h4 className="text-base font-medium">Proportional Preview</h4>
           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider bg-bg-card shadow-sm px-2 py-1 rounded-[16px]">
             {wl}{uLen} × {wh}{uLen}
           </span>
@@ -515,11 +515,11 @@ function DoorsWindowsCalculator() {
           </InputGroup>
         </div>
 
-        <div className="space-y-3 pt-4 border-t border-border-color">
-          <label className="text-sm font-bold text-slate-700">Openings / Deductions</label>
+        <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+          <label className="text-base font-medium">Openings / Deductions</label>
           <div className="space-y-2">
             {deductions.map((item, index) => (
-              <div key={index} className="flex gap-2 items-center bg-white border border-border-color p-2 rounded-[24px]">
+              <div key={index} className="flex gap-2 items-center bg-white border border-slate-200 dark:border-slate-700 p-2 rounded-[24px]">
                 <input 
                   type="text" 
                   value={item.name} 
@@ -537,7 +537,7 @@ function DoorsWindowsCalculator() {
               </div>
             ))}
           </div>
-          <button onClick={addItem} className="text-sm font-bold text-amber-600 hover:text-amber-700 mt-2 inline-flex items-center gap-1">+ Add Opening</button>
+          <button onClick={addItem} className="text-base font-medium text-amber-600 hover:text-amber-700 mt-2 inline-flex items-center gap-1">+ Add Opening</button>
         </div>
       </div>
 
@@ -771,13 +771,13 @@ function TermiteTreatmentCalculator() {
         <div className="flex bg-slate-100 p-1 rounded-[16px]">
             <button
               onClick={() => setType("pre")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "pre" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`flex-1 py-1.5 text-base font-medium rounded-[12px] transition-colors ${type === "pre" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
               Pre-Construction
             </button>
             <button
               onClick={() => setType("post")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "post" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`flex-1 py-1.5 text-base font-medium rounded-[12px] transition-colors ${type === "post" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
               Post-Construction
             </button>

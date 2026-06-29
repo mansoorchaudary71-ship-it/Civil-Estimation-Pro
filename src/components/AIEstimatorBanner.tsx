@@ -45,7 +45,7 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
           </div>
           
           <div>
-            <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-400 mb-2.5 tracking-tight">
+            <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-400 mb-2.5 tracking-tight">
               Meet Your AI Estimator
             </h3>
             <p className="text-slate-300 max-w-lg mb-6 text-[15px] leading-relaxed font-medium">

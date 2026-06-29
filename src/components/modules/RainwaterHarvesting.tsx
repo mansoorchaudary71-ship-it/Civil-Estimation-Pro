@@ -48,14 +48,14 @@ export default function RainwaterHarvesting() {
   const co2Savings = annualVolM3 * 0.6;
 
   return (
-    <div className="w-full h-full bg-transparent text-text-primary p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
           <GlobalSettingsToggle align="left" showCurrency={true} />
         </div>
         
-        <div className="bg-bg-card rounded-[24px] shadow-sm border border-border-color overflow-hidden">
+        <div className="bg-bg-card rounded-[24px] shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
               {/* Inputs */}
@@ -64,9 +64,9 @@ export default function RainwaterHarvesting() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Catchment Details</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm font-bold text-slate-700">Roof Area</label>
+                      <label className="text-base font-medium">Roof Area</label>
                       <div className="flex">
-                        <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-l-xl px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={roofArea} onChange={(e) => setRoofArea(e.target.value)} />
+                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-l-xl px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={roofArea} onChange={(e) => setRoofArea(e.target.value)} />
                         <select className="bg-slate-50 border border-l-0 border-slate-200 rounded-r-xl px-2 py-3 outline-none" value={areaUnit} onChange={(e) => setAreaUnit(e.target.value)}>
                           <option value="sqm">m²</option>
                           <option value="sqft">sq.ft</option>
@@ -75,12 +75,12 @@ export default function RainwaterHarvesting() {
                     </div>
                     
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm font-bold text-slate-700">Ann. Rainfall (mm)</label>
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
+                      <label className="text-base font-medium">Ann. Rainfall (mm)</label>
+                      <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
                     </div>
 
                     <div className="flex flex-col gap-2 col-span-2">
-                      <label className="text-sm font-bold text-slate-700">Runoff Coefficient</label>
+                      <label className="text-base font-medium">Runoff Coefficient</label>
                       <select className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50" value={coefficient} onChange={(e) => setCoefficient(e.target.value)}>
                         <option value="0.90">Metal / Corrugated Roof (0.90)</option>
                         <option value="0.85">Concrete / Tiles (0.85)</option>
@@ -96,17 +96,17 @@ export default function RainwaterHarvesting() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Financials</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm font-bold text-slate-700 flex items-center gap-1">Water Cost (/{`m³`})</label>
+                      <label className="text-base font-medium flex items-center gap-1">Water Cost (/{`m³`})</label>
                       <div className="relative">
                         <span className="absolute left-3 top-3.5 text-slate-400 text-sm font-medium">{settings.currency.substring(0,1)}</span>
-                        <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={muniWaterCost} onChange={(e) => setMuniWaterCost(e.target.value)} />
+                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={muniWaterCost} onChange={(e) => setMuniWaterCost(e.target.value)} />
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="text-sm font-bold text-slate-700">Est. Setup Cost</label>
+                      <label className="text-base font-medium">Est. Setup Cost</label>
                       <div className="relative">
                         <span className="absolute left-3 top-3.5 text-slate-400 text-sm font-medium">{settings.currency.substring(0,1)}</span>
-                        <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={setupCost} onChange={(e) => setSetupCost(e.target.value)} />
+                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={setupCost} onChange={(e) => setSetupCost(e.target.value)} />
                       </div>
                     </div>
                   </div>
@@ -162,49 +162,49 @@ export default function RainwaterHarvesting() {
                 <div className="bg-sky-50 border border-sky-100 rounded-[24px] p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Droplet className="w-5 h-5 text-sky-500" />
-                    <h3 className="text-sm font-bold text-sky-800 uppercase tracking-tight">Annual Yield</h3>
+                    <h3 className="text-base font-medium text-sky-800 uppercase tracking-tight">Annual Yield</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-bold tabular-nums tracking-tight text-sky-600">{annualVolLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                    <span className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-sky-600">{annualVolLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
                     <span className="text-sm text-sky-500 ml-1 font-semibold">Liters/yr</span>
                   </div>
-                  <div className="text-xs text-sky-600/70 font-medium mt-0.5">({annualVolM3.toFixed(1)} cubic meters)</div>
+                  <div className="text-sm text-sky-600/70 font-medium mt-0.5">({annualVolM3.toFixed(1)} cubic meters)</div>
                 </div>
 
                 <div className="bg-indigo-50 border border-indigo-100 rounded-[24px] p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Settings className="w-5 h-5 text-indigo-500" />
-                    <h3 className="text-sm font-bold text-indigo-800 uppercase tracking-tight">Rec. Tank</h3>
+                    <h3 className="text-base font-medium text-indigo-800 uppercase tracking-tight">Rec. Tank</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-bold tabular-nums tracking-tight text-indigo-600">{recommendedTankLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                    <span className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-indigo-600">{recommendedTankLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
                     <span className="text-sm text-indigo-500 ml-1 font-semibold">Liters</span>
                   </div>
-                  <div className="text-xs text-indigo-600/70 font-medium mt-0.5">({recommendedTankM3.toFixed(1)} cubic meters)</div>
+                  <div className="text-sm text-indigo-600/70 font-medium mt-0.5">({recommendedTankM3.toFixed(1)} cubic meters)</div>
                 </div>
 
                 <div className="bg-emerald-50 border border-emerald-100 rounded-[24px] p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Wallet className="w-5 h-5 text-emerald-500" />
-                    <h3 className="text-sm font-bold text-emerald-800 uppercase tracking-tight">Payback</h3>
+                    <h3 className="text-base font-medium text-emerald-800 uppercase tracking-tight">Payback</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-bold tabular-nums tracking-tight text-emerald-600">{paybackPeriod.toFixed(1)}</span>
+                    <span className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-emerald-600">{paybackPeriod.toFixed(1)}</span>
                     <span className="text-sm text-emerald-500 ml-1 font-semibold">Years</span>
                   </div>
-                  <div className="text-xs text-emerald-600/70 font-medium mt-0.5">Saves {formatCurrency(annualSavings)}/yr</div>
+                  <div className="text-sm text-emerald-600/70 font-medium mt-0.5">Saves {formatCurrency(annualSavings)}/yr</div>
                 </div>
 
                 <div className="bg-rose-50 border border-rose-100 rounded-[24px] p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Sprout className="w-5 h-5 text-rose-500" />
-                    <h3 className="text-sm font-bold text-rose-800 uppercase tracking-tight">CO2 Offset</h3>
+                    <h3 className="text-base font-medium text-rose-800 uppercase tracking-tight">CO2 Offset</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-bold tabular-nums tracking-tight text-rose-600">{co2Savings.toFixed(1)}</span>
+                    <span className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-rose-600">{co2Savings.toFixed(1)}</span>
                     <span className="text-sm text-rose-500 ml-1 font-semibold">kg CO₂e/yr</span>
                   </div>
-                  <div className="text-xs text-rose-600/70 font-medium mt-0.5">Vs. pumped water</div>
+                  <div className="text-sm text-rose-600/70 font-medium mt-0.5">Vs. pumped water</div>
                 </div>
               </div>
             </div>

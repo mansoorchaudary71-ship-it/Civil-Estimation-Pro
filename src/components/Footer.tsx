@@ -12,8 +12,13 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res = await fetch('/api/newsletter/count');
-        const data = await res.json();
+        const res = await fetch('/api/updates/count');
+        if (!res.ok) {
+          return;
+        }
+        const text = await res.text();
+        if (!text) return;
+        const data = JSON.parse(text);
         if (data.success && typeof data.count === 'number') {
           setSubscriberCount(data.count);
         }
@@ -25,22 +30,30 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
   }, []);
 
   const handleSubscribe = async () => {
-    if (!email || !/^\\S+@\\S+\\.\\S+$/.test(email)) {
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       toast.error('Please enter a valid email address');
       return;
     }
     
     setIsSubscribing(true);
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const response = await fetch('/api/updates/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
       
-      const data = await response.json();
+      const text = await response.text();
+      let data = {};
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch(e) {
+          console.error("Invalid JSON from newsletter subscribe", text);
+        }
+      }
       
-      if (response.ok && data.success) {
+      if (response.ok && (data as any).success) {
         toast.success(`Subscribed successfully with ${email}`, {
           style: {
             borderRadius: '12px',
@@ -57,7 +70,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
         setEmail("");
         setSubscriberCount(prev => (prev !== null ? prev + 1 : 1));
       } else {
-        throw new Error(data.error || 'Failed to subscribe');
+        throw new Error((data as any).error || 'Failed to subscribe');
       }
     } catch (error: any) {
       toast.error(error.message || 'An error occurred. Please try again.');

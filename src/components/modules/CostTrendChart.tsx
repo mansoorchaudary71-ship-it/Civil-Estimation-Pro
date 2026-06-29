@@ -289,8 +289,8 @@ export function CostTrendChart() {
     <div className="bg-slate-50  rounded-[24px] shadow-sm border border-slate-200  p-6 w-full relative">
       <div className="flex justify-between items-center mb-2">
         <div>
-          <h3 className=" text-lg font-medium text-gray-800 mb-4">Historical Cost Trend</h3>
-          <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Estimates trajectory over time based on project history</p>
+          <h3 className=" text-lg font-medium text-slate-800 mb-4">Historical Cost Trend</h3>
+          <p className="mt-1 text-base font-normal text-slate-600 leading-relaxed">Estimates trajectory over time based on project history</p>
         </div>
       </div>
       <div ref={containerRef} className="w-full relative h-[300px] mt-4">

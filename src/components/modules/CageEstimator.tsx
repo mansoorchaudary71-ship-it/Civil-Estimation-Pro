@@ -77,11 +77,11 @@ export default function CageEstimator() {
   return (
     <div className="animate-in fade-in duration-300">
       <div className="mb-8">
-        <h2 className="tabular-nums flex items-center gap-2 mb-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
+        <h2 className="tabular-nums flex items-center gap-2 mb-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
           <RotateCw className="w-6 h-6 text-emerald-500" />
           Cage / Spiral Estimator
         </h2>
-        <p className=" text-base font-normal text-gray-600 leading-relaxed">
+        <p className=" text-base font-normal text-slate-600 leading-relaxed">
           Calculate quantities for helical spirals or circular hoops used in piles and columns.
         </p>
       </div>
@@ -89,7 +89,7 @@ export default function CageEstimator() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Form */}
         <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
-          <h3 className="mb-6 flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
+          <h3 className="mb-6 flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
             <Calculator className="w-5 h-5 text-emerald-500" />
             Cage Parameters
           </h3>
@@ -98,20 +98,20 @@ export default function CageEstimator() {
              <div className="flex bg-slate-100 p-1 rounded-[24px] w-full">
               <button
                 onClick={() => setCageType("spiral")}
-                className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
+                className={`flex-1 py-3 rounded-[24px] text-base font-medium transition-all ${
                   cageType === "spiral"
                     ? "bg-white  text-emerald-600 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
+                    : "text-slate-500 hover:text-slate-700"
                 }`}
               >
                 Continuous Spiral
               </button>
               <button
                 onClick={() => setCageType("hoop")}
-                className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
+                className={`flex-1 py-3 rounded-[24px] text-base font-medium transition-all ${
                   cageType === "hoop"
                     ? "bg-white  text-emerald-600 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
+                    : "text-slate-500 hover:text-slate-700"
                 }`}
               >
                 Circular Hoops / Rings
@@ -120,7 +120,7 @@ export default function CageEstimator() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="uppercase tracking-widest text-sm font-medium text-gray-700 mb-1 block">Pile/Col Diameter (mm)</label>
+                <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Pile/Col Diameter (mm)</label>
                 <input
                   type="number" inputMode="decimal"
                   value={pileDiameter}
@@ -129,7 +129,7 @@ export default function CageEstimator() {
                 />
               </div>
               <div>
-                <label className="uppercase tracking-widest text-sm font-medium text-gray-700 mb-1 block">Length ({isMetric ? "m" : "ft"})</label>
+                <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Length ({isMetric ? "m" : "ft"})</label>
                 <input
                   type="number" inputMode="decimal"
                   value={pileLength}
@@ -141,7 +141,7 @@ export default function CageEstimator() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="uppercase tracking-widest text-sm font-medium text-gray-700 mb-1 block">Clear Cover (mm)</label>
+                <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Clear Cover (mm)</label>
                 <input
                   type="number" inputMode="decimal"
                   value={clearCover}
@@ -150,7 +150,7 @@ export default function CageEstimator() {
                 />
               </div>
               <div>
-                <label className="uppercase tracking-widest text-sm font-medium text-gray-700 mb-1 block">Bar Dia (mm)</label>
+                <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Bar Dia (mm)</label>
                 <input
                   type="number" inputMode="decimal"
                   value={barDiameter}
@@ -162,7 +162,7 @@ export default function CageEstimator() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="uppercase tracking-widest text-sm font-medium text-gray-700 mb-1 block">Pitch/Spacing (mm)</label>
+                <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Pitch/Spacing (mm)</label>
                 <input
                   type="number" inputMode="decimal"
                   value={pitch}
@@ -171,7 +171,7 @@ export default function CageEstimator() {
                 />
               </div>
               <div>
-                <label className="uppercase tracking-widest text-sm font-medium text-gray-700 mb-1 block">Lap Length (x Dia)</label>
+                <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Lap Length (x Dia)</label>
                 <input
                   type="number" inputMode="decimal"
                   value={lapLength}
@@ -186,9 +186,9 @@ export default function CageEstimator() {
 
         {/* Results */}
         <div className="bg-slate-50 space-y-6">
-           <div className="bg-emerald-600 rounded-[24px] p-6 text-gray-900 shadow-lg relative overflow-hidden">
+           <div className="bg-emerald-600 rounded-[24px] p-6 text-slate-900 shadow-lg relative overflow-hidden">
              <RefreshCw className="absolute -right-6 -bottom-6 w-32 h-32 text-emerald-500 opacity-20" />
-              <h3 className="text-emerald-100 uppercase st mb-1 relative z-10 text-lg font-medium text-gray-800 mb-4">Total Rebar Weight</h3>
+              <h3 className="text-emerald-100 uppercase st mb-1 relative z-10 text-lg font-medium text-slate-800 mb-4">Total Rebar Weight</h3>
               <div className="flex items-end gap-2 relative z-10">
                 <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tracking-tight">{results ? results.totalWeight : "0.00"}</span>
                 <span className="text-xl text-emerald-200 mb-1 font-bold">kg</span>
@@ -197,31 +197,31 @@ export default function CageEstimator() {
 
            {results && (
              <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
-                <h3 className="tabular-nums uppercase st mb-4 text-lg font-medium text-gray-800">Detailed Breakdown</h3>
+                <h3 className="tabular-nums uppercase st mb-4 text-lg font-medium text-slate-800">Detailed Breakdown</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <span className="text-gray-600 font-medium">Core/Mean Dia</span>
-                    <span className="font-bold text-gray-900">{results.coreDiameter} mm</span>
+                    <span className="text-slate-600 font-medium">Core/Mean Dia</span>
+                    <span className="font-bold text-slate-900">{results.coreDiameter} mm</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <span className="text-gray-600 font-medium">{cageType === "spiral" ? "Loop Length" : "Ring Length"}</span>
-                    <span className="font-bold text-gray-900">{results.loopLength} m</span>
+                    <span className="text-slate-600 font-medium">{cageType === "spiral" ? "Loop Length" : "Ring Length"}</span>
+                    <span className="font-bold text-slate-900">{results.loopLength} m</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <span className="text-gray-600 font-medium">No. of Loops/Rings</span>
-                    <span className="font-bold text-gray-900">{results.noOfPitch} nos</span>
+                    <span className="text-slate-600 font-medium">No. of Loops/Rings</span>
+                    <span className="font-bold text-slate-900">{results.noOfPitch} nos</span>
                   </div>
                    <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <span className="text-gray-600 font-medium">Lap Allowance</span>
-                    <span className="font-bold text-gray-900">{results.lapAdjustment} m (x{results.totalLaps})</span>
+                    <span className="text-slate-600 font-medium">Lap Allowance</span>
+                    <span className="font-bold text-slate-900">{results.lapAdjustment} m (x{results.totalLaps})</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <span className="text-gray-600 font-medium">Total Cut Length</span>
-                    <span className="font-bold text-gray-900">{results.totalLength} m</span>
+                    <span className="text-slate-600 font-medium">Total Cut Length</span>
+                    <span className="font-bold text-slate-900">{results.totalLength} m</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 font-medium">Unit Weight</span>
-                    <span className="font-bold text-gray-900">{results.unitWeight} kg/m</span>
+                    <span className="text-slate-600 font-medium">Unit Weight</span>
+                    <span className="font-bold text-slate-900">{results.unitWeight} kg/m</span>
                   </div>
                 </div>
              </div>

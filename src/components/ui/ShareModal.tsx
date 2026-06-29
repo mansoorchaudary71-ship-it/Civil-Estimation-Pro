@@ -99,7 +99,7 @@ export function ShareModal({
                       type="text"
                       readOnly
                       value={url}
-                      className="w-full pl-4 pr-12 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-white dark:text-slate-300 outline-none truncate"
+                      className="w-full pl-4 pr-12 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium  text-slate-900 dark:text-white  dark:text-slate-300 outline-none truncate"
                     />
                     <button
                       onClick={handleCopy}

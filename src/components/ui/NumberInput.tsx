@@ -170,7 +170,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
            </div>
         )}
         {displayLabel && (
-          <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center gap-1.5 cursor-help">
+          <label htmlFor={inputId} className="block text-base font-medium dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center gap-1.5 cursor-help">
             {displayLabel}
           </label>
         )}
@@ -192,7 +192,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             className={`w-full bg-slate-50/80 dark:bg-slate-800/80 border ${
               displayError 
                 ? 'border-red-400 dark:border-red-500/50 focus:ring-red-500/50 focus:border-red-500' 
-                : 'border-border-color/80 focus:ring-indigo-500/50 focus:border-indigo-500'
+                : 'border-slate-200 dark:border-slate-700/80 focus:ring-indigo-500/50 focus:border-indigo-500'
             } text-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 min-h-[44px] ${
               displayUnit ? 'pr-20' : 'pr-8'
             } focus:outline-none focus:ring-2 transition-all placeholder:text-slate-700 dark:placeholder:text-slate-400 font-semibold text-sm ${className || ''}`}
@@ -220,12 +220,12 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           </div>
           {displayUnit && (
             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-              <span className="text-slate-500 dark:text-slate-400 text-sm font-bold select-none">{displayUnit}</span>
+              <span className="text-slate-500 dark:text-slate-400 text-base font-medium select-none">{displayUnit}</span>
             </div>
           )}
         </div>
         {displayError && (
-          <span id={`${inputId}-error`} className="text-xs font-bold text-red-500 mt-1.5 ml-1 block animate-in fade-in slide-in-from-top-1">
+          <span id={`${inputId}-error`} className="text-base font-medium text-red-500 mt-1.5 ml-1 block animate-in fade-in slide-in-from-top-1">
             {displayError}
           </span>
         )}

@@ -29,7 +29,7 @@ const mixRatios: Record<string, { c: number; s: number; a: number }> = {
 function InputGroup({ label, children, colSpan = 1 }: { label: React.ReactNode; children: React.ReactNode, colSpan?: number }) {
   return (
     <div className={`flex flex-col gap-2 ${colSpan > 1 ? `md:col-span-${colSpan}` : ''}`}>
-      <label className="text-sm font-bold text-slate-700">{label}</label>
+      <label className="text-base font-medium">{label}</label>
       {children}
     </div>
   );
@@ -245,7 +245,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   };
 
   return (
-    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full bg-transparent text-text-primary p-6 md:p-8"}>
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full bg-transparent text-slate-900 dark:text-white p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -253,13 +253,13 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
             <div className="flex flex-col items-end gap-2">
               <GlobalSettingsToggle align="left" showCurrency={false} />
               <div className="flex gap-2">
-                <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
+                <button onClick={sendToBOQ} className="text-base font-medium px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
                   Send to BOQ
                 </button>
-                <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-[#E55A2B]/10 text-[#E55A2B] rounded-[16px] hover:bg-[#E55A2B]/20 transition-colors">
+                <button onClick={loadExample} className="text-base font-medium px-3 py-2 bg-[#E55A2B]/10 text-[#E55A2B] rounded-[16px] hover:bg-[#E55A2B]/20 transition-colors">
                   Load Example
                 </button>
-                <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
+                <button onClick={resetDefault} className="text-base font-medium px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
                   Reset
                 </button>
               </div>
@@ -267,7 +267,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
           </div>
         )}
         
-        <div className="bg-bg-card rounded-[24px] shadow-md border border-border-color overflow-hidden">
+        <div className="bg-bg-card rounded-[24px] shadow-md border border-slate-200 dark:border-slate-700 overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Inputs */}
@@ -279,7 +279,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                       <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingLoad} onChange={(val) => setWorkingLoad(val.toString())} />
                     </InputGroup>
                     <div className="flex flex-col">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2 px-1">Safety Factor (γf)</label>
+                        <label className="text-base font-medium uppercase tracking-wider mb-2 px-1">Safety Factor (γf)</label>
                         <div className="flex items-center gap-2 h-full">
                             <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={safetyFactor} onChange={(val) => setSafetyFactor(val.toString())} />
                             <button 
@@ -305,9 +305,9 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Footing Details</h3>
                   <InputGroup label="Footing Type" colSpan={3}>
                     <div className="flex bg-slate-100 p-1 rounded-[24px] mb-4">
-                      <button onClick={() => setFootingType("rectangular")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "rectangular" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Rectangular</button>
-                      <button onClick={() => setFootingType("sloped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "sloped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Sloped/Trapezoidal</button>
-                      <button onClick={() => setFootingType("stepped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "stepped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Stepped</button>
+                      <button onClick={() => setFootingType("rectangular")} className={`flex-1 py-2 text-base font-medium rounded-[20px] transition-all ${footingType === "rectangular" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Rectangular</button>
+                      <button onClick={() => setFootingType("sloped")} className={`flex-1 py-2 text-base font-medium rounded-[20px] transition-all ${footingType === "sloped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Sloped/Trapezoidal</button>
+                      <button onClick={() => setFootingType("stepped")} className={`flex-1 py-2 text-base font-medium rounded-[20px] transition-all ${footingType === "stepped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Stepped</button>
                     </div>
                   </InputGroup>
                   <div className="grid grid-cols-2 gap-4 mt-4">
@@ -389,7 +389,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                      <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
+                      <p className="text-base font-medium uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
                            <select className="w-full calc-input px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaX} onChange={e => setDiaX(e.target.value)}>
@@ -402,7 +402,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                       </div>
                     </div>
                     <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                      <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
+                      <p className="text-base font-medium uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
                            <select className="w-full calc-input px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaY} onChange={e => setDiaY(e.target.value)}>
@@ -426,7 +426,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   {hasTopMesh && (
                     <div className="grid grid-cols-2 gap-4 mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
                       <div className="p-4 bg-indigo-50/50 rounded-[24px] border border-indigo-100">
-                        <p className="text-xs font-bold uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
+                        <p className="text-base font-medium uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
                              <select className="w-full calc-input px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
@@ -439,7 +439,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         </div>
                       </div>
                       <div className="p-4 bg-indigo-50/50 rounded-[24px] border border-indigo-100">
-                        <p className="text-xs font-bold uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
+                        <p className="text-base font-medium uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
                              <select className="w-full calc-input px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
@@ -467,7 +467,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                     <p className={`text-sm mt-1 font-medium ${isSafe ? 'text-emerald-700' : 'text-rose-700'}`}>
                       Required Area: {reqArea.toFixed(2)} m² | Provided Area: {actualArea.toFixed(2)} m²
                     </p>
-                    {!isSafe && <p className="text-xs font-bold text-rose-600 mt-2">Increase footing dimensions to prevent settlement failures.</p>}
+                    {!isSafe && <p className="text-base font-medium text-rose-600 mt-2">Increase footing dimensions to prevent settlement failures.</p>}
                   </div>
                 </div>
 
@@ -554,7 +554,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
             </div>
 
             {/* Results */}
-            <div className="pt-8 border-t border-border-color mt-6">
+            <div className="pt-8 border-t border-slate-200 dark:border-slate-700 mt-6">
               <MaterialSummary
                 title="Output Quantities"
                 totalLabel="Total Concrete Vol"
@@ -599,36 +599,36 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <span className="text-xl font-semibold tabular-nums tracking-tight text-rose-600">{totalSteel.toFixed(2)} kg</span>
                       </div>
                       <div className="p-4 space-y-4">
-                        <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Bottom Mesh</div>
+                        <div className="text-base font-medium uppercase tracking-wider mb-2">Bottom Mesh</div>
                         <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                           <div>
                             <p className="font-semibold text-sm text-slate-800">X-Axis Bars</p>
-                            <p className="text-xs text-slate-500 mt-0.5">{barsX} bars • Cut Length: {(cutLengthX/1000).toFixed(2)}m</p>
+                            <p className="text-sm text-slate-500 mt-0.5">{barsX} bars • Cut Length: {(cutLengthX/1000).toFixed(2)}m</p>
                           </div>
                           <p className="font-bold text-slate-700">{wtX.toFixed(2)} kg</p>
                         </div>
                         <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                           <div>
                             <p className="font-semibold text-sm text-slate-800">Y-Axis Bars</p>
-                            <p className="text-xs text-slate-500 mt-0.5">{barsY} bars • Cut Length: {(cutLengthY/1000).toFixed(2)}m</p>
+                            <p className="text-sm text-slate-500 mt-0.5">{barsY} bars • Cut Length: {(cutLengthY/1000).toFixed(2)}m</p>
                           </div>
                           <p className="font-bold text-slate-700">{wtY.toFixed(2)} kg</p>
                         </div>
                         
                         {hasTopMesh && (
                           <>
-                            <div className="text-xs font-bold text-indigo-500 uppercase tracking-wider mt-4 mb-2">Top Mesh</div>
+                            <div className="text-base font-medium text-indigo-500 uppercase tracking-wider mt-4 mb-2">Top Mesh</div>
                             <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                               <div>
                                 <p className="font-semibold text-sm text-slate-800">X-Axis Bars</p>
-                                <p className="text-xs text-slate-500 mt-0.5">{barsXTop} bars • Cut Length: {(cutLengthXTop/1000).toFixed(2)}m</p>
+                                <p className="text-sm text-slate-500 mt-0.5">{barsXTop} bars • Cut Length: {(cutLengthXTop/1000).toFixed(2)}m</p>
                               </div>
                               <p className="font-bold text-slate-700">{wtXTop.toFixed(2)} kg</p>
                             </div>
                             <div className="flex justify-between items-center pb-1">
                               <div>
                                 <p className="font-semibold text-sm text-slate-800">Y-Axis Bars</p>
-                                <p className="text-xs text-slate-500 mt-0.5">{barsYTop} bars • Cut Length: {(cutLengthYTop/1000).toFixed(2)}m</p>
+                                <p className="text-sm text-slate-500 mt-0.5">{barsYTop} bars • Cut Length: {(cutLengthYTop/1000).toFixed(2)}m</p>
                               </div>
                               <p className="font-bold text-slate-700">{wtYTop.toFixed(2)} kg</p>
                             </div>

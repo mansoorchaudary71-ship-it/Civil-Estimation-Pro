@@ -110,8 +110,8 @@ function MTOItem({ icon, name, quantity, unit, bgColor, borderColor }: any) {
       <div>
         <div className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-0.5">{name}</div>
         <div className="flex items-baseline gap-1.5">
-          <span className="text-2xl font-bold tabular-nums text-slate-800 dark:text-white leading-none">{quantity}</span>
-          <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">{unit}</span>
+          <span className="text-xl font-semibold text-slate-800 tabular-nums text-slate-800 dark:text-white leading-none">{quantity}</span>
+          <span className="text-base font-medium dark:text-slate-300">{unit}</span>
         </div>
       </div>
     </div>

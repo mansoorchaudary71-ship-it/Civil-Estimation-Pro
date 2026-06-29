@@ -84,7 +84,7 @@ export default function MintroHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]"
+            className="text-2xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]"
             style={{ fontFamily: themeConfig.typography.headline }}
           >
             Build Smarter.<br/>
@@ -179,7 +179,7 @@ export default function MintroHero() {
                   <div className="space-y-4">
                     <div className="h-24 rounded-2xl bg-white/5 border border-white/5 p-4 flex flex-col justify-between">
                        <div className="flex items-center gap-2 text-white/60 text-xs font-medium"><Calculator className="w-4 h-4"/> Concrete Volume</div>
-                       <div className="text-2xl font-bold text-white">450 <span className="text-sm font-normal text-white/40">cu.m</span></div>
+                       <div className="text-xl font-semibold text-slate-800 text-white">450 <span className="text-sm font-normal text-white/40">cu.m</span></div>
                     </div>
                     <div className="h-32 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 p-4 relative overflow-hidden">
                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-purple-500"></div>
@@ -206,7 +206,7 @@ export default function MintroHero() {
                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent"></div>
                        <div>
                          <div className="text-white/60 text-xs font-medium">Status</div>
-                         <div className="text-emerald-400 text-sm font-bold flex items-center gap-1 mt-1"><CheckCircle className="w-3 h-3"/> Approved</div>
+                         <div className="text-emerald-400 text-base font-medium flex items-center gap-1 mt-1"><CheckCircle className="w-3 h-3"/> Approved</div>
                        </div>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ export default function MintroHero() {
                </div>
                <div>
                  <div className="text-xs text-white/50">Accuracy</div>
-                 <div className="text-sm font-bold text-white">99.8%</div>
+                 <div className="text-base font-medium">99.8%</div>
                </div>
             </motion.div>
             

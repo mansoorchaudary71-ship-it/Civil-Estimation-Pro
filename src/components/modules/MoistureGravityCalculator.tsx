@@ -92,7 +92,7 @@ export default function MoistureGravityCalculator() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div className="lg:col-span-5 space-y-8">
                     <div>
-                        <h3 className="text-sm font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <h3 className="text-base font-medium mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
                            <Droplet className="w-4 h-4 text-blue-500" /> Oven-Dry Weights (Moisture)
                         </h3>
                         <div className="space-y-4">
@@ -103,7 +103,7 @@ export default function MoistureGravityCalculator() {
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <h3 className="text-base font-medium mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
                             <Activity className="w-4 h-4 text-amber-500" /> Pycnometer Weights (Gravity)
                         </h3>
                         <div className="space-y-4">
@@ -115,7 +115,7 @@ export default function MoistureGravityCalculator() {
                     </div>
 
                     <div>
-                         <h3 className="text-sm font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+                         <h3 className="text-base font-medium mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
                             <Hash className="w-4 h-4 text-emerald-500" /> Field Density
                         </h3>
                         <NumberInput label="Bulk Density (\u03b3_bulk)" unit="g/cm³" value={bulkDensity} onChange={setBulkDensity} />
@@ -158,14 +158,14 @@ export default function MoistureGravityCalculator() {
                              </div>
 
                              {results.Gs > 0 && (results.Gs < 2.5 || results.Gs > 2.9) && (
-                                <div className="bg-rose-50 border border-rose-100 p-3 rounded-xl mt-2 text-rose-700 text-xs font-bold flex items-center justify-center">
+                                <div className="bg-rose-50 border border-rose-100 p-3 rounded-xl mt-2 text-rose-700 text-base font-medium flex items-center justify-center">
                                     Note: Specific Gravity is outside the typical range of 2.5 - 2.9.
                                 </div>
                              )}
                         </div>
 
                         <div className="mt-8 border-t border-slate-100 pt-6">
-                             <h4 className="text-sm font-bold text-slate-800 flex items-center gap-2 mb-4">
+                             <h4 className="text-base font-medium flex items-center gap-2 mb-4">
                                  <Calculator className="w-4 h-4" /> Math Logic & Linkages
                              </h4>
                              <div className="text-[11px] font-medium text-slate-600 space-y-3">

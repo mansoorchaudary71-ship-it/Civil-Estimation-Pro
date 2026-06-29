@@ -135,7 +135,7 @@ const MaterialTakeoffSheet: React.FC = () => {
     <div className="tool-card p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
+          <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-2">
             <Building className="w-6 h-6 text-orange-500" />
             Material Takeoff Sheet
           </h2>

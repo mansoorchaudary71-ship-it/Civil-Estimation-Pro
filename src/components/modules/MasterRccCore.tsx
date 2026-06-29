@@ -179,10 +179,10 @@ export default function MasterRccCore() {
   return (
     <div className="space-y-6 animate-in fade-in">
       <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-        <button onClick={() => addElement("slab")} className="text-xs font-bold px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Slab</button>
-        <button onClick={() => addElement("column")} className="text-xs font-bold px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Column</button>
-        <button onClick={() => addElement("beam")} className="text-xs font-bold px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Beam</button>
-        <button onClick={() => addElement("staircase")} className="text-xs font-bold px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Staircase</button>
+        <button onClick={() => addElement("slab")} className="text-base font-medium px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Slab</button>
+        <button onClick={() => addElement("column")} className="text-base font-medium px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Column</button>
+        <button onClick={() => addElement("beam")} className="text-base font-medium px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Beam</button>
+        <button onClick={() => addElement("staircase")} className="text-base font-medium px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 flex items-center gap-1 border border-indigo-100"><Plus className="w-4 h-4"/> Add Staircase</button>
       </div>
 
       <div className="space-y-4">
@@ -196,7 +196,7 @@ export default function MasterRccCore() {
           <div key={el.id} className="p-4 tool-card">
             <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
               <h3 className="font-bold text-slate-800 capitalize flex items-center gap-2">
-                <span className="bg-slate-100 text-slate-500 w-6 h-6 rounded-full flex items-center justify-center text-xs">{i + 1}</span>
+                <span className="bg-slate-100 text-slate-500 w-6 h-6 rounded-full flex items-center justify-center text-sm">{i + 1}</span>
                 {el.type}
               </h3>
               <button onClick={() => removeElement(el.id)} className="text-rose-500 hover:text-rose-600 p-1 bg-rose-50 rounded-full">
@@ -206,26 +206,26 @@ export default function MasterRccCore() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div className="col-span-2">
-                <label className="text-xs font-bold text-slate-500 mb-1 block">Description</label>
+                <label className="text-base font-medium mb-1 block">Description</label>
                 <input value={el.name} onChange={(e) => updateElement(el.id, 'name', e.target.value)} className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
               </div>
               <div className="col-span-2 md:col-span-2">
-                <label className="text-xs font-bold text-slate-500 mb-1 block">Multiplier (Count)</label>
+                <label className="text-base font-medium mb-1 block">Multiplier (Count)</label>
                 <NumberInput value={el.count.toString()} onChange={(v) => updateElement(el.id, 'count', v)} className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
               </div>
 
               {el.type === 'slab' && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Length (m)</label>
+                    <label className="text-base font-medium mb-1 block">Length (m)</label>
                     <NumberInput value={el.l} onChange={(v) => updateElement(el.id, 'l', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Width (m)</label>
+                    <label className="text-base font-medium mb-1 block">Width (m)</label>
                     <NumberInput value={el.w} onChange={(v) => updateElement(el.id, 'w', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Thickness (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Thickness (mm)</label>
                     <NumberInput value={el.h} onChange={(v) => updateElement(el.id, 'h', v)} className="w-full" />
                   </div>
                 </>
@@ -234,15 +234,15 @@ export default function MasterRccCore() {
               {el.type === 'column' && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Height (m)</label>
+                    <label className="text-base font-medium mb-1 block">Height (m)</label>
                     <NumberInput value={el.h} onChange={(v) => updateElement(el.id, 'h', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Length (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Length (mm)</label>
                     <NumberInput value={el.l} onChange={(v) => updateElement(el.id, 'l', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Width (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Width (mm)</label>
                     <NumberInput value={el.w} onChange={(v) => updateElement(el.id, 'w', v)} className="w-full" />
                   </div>
                 </>
@@ -251,15 +251,15 @@ export default function MasterRccCore() {
               {el.type === 'beam' && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Clear Span (m)</label>
+                    <label className="text-base font-medium mb-1 block">Clear Span (m)</label>
                     <NumberInput value={el.l} onChange={(v) => updateElement(el.id, 'l', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Width (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Width (mm)</label>
                     <NumberInput value={el.w} onChange={(v) => updateElement(el.id, 'w', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Depth (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Depth (mm)</label>
                     <NumberInput value={el.h} onChange={(v) => updateElement(el.id, 'h', v)} className="w-full" />
                   </div>
                 </>
@@ -268,23 +268,23 @@ export default function MasterRccCore() {
               {el.type === 'staircase' && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Flight Width (m)</label>
+                    <label className="text-base font-medium mb-1 block">Flight Width (m)</label>
                     <NumberInput value={el.w} onChange={(v) => updateElement(el.id, 'w', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Number of Steps</label>
+                    <label className="text-base font-medium mb-1 block">Number of Steps</label>
                     <NumberInput value={el.steps} onChange={(v) => updateElement(el.id, 'steps', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Tread (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Tread (mm)</label>
                     <NumberInput value={el.tread} onChange={(v) => updateElement(el.id, 'tread', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Riser (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Riser (mm)</label>
                     <NumberInput value={el.riser} onChange={(v) => updateElement(el.id, 'riser', v)} className="w-full" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Waist Thick (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Waist Thick (mm)</label>
                     <NumberInput value={el.waistThickness} onChange={(v) => updateElement(el.id, 'waistThickness', v)} className="w-full" />
                   </div>
                 </>
@@ -293,11 +293,11 @@ export default function MasterRccCore() {
 
             <div className="bg-slate-50 p-3 rounded-[16px] border border-slate-100">
               <div className="flex gap-4 mb-3">
-                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
                   <input type="radio" checked={el.steelMode === "thumb"} onChange={() => updateElement(el.id, 'steelMode', 'thumb')} className="w-4 h-4 text-indigo-600" />
                   Thumb Rule (Vol %)
                 </label>
-                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
                   <input type="radio" checked={el.steelMode === "exact"} onChange={() => updateElement(el.id, 'steelMode', 'exact')} className="w-4 h-4 text-indigo-600" />
                   Exact Basic BBS
                 </label>
@@ -305,22 +305,22 @@ export default function MasterRccCore() {
 
               {el.steelMode === "thumb" ? (
                 <div>
-                  <label className="text-xs font-bold text-slate-500 mb-1 block">Steel % of Concrete Volume</label>
+                  <label className="text-base font-medium mb-1 block">Steel % of Concrete Volume</label>
                   <p className="text-[10px] text-slate-400 mb-2">Typically slabs 1%, columns 2-2.5%, beams 1-2%, stairs 1%</p>
                   <input value={el.thumbPercentage} onChange={(e) => updateElement(el.id, 'thumbPercentage', e.target.value)} type="number" inputMode="decimal" step="0.1" className="w-32 h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Bar Dia (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Bar Dia (mm)</label>
                     <input value={el.mainDia} onChange={(e) => updateElement(el.id, 'mainDia', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Spacing / c/c (mm)</label>
+                    <label className="text-base font-medium mb-1 block">Spacing / c/c (mm)</label>
                     <input value={el.mainSpacing} onChange={(e) => updateElement(el.id, 'mainSpacing', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 mb-1 block">Bar Length (m)</label>
+                    <label className="text-base font-medium mb-1 block">Bar Length (m)</label>
                     <input value={el.longLength} onChange={(e) => updateElement(el.id, 'longLength', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                   </div>
                 </div>
@@ -344,7 +344,7 @@ export default function MasterRccCore() {
                  <ResultCard title="Total Shuttering Area" value={results.shutteringArea.toFixed(2)} unit="m²" variant="neutral" />
               </div>
               <div className="mt-6 pt-4 border-t border-slate-100">
-                <h4 className="text-sm font-bold text-slate-800 mb-4">Element Breakdown</h4>
+                <h4 className="text-base font-medium mb-4">Element Breakdown</h4>
                 <div className="space-y-2">
                   {results.elementsOutputs.map((out, idx) => (
                     <div key={idx} className="flex justify-between items-center text-sm p-3 bg-slate-50 border border-slate-100 rounded-[16px]">

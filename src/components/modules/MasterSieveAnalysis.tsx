@@ -176,9 +176,9 @@ export default function MasterSieveAnalysis() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[16px] bg-[#F26B1D]/10 border border-[#F26B1D]/20 mb-3">
              <FileSpreadsheet className="w-4 h-4 text-[#F26B1D]" />
-             <span className="text-xs font-bold text-[#F26B1D] uppercase tracking-wider">Geotechnical Lab</span>
+             <span className="text-base font-medium text-[#F26B1D] uppercase tracking-wider">Geotechnical Lab</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-heading font-semibold tabular-nums tracking-tight text-text-primary mb-2">Master Sieve Analysis</h2>
+          <h2 className="text-2xl md:text-xl font-heading font-semibold tabular-nums tracking-tight text-slate-900 dark:text-white mb-2">Master Sieve Analysis</h2>
           <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
             Dynamic gradation validator driven by specification databases. Select category, grading, and enter retained weights to validate against limits and generate custom gradation curves.
           </p>
@@ -196,15 +196,15 @@ export default function MasterSieveAnalysis() {
         {/* Left Column: Inputs & Data entry */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white [#151821] rounded-[24px] p-6 shadow-sm border border-slate-200">
-            <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
               <Calculator className="w-5 h-5 text-[#F26B1D]" /> Spec Selection & Input
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Category</label>
+                <label className="block text-base font-medium mb-2">Category</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -213,9 +213,9 @@ export default function MasterSieveAnalysis() {
               </div>
               
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Grading Spec</label>
+                <label className="block text-base font-medium mb-2">Grading Spec</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
                   value={selectedGrading}
                   onChange={(e) => setSelectedGrading(e.target.value)}
                 >
@@ -226,12 +226,12 @@ export default function MasterSieveAnalysis() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Total Sample Wt. (gm)</label>
+                <label className="block text-base font-medium mb-2">Total Sample Wt. (gm)</label>
                 <input 
                   type="number" inputMode="decimal"
                   min="0"
                   placeholder="e.g. 5000"
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all min-h-[44px]"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all min-h-[44px]"
                   value={totalWeight}
                   onChange={(e) => handleTotalWeightChange(e.target.value)}
                 />
@@ -241,12 +241,12 @@ export default function MasterSieveAnalysis() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-border-color">
-                    <th className="py-3 px-4 text-xs font-bold text-slate-500 uppercase tracking-wider">IS Sieve (mm)</th>
-                    <th className="py-3 px-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Wt. Retained (gm)</th>
-                    <th className="py-3 px-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Cum. Wt. (gm)</th>
-                    <th className="py-3 px-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Limits (%)</th>
-                    <th className="py-3 px-4 text-xs font-bold text-slate-500 uppercase tracking-wider">% Passing</th>
+                  <tr className="border-b border-slate-200 dark:border-slate-700">
+                    <th className="py-3 px-4 text-base font-medium uppercase tracking-wider">IS Sieve (mm)</th>
+                    <th className="py-3 px-4 text-base font-medium uppercase tracking-wider">Wt. Retained (gm)</th>
+                    <th className="py-3 px-4 text-base font-medium uppercase tracking-wider">Cum. Wt. (gm)</th>
+                    <th className="py-3 px-4 text-base font-medium uppercase tracking-wider">Limits (%)</th>
+                    <th className="py-3 px-4 text-base font-medium uppercase tracking-wider">% Passing</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -255,7 +255,7 @@ export default function MasterSieveAnalysis() {
                     const hasInput = row.weightRetained !== "" || totalWeight !== "";
                     
                     return (
-                      <tr key={row.size} className="border-b border-border-color/50 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors">
+                      <tr key={row.size} className="border-b border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors">
                         <td className="py-3 px-4 font-mono text-sm text-slate-800 font-medium">{row.size}</td>
                         <td className="py-2 px-4">
                           <input 
@@ -272,7 +272,7 @@ export default function MasterSieveAnalysis() {
                         <td className="py-3 px-4 text-sm font-medium text-slate-500">
                           {row.minPassing} - {row.maxPassing}
                         </td>
-                        <td className={`py-3 px-4 text-sm font-bold ${hasInput ? (isPassing ? 'text-emerald-600 ' : 'text-red-500 ') : 'text-slate-600 '}`}>
+                        <td className={`py-3 px-4 text-base font-medium ${hasInput ? (isPassing ? 'text-emerald-600 ' : 'text-red-500 ') : 'text-slate-600 '}`}>
                           {hasInput ? (
                             <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md ${isPassing ? 'bg-emerald-50 ' : 'bg-red-50 '}`}>
                               {row.percentPassing.toFixed(1)}%
@@ -293,7 +293,7 @@ export default function MasterSieveAnalysis() {
         {/* Right Column: Chart */}
         <div className="space-y-6">
           <div className="bg-white [#151821] rounded-[24px] p-6 shadow-sm border border-slate-200 h-[500px] flex flex-col">
-            <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
               <LineChart className="w-5 h-5 text-[#F26B1D]" /> Gradation Curve
             </h3>
             
@@ -342,13 +342,13 @@ export default function MasterSieveAnalysis() {
             </div>
             {totalWeight !== "" && (
               <div className="mt-4 pt-4 border-t border-slate-200 flex flex-wrap gap-4 justify-between items-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-3 rounded-[24px]">
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">D10</span><strong className="text-sm">{d10 ? `${d10.toFixed(3)}mm` : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">D30</span><strong className="text-sm">{d30 ? `${d30.toFixed(3)}mm` : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">D60</span><strong className="text-sm">{d60 ? `${d60.toFixed(3)}mm` : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cu</span><strong className="text-sm">{cu ? cu.toFixed(2) : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cc</span><strong className="text-sm">{cc ? cc.toFixed(2) : 'N/A'}</strong></div>
+                <div><span className="text-sm text-slate-500 block uppercase font-bold">D10</span><strong className="text-sm">{d10 ? `${d10.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-sm text-slate-500 block uppercase font-bold">D30</span><strong className="text-sm">{d30 ? `${d30.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-sm text-slate-500 block uppercase font-bold">D60</span><strong className="text-sm">{d60 ? `${d60.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-sm text-slate-500 block uppercase font-bold">Cu</span><strong className="text-sm">{cu ? cu.toFixed(2) : 'N/A'}</strong></div>
+                <div><span className="text-sm text-slate-500 block uppercase font-bold">Cc</span><strong className="text-sm">{cc ? cc.toFixed(2) : 'N/A'}</strong></div>
                 <div className="shrink-0 max-w-[200px] text-right">
-                  <span className="text-xs text-slate-500 block uppercase font-bold">USCS Class</span>
+                  <span className="text-sm text-slate-500 block uppercase font-bold">USCS Class</span>
                   <strong className="text-sm text-[#F26B1D] truncate block" title={uscs}>{uscs}</strong>
                 </div>
               </div>

@@ -89,13 +89,13 @@ export default function Blog() {
         
         <button 
           onClick={() => window.location.hash = '#/blog'}
-          className="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors"
+          className="flex items-center gap-2 text-base font-medium hover:text-indigo-600 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to all posts
         </button>
 
-        <article className="bg-bg-card rounded-[2rem] border border-border-color shadow-sm overflow-hidden">
+        <article className="bg-bg-card rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
           <div className="w-full h-64 md:h-96 overflow-hidden">
             <img 
               src={selectedPost.image} 
@@ -108,7 +108,7 @@ export default function Blog() {
           
           <div className="p-8 md:p-12">
             <div className="flex items-center gap-4 mb-6">
-              <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
+              <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1 rounded-full text-base font-medium tracking-wide uppercase">
                 {selectedPost.category}
               </span>
               <div className="flex items-center gap-2 text-sm text-slate-500 font-medium">
@@ -117,11 +117,11 @@ export default function Blog() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-text-primary mb-6 leading-tight">
+            <h1 className="text-xl md:text-xl font-semibold text-slate-900 dark:text-white mb-6 leading-tight">
               {selectedPost.title}
             </h1>
 
-            <div className="flex items-center gap-3 mb-10 pb-10 border-b border-border-color">
+            <div className="flex items-center gap-3 mb-10 pb-10 border-b border-slate-200 dark:border-slate-700">
               <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
                 <User className="w-5 h-5 text-slate-500" />
               </div>
@@ -148,7 +148,7 @@ export default function Blog() {
         description="Insights, updates, and engineering tutorials from our experts." 
       />
       <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary tracking-tight">
+        <h1 className="text-2xl md:text-xl font-semibold text-slate-900 dark:text-white tracking-tight">
           Civil Estimation Pro Blog
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
@@ -166,32 +166,32 @@ export default function Blog() {
             <article 
               key={post.slug} 
               onClick={() => window.location.hash = `#/blog/${post.slug}`}
-              className="bg-bg-card rounded-[2rem] border border-border-color shadow-sm overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="bg-bg-card rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <div className="h-48 overflow-hidden relative">
                  <img src={post.image} alt={post.title} title={post.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                  <div className="absolute top-4 left-4">
-                   <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1.5 rounded-xl text-xs font-bold text-text-primary shadow-sm">
+                   <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1.5 rounded-xl text-base font-medium text-slate-900 dark:text-white shadow-sm">
                      {post.category}
                    </span>
                  </div>
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-bold text-text-primary mb-3 leading-tight group-hover:text-indigo-600 dark:group-hover:text-blue-400 transition-colors">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 leading-tight group-hover:text-indigo-600 dark:group-hover:text-blue-400 transition-colors">
                   {post.title}
                 </h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
                   {post.excerpt}
                 </p>
                 
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-color/50">
-                  <div className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300">
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-200 dark:border-slate-700/50">
+                  <div className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
                     <div className="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
                       <User className="w-3 h-3" />
                     </div>
                     {post.author}
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
+                  <div className="flex items-center gap-1 text-sm text-slate-500 font-medium">
                     <Clock className="w-3.5 h-3.5" />
                     {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </div>

@@ -20,7 +20,7 @@ export function CalculationExplanation({
 
   return (
     <div className="w-full max-w-3xl mx-auto mt-2 mb-8 font-sans">
-      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-border-color shadow-sm rounded-2xl p-5 overflow-hidden relative">
+      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl p-5 overflow-hidden relative">
         <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-rose-500 to-amber-500 rounded-l-2xl" />
         
         <div className="flex items-center gap-2 mb-4">
@@ -39,8 +39,8 @@ export function CalculationExplanation({
                 Enter your dimensions to see the step-by-step calculation. Here are the formulas we use:
               </p>
               {genericFormula.map((item, idx) => (
-                <div key={idx} className="bg-bg-primary/50 rounded-xl p-3 border border-border-color/50">
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400 block mb-1">
+                <div key={idx} className="bg-white dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700/50">
+                  <span className="text-[13px] sm:text-base font-medium dark:text-slate-500 dark:text-slate-400 block mb-1">
                     {item.label}
                   </span>
                   <div className="font-mono text-sm text-indigo-600 dark:text-indigo-400 overflow-x-auto pb-1">
@@ -69,14 +69,14 @@ export function CalculationExplanation({
                   {idx !== activeBreakdown.length - 1 && (
                     <div className="absolute left-[0.3125rem] top-4 w-[2px] h-full bg-slate-200 dark:bg-slate-700 -z-0" />
                   )}
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                  <span className="text-base font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
                     {step.label}
                   </span>
-                  <div className="bg-bg-primary/50 rounded-xl p-3 border border-border-color/50">
+                  <div className="bg-white dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700/50">
                     <div className="font-mono text-sm text-slate-600 dark:text-slate-300 mb-1 overflow-x-auto">
                       {step.formula}
                     </div>
-                    <div className={`font-mono text-sm font-bold flex items-center gap-2 ${colors[idx % colors.length]}`}>
+                    <div className={`font-mono text-base font-medium flex items-center gap-2 ${colors[idx % colors.length]}`}>
                       <span className="text-slate-400 dark:text-slate-500">=</span> {step.result}
                     </div>
                   </div>
@@ -90,7 +90,7 @@ export function CalculationExplanation({
             <div className="mt-5 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl p-4 flex gap-3">
               <Lightbulb className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <div className="space-y-2">
-                <span className="text-sm font-bold text-emerald-800 dark:text-emerald-300 block">
+                <span className="text-base font-medium text-emerald-800 dark:text-emerald-300 block">
                   Rule of Thumb / Notes
                 </span>
                 <ul className="space-y-1.5">

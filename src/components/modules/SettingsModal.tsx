@@ -369,7 +369,7 @@ export default function SettingsModal({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50/50 backdrop-blur-sm p-4">
       <div
-        className="bg-bg-card/90 text-text-primary backdrop-blur-2xl border border-border-color rounded-[2.5rem] w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:h-[650px] relative"
+        className="bg-bg-card/90 text-slate-900 dark:text-white backdrop-blur-2xl border border-slate-200 dark:border-slate-700 rounded-[2.5rem] w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:h-[650px] relative"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Mobile Close Button */}
@@ -386,7 +386,7 @@ export default function SettingsModal({
               <SettingsIcon className="w-5 h-5 text-slate-900" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-text-primary leading-tight">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">
                 Preferences
               </h2>
             </div>
@@ -399,7 +399,7 @@ export default function SettingsModal({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-[24px] font-semibold transition-all ${isActive ? "bg-bg-card text-indigo-600  shadow-sm border border-border-color/50" : "text-slate-700  hover:bg-slate-100/50  rounded-[24px] border border-slate-200 shadow-sm text-slate-800  hover:text-slate-900 border border-transparent"}`}
+                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-[24px] font-semibold transition-all ${isActive ? "bg-bg-card text-indigo-600  shadow-sm border border-slate-200 dark:border-slate-700/50" : "text-slate-700  hover:bg-slate-100/50  rounded-[24px] border border-slate-200 shadow-sm text-slate-800  hover:text-slate-900 border border-transparent"}`}
                 >
                   <Icon
                     className={`w-5 h-5 ${isActive ? "text-indigo-600 " : "text-slate-700   "}`}
@@ -410,7 +410,7 @@ export default function SettingsModal({
             })}
           </div>
           <div className="hidden md:block mt-auto pb-2">
-            <p className="text-xs text-slate-700 font-medium px-4">
+            <p className="text-sm text-slate-700 font-medium px-4">
               Civil Estimation Pro Settings
               <br />
               Version 1.0.4
@@ -419,13 +419,13 @@ export default function SettingsModal({
         </div>
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0 bg-transparent">
-          <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-border-color/50">
-            <h3 className="text-2xl font-bold text-text-primary capitalize">
+          <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-slate-200 dark:border-slate-700/50">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white capitalize">
               {tabs.find((t) => t.id === activeTab)?.label}
             </h3>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 text-slate-700 hover:text-slate-800 border border-border-color shadow-sm transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 text-slate-700 hover:text-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -433,14 +433,14 @@ export default function SettingsModal({
           <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
             <div className="max-w-xl mx-auto md:mx-0">
               {/* Mobile Header */}
-              <h3 className="md:hidden text-2xl font-bold text-text-primary capitalize mb-6">
+              <h3 className="md:hidden text-xl font-semibold text-slate-900 dark:text-white capitalize mb-6">
                 {tabs.find((t) => t.id === activeTab)?.label}
               </h3>
               {activeTab === "account" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div className="flex items-center gap-6">
                     <div className="relative group">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 flex items-center justify-center text-3xl font-bold text-slate-900 shadow-lg overflow-hidden relative">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 flex items-center justify-center text-xl font-bold text-slate-900 shadow-lg overflow-hidden relative">
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
                           {name.charAt(0)}
                         </span>
@@ -457,7 +457,7 @@ export default function SettingsModal({
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-bg-card border border-border-color rounded-[24px] text-sm font-semibold text-slate-700 hover:bg-transparent transition-colors shadow-sm">
+                        <button className="px-4 py-2 bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] text-base font-medium hover:bg-transparent transition-colors shadow-sm">
                           Upload New
                         </button>
                       </div>
@@ -465,25 +465,25 @@ export default function SettingsModal({
                   </div>
                   <div className="space-y-5">
                     <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">
+                      <label className="block text-base font-medium mb-2">
                         Full Name
                       </label>
                       <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-bg-card border border-border-color rounded-[24px] px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">
+                      <label className="block text-base font-medium mb-2">
                         Email Address
                       </label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-bg-card border border-border-color rounded-[24px] px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                   </div>
@@ -500,10 +500,10 @@ export default function SettingsModal({
                   <div className="space-y-6">
                     <div className="flex flex-col gap-4">
                       <label
-                        className={`relative flex items-center justify-between p-5 rounded-[24px] border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 " : "border-border-color hover:border-slate-300 : bg-bg-card"}`}
+                        className={`relative flex items-center justify-between p-5 rounded-[24px] border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 " : "border-slate-200 dark:border-slate-700 hover:border-slate-300 : bg-bg-card"}`}
                       >
                         <div className="flex flex-col">
-                          <span className="text-lg font-bold text-text-primary mb-1">
+                          <span className="text-lg font-bold text-slate-900 dark:text-white mb-1">
                             Metric (SI)
                           </span>
                           <span className="text-sm font-medium text-slate-700">
@@ -511,7 +511,7 @@ export default function SettingsModal({
                           </span>
                         </div>
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "SI" ? "border-blue-500 bg-blue-500" : "border-border-color"}`}
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "SI" ? "border-blue-500 bg-blue-500" : "border-slate-200 dark:border-slate-700"}`}
                         >
                           {settings.measurement === "SI" && (
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
@@ -526,10 +526,10 @@ export default function SettingsModal({
                         />
                       </label>
                       <label
-                        className={`relative flex items-center justify-between p-5 rounded-[24px] border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 " : "border-border-color hover:border-slate-300 : bg-bg-card"}`}
+                        className={`relative flex items-center justify-between p-5 rounded-[24px] border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 " : "border-slate-200 dark:border-slate-700 hover:border-slate-300 : bg-bg-card"}`}
                       >
                         <div className="flex flex-col">
-                          <span className="text-lg font-bold text-text-primary mb-1">
+                          <span className="text-lg font-bold text-slate-900 dark:text-white mb-1">
                             Imperial (FPS)
                           </span>
                           <span className="text-sm font-medium text-slate-700">
@@ -537,7 +537,7 @@ export default function SettingsModal({
                           </span>
                         </div>
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-500" : "border-border-color"}`}
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-500" : "border-slate-200 dark:border-slate-700"}`}
                         >
                           {settings.measurement === "FPS" && (
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
@@ -578,10 +578,10 @@ export default function SettingsModal({
                             onClick={() =>
                               updateSettings({ theme: t.id as Theme })
                             }
-                            className={`flex flex-col items-center justify-center gap-3 p-6 rounded-[24px] border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 " : "border-border-color hover:border-slate-300 : bg-bg-card"}`}
+                            className={`flex flex-col items-center justify-center gap-3 p-6 rounded-[24px] border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 " : "border-slate-200 dark:border-slate-700 hover:border-slate-300 : bg-bg-card"}`}
                           >
                             <div
-                              className={`p-3 rounded-full ${isActive ? "bg-blue-100  text-indigo-600 " : "bg-bg-primary text-slate-700 "}`}
+                              className={`p-3 rounded-full ${isActive ? "bg-blue-100  text-indigo-600 " : "bg-white dark:bg-slate-800 text-slate-700 "}`}
                             >
                               <Icon className="w-6 h-6" />
                             </div>
@@ -606,7 +606,7 @@ export default function SettingsModal({
                     </div>
                     <button
                       onClick={handleClearCompanyRates}
-                      className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold rounded-xl transition-all self-start sm:self-center"
+                      className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 text-base font-medium rounded-xl transition-all self-start sm:self-center"
                     >
                       <Trash2 className="w-4 h-4" /> Clear Rates
                     </button>
@@ -622,7 +622,7 @@ export default function SettingsModal({
                         </div>
                         <button
                           onClick={handleAutoMatch}
-                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-base font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors"
                         >
                           <Wand2 className="w-3.5 h-3.5" />
                           Auto-match
@@ -634,7 +634,7 @@ export default function SettingsModal({
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                         <div>
                           <div className="flex items-center justify-between mb-1">
-                            <label className="block text-xs font-bold text-slate-500">Material Name Column</label>
+                            <label className="block text-base font-medium">Material Name Column</label>
                             {columnMap.material && (
                               isMaterialValid ? 
                                 <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded-md"><CheckCircle className="w-3 h-3" /> Valid format</span> : 
@@ -652,7 +652,7 @@ export default function SettingsModal({
                         </div>
                         <div>
                           <div className="flex items-center justify-between mb-1">
-                            <label className="block text-xs font-bold text-slate-500">Rate Column</label>
+                            <label className="block text-base font-medium">Rate Column</label>
                             {columnMap.rate && (
                               isRateValid ? 
                                 <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded-md"><CheckCircle className="w-3 h-3" /> Valid numbers found</span> : 
@@ -672,20 +672,20 @@ export default function SettingsModal({
                       <div className="flex gap-3 justify-end mt-4">
                         <button 
                           onClick={() => setMappingStep(null)}
-                          className="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors min-w-[80px]"
+                          className="px-4 py-2 text-base font-medium hover:bg-slate-100 rounded-xl transition-colors min-w-[80px]"
                         >
                           Cancel
                         </button>
                         <button 
                           onClick={saveMapping}
-                          className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors border border-slate-200"
+                          className="px-4 py-2 bg-slate-100 text-slate-700 text-base font-medium rounded-xl hover:bg-slate-200 transition-colors border border-slate-200"
                         >
                           Save Preset
                         </button>
                         <button 
                           onClick={confirmMapping}
                           disabled={!isMaterialValid || !isRateValid}
-                          className={`px-4 py-2 text-white text-sm font-semibold rounded-xl transition-colors ${!isMaterialValid || !isRateValid ? 'bg-slate-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                          className={`px-4 py-2 text-white text-base font-medium rounded-xl transition-colors ${!isMaterialValid || !isRateValid ? 'bg-slate-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
                         >
                           Confirm & Import
                         </button>
@@ -719,7 +719,7 @@ export default function SettingsModal({
                           <h4 className="text-base font-bold text-slate-800 mb-1">
                             Upload your CSV
                           </h4>
-                          <p className="text-sm font-semibold text-slate-800 mb-1">
+                          <p className="text-base font-medium mb-1">
                             Drag & drop your file here, or{" "}
                             <button 
                               onClick={() => fileInputRef.current?.click()}
@@ -731,12 +731,12 @@ export default function SettingsModal({
                         </>
                       )}
                       
-                      <p className={`text-xs text-slate-500 max-w-[280px] mt-2 mb-4 transition-opacity duration-300 ${dragActive ? "opacity-0" : "opacity-100"}`}>
+                      <p className={`text-sm text-slate-500 max-w-[280px] mt-2 mb-4 transition-opacity duration-300 ${dragActive ? "opacity-0" : "opacity-100"}`}>
                         Supports comma-separated rows or columns with material names.
                       </p>
                       <button
                         onClick={downloadTemplate}
-                        className={`flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-800 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm hover:shadow transition-all font-semibold select-none ${dragActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                        className={`flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-800 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm hover:shadow transition-all font-semibold select-none ${dragActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                       >
                         <Download className="w-3.5 h-3.5 text-slate-500" /> Download Template CSV
                       </button>
@@ -774,7 +774,7 @@ export default function SettingsModal({
                             setImportHistory([]);
                             localStorage.removeItem("company_rates_import_history");
                           }}
-                          className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+                          className="text-base font-medium hover:text-slate-800 transition-colors"
                         >
                           Clear History
                         </button>
@@ -783,10 +783,10 @@ export default function SettingsModal({
                         {importHistory.map(record => (
                           <div key={record.id} className={`p-3 rounded-xl border flex items-center justify-between gap-4 ${record.status === 'success' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'}`}>
                             <div className="flex flex-col">
-                              <span className={`text-sm font-bold ${record.status === 'success' ? 'text-emerald-800' : 'text-red-800'}`}>
-                                {record.fileName} <span className="text-xs font-medium opacity-70 ml-2">{new Date(record.timestamp).toLocaleTimeString()}</span>
+                              <span className={`text-base font-medium ${record.status === 'success' ? 'text-emerald-800' : 'text-red-800'}`}>
+                                {record.fileName} <span className="text-sm font-medium opacity-70 ml-2">{new Date(record.timestamp).toLocaleTimeString()}</span>
                               </span>
-                              <span className={`text-xs ${record.status === 'success' ? 'text-emerald-600' : 'text-red-600'}`}>
+                              <span className={`text-sm ${record.status === 'success' ? 'text-emerald-600' : 'text-red-600'}`}>
                                 {record.message}
                               </span>
                             </div>

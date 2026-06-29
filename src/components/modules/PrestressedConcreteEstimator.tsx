@@ -130,13 +130,13 @@ export default function PrestressedConcreteEstimator() {
                <h3 className="font-bold text-slate-800 dark:text-slate-200 mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">Loss Parameters</h3>
                
                <div className="mb-4">
-                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 block">System Type</label>
+                 <label className="text-base font-medium uppercase tracking-wider mb-2 block">System Type</label>
                  <div className="flex gap-4">
-                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                    <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
                       <input type="radio" checked={type === "Pre-tensioned"} onChange={() => setType("Pre-tensioned")} className="w-4 h-4 text-pink-600" />
                       Pre-tensioned
                     </label>
-                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                    <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
                       <input type="radio" checked={type === "Post-tensioned"} onChange={() => setType("Post-tensioned")} className="w-4 h-4 text-pink-600" />
                       Post-tensioned
                     </label>
@@ -169,11 +169,11 @@ export default function PrestressedConcreteEstimator() {
               >
                 <div className="mb-6 grid grid-cols-2 gap-4">
                   <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
-                    <p className="text-xs font-bold text-slate-500 mb-1">Initial Stress</p>
+                    <p className="text-base font-medium mb-1">Initial Stress</p>
                     <p className="text-xl font-bold text-slate-800">{results.initialStress.toFixed(1)} MPa</p>
                   </div>
                   <div className="p-4 bg-pink-50 border border-pink-100 rounded-2xl">
-                    <p className="text-xs font-bold text-pink-500 mb-1">Final Effective Stress</p>
+                    <p className="text-base font-medium text-pink-500 mb-1">Final Effective Stress</p>
                     <p className="text-xl font-bold text-pink-700">{results.finalStress.toFixed(1)} MPa</p>
                   </div>
                 </div>
@@ -215,7 +215,7 @@ export default function PrestressedConcreteEstimator() {
                     <span className="font-bold text-slate-800">Total Prestress Loss</span>
                     <div className="text-right">
                        <span className="font-mono font-bold text-xl text-rose-600 block">{results.totalLoss.toFixed(1)} MPa</span>
-                       <span className="text-xs font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-full block mt-1">
+                       <span className="text-base font-medium text-rose-500 bg-rose-50 px-2 py-0.5 rounded-full block mt-1">
                          {results.pctLoss.toFixed(1)}% of Initial
                        </span>
                     </div>

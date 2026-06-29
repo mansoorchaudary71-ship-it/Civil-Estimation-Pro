@@ -33,17 +33,17 @@ export function CurrencySelector() {
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-10 px-3 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        className="h-10 px-3 rounded-full bg-bg-card shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         title="Currency & Region"
       >
         <span className="text-lg">{currentSettingsObj.flag}</span>
-        <span className="text-sm font-semibold tracking-tight">{currentSettingsObj.code}</span>
+        <span className="text-base font-medium tracking-tight">{currentSettingsObj.code}</span>
       </button>
 
       {isOpen && (
-        <div className="absolute top-12 right-0 w-56 bg-bg-card border border-border-color rounded-2xl shadow-xl overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="px-3 py-2 border-b border-border-color bg-slate-50 dark:bg-slate-800/50">
-            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+        <div className="absolute top-12 right-0 w-56 bg-bg-card border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+            <h4 className="text-base font-medium uppercase tracking-wider flex items-center gap-1.5">
               <Globe className="w-3.5 h-3.5" />
               Currency & Region
             </h4>
