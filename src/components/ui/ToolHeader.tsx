@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ClipboardList, Info, Printer, Save, Download, Share2, BookOpen, Menu, Search } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 import { CodeReferences } from './CodeReferences';
 import { FormulaModal } from './FormulaModal';
 import { motion } from 'motion/react';
 import toast from 'react-hot-toast';
+import { QRCodeSVG } from 'qrcode.react';
 
 export type ThemeType = 'default' | 'earth' | 'steel' | 'ocean' | 'emerald' | 'sunset';
 
@@ -20,7 +21,12 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
   const { settings, updateSettings } = useSettings();
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [showReferences, setShowReferences] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState('');
   const isMetric = settings.measurement === 'SI';
+
+  useEffect(() => {
+    setCurrentUrl(typeof window !== 'undefined' ? window.location.href : '');
+  }, []);
 
   const handlePrint = () => {
     window.print();
@@ -70,7 +76,7 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
           </div>
 
           {/* Unit Toggle */}
-          <div className="relative z-10 shrink-0">
+          <div className="relative z-10 shrink-0 print:hidden">
             <div className="flex bg-slate-100/60 p-1.5 rounded-full border border-slate-200/60 shadow-inner w-full sm:w-auto">
               <div className="relative flex w-full sm:w-[240px]">
                 <motion.div 
@@ -93,6 +99,14 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
               </div>
             </div>
           </div>
+
+          {/* Print Only QR Code */}
+          {currentUrl && (
+            <div className="hidden print:flex flex-col items-center justify-center gap-1">
+              <QRCodeSVG value={currentUrl} size={80} level="M" />
+              <span className="text-[10px] text-slate-500 font-medium max-w-[120px] text-center leading-tight">Scan to verify session data</span>
+            </div>
+          )}
         </div>
 
         <div id="tool-header-extra-controls" className="relative z-10 print:hidden empty:hidden"></div>
