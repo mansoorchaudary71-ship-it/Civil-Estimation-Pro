@@ -67,7 +67,7 @@ export default function SearchAndFilterBar({
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               placeholder="Search tools, materials, or calculations..."
-              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-base"
+              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-full py-4 pl-12 pr-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-base"
             />
 
             {/* Suggestions Dropdown */}
@@ -86,7 +86,7 @@ export default function SearchAndFilterBar({
                         setShowSuggestions(false);
                       }
                     }}
-                    className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors group/item"
+                    className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors group/item rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                   >
                     <span className="text-base font-medium group-hover/item:text-indigo-600 transition-colors">{tool.name}</span>
                     <span className="text-base font-medium tracking-wider uppercase text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">{tool.category}</span>
@@ -105,7 +105,7 @@ export default function SearchAndFilterBar({
               <button
                 key={idx}
                 onClick={() => setSearchTerm(chip)}
-                className="text-sm font-medium text-slate-500 bg-white hover:bg-indigo-50 hover:text-indigo-600 px-3 py-1.5 rounded-lg transition-colors border border-slate-200 shadow-sm"
+                className="text-sm font-medium text-slate-500 bg-white hover:bg-indigo-50 hover:text-indigo-600 px-3 py-1.5 rounded-full transition-colors border border-slate-200 shadow-sm active:scale-95 hover:-translate-y-0.5"
               >
                 {chip}
               </button>
@@ -133,7 +133,7 @@ export default function SearchAndFilterBar({
                       : "bg-[#F0F4F8] text-slate-500 hover:text-slate-700 shadow-[2px_2px_6px_rgba(163,177,198,0.3),-2px_-2px_6px_rgba(255,255,255,0.8)] border border-white"}
                   `}
                 >
-                  <span className="text-sm">{cat.name}</span>
+                  <span className="text-sm rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">{cat.name}</span>
                   <span 
                     className={`
                       flex items-center justify-center px-2 py-0.5 text-base font-medium rounded-full

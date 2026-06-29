@@ -28,7 +28,7 @@ export default function ExcelPromo() {
             </p>
             <button 
               onClick={() => setIsSubmitted(false)}
-              className="px-6 py-2 bg-slate-50/10 hover:bg-slate-50/20 text-slate-900 font-bold rounded-[16px] transition-colors"
+              className="px-6 py-2 bg-slate-50/10 hover:bg-slate-50/20 text-slate-900 font-bold rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               Back to Form
             </button>
@@ -118,7 +118,7 @@ export default function ExcelPromo() {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Engineer Name"
-                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
+                    className="w-full bg-white border border-slate-200 rounded-full py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
                   />
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function ExcelPromo() {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="your@email.com"
-                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
+                    className="w-full bg-white border border-slate-200 rounded-full py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
                   />
                 </div>
               </div>
@@ -148,14 +148,13 @@ export default function ExcelPromo() {
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
                     placeholder="+91 900 0000000"
-                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
+                    className="w-full bg-white border border-slate-200 rounded-full py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
                   />
                 </div>
               </div>
 
-              <button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-slate-900 tabular-nums tracking-tight py-4 rounded-[24px] flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4 text-base font-semibold"
+              <button type="submit" 
+                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-slate-900 tabular-nums tracking-tight py-4 rounded-full flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4 text-base font-semibold"
               >
                 <Download className="w-6 h-6" />
                 GET FREE EXCEL PACK

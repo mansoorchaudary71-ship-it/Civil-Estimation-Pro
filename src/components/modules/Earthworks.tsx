@@ -50,7 +50,7 @@ export default function EarthworksEstimator() {
                 : "text-slate-600  hover:bg-amber-50 hover:text-amber-700"
             }`}
           >
-            <tab.icon className="w-5 h-5" />
+            <tab.icon className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
             {tab.label}
           </button>
         ))}

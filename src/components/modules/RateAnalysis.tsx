@@ -214,9 +214,8 @@ export default function RateAnalysis() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <input
-                      type="number" inputMode="decimal"
-                      className="w-24 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
+                    <input type="number" inputMode="decimal"
+                      className="w-24 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-full px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
                       value={rates.overheadMarkup}
                       onChange={(e) =>
                         handleRateChange("overheadMarkup", e.target.value)
@@ -476,7 +475,7 @@ function InputCard({
               }}
             />
           </div>
-          <span className="text-base font-medium uppercase w-10 text-right">
+          <span className="text-base font-medium uppercase w-10 text-right rounded-full">
             {unit}
           </span>
         </div>

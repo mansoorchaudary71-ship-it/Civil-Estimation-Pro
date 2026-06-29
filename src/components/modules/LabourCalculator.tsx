@@ -182,9 +182,8 @@ export default function LabourCalculator() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
           <div className="flex gap-4 items-center">
-            <button 
-              onClick={handleExportPDF}
-              className="flex items-center gap-2 px-4 py-2 bg-white shadow-sm border border-slate-200 text-slate-900 rounded-[24px] shadow hover:bg-slate-700 transition-colors"
+            <button onClick={handleExportPDF}
+              className="flex items-center gap-2 px-4 py-2 bg-white shadow-sm border border-slate-200 text-slate-900 rounded-full shadow hover:bg-slate-700 transition-colors active:scale-95 hover:-translate-y-0.5"
             >
               <Download className="w-4 h-4" /> Export Bill
             </button>
@@ -199,9 +198,8 @@ export default function LabourCalculator() {
               
               <div className="flex justify-between items-center border-b border-slate-100 pb-2">
                 <h3 className="font-bold text-lg text-slate-800">Work Items</h3>
-                <button 
-                  onClick={handleAddTask}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 font-bold rounded-[16px] hover:bg-indigo-100 transition-colors text-sm"
+                <button onClick={handleAddTask}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 font-bold rounded-full hover:bg-indigo-100 transition-colors text-sm active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   <Plus className="w-4 h-4" /> Add Task
                 </button>
@@ -216,7 +214,7 @@ export default function LabourCalculator() {
                       {tasks.length > 1 && (
                         <button 
                           onClick={() => handleRemoveTask(task.id)}
-                          className="absolute top-4 right-4 text-slate-600 hover:text-rose-500 transition-colors p-1"
+                          className="absolute top-4 right-4 text-slate-600 hover:text-rose-500 transition-colors p-1 rounded-full"
                           title="Remove Task"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -246,13 +244,13 @@ export default function LabourCalculator() {
                               type="number" inputMode="decimal" 
                               value={task.qty} 
                               onChange={(e) => updateTask(task.id, 'qty', parseFloat(e.target.value) || 0)}
-                              className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
+                              className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-full px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
                             />
                             <input 
                               type="text" 
                               value={task.unit} 
                               onChange={(e) => updateTask(task.id, 'unit', e.target.value)}
-                              className="w-[80px] bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-2 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 text-center text-sm"
+                              className="w-[80px] bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-full px-2 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 text-center text-sm"
                             />
                           </div>
                         </div>
@@ -264,7 +262,7 @@ export default function LabourCalculator() {
                               type="number" inputMode="decimal" 
                               value={task.skilledCount} 
                               onChange={(e) => updateTask(task.id, 'skilledCount', parseInt(e.target.value) || 0)}
-                              className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                              className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-full px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                               placeholder="Qty"
                             />
                             <span className="text-base font-medium">×</span>
@@ -276,7 +274,7 @@ export default function LabourCalculator() {
                                   type="number" inputMode="decimal" 
                                   value={task.skilledWage} 
                                   onChange={(e) => updateTask(task.id, 'skilledWage', parseFloat(e.target.value) || 0)}
-                                  className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                  className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-full pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                                   placeholder="Wage"
                                 />
                             </div>
@@ -290,7 +288,7 @@ export default function LabourCalculator() {
                               type="number" inputMode="decimal" 
                               value={task.unskilledCount} 
                               onChange={(e) => updateTask(task.id, 'unskilledCount', parseInt(e.target.value) || 0)}
-                              className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                              className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-full px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                               placeholder="Qty"
                             />
                             <span className="text-base font-medium">×</span>
@@ -302,7 +300,7 @@ export default function LabourCalculator() {
                                   type="number" inputMode="decimal" 
                                   value={task.unskilledWage} 
                                   onChange={(e) => updateTask(task.id, 'unskilledWage', parseFloat(e.target.value) || 0)}
-                                  className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                  className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-full pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                                   placeholder="Wage"
                                 />
                             </div>
@@ -332,7 +330,7 @@ export default function LabourCalculator() {
                             <input type="number" inputMode="decimal" 
                                   value={task.outputPerWorker} 
                                   onChange={(e) => updateTask(task.id, 'outputPerWorker', parseFloat(e.target.value) || 0)}
-                                  className="w-16 bg-white border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-sm" />
+                                  className="w-16 bg-white border border-slate-200 text-center text-slate-700 rounded-full py-1 outline-none text-sm" />
                             <span className="text-slate-500">{task.unit} per {task.isUnskilledDriven ? task.unskilledRole : task.skilledRole} / day</span>
                          </div>
                       </div>

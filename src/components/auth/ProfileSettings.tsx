@@ -81,9 +81,8 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
         >
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-700">
             <h2 className="text-slate-900 dark:text-white text-xl font-semibold text-slate-900 tracking-tight mb-4">Profile Settings</h2>
-            <button
-              onClick={onClose}
-              className="p-2 text-slate-500 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors text-base font-semibold"
+            <button onClick={onClose}
+              className="p-2 text-slate-500 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <X className="w-5 h-5" />
             </button>
@@ -112,7 +111,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
@@ -126,7 +125,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                      value={photoURL}
                      onChange={(e) => setPhotoURL(e.target.value)}
                      placeholder="https://example.com/avatar.png"
-                     className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                     className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
@@ -134,10 +133,9 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
               {/* Theme Toggle */}
               <div>
                 <label className="block mb-2 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Appearance</label>
-                <button
-                  type="button"
+                <button type="button"
                   onClick={toggleTheme}
-                  className="w-full flex items-center justify-between p-3 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] hover:bg-slate-50 transition-colors text-base font-semibold"
+                  className="w-full flex items-center justify-between p-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-50 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   <div className="flex items-center gap-3">
                     {getThemeIcon()}
@@ -158,10 +156,9 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
               </div>
             )}
 
-            <button
-               type="submit"
+            <button type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12 text-base font-semibold"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12 text-base font-semibold active:scale-95 hover:-translate-y-0.5"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

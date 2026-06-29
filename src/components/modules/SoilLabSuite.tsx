@@ -58,7 +58,7 @@ export default function SoilLabSuite() {
                 : "text-slate-600  hover:bg-slate-100 hover:text-slate-900 "
             }`}
           >
-            <tab.icon className="w-5 h-5" />
+            <tab.icon className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
             {tab.label}
           </button>
         ))}
@@ -115,16 +115,16 @@ function AtterbergLimitsCalc() {
   const PI = Math.max(0, LL - PL);
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-2 gap-8 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
       <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
         <h3 className="font-bold border-b pb-2 mb-4">Liquid Limit (One-Point)</h3>
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Blows (N)</label><input type="number" inputMode="decimal" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Water Content (%)</label><input type="number" inputMode="decimal" value={llWater} onChange={e => setLlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Blows (N)</label><input type="number" inputMode="decimal" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Water Content (%)</label><input type="number" inputMode="decimal" value={llWater} onChange={e => setLlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
         </div>
 
         <h3 className="font-bold border-b pb-2 mb-4">Plastic Limit</h3>
-        <div><label className="text-xs font-bold text-slate-500 uppercase">Plastic Limit w (%)</label><input type="number" inputMode="decimal" value={plWater} onChange={e => setPlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
+        <div><label className="text-xs font-bold text-slate-500 uppercase">Plastic Limit w (%)</label><input type="number" inputMode="decimal" value={plWater} onChange={e => setPlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
       </div>
       <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6">
          <div>
@@ -155,7 +155,7 @@ function GradationSuite() {
         <button onClick={() => setTest("blending")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "blending" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Aggregate Blending</button>
         <button onClick={() => setTest("hydrometer")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "hydrometer" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Hydrometer</button>
       </div>
-      <div className="flex-1 min-h-0 border-t pt-4">
+      <div className="flex-1 min-h-0 border-t pt-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
         {test === "sieve" && <MasterSieveAnalysis />}
         {test === "blending" && <div className="h-full overflow-y-auto"><AggregateBlendingCalculator /></div>}
         {test === "hydrometer" && <HydrometerCalc />}
@@ -195,10 +195,10 @@ function HydrometerCalc() {
       <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
         <h3 className="font-bold border-b pb-2 mb-4">Input Data (Single Reading Example)</h3>
         <div className="space-y-4">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Specific Gravity (G)</label><input type="number" inputMode="decimal" step="0.01" value={sg} onChange={e => setSg(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Temperature (°C)</label><input type="number" inputMode="decimal" value={temp} onChange={e => setTemp(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Hydrometer Reading (R)</label><input type="number" inputMode="decimal" value={reading} onChange={e => setReading(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Elapsed Time (min)</label><input type="number" inputMode="decimal" value={time} onChange={e => setTime(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Specific Gravity (G)</label><input type="number" inputMode="decimal" step="0.01" value={sg} onChange={e => setSg(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Temperature (°C)</label><input type="number" inputMode="decimal" value={temp} onChange={e => setTemp(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Hydrometer Reading (R)</label><input type="number" inputMode="decimal" value={reading} onChange={e => setReading(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Elapsed Time (min)</label><input type="number" inputMode="decimal" value={time} onChange={e => setTime(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
         </div>
       </div>
       <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6">
@@ -227,7 +227,7 @@ function StrengthPermeabilitySuite() {
         <button onClick={() => setTest("perm")} className={`flex-1 py-2 px-2 rounded-[24px] text-sm font-bold transition-all ${test === "perm" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Permeability</button>
         <button onClick={() => setTest("uct")} className={`flex-1 py-2 px-2 rounded-[24px] text-sm font-bold transition-all ${test === "uct" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>UCT</button>
       </div>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
         {test === "directshear" && <DirectShearTestCalculator />}
         {test === "cbr" && <CbrTestCalculator />}
         {test === "perm" && <PermeabilityCalculator />}
@@ -261,10 +261,10 @@ function UnconfinedCompressionTest() {
       <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
         <h3 className="font-bold border-b pb-2 mb-4">UCT Input (at failure)</h3>
         <div className="space-y-4">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Diameter (mm)</label><input type="number" inputMode="decimal" value={dia} onChange={e => setDia(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Height (mm)</label><input type="number" inputMode="decimal" value={height} onChange={e => setHeight(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Failure Load (N)</label><input type="number" inputMode="decimal" value={load} onChange={e => setLoad(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Axial Deformation (mm)</label><input type="number" inputMode="decimal" value={deformation} onChange={e => setDeformation(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Diameter (mm)</label><input type="number" inputMode="decimal" value={dia} onChange={e => setDia(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Height (mm)</label><input type="number" inputMode="decimal" value={height} onChange={e => setHeight(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Failure Load (N)</label><input type="number" inputMode="decimal" value={load} onChange={e => setLoad(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Axial Deformation (mm)</label><input type="number" inputMode="decimal" value={deformation} onChange={e => setDeformation(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
         </div>
       </div>
       <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6">

@@ -203,7 +203,7 @@ export default function BeamCalculator() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <div className="grid grid-cols-2 gap-4">
               <InputGroup label="Width (b) (mm)">
                 <input
@@ -211,7 +211,7 @@ export default function BeamCalculator() {
                   min="0"
                   value={beamWidth}
                   onChange={(e) => setBeamWidth(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                 />
               </InputGroup>
               <InputGroup label="Depth (D) (mm)">
@@ -220,7 +220,7 @@ export default function BeamCalculator() {
                   min="0"
                   value={beamDepth}
                   onChange={(e) => setBeamDepth(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                 />
               </InputGroup>
             </div>
@@ -233,7 +233,7 @@ export default function BeamCalculator() {
                   min="0"
                   value={beamSpan}
                   onChange={(e) => setBeamSpan(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                 />
               </InputGroup>
               <InputGroup label={
@@ -247,7 +247,7 @@ export default function BeamCalculator() {
                   min="0"
                   value={clearCover}
                   onChange={(e) => setClearCover(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                 />
               </InputGroup>
             </div>
@@ -255,10 +255,10 @@ export default function BeamCalculator() {
             {isPrecast && (
               <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-indigo-50/50 p-4 rounded-[24px] border border-indigo-100 mt-4">
                 <InputGroup label="Concrete Density (kg/m³)">
-                  <input type="number" inputMode="decimal" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                  <input type="number" inputMode="decimal" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-full border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                 </InputGroup>
                 <InputGroup label="Lifting Radius (m)">
-                  <input type="number" inputMode="decimal" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                  <input type="number" inputMode="decimal" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-full border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                 </InputGroup>
               </div>
             )}
@@ -310,7 +310,7 @@ export default function BeamCalculator() {
                       min="1"
                       max={parseInt(longitudinalBarsCount) - 1}
                       onChange={e => handleTensionBarsChange(e.target.value)}
-                      className="w-full h-11 calc-input px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 calc-input px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all rounded-full"
                     />
                   </InputGroup>
                   <InputGroup label="Bottom Bar Dia (mm)">
@@ -331,7 +331,7 @@ export default function BeamCalculator() {
                       min="1"
                       max={parseInt(longitudinalBarsCount) - 1}
                       onChange={e => handleCompressionBarsChange(e.target.value)}
-                      className="w-full h-11 calc-input px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 calc-input px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all rounded-full"
                     />
                   </InputGroup>
                   <InputGroup label="Top Bar Dia (mm)">
@@ -381,7 +381,7 @@ export default function BeamCalculator() {
                       min="0"
                       value={stirrupSpacing}
                       onChange={(e) => setStirrupSpacing(e.target.value)}
-                      className="w-full h-11 calc-input px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 calc-input px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all rounded-full"
                     />
                   </InputGroup>
                 </div>
@@ -389,9 +389,8 @@ export default function BeamCalculator() {
             </div>
           </div>
 
-          <button
-            onClick={calculateBeam}
-            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white py-4 rounded-[24px] transition-colors mt-8 text-base font-semibold"
+          <button onClick={calculateBeam}
+            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white py-4 rounded-full transition-colors mt-8 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
           >
             Calculate Beam Quantities
           </button>

@@ -110,7 +110,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
           {onNavigate && (
             <button
               onClick={() => onNavigate("boq")}
-              className="flex items-center gap-2 bg-purple-100 hover:bg-purple-200 text-purple-700 px-5 py-2.5 rounded-[24px] font-bold transition-colors"
+              className="flex items-center gap-2 bg-purple-100 hover:bg-purple-200 text-purple-700 px-5 py-2.5 rounded-full font-bold transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               Get Detailed BOQ <ArrowRight className="w-4 h-4" />
             </button>
@@ -135,13 +135,13 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                   <button onClick={() => setAreaUnit("sqft")} className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${areaUnit === "sqft" ? 'bg-white  shadow-sm text-slate-800  ' : 'text-slate-500'}`}>Sq.ft</button>
                 </div>
               </label>
-              <div className="relative">
+              <div className="relative rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                 <input
                   type="number" inputMode="decimal"
                   min="1"
                   value={areaInput}
                   onChange={(e) => setAreaInput(parseFloat(e.target.value) || 0)}
-                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               </div>
@@ -156,7 +156,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                   max="10"
                   value={floors}
                   onChange={(e) => setFloors(parseInt(e.target.value) || 1)}
-                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <Building className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               </div>
@@ -169,21 +169,21 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                   onClick={() => setConstType("grey")}
                   className={`p-3 rounded-[24px] border-2 text-left transition-all ${constType === "grey" ? 'border-indigo-500 bg-indigo-50  text-indigo-700 ' : 'border-slate-200 text-slate-600  hover:border-slate-300'}`}
                 >
-                  <div className="font-bold text-sm">Grey Structure Only</div>
+                  <div className="font-bold text-sm rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Grey Structure Only</div>
                   <div className="text-xs opacity-70 mt-0.5">Foundations, walls, slabs, plaster</div>
                 </button>
                 <button
                   onClick={() => setConstType("standard")}
                   className={`p-3 rounded-[24px] border-2 text-left transition-all ${constType === "standard" ? 'border-blue-500 bg-blue-50  text-blue-700 ' : 'border-slate-200 text-slate-600  hover:border-slate-300'}`}
                 >
-                  <div className="font-bold text-sm">Standard Finishing</div>
+                  <div className="font-bold text-sm rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Standard Finishing</div>
                   <div className="text-xs opacity-70 mt-0.5">Grey + standard tiles, doors, paint</div>
                 </button>
                 <button
                   onClick={() => setConstType("premium")}
                   className={`p-3 rounded-[24px] border-2 text-left transition-all ${constType === "premium" ? 'border-purple-500 bg-purple-50  text-purple-700 ' : 'border-slate-200 text-slate-600  hover:border-slate-300'}`}
                 >
-                  <div className="font-bold text-sm">Premium / Luxury</div>
+                  <div className="font-bold text-sm rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Premium / Luxury</div>
                   <div className="text-xs opacity-70 mt-0.5">High-end imported finishes</div>
                 </button>
               </div>

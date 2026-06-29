@@ -201,7 +201,7 @@ export default function RoadEstimator() {
                     <Route className="w-6 h-6 text-emerald-600" />
                     Flexible Pavement Design Engine
                 </h2>
-                <button onClick={sendToBOQ} className="flex items-center gap-2 text-sm font-bold px-4 py-2 bg-slate-800 text-white rounded-full hover:bg-slate-700 transition">
+                <button onClick={sendToBOQ} className="flex items-center gap-2 text-sm font-bold px-4 py-2 bg-slate-800 text-white rounded-full hover:bg-slate-700 transition transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                     <Send className="w-4 h-4" /> Send to BOQ
                 </button>
             </div>
@@ -300,19 +300,19 @@ export default function RoadEstimator() {
                         <div className="flex flex-wrap gap-3">
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">BC</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={bcD} onChange={(e) => setBcD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={bcD} onChange={(e) => setBcD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">DBM</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={dbmD} onChange={(e) => setDbmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={dbmD} onChange={(e) => setDbmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">WMM</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={wmmD} onChange={(e) => setWmmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={wmmD} onChange={(e) => setWmmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">GSB</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={gsbD} onChange={(e) => setGsbD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={gsbD} onChange={(e) => setGsbD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                         </div>
                     </div>

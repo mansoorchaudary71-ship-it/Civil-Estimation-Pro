@@ -52,9 +52,8 @@ function CircularColumnInputs({
       <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
         Diameter (m)
       </label>
-      <input
-        type="number" inputMode="decimal"
-        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px] text-base font-normal"
+      <input type="number" inputMode="decimal"
+        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px] text-base font-normal"
         value={diameter}
         onChange={(e) => setDiameter(e.target.value)}
         placeholder="e.g. 0.4"
@@ -81,9 +80,8 @@ function RectangularColumnInputs({
         <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
           {isSquare ? "Side Length (m)" : "Length (m)"}
         </label>
-        <input
-          type="number" inputMode="decimal"
-          className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px] text-base font-normal"
+        <input type="number" inputMode="decimal"
+          className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px] text-base font-normal"
           value={length}
           onChange={(e) => {
             setLength(e.target.value);
@@ -97,9 +95,8 @@ function RectangularColumnInputs({
           <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
             Width (m)
           </label>
-          <input
-            type="number" inputMode="decimal"
-            className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px] text-base font-normal"
+          <input type="number" inputMode="decimal"
+            className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px] text-base font-normal"
             value={width}
             onChange={(e) => setWidth(e.target.value)}
             placeholder="e.g. 0.3"
@@ -278,7 +275,7 @@ export default function ColumnEstimator() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <div className="space-y-6">
                 {/* Dynamically Render Inputs */}
                 {shape === "circular" ? (
@@ -300,9 +297,8 @@ export default function ColumnEstimator() {
                     <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                       Height (m)
                     </label>
-                    <input
-                      type="number" inputMode="decimal"
-                      className="w-full bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all min-h-[44px] text-base font-normal"
+                    <input type="number" inputMode="decimal"
+                      className="w-full bg-transparent rounded-full border border-slate-200 shadow-sm text-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all min-h-[44px] text-base font-normal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
@@ -311,9 +307,8 @@ export default function ColumnEstimator() {
                     <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                       Number of Columns
                     </label>
-                    <input
-                      type="number" inputMode="decimal"
-                      className="w-full bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all min-h-[44px] text-base font-normal"
+                    <input type="number" inputMode="decimal"
+                      className="w-full bg-transparent rounded-full border border-slate-200 shadow-sm text-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all min-h-[44px] text-base font-normal"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                     />
@@ -339,10 +334,10 @@ export default function ColumnEstimator() {
                 {isPrecast && (
                   <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-indigo-50/50 p-4 rounded-[24px] border border-indigo-100">
                     <InputGroup label="Concrete Density" info="kg/m³">
-                      <input type="number" inputMode="decimal" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                      <input type="number" inputMode="decimal" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-full border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-full px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                     </InputGroup>
                     <InputGroup label="Lifting Radius" info="m">
-                      <input type="number" inputMode="decimal" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                      <input type="number" inputMode="decimal" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-full border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-full px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                     </InputGroup>
                   </div>
                 )}
@@ -407,7 +402,7 @@ export default function ColumnEstimator() {
                         min="0"
                         value={clearCover}
                         onChange={(e) => setClearCover(e.target.value)}
-                        className="w-full h-11 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-white border border-slate-200 dark:border-slate-700 rounded-full px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                     <InputGroup label="Number of Main Bars">
@@ -455,7 +450,7 @@ export default function ColumnEstimator() {
                         min="0"
                         value={tieSpacing}
                         onChange={(e) => setTieSpacing(e.target.value)}
-                        className="w-full h-11 bg-white border border-slate-200 dark:border-slate-700 rounded-[24px] px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-white border border-slate-200 dark:border-slate-700 rounded-full px-4 text-slate-900 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                   </div>

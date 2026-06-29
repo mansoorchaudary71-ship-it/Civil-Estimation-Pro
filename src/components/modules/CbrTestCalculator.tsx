@@ -201,9 +201,8 @@ export default function CbrTestCalculator() {
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
                 <h3 className=" text-lg font-medium text-slate-800 mb-4">Test Readings</h3>
-                <button 
-                  onClick={addRow}
-                  className="flex items-center gap-1 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-[16px] transition-colors border border-indigo-100 text-base font-semibold"
+                <button onClick={addRow}
+                  className="flex items-center gap-1 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-full transition-colors border border-indigo-100 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Row
                 </button>
@@ -225,7 +224,7 @@ export default function CbrTestCalculator() {
                           step="0.5"
                           value={row.penetration}
                           onChange={(e) => handleDataChange(idx, "penetration", e.target.value)}
-                          className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                          className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                         />
                       </div>
                       <div className="col-span-5 relative">
@@ -233,13 +232,13 @@ export default function CbrTestCalculator() {
                           type="number" inputMode="decimal"
                           value={row.load}
                           onChange={(e) => handleDataChange(idx, "load", e.target.value)}
-                          className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                          className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                         />
                       </div>
                       <div className="col-span-2 flex justify-end">
                         <button
                           onClick={() => removeRow(idx)}
-                          className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-[16px] transition-colors"
+                          className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -258,7 +257,7 @@ export default function CbrTestCalculator() {
                      type="number" inputMode="decimal"
                      value={minSpec}
                      onChange={(e) => setMinSpec(e.target.value)}
-                     className="w-full max-w-[200px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 font-bold"
+                     className="w-full max-w-[200px] bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 font-bold"
                    />
                    <span className="absolute left-[170px] top-1/2 -translate-y-1/2 text-slate-600 text-base font-medium">%</span>
                  </div>
@@ -267,7 +266,7 @@ export default function CbrTestCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
+                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-full shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500 active:scale-95 hover:-translate-y-0.5"
               >
                 {isProcessing ? "Processing Curve..." : "Calculate CBR Result"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

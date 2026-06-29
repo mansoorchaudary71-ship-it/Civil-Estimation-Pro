@@ -262,7 +262,7 @@ export default function AggregateBlendingCalculator() {
                         type="text"
                         value={binNames[i]}
                         onChange={(e) => handleBinNameChange(i, e.target.value)}
-                        className="w-full text-base font-medium bg-transparent border-b border-dashed border-slate-200 dark:border-slate-700 focus:border-[var(--accent-vibrant)] outline-none pb-1 uppercase tracking-wider"
+                        className="w-full text-base font-medium bg-transparent border-b border-dashed border-slate-200 dark:border-slate-700 focus:border-[var(--accent-vibrant)] outline-none pb-1 uppercase tracking-wider rounded-full"
                       />
                     </th>
                   ))}
@@ -281,33 +281,29 @@ export default function AggregateBlendingCalculator() {
                         {row.size} mm
                       </td>
                       <td className="py-2 px-2">
-                        <input 
-                          type="number" inputMode="decimal"
-                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal"
+                        <input type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binA}
                           onChange={(e) => handleBinDataChange(idx, 'binA', e.target.value)}
                         />
                       </td>
                       <td className="py-2 px-2">
-                        <input 
-                          type="number" inputMode="decimal"
-                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal"
+                        <input type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binB}
                           onChange={(e) => handleBinDataChange(idx, 'binB', e.target.value)}
                         />
                       </td>
                       <td className="py-2 px-2">
-                        <input 
-                          type="number" inputMode="decimal"
-                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal"
+                        <input type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binC}
                           onChange={(e) => handleBinDataChange(idx, 'binC', e.target.value)}
                         />
                       </td>
                       <td className="py-2 px-2">
-                        <input 
-                          type="number" inputMode="decimal"
-                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal"
+                        <input type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binD}
                           onChange={(e) => handleBinDataChange(idx, 'binD', e.target.value)}
                         />
@@ -358,7 +354,7 @@ export default function AggregateBlendingCalculator() {
                     step="0.1"
                     value={proportions[i]}
                     onChange={(e) => handleProportionChange(i, e.target.value)}
-                    className="w-full h-2 bg-slate-200 rounded-[16px] appearance-none cursor-pointer accent-[var(--accent-vibrant)]"
+                    className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-[var(--accent-vibrant)]"
                   />
                 </div>
               ))}
@@ -369,9 +365,8 @@ export default function AggregateBlendingCalculator() {
                <p>Moving a slider will automatically adjust the remaining proportions to ensure the total blend always equals 100%.</p>
             </div>
 
-            <button 
-                onClick={optimizeBlend}
-                className="mt-6 w-full bg-[#FFFFFF] text-slate-900 py-3.5 rounded-[24px] shadow-sm flex items-center justify-center gap-2 hover:bg-white transition-colors text-base font-semibold"
+            <button onClick={optimizeBlend}
+                className="mt-6 w-full bg-[#FFFFFF] text-slate-900 py-3.5 rounded-full shadow-sm flex items-center justify-center gap-2 hover:bg-white transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5"
             >
                 <Wand2 className="w-5 h-5" /> Auto-Optimize Blend (Least Squares)
             </button>

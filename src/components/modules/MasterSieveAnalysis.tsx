@@ -227,11 +227,10 @@ export default function MasterSieveAnalysis() {
 
               <div>
                 <label className="block text-base font-medium mb-2">Total Sample Wt. (gm)</label>
-                <input 
-                  type="number" inputMode="decimal"
+                <input type="number" inputMode="decimal"
                   min="0"
                   placeholder="e.g. 5000"
-                  className="w-full px-4 py-3 rounded-[24px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all min-h-[44px]"
+                  className="w-full px-4 py-3 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all min-h-[44px]"
                   value={totalWeight}
                   onChange={(e) => handleTotalWeightChange(e.target.value)}
                 />
@@ -258,10 +257,9 @@ export default function MasterSieveAnalysis() {
                       <tr key={row.size} className="border-b border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors">
                         <td className="py-3 px-4 font-mono text-sm text-slate-800 font-medium">{row.size}</td>
                         <td className="py-2 px-4">
-                          <input 
-                            type="number" inputMode="decimal"
+                          <input type="number" inputMode="decimal"
                             min="0"
-                            className="w-24 px-3 py-1.5 rounded-[16px] bg-bg-card border border-slate-300 focus:ring-2 focus:ring-[#F26B1D] outline-none text-sm text-slate-700 font-medium transition-all min-h-[44px]"
+                            className="w-24 px-3 py-1.5 rounded-full bg-bg-card border border-slate-300 focus:ring-2 focus:ring-[#F26B1D] outline-none text-sm text-slate-700 font-medium transition-all min-h-[44px]"
                             value={row.weightRetained}
                             onChange={(e) => handleWeightChange(idx, e.target.value)}
                           />
@@ -359,10 +357,9 @@ export default function MasterSieveAnalysis() {
             <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-white/20 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
             <h3 className="text-xl font-heading font-semibold tabular-nums tracking-tight mb-2 relative z-10">Instant Report</h3>
             <p className="text-orange-100 text-sm mb-6 relative z-10 font-medium">Generate a professional specification-compliant testing report instantly.</p>
-            <button 
-              onClick={handleSave}
+            <button onClick={handleSave}
               disabled={totalWeight === ""}
-              className="w-full flex items-center justify-center gap-2 bg-white text-[#F26B1D] font-bold py-3 px-4 rounded-[24px] shadow-sm hover:shadow-md transition-all group-hover:-translate-y-1 relative z-10 disabled:opacity-75 disabled:cursor-not-allowed">
+              className="w-full flex items-center justify-center gap-2 bg-white text-[#F26B1D] font-bold py-3 px-4 rounded-full shadow-sm hover:shadow-md transition-all group-hover:-translate-y-1 relative z-10 disabled:opacity-75 disabled:cursor-not-allowed active:scale-95">
               <Download className="w-5 h-5" /> Export PDF
             </button>
           </div>

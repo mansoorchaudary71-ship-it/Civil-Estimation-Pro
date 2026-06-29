@@ -98,7 +98,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
           
           <button 
             onClick={() => onSelectModule('calculators')}
-            className="z-10 mt-2 relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-md w-full md:w-auto min-w-[250px] flex items-center justify-center group/btn"
+            className="z-10 mt-2 relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-md w-full md:w-auto min-w-[250px] flex items-center justify-center group/btn hover:-translate-y-0.5"
           >
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
             <div className="flex items-center justify-center gap-2 relative z-10 w-full">
@@ -133,7 +133,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
         {estimates.length > 0 && (
           <button 
             onClick={() => onSelectModule('my-estimates')}
-            className="text-base font-medium text-[var(--accent-blue)] hover:underline"
+            className="text-base font-medium text-[var(--accent-blue)] hover:underline rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
           >
             View All
           </button>
@@ -161,8 +161,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
                   </div>
                 </div>
               </div>
-              <button 
-                className="px-5 py-2.5 bg-slate-100 text-slate-700 rounded-full transition-colors group-hover/est:bg-indigo-50 group-hover/est:text-indigo-600 text-base font-semibold"
+              <button className="px-5 py-2.5 bg-slate-100 text-slate-700 rounded-full transition-colors group-hover/est:bg-indigo-50 group-hover/est:text-indigo-600 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 Resume
               </button>

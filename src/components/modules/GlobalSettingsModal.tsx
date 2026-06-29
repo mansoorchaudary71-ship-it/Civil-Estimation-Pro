@@ -113,7 +113,7 @@ export default function GlobalSettingsModal({
               if (!isNaN(val) && val < 0) return;
               handleChange(onChangeKey, e.target.value);
             }}
-            className="w-full pl-9 pr-4 py-2 bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-slate-900 dark:text-white font-medium transition-shadow"
+            className="w-full pl-9 pr-4 py-2 bg-bg-card border border-slate-200 dark:border-slate-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-slate-900 dark:text-white font-medium transition-shadow"
           />{" "}
         </div>{" "}
       </div>{" "}
@@ -142,9 +142,8 @@ export default function GlobalSettingsModal({
               Configure parameters & market rates.{" "}
             </p>{" "}
           </div>{" "}
-          <button
-            onClick={onClose}
-            className="p-2 -mr-2 rounded-full hover:bg-slate-200/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 text-slate-700 transition-colors text-base font-semibold"
+          <button onClick={onClose}
+            className="p-2 -mr-2 rounded-full hover:bg-slate-200/50 rounded-full border border-slate-200 shadow-sm text-slate-800 text-slate-700 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5"
           >
             {" "}
             <X className="w-5 h-5" />{" "}
@@ -337,16 +336,14 @@ export default function GlobalSettingsModal({
         {/* Footer */}{" "}
         <div className="p-6 border-t border-slate-200/50 shrink-0 bg-slate-100/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 flex justify-end gap-3">
           {" "}
-          <button
-            onClick={onClose}
-            className="px-5 py-2.5 rounded-[24px] text-slate-600 hover:bg-slate-200/50 border border-slate-200 shadow-sm text-slate-800 transition-colors text-base font-semibold"
+          <button onClick={onClose}
+            className="px-5 py-2.5 rounded-full text-slate-600 hover:bg-slate-200/50 border border-slate-200 shadow-sm text-slate-800 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5"
           >
             {" "}
             Cancel{" "}
           </button>{" "}
-          <button
-            onClick={handleSave}
-            className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-blue-700 text-white rounded-[24px] shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95 text-base font-semibold"
+          <button onClick={handleSave}
+            className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95 text-base font-semibold hover:-translate-y-0.5"
           >
             {" "}
             <Check className="w-4 h-4" /> Save Settings{" "}

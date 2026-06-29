@@ -71,7 +71,7 @@ export default function RoomAreaCalculator() {
               type="number" inputMode="decimal"
               value={wallThickness || ''}
               onChange={(e) => setWallThickness(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
@@ -80,7 +80,7 @@ export default function RoomAreaCalculator() {
               type="number" inputMode="decimal"
               value={length || ''}
               onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
@@ -89,7 +89,7 @@ export default function RoomAreaCalculator() {
               type="number" inputMode="decimal"
               value={width || ''}
               onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>

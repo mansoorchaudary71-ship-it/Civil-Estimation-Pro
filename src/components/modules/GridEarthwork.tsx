@@ -86,9 +86,8 @@ export default function GridEarthworkEstimator() {
                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Length [{unitL}]
                   </label>
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={gridLength}
                     onChange={(e) => setGridLength(e.target.value)}
                   />
@@ -97,9 +96,8 @@ export default function GridEarthworkEstimator() {
                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Width [{unitL}]
                   </label>
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={gridWidth}
                     onChange={(e) => setGridWidth(e.target.value)}
                   />
@@ -138,9 +136,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTL.existing}
                         onChange={(e) =>
                           setCornerTL({ ...cornerTL, existing: e.target.value })
@@ -151,9 +148,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTL.proposed}
                         onChange={(e) =>
                           setCornerTL({ ...cornerTL, proposed: e.target.value })
@@ -175,9 +171,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTR.existing}
                         onChange={(e) =>
                           setCornerTR({ ...cornerTR, existing: e.target.value })
@@ -188,9 +183,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTR.proposed}
                         onChange={(e) =>
                           setCornerTR({ ...cornerTR, proposed: e.target.value })
@@ -212,9 +206,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBL.existing}
                         onChange={(e) =>
                           setCornerBL({ ...cornerBL, existing: e.target.value })
@@ -225,9 +218,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBL.proposed}
                         onChange={(e) =>
                           setCornerBL({ ...cornerBL, proposed: e.target.value })
@@ -249,9 +241,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBR.existing}
                         onChange={(e) =>
                           setCornerBR({ ...cornerBR, existing: e.target.value })
@@ -262,9 +253,8 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-[16px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBR.proposed}
                         onChange={(e) =>
                           setCornerBR({ ...cornerBR, proposed: e.target.value })

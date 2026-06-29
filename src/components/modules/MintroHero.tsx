@@ -110,8 +110,7 @@ export default function MintroHero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
           >
-            <button 
-              className="w-full sm:w-auto px-8 py-4 rounded-full font-bold transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group shadow-xl"
+            <button className="w-full sm:w-auto px-8 py-4 rounded-full font-bold transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group shadow-xl hover:-translate-y-0.5"
               style={{ 
                 backgroundColor: themeConfig.colors.primary, 
                 color: themeConfig.colors.accent1,
@@ -122,8 +121,7 @@ export default function MintroHero() {
               Start Estimating Free
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button 
-              className="w-full sm:w-auto px-8 py-4 rounded-full font-medium transition-all hover:bg-white/10 flex items-center justify-center gap-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white"
+            <button className="w-full sm:w-auto px-8 py-4 rounded-full font-medium transition-all hover:bg-white/10 flex items-center justify-center gap-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <Play className="w-5 h-5 fill-white" />
               Watch Demo

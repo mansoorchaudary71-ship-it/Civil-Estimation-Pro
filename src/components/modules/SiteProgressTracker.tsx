@@ -293,16 +293,16 @@ export default function SiteProgressTracker() {
            <p className="mt-2 text-base font-normal text-gray-600 leading-relaxed">Track timelines, budgets, and visual progress.</p>
          </div>
          <div className="flex flex-wrap gap-2">
-            <button onClick={() => exportToCSV(phases)} className="bg-white hover:bg-slate-50 text-gray-700 border border-slate-200 px-4 py-2.5 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
+            <button onClick={() => exportToCSV(phases)} className="bg-white hover:bg-slate-50 text-gray-700 border border-slate-200 px-4 py-2.5 rounded-full font-bold transition flex items-center gap-2 text-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                <Download className="w-4 h-4" /> CSV
             </button>
-            <button onClick={() => exportToMSProject(phases)} className="bg-white hover:bg-slate-50 text-gray-700 border border-slate-200 px-4 py-2.5 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
+            <button onClick={() => exportToMSProject(phases)} className="bg-white hover:bg-slate-50 text-gray-700 border border-slate-200 px-4 py-2.5 rounded-full font-bold transition flex items-center gap-2 text-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                <DownloadCloud className="w-4 h-4" /> XML
             </button>
-            <button onClick={handleShare} className="bg-white hover:bg-slate-50 text-gray-700 border border-slate-200 px-4 py-2.5 rounded-[24px] transition flex items-center gap-2 text-base font-semibold">
+            <button onClick={handleShare} className="bg-white hover:bg-slate-50 text-gray-700 border border-slate-200 px-4 py-2.5 rounded-full transition flex items-center gap-2 text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                <Share2 className="w-4 h-4" /> Share
             </button>
-            <button onClick={handleExportPDF} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-[24px] transition flex items-center gap-2 text-base font-semibold">
+            <button onClick={handleExportPDF} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full transition flex items-center gap-2 text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                <FileOutput className="w-4 h-4" /> Report
             </button>
          </div>
@@ -372,10 +372,9 @@ export default function SiteProgressTracker() {
                          <span className="mt-1.5 block w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span> {n}
                       </div>
                    ))}
-                   <button 
-                     onClick={handleSendEmailAlert} 
+                   <button onClick={handleSendEmailAlert} 
                      disabled={isSendingEmail}
-                     className="mt-3 bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2 rounded-xl transition self-start flex items-center gap-2 disabled:opacity-50">
+                     className="mt-3 bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2 rounded-full transition self-start flex items-center gap-2 disabled:opacity-50 transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                       <Mail className="w-4 h-4" />
                       {isSendingEmail ? 'Sending...' : 'Send Email Alert to PM'}
                    </button>
@@ -491,7 +490,7 @@ export default function SiteProgressTracker() {
                 <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm sticky top-6">
                    <div className="flex justify-between items-center mb-6">
                       <h3 className=" text-lg font-medium text-gray-800 mb-4">{activePhase.name}</h3>
-                      <button onClick={() => setSelectedPhase(null)} className="text-slate-400 hover:text-gray-600"><ChevronRight className="w-5 h-5 rotate-180" /></button>
+                      <button onClick={() => setSelectedPhase(null)} className="text-slate-400 hover:text-gray-600 rounded-full"><ChevronRight className="w-5 h-5 rotate-180" /></button>
                    </div>
                    
                    <div className="space-y-5">
@@ -502,7 +501,7 @@ export default function SiteProgressTracker() {
                             min="0" max="100" 
                             value={activePhase.progress} 
                             onChange={(e) => handleUpdatePhase(activePhase.id, 'progress', parseInt(e.target.value))}
-                            className="w-full accent-indigo-600"
+                            className="w-full accent-indigo-600 rounded-full"
                             disabled={isClientDemo}
                          />
                          <div className="text-right mt-1 font-bold tabular-nums tracking-tight text-indigo-600">{activePhase.progress}%</div>
@@ -515,7 +514,7 @@ export default function SiteProgressTracker() {
                                type="date" 
                                value={activePhase.startDate} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'startDate', e.target.value)}
-                               className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
+                               className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -525,7 +524,7 @@ export default function SiteProgressTracker() {
                                type="date" 
                                value={activePhase.endDate} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'endDate', e.target.value)}
-                               className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
+                               className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -560,14 +559,14 @@ export default function SiteProgressTracker() {
                          </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-3 rounded-full">
                          <div>
                             <label className="block uppercase tracking-widest mb-1.5 text-sm font-medium text-gray-700 mb-1">Planned Workers</label>
                             <input 
                                type="number" inputMode="decimal" 
                                value={activePhase.workersPlanned || 0} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'workersPlanned', parseInt(e.target.value)||0)}
-                               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
+                               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -577,7 +576,7 @@ export default function SiteProgressTracker() {
                                type="number" inputMode="decimal" 
                                value={activePhase.workersActual || 0} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'workersActual', parseInt(e.target.value)||0)}
-                               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
+                               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -586,10 +585,10 @@ export default function SiteProgressTracker() {
                       <div className="pt-4 border-t border-slate-100">
                          <div className="flex justify-between items-center mb-3">
                             <label className="block uppercase tracking-widest text-sm font-medium text-gray-700 mb-1">Site Photos ({activePhase.photos.length})</label>
-                            <button onClick={() => fileInputRef.current?.click()} className="text-xs font-bold text-indigo-600 flex items-center gap-1 hover:text-indigo-700">
+                            <button onClick={() => fileInputRef.current?.click()} className="text-xs font-bold text-indigo-600 flex items-center gap-1 hover:text-indigo-700 rounded-full">
                                <Upload className="w-3 h-3" /> Upload
                             </button>
-                            <input type="file" accept="image/*" className="hidden text-base font-normal" ref={fileInputRef} onChange={handlePhotoUpload} />
+                            <input type="file" accept="image/*" className="hidden text-base font-normal rounded-full" ref={fileInputRef} onChange={handlePhotoUpload} />
                          </div>
                          
                          {activePhase.photos.length === 0 ? (
@@ -607,7 +606,7 @@ export default function SiteProgressTracker() {
                                            newPhotos.splice(idx, 1);
                                            handleUpdatePhase(activePhase.id, 'photos', newPhotos);
                                         }}
-                                        className="absolute top-2 right-2 p-1.5 bg-slate-900/50 text-white rounded-[16px] opacity-0 group-hover:opacity-100 transition"
+                                        className="absolute top-2 right-2 p-1.5 bg-slate-900/50 text-white rounded-full opacity-0 group-hover:opacity-100 transition transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                                      >
                                         <Trash2 className="w-3 h-3" />
                                      </button>

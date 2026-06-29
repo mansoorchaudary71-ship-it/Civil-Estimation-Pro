@@ -1262,7 +1262,7 @@ export default function Dashboard({
  </span>
  </div>
  </div>
- <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 transition-colors py-1.5 rounded-lg text-base font-medium border border-slate-200 flex justify-center items-center gap-2 shadow-sm">
+ <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 transition-colors py-1.5 rounded-full text-base font-medium border border-slate-200 flex justify-center items-center gap-2 shadow-sm active:scale-95 hover:-translate-y-0.5">
  Resume
  </button>
  </div>
@@ -1390,7 +1390,7 @@ export default function Dashboard({
  </h3>
  <button
  onClick={() => setIsAiChatOpen(false)}
- className="p-2 rounded-full hover:bg-slate-100 text-slate-600"
+ className="p-2 rounded-full hover:bg-slate-100 text-slate-600 transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
  >
  <X className="w-5 h-5" />
  </button>
@@ -1447,10 +1447,9 @@ export default function Dashboard({
  }
  }}
  placeholder="Ask your assistant..."
- className="w-full bg-transparent border-none outline-none text-base text-slate-800 px-2 py-2 placeholder:text-slate-600"
+ className="w-full bg-transparent border-none outline-none text-base text-slate-800 px-2 py-2 placeholder:text-slate-600 rounded-full"
  />
- <button
- className="p-2.5 bg-[#FFFFFF] hover:bg-[#FFFFFF] shadow-md shadow-[#FFFFFF]/20 text-slate-900 rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0 text-base font-semibold"
+ <button className="p-2.5 bg-[#FFFFFF] hover:bg-[#FFFFFF] shadow-md shadow-[#FFFFFF]/20 text-slate-900 rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0 text-base font-semibold hover:-translate-y-0.5"
  onClick={() => {
  if (aiMessage.trim()) {
  setAiMessages((prev) => [

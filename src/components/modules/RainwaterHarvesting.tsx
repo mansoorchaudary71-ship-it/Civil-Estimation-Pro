@@ -66,7 +66,7 @@ export default function RainwaterHarvesting() {
                     <div className="flex flex-col gap-2">
                       <label className="text-base font-medium">Roof Area</label>
                       <div className="flex">
-                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-l-xl px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={roofArea} onChange={(e) => setRoofArea(e.target.value)} />
+                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-l-xl px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={roofArea} onChange={(e) => setRoofArea(e.target.value)} />
                         <select className="bg-slate-50 border border-l-0 border-slate-200 rounded-r-xl px-2 py-3 outline-none" value={areaUnit} onChange={(e) => setAreaUnit(e.target.value)}>
                           <option value="sqm">m²</option>
                           <option value="sqft">sq.ft</option>
@@ -76,7 +76,7 @@ export default function RainwaterHarvesting() {
                     
                     <div className="flex flex-col gap-2">
                       <label className="text-base font-medium">Ann. Rainfall (mm)</label>
-                      <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
                     </div>
 
                     <div className="flex flex-col gap-2 col-span-2">
@@ -99,14 +99,14 @@ export default function RainwaterHarvesting() {
                       <label className="text-base font-medium flex items-center gap-1">Water Cost (/{`m³`})</label>
                       <div className="relative">
                         <span className="absolute left-3 top-3.5 text-slate-400 text-sm font-medium">{settings.currency.substring(0,1)}</span>
-                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={muniWaterCost} onChange={(e) => setMuniWaterCost(e.target.value)} />
+                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={muniWaterCost} onChange={(e) => setMuniWaterCost(e.target.value)} />
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
                       <label className="text-base font-medium">Est. Setup Cost</label>
                       <div className="relative">
                         <span className="absolute left-3 top-3.5 text-slate-400 text-sm font-medium">{settings.currency.substring(0,1)}</span>
-                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={setupCost} onChange={(e) => setSetupCost(e.target.value)} />
+                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={setupCost} onChange={(e) => setSetupCost(e.target.value)} />
                       </div>
                     </div>
                   </div>

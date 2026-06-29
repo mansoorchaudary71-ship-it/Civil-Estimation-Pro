@@ -231,7 +231,7 @@ export default function WorkspaceSection({
                   <button
                     key={`your-${mod.id}`}
                     onClick={() => onSelect(mod.id)}
-                    className="flex items-center gap-3 px-4 py-3 bg-white  border border-slate-200  hover:border-[#FFFFFF]/40 text-slate-900 hover:shadow-md hover:-translate-y-0.5 rounded-[32px] text-base font-medium  transition-all text-left"
+                    className="flex items-center gap-3 px-4 py-3 bg-white  border border-slate-200  hover:border-[#FFFFFF]/40 text-slate-900 hover:shadow-md hover:-translate-y-0.5 rounded-full text-base font-medium  transition-all text-left active:scale-95"
                   >
                     <div className="w-8 h-8 rounded-full bg-[#FFFFFF]/10  flex items-center justify-center text-slate-900  shrink-0">
                        <mod.icon className="w-4 h-4" />
@@ -241,7 +241,7 @@ export default function WorkspaceSection({
                 ))}
                 <button
                   onClick={() => {/* open all modules */}}
-                  className="flex items-center gap-3 px-4 py-3 bg-slate-50  border border-slate-200  border-dashed hover:border-slate-300  rounded-[32px] text-base font-medium  transition-all text-left"
+                  className="flex items-center gap-3 px-4 py-3 bg-slate-50  border border-slate-200  border-dashed hover:border-slate-300  rounded-full text-base font-medium  transition-all text-left active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                    <div className="w-8 h-8 rounded-full bg-white  border border-slate-200  flex items-center justify-center shrink-0">
                       <Plus className="w-4 h-4" />
@@ -293,7 +293,7 @@ export default function WorkspaceSection({
                         </div>
                         <button 
                            onClick={() => { /* re-run logic */ }}
-                           className="px-3 py-1.5 bg-slate-100  text-slate-600  hover:bg-[#FFFFFF] hover:text-slate-900 rounded-[32px] text-base font-medium transition-colors flex items-center gap-1 shrink-0"
+                           className="px-3 py-1.5 bg-slate-100  text-slate-600  hover:bg-[#FFFFFF] hover:text-slate-900 rounded-full text-base font-medium transition-colors flex items-center gap-1 shrink-0 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                            <RefreshCw className="w-3.5 h-3.5" /> Re-run
                         </button>
@@ -317,7 +317,7 @@ export default function WorkspaceSection({
               </h3>
               <button
                 onClick={() => setIsCreatingProject(true)}
-                className="w-7 h-7 rounded-full bg-[#FFFFFF]/10  text-slate-900  hover:bg-[#FFFFFF]/20 flex items-center justify-center transition-colors"
+                className="w-7 h-7 rounded-full bg-[#FFFFFF]/10  text-slate-900  hover:bg-[#FFFFFF]/20 flex items-center justify-center transition-colors active:scale-95 hover:-translate-y-0.5"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -333,10 +333,9 @@ export default function WorkspaceSection({
                       className="bg-slate-50  border-b border-slate-200  overflow-hidden"
                     >
                       <div className="p-4 flex items-center gap-2">
-                        <input
-                          type="text"
+                        <input type="text"
                           placeholder="e.g. Tower Block Phase 1"
-                          className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 rounded-[32px] px-3 py-2 outline-none focus:ring-2 focus:ring-[#FFFFFF]/50 min-h-[44px] text-base font-normal"
+                          className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 rounded-full px-3 py-2 outline-none focus:ring-2 focus:ring-[#FFFFFF]/50 min-h-[44px] text-base font-normal"
                           value={newProjectName}
                           onChange={(e) => setNewProjectName(e.target.value)}
                           onKeyDown={(e) =>
@@ -344,10 +343,9 @@ export default function WorkspaceSection({
                           }
                           autoFocus
                         />
-                        <button
-                          onClick={handleCreateProject}
+                        <button onClick={handleCreateProject}
                           disabled={!newProjectName.trim()}
-                          className="w-9 h-9 flex items-center justify-center bg-[#FFFFFF] hover:bg-[#FFFFFF] disabled:opacity-50 text-slate-900 rounded-[32px] transition-colors shrink-0 text-base font-semibold"
+                          className="w-9 h-9 flex items-center justify-center bg-[#FFFFFF] hover:bg-[#FFFFFF] disabled:opacity-50 text-slate-900 rounded-full transition-colors shrink-0 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           <Check className="w-4 h-4" />
                         </button>
@@ -356,7 +354,7 @@ export default function WorkspaceSection({
                             setIsCreatingProject(false);
                             setNewProjectName("");
                           }}
-                          className="w-9 h-9 flex items-center justify-center bg-white  border border-slate-200  hover:bg-slate-100  text-slate-500  rounded-[32px] transition-colors shrink-0"
+                          className="w-9 h-9 flex items-center justify-center bg-white  border border-slate-200  hover:bg-slate-100  text-slate-500  rounded-full transition-colors shrink-0 active:scale-95 hover:-translate-y-0.5"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -385,7 +383,7 @@ export default function WorkspaceSection({
                              <h4 className="truncate group-hover: transition-colors text-lg font-medium text-slate-800 mb-4">
                                {proj.name || "Untitled"}
                              </h4>
-                             <button className="text-slate-700 hover:text-slate-500 text-base font-semibold">
+                             <button className="text-slate-700 hover:text-slate-500 text-base font-semibold rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                                <MoreVertical className="w-4 h-4" />
                              </button>
                            </div>
@@ -419,7 +417,7 @@ export default function WorkspaceSection({
                     <button 
                       key={`rec-${mod.id}`}
                       onClick={() => onSelect(mod.id)}
-                      className="flex items-center justify-between p-4 bg-white  hover:bg-slate-50  rounded-[32px] border border-slate-200  transition-all text-left group shadow-sm hover:shadow-md"
+                      className="flex items-center justify-between p-4 bg-white  hover:bg-slate-50  rounded-full border border-slate-200  transition-all text-left group shadow-sm hover:shadow-md active:scale-95 hover:-translate-y-0.5"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-[32px] bg-slate-50  flex items-center justify-center text-slate-600  group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-colors">
@@ -459,7 +457,7 @@ export default function WorkspaceSection({
       {/* Settings Modal Toggle Hint */}
       <div className="text-center mt-4">
          <p className=" text-base font-normal text-slate-600 leading-relaxed">
-            Tip: You can toggle Dark/Light mode in your <button className="text-slate-900 hover:underline text-base font-semibold">Profile Settings</button>.
+            Tip: You can toggle Dark/Light mode in your <button className="text-slate-900 hover:underline text-base font-semibold rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Profile Settings</button>.
          </p>
       </div>
 

@@ -233,11 +233,11 @@ export default function MixDesignCalculator() {
           <button 
             onClick={handleAddToComparison}
             disabled={comparisons.length >= 5}
-            className="text-base font-medium px-4 py-2.5 bg-indigo-50 text-indigo-700 rounded-[24px] hover:bg-indigo-100 transition-colors flex items-center gap-2 border border-indigo-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-base font-medium px-4 py-2.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-2 border border-indigo-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
           >
             <Layers className="w-4 h-4" /> Add to Comparison
           </button>
-          <button onClick={handlePrint} className="text-base font-medium px-4 py-2.5 bg-slate-100 text-slate-700 rounded-[24px] hover:bg-slate-200 transition-colors flex items-center gap-2 border border-slate-200">
+          <button onClick={handlePrint} className="text-base font-medium px-4 py-2.5 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-colors flex items-center gap-2 border border-slate-200 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <Printer className="w-4 h-4" /> Print Report
           </button>
         </div>
@@ -259,14 +259,14 @@ export default function MixDesignCalculator() {
                    </label>
                    <div className="flex items-center gap-2">
                      <span className="font-bold text-slate-400">M</span>
-                     <input type="number" inputMode="decimal" value={fck} onChange={(e) => setFck(Number(e.target.value) || 20)} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" min={15} max={80} />
+                     <input type="number" inputMode="decimal" value={fck} onChange={(e) => setFck(Number(e.target.value) || 20)} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" min={15} max={80} />
                    </div>
                  </div>
                  <div>
                    <label className="block text-base font-medium mb-1.5 flex items-center">
                      Target W/C
                    </label>
-                   <input type="number" inputMode="decimal" step="0.01" value={targetWc} onChange={(e) => setTargetWc(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+                   <input type="number" inputMode="decimal" step="0.01" value={targetWc} onChange={(e) => setTargetWc(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
                  </div>
               </div>
 
@@ -315,21 +315,21 @@ export default function MixDesignCalculator() {
                       <label className="text-base font-medium">Fly Ash (IS 3812)</label>
                       <span className="text-base font-medium text-emerald-600">{scmFlyAsh}%</span>
                     </div>
-                    <input type="range" min="0" max="35" value={scmFlyAsh} onChange={(e) => { setScmFlyAsh(Number(e.target.value)); setScmGgbs(0); }} className="w-full accent-emerald-500" />
+                    <input type="range" min="0" max="35" value={scmFlyAsh} onChange={(e) => { setScmFlyAsh(Number(e.target.value)); setScmGgbs(0); }} className="w-full accent-emerald-500 rounded-full" />
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-1">
                       <label className="text-base font-medium">GGBS (IS 16714)</label>
                       <span className="text-base font-medium text-purple-600">{scmGgbs}%</span>
                     </div>
-                    <input type="range" min="0" max="70" value={scmGgbs} onChange={(e) => { setScmGgbs(Number(e.target.value)); setScmFlyAsh(0); }} className="w-full accent-purple-500" />
+                    <input type="range" min="0" max="70" value={scmGgbs} onChange={(e) => { setScmGgbs(Number(e.target.value)); setScmFlyAsh(0); }} className="w-full accent-purple-500 rounded-full" />
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-1">
                       <label className="text-base font-medium">Silica Fume (IS 15388)</label>
                       <span className="text-base font-medium text-sky-600">{scmSilicaFume}%</span>
                     </div>
-                    <input type="range" min="0" max="10" value={scmSilicaFume} onChange={(e) => setScmSilicaFume(Number(e.target.value))} className="w-full accent-sky-500" />
+                    <input type="range" min="0" max="10" value={scmSilicaFume} onChange={(e) => setScmSilicaFume(Number(e.target.value))} className="w-full accent-sky-500 rounded-full" />
                   </div>
 
                   <div className="pt-2">
@@ -496,7 +496,7 @@ export default function MixDesignCalculator() {
                            Scenario {i + 1}
                            <button 
                              onClick={() => removeComparison(c.id)}
-                             className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-500 transition-opacity bg-white rounded-full p-1 shadow-sm border border-slate-200"
+                             className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-500 transition-opacity bg-white rounded-full p-1 shadow-sm border border-slate-200 transition-all duration-300 active:scale-95 hover:-translate-y-0.5"
                            >
                              <XCircle className="w-3 h-3" />
                            </button>

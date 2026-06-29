@@ -41,15 +41,13 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 mb-16">
-            <button
-              onClick={onStart}
+            <button onClick={onStart}
               className="w-full sm:w-auto px-8 py-4 rounded-full text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(255,95,21,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,95,21,0.4)] active:scale-95 text-base font-semibold"
             >
               Start Estimating Free
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button
-              className="w-full sm:w-auto px-8 py-4 rounded-full text-slate-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95 text-base font-semibold"
+            <button className="w-full sm:w-auto px-8 py-4 rounded-full text-slate-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95 text-base font-semibold"
             >
               <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
                 <Play className="w-3 h-3 fill-current text-slate-700" />

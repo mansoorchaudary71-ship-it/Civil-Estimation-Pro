@@ -120,7 +120,7 @@ export default function PermeabilityCalculator() {
                             </button>
                         </div>
 
-                        <h3 className="text-base font-medium mb-3 border-b border-slate-100 pb-2">Sample Details</h3>
+                        <h3 className="text-base font-medium mb-3 border-b border-slate-100 pb-2 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Sample Details</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <NumberInput label="Sample Length (L)" unit="cm" value={lengthSample} onChange={setLengthSample} />
                             <NumberInput label="Sample Area (A)" unit="cm²" value={areaSample} onChange={setAreaSample} />

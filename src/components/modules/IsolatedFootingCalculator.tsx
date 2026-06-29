@@ -253,13 +253,13 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
             <div className="flex flex-col items-end gap-2">
               <GlobalSettingsToggle align="left" showCurrency={false} />
               <div className="flex gap-2">
-                <button onClick={sendToBOQ} className="text-base font-medium px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
+                <button onClick={sendToBOQ} className="text-base font-medium px-3 py-2 bg-emerald-50 text-emerald-600 rounded-full hover:bg-emerald-100 transition-colors border border-emerald-200 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                   Send to BOQ
                 </button>
-                <button onClick={loadExample} className="text-base font-medium px-3 py-2 bg-[#E55A2B]/10 text-[#E55A2B] rounded-[16px] hover:bg-[#E55A2B]/20 transition-colors">
+                <button onClick={loadExample} className="text-base font-medium px-3 py-2 bg-[#E55A2B]/10 text-[#E55A2B] rounded-full hover:bg-[#E55A2B]/20 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                   Load Example
                 </button>
-                <button onClick={resetDefault} className="text-base font-medium px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
+                <button onClick={resetDefault} className="text-base font-medium px-3 py-2 bg-slate-100 text-slate-500 rounded-full hover:bg-slate-200 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                   Reset
                 </button>
               </div>
@@ -282,9 +282,8 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <label className="text-base font-medium uppercase tracking-wider mb-2 px-1">Safety Factor (γf)</label>
                         <div className="flex items-center gap-2 h-full">
                             <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={safetyFactor} onChange={(val) => setSafetyFactor(val.toString())} />
-                            <button 
-                                onClick={handleAiSafetyFactor}
-                                className="h-full min-h-[48px] px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-[16px] flex items-center justify-center transition-colors shadow-sm whitespace-nowrap text-sm font-medium"
+                            <button onClick={handleAiSafetyFactor}
+                                className="h-full min-h-[48px] px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center transition-colors shadow-sm whitespace-nowrap text-sm font-medium active:scale-95 hover:-translate-y-0.5"
                             >
                                 <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
                             </button>
@@ -310,7 +309,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                       <button onClick={() => setFootingType("stepped")} className={`flex-1 py-2 text-base font-medium rounded-[20px] transition-all ${footingType === "stepped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Stepped</button>
                     </div>
                   </InputGroup>
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-2 gap-4 mt-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                     <InputGroup label="Base Length (m)">
                       <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
                     </InputGroup>

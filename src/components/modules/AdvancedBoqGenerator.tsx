@@ -274,28 +274,28 @@ export default function AdvancedBoqGenerator() {
                 
                 <div>
                   <label className="block mb-1 text-sm font-medium text-slate-700">Project Name</label>
-                  <input type="text" value={projectData.name} onChange={e => setProjectData({...projectData, name: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                  <input type="text" value={projectData.name} onChange={e => setProjectData({...projectData, name: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-1 text-sm font-medium text-slate-700">Client Name</label>
-                    <input type="text" value={projectData.client} onChange={e => setProjectData({...projectData, client: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input type="text" value={projectData.client} onChange={e => setProjectData({...projectData, client: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                   </div>
                   <div>
                     <label className="block mb-1 text-sm font-medium text-slate-700">Date</label>
-                    <input type="date" value={projectData.date} onChange={e => setProjectData({...projectData, date: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input type="date" value={projectData.date} onChange={e => setProjectData({...projectData, date: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-1 text-sm font-medium text-slate-700">Location</label>
-                    <input type="text" value={projectData.location} onChange={e => setProjectData({...projectData, location: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input type="text" value={projectData.location} onChange={e => setProjectData({...projectData, location: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                   </div>
                   <div>
                     <label className="block mb-1 text-sm font-medium text-slate-700">Engineer</label>
-                    <input type="text" value={projectData.engineer} onChange={e => setProjectData({...projectData, engineer: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input type="text" value={projectData.engineer} onChange={e => setProjectData({...projectData, engineer: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                   </div>
                 </div>
               </div>
@@ -306,11 +306,11 @@ export default function AdvancedBoqGenerator() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-1 text-sm font-medium text-slate-700">Plot Size</label>
-                    <input type="text" placeholder="e.g. 50x90" value={projectData.plotSize} onChange={e => setProjectData({...projectData, plotSize: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input type="text" placeholder="e.g. 50x90" value={projectData.plotSize} onChange={e => setProjectData({...projectData, plotSize: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                   </div>
                   <div>
                     <label className="block mb-1 text-sm font-medium text-slate-700">Floors</label>
-                    <input type="number" inputMode="decimal" min="1" value={projectData.floors} onChange={e => setProjectData({...projectData, floors: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input type="number" inputMode="decimal" min="1" value={projectData.floors} onChange={e => setProjectData({...projectData, floors: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-purple-500" />
                   </div>
                 </div>
               </div>
@@ -331,7 +331,7 @@ export default function AdvancedBoqGenerator() {
             </div>
 
             <div className="flex justify-end pt-6">
-              <button disabled={scopes.length===0} onClick={() => setStep(2)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button disabled={scopes.length===0} onClick={() => setStep(2)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-purple-500/30 active:scale-95 hover:-translate-y-0.5">
                 Continue Setup <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -346,7 +346,7 @@ export default function AdvancedBoqGenerator() {
               <div className="relative">
                 <button 
                   onClick={() => setIsQuickAddOpen(!isQuickAddOpen)}
-                  className="flex items-center gap-1.5 text-base font-medium bg-purple-100 text-purple-700 px-4 py-2 mt-2 md:mt-0 rounded-[16px] shadow-sm hover:bg-purple-200 transition-colors"
+                  className="flex items-center gap-1.5 text-base font-medium bg-purple-100 text-purple-700 px-4 py-2 mt-2 md:mt-0 rounded-full shadow-sm hover:bg-purple-200 transition-colors active:scale-95 hover:-translate-y-0.5"
                 >
                   <Plus className="w-4 h-4" /> Quick Add Template
                 </button>
@@ -361,7 +361,7 @@ export default function AdvancedBoqGenerator() {
                             addQuickTemplate(template);
                             setIsQuickAddOpen(false);
                           }}
-                          className="text-left px-4 py-2.5 hover:bg-slate-50 transition-colors text-sm text-slate-700 flex flex-col items-start border-b border-slate-100 last:border-0"
+                          className="text-left px-4 py-2.5 hover:bg-slate-50 transition-colors text-sm text-slate-700 flex flex-col items-start border-b border-slate-100 last:border-0 rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           <span className="font-semibold text-slate-900">{template.label}</span>
                           <span className="text-sm text-purple-600 font-bold uppercase tracking-wider">{template.scope}</span>
@@ -377,7 +377,7 @@ export default function AdvancedBoqGenerator() {
               <div key={scope} className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200 overflow-hidden">
                 <div className="bg-purple-100 p-4 border-b border-purple-200 flex justify-between items-center">
                   <h4 className="text-purple-900 text-lg font-medium text-slate-800 mb-4">{scope} Measurements</h4>
-                  <button onClick={() => addRow(scope)} className="flex items-center gap-1.5 text-base font-medium bg-white text-purple-700 px-3 py-1.5 rounded-[16px] shadow-sm hover:shadow-md transition-shadow">
+                  <button onClick={() => addRow(scope)} className="flex items-center gap-1.5 text-base font-medium bg-white text-purple-700 px-3 py-1.5 rounded-full shadow-sm hover:shadow-md transition-shadow transition-all duration-300 active:scale-95 hover:-translate-y-0.5">
                     <Plus className="w-4 h-4" /> Add Row
                   </button>
                 </div>
@@ -402,19 +402,19 @@ export default function AdvancedBoqGenerator() {
                       {measurements[scope].map((row) => (
                         <tr key={row.id}>
                           <td className="py-2 pr-4">
-                            <input type="text" placeholder="Item spec..." value={row.description} onChange={(e) => updateRow(scope, row.id, 'description', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-3 py-2 text-sm outline-none focus:border-purple-500" />
+                            <input type="text" placeholder="Item spec..." value={row.description} onChange={(e) => updateRow(scope, row.id, 'description', e.target.value)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" inputMode="decimal" value={row.nos || ""} onChange={(e) => updateRow(scope, row.id, 'nos', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" inputMode="decimal" value={row.nos || ""} onChange={(e) => updateRow(scope, row.id, 'nos', e.target.value)} className="w-full bg-white border border-slate-200 rounded-full px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" inputMode="decimal" placeholder="L" value={row.length || ""} onChange={(e) => updateRow(scope, row.id, 'length', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" inputMode="decimal" placeholder="L" value={row.length || ""} onChange={(e) => updateRow(scope, row.id, 'length', e.target.value)} className="w-full bg-white border border-slate-200 rounded-full px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" inputMode="decimal" placeholder="W" value={row.width || ""} onChange={(e) => updateRow(scope, row.id, 'width', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" inputMode="decimal" placeholder="W" value={row.width || ""} onChange={(e) => updateRow(scope, row.id, 'width', e.target.value)} className="w-full bg-white border border-slate-200 rounded-full px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" inputMode="decimal" placeholder="D/H" value={row.depth || ""} onChange={(e) => updateRow(scope, row.id, 'depth', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" inputMode="decimal" placeholder="D/H" value={row.depth || ""} onChange={(e) => updateRow(scope, row.id, 'depth', e.target.value)} className="w-full bg-white border border-slate-200 rounded-full px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4 text-right">
                             <div className="bg-slate-200 px-3 py-2 rounded-[16px] font-bold text-slate-800 flex justify-between items-center">
@@ -423,7 +423,7 @@ export default function AdvancedBoqGenerator() {
                             </div>
                           </td>
                           <td className="py-2 text-center">
-                            <button onClick={() => deleteRow(scope, row.id)} className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-[16px] transition-colors">
+                            <button onClick={() => deleteRow(scope, row.id)} className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </td>
@@ -436,8 +436,8 @@ export default function AdvancedBoqGenerator() {
             ))}
 
             <div className="flex justify-between pt-6 border-t border-slate-200">
-              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
-              <button onClick={() => setStep(3)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-full font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Back</button>
+              <button onClick={() => setStep(3)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-purple-500/30 active:scale-95 hover:-translate-y-0.5">
                 Continue to Rates <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -469,7 +469,7 @@ export default function AdvancedBoqGenerator() {
                               <td className="p-4 w-1/6">
                                 <div className="relative">
                                   <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
-                                  <input type="number" inputMode="decimal" value={row.rate} onChange={(e) => updateRow(scope, row.id, 'rate', parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-300 rounded-[16px] py-2 pl-8 pr-2 outline-none focus:border-purple-500" />
+                                  <input type="number" inputMode="decimal" value={row.rate} onChange={(e) => updateRow(scope, row.id, 'rate', parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-300 rounded-full py-2 pl-8 pr-2 outline-none focus:border-purple-500" />
                                 </div>
                               </td>
                               <td className="p-4 w-1/6 text-right font-bold text-purple-700">
@@ -490,15 +490,15 @@ export default function AdvancedBoqGenerator() {
               <div className="grid grid-cols-1 gap-6">
                 <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
                   <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Contingency (%)</label>
-                  <input type="number" inputMode="decimal" min="0" value={markups.contingency} onChange={(e) => setMarkups({...markups, contingency: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+                  <input type="number" inputMode="decimal" min="0" value={markups.contingency} onChange={(e) => setMarkups({...markups, contingency: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
                 </div>
                 <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
                   <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Overheads (%)</label>
-                  <input type="number" inputMode="decimal" min="0" value={markups.overhead} onChange={(e) => setMarkups({...markups, overhead: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+                  <input type="number" inputMode="decimal" min="0" value={markups.overhead} onChange={(e) => setMarkups({...markups, overhead: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
                 </div>
                 <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
                   <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Contractor Profit (%)</label>
-                  <input type="number" inputMode="decimal" min="0" value={markups.profit} onChange={(e) => setMarkups({...markups, profit: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+                  <input type="number" inputMode="decimal" min="0" value={markups.profit} onChange={(e) => setMarkups({...markups, profit: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
                 </div>
               </div>
 
@@ -522,8 +522,8 @@ export default function AdvancedBoqGenerator() {
             </div>
 
             <div className="flex justify-between pt-6 border-t border-slate-200">
-              <button onClick={() => setStep(2)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
-              <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button onClick={() => setStep(2)} className="px-6 py-2.5 rounded-full font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Back</button>
+              <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-purple-500/30 active:scale-95 hover:-translate-y-0.5">
                 Generate BOQ <FileText className="w-5 h-5" />
               </button>
             </div>
@@ -535,15 +535,15 @@ export default function AdvancedBoqGenerator() {
             
             {/* Header Actions */}
             <div className="flex flex-wrap gap-4 items-center justify-between bg-slate-50 p-4 rounded-[24px] border border-slate-200 print:hidden">
-              <button onClick={() => setStep(3)} className="px-5 py-2 font-semibold text-slate-600 hover:bg-slate-200 rounded-[16px] transition-colors">Edit Rates</button>
+              <button onClick={() => setStep(3)} className="px-5 py-2 font-semibold text-slate-600 hover:bg-slate-200 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Edit Rates</button>
               <div className="flex items-center gap-3">
-                <button onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))} className="flex items-center gap-2 bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-[16px] font-bold hover:bg-slate-50 transition-colors shadow-sm">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))} className="flex items-center gap-2 bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-full font-bold hover:bg-slate-50 transition-colors shadow-sm active:scale-95 hover:-translate-y-0.5">
                   <Printer className="w-4 h-4" /> Print
                 </button>
-                <button onClick={handleExportExcel} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-[16px] transition-colors shadow-sm text-base font-semibold">
+                <button onClick={handleExportExcel} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-full transition-colors shadow-sm text-base font-semibold active:scale-95 hover:-translate-y-0.5">
                   <FileSpreadsheet className="w-4 h-4" /> Excel
                 </button>
-                <button onClick={handleExportPDF} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-[16px] transition-colors shadow-sm text-base font-semibold">
+                <button onClick={handleExportPDF} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full transition-colors shadow-sm text-base font-semibold active:scale-95 hover:-translate-y-0.5">
                   <Download className="w-4 h-4" /> PDF Report
                 </button>
               </div>

@@ -163,10 +163,9 @@ export default function AIAssistant() {
               className="w-full bg-transparent border border-slate-200 rounded-[24px] py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
               rows={1}
             />
-            <button
-              onClick={handleSend}
+            <button onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-[16px] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base font-semibold"
+              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <Send className="w-[16px] h-[16px]" />
             </button>

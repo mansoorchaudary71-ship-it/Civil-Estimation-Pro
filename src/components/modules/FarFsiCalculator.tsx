@@ -33,21 +33,21 @@ export default function FarFsiCalculator() {
               Plot Area (m²)
               <FieldTooltip content="The total designated area of the land parcel or plot." />
             </label>
-            <input type="number" inputMode="decimal" value={plotArea || ''} onChange={(e) => setPlotArea(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px] focus:ring-2 focus:ring-amber-500" />
+            <input type="number" inputMode="decimal" value={plotArea || ''} onChange={(e) => setPlotArea(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full focus:ring-2 focus:ring-amber-500" />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">
               Permissible FSI/FAR
               <FieldTooltip content="Floor Space Index (FSI) or Floor Area Ratio (FAR) is the maximum allowed ratio of built-up area to the plot area. Eg: FSI of 2 means you can build twice the plot area." />
             </label>
-            <input type="number" inputMode="decimal" step="0.1" value={fsiAllowed || ''} onChange={(e) => setFsiAllowed(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px] focus:ring-2 focus:ring-amber-500" />
+            <input type="number" inputMode="decimal" step="0.1" value={fsiAllowed || ''} onChange={(e) => setFsiAllowed(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full focus:ring-2 focus:ring-amber-500" />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">
               Max Ground Coverage (%)
               <FieldTooltip content="The maximum percentage of the plot area that can be covered by the building's footprint on the ground floor." />
             </label>
-            <input type="number" inputMode="decimal" max="100" value={groundCoveragePerc || ''} onChange={(e) => setGroundCoveragePerc(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px] focus:ring-2 focus:ring-amber-500" />
+            <input type="number" inputMode="decimal" max="100" value={groundCoveragePerc || ''} onChange={(e) => setGroundCoveragePerc(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full focus:ring-2 focus:ring-amber-500" />
           </div>
         </div>
 

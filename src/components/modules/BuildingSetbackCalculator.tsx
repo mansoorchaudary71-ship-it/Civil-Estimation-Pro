@@ -58,15 +58,15 @@ export default function BuildingSetbackCalculator() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Plot Frontage (m)</label>
-            <input type="number" inputMode="decimal" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
+            <input type="number" inputMode="decimal" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Plot Depth (m)</label>
-            <input type="number" inputMode="decimal" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
+            <input type="number" inputMode="decimal" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Total Plot Area (m²)</label>
-            <input type="number" inputMode="decimal" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-[24px] min-h-[44px] text-base font-normal" disabled />
+            <input type="number" inputMode="decimal" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-full min-h-[44px] text-base font-normal" disabled />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Building Type</label>
@@ -77,7 +77,7 @@ export default function BuildingSetbackCalculator() {
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Approach Road Width (m)</label>
-            <input type="number" inputMode="decimal" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
+            <input type="number" inputMode="decimal" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" />
           </div>
         </div>
 

@@ -168,7 +168,7 @@ export default function ReinforcementVisualizer() {
                       type="number" inputMode="decimal"
                       value={width}
                       onChange={(e) => setWidth(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                     />
                   </div>
                   <div>
@@ -179,7 +179,7 @@ export default function ReinforcementVisualizer() {
                       type="number" inputMode="decimal"
                       value={depth}
                       onChange={(e) => setDepth(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                     />
                   </div>
                   <div>
@@ -190,7 +190,7 @@ export default function ReinforcementVisualizer() {
                       type="number" inputMode="decimal"
                       value={cover}
                       onChange={(e) => setCover(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                     />
                   </div>
                 </div>
@@ -214,7 +214,7 @@ export default function ReinforcementVisualizer() {
                         onChange={(e) =>
                           setTopBarsCount(Number(e.target.value))
                         }
-                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                         min={2}
                       />
                     </div>
@@ -248,7 +248,7 @@ export default function ReinforcementVisualizer() {
                       onChange={(e) =>
                         setBottomBarsCount(Number(e.target.value))
                       }
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                       min={2}
                     />
                   </div>
@@ -298,7 +298,7 @@ export default function ReinforcementVisualizer() {
                         onChange={(e) =>
                           setStirrupSpacing(Number(e.target.value))
                         }
-                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                       />
                     </div>
                   </div>
@@ -350,15 +350,13 @@ export default function ReinforcementVisualizer() {
                 Cross Section Preview
               </h3>
               <div className="flex gap-2">
-                <button
-                  onClick={downloadSvg}
-                  className="px-3 py-1.5 bg-white text-indigo-600 text-sm font-bold border border-slate-200 rounded-[16px] hover:bg-slate-50 transition flex items-center gap-2"
+                <button onClick={downloadSvg}
+                  className="px-3 py-1.5 bg-white text-indigo-600 text-sm font-bold border border-slate-200 rounded-full hover:bg-slate-50 transition flex items-center gap-2 transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   <FileImage className="w-4 h-4" /> SVG
                 </button>
-                <button
-                  onClick={handleDownloadPng}
-                  className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-bold rounded-[16px] hover:bg-indigo-700 transition flex items-center gap-2 shadow-sm"
+                <button onClick={handleDownloadPng}
+                  className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-bold rounded-full hover:bg-indigo-700 transition flex items-center gap-2 shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5"
                 >
                   <Download className="w-4 h-4" /> PNG
                 </button>

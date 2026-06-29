@@ -116,7 +116,7 @@ function AsphaltCalculator() {
                 min="0"
                 value={length}
                 onChange={(e) => setLength(e.target.value ? Number(e.target.value) : "")}
-                className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
+                className="w-full h-12 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               />
             </InputGroup>
             <InputGroup label={`Width (${lengthUnit})`}>
@@ -125,7 +125,7 @@ function AsphaltCalculator() {
                 min="0"
                 value={width}
                 onChange={(e) => setWidth(e.target.value ? Number(e.target.value) : "")}
-                className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
+                className="w-full h-12 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               />
             </InputGroup>
           </div>
@@ -241,7 +241,7 @@ function PrimeCoatCalculator() {
               min="0"
               value={area}
               onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               placeholder="e.g. 500"
             />
           </InputGroup>
@@ -253,7 +253,7 @@ function PrimeCoatCalculator() {
               step="0.1"
               value={rate}
               onChange={(e) => setRate(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               placeholder="Standard: 0.8 - 1.2"
             />
             <p className="mt-1 text-base font-normal text-slate-600 leading-relaxed">Default is ~1.0 L/m² for WBM/WMM surfaces.</p>
@@ -335,7 +335,7 @@ function TackCoatCalculator() {
               min="0"
               value={area}
               onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               placeholder="e.g. 500"
             />
           </InputGroup>
@@ -347,7 +347,7 @@ function TackCoatCalculator() {
               step="0.05"
               value={rate}
               onChange={(e) => setRate(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-full px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               placeholder="Standard: 0.2 - 0.3"
             />
             <p className="mt-1 text-base font-normal text-slate-600 leading-relaxed">Default is ~0.25 L/m² for bituminous surfaces.</p>

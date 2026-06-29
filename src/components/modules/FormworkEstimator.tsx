@@ -176,9 +176,8 @@ export default function FormworkEstimator() {
                     </p>{" "}
                   </div>{" "}
                 </div>{" "}
-                <button
-                  onClick={addElement}
-                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2.5 rounded-[24px] shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95 text-base font-semibold"
+                <button onClick={addElement}
+                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2.5 rounded-full shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95 text-base font-semibold hover:-translate-y-0.5"
                 >
                   {" "}
                   <Plus className="w-4 h-4" /> Add Item{" "}
@@ -214,9 +213,8 @@ export default function FormworkEstimator() {
                             <option value="beam">Beam</option>{" "}
                             <option value="slab">Slab</option>{" "}
                           </select>{" "}
-                          <input
-                            type="text"
-                            className="bg-white dark:bg-slate-800 border border-gray-200 rounded-[24px] px-3 py-2.5 text-slate-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
+                          <input type="text"
+                            className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 text-slate-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
                             value={el.name}
                             onChange={(e) =>
                               updateElement(el.id, "name", e.target.value)
@@ -229,11 +227,10 @@ export default function FormworkEstimator() {
                         <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
                           L ({unitStr})
                         </label>{" "}
-                        <input
-                          type="number" inputMode="decimal"
+                        <input type="number" inputMode="decimal"
                           min="0"
                           step="0.1"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-[24px] px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
+                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
                           value={el.length}
                           onChange={(e) =>
                             updateElement(el.id, "length", e.target.value)
@@ -245,11 +242,10 @@ export default function FormworkEstimator() {
                         <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
                           W ({unitStr})
                         </label>{" "}
-                        <input
-                          type="number" inputMode="decimal"
+                        <input type="number" inputMode="decimal"
                           min="0"
                           step="0.1"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-[24px] px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
+                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
                           value={el.width}
                           onChange={(e) =>
                             updateElement(el.id, "width", e.target.value)
@@ -261,11 +257,10 @@ export default function FormworkEstimator() {
                         <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
                           H/D ({unitStr})
                         </label>{" "}
-                        <input
-                          type="number" inputMode="decimal"
+                        <input type="number" inputMode="decimal"
                           min="0"
                           step="0.1"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-[24px] px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
+                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
                           value={el.height}
                           onChange={(e) =>
                             updateElement(el.id, "height", e.target.value)
@@ -277,10 +272,9 @@ export default function FormworkEstimator() {
                         <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
                           Qty
                         </label>{" "}
-                        <input
-                          type="number" inputMode="decimal"
+                        <input type="number" inputMode="decimal"
                           min="0"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-[24px] px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
+                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
                           value={el.count}
                           onChange={(e) =>
                             updateElement(el.id, "count", e.target.value)
@@ -290,7 +284,7 @@ export default function FormworkEstimator() {
                     </div>{" "}
                     <button
                       onClick={() => removeElement(el.id)}
-                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-slate-900 rounded-[24px] transition-colors ml-auto md:ml-0 self-end md:self-center"
+                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-slate-900 rounded-full transition-colors ml-auto md:ml-0 self-end md:self-center active:scale-95 hover:-translate-y-0.5"
                     >
                       {" "}
                       <Trash2 className="w-4 h-4" />{" "}
@@ -339,7 +333,7 @@ export default function FormworkEstimator() {
             </div>{" "}
           </section>{" "}
           {/* Results Summary Interface */}{" "}
-          <section className="lg:col-span-4 space-y-6">
+          <section className="lg:col-span-4 space-y-6 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <MaterialSummary
               title="Material Summary"
               totalLabel="Total Formwork Area"

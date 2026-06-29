@@ -43,15 +43,13 @@ export default function TopNavbar({
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
-          <button 
-            className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors"
+          <button className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             aria-label="Search"
           >
             <Search className="w-5 h-5" />
           </button>
           
-          <button 
-            className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors"
+          <button className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >

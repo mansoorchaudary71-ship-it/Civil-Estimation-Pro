@@ -40,7 +40,7 @@ export function DetailedRoomEstimators() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="bg-slate-50 rounded-[2rem] shadow-xl border border-slate-200 p-6 md:p-8"
+            className="bg-slate-50 rounded-full shadow-xl border border-slate-200 p-6 md:p-8 transition-all duration-300 active:scale-95 hover:-translate-y-0.5"
           >
             {activeTab === "Kitchen" && <KitchenEstimator />}
             {activeTab === "Bedroom" && <BedroomEstimator />}
@@ -80,11 +80,10 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
                   <td className="py-3 px-4 text-slate-500 text-base font-medium">{item.unit}</td>
                   <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
                   <td className="py-2 px-4 min-w-[100px]">
-                    <input
-                      type="number" inputMode="decimal"
+                    <input type="number" inputMode="decimal"
                       min="0"
                       placeholder="0.00"
-                      className="w-full bg-slate-100 border-none rounded-[16px] px-2 py-1.5 text-right sm: focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 min-h-[44px] text-base font-normal"
+                      className="w-full bg-slate-100 border-none rounded-full px-2 py-1.5 text-right sm: focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 min-h-[44px] text-base font-normal"
                       onChange={(e) => onRateChange(item.name, parseFloat(e.target.value) || 0)}
                     />
                   </td>
@@ -162,7 +161,7 @@ function CommonNumInput({ label, val, setVal, unit }: { label: string, val: stri
         <input 
           type="number" inputMode="decimal" 
           value={val} onChange={(e)=>setVal(e.target.value)}
-          className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 text-base font-medium focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800"
+          className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 text-base font-medium focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800"
         />
         {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-medium">{unit}</span>}
       </div>

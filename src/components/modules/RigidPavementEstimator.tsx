@@ -164,9 +164,8 @@ export default function RigidPavementEstimator() {
                   <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                     Length (m)
                   </label>{" "}
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                   />{" "}
@@ -176,9 +175,8 @@ export default function RigidPavementEstimator() {
                   <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                     Lane Width (m)
                   </label>{" "}
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
                     value={laneWidth}
                     onChange={(e) => setLaneWidth(e.target.value)}
                   />{" "}
@@ -188,9 +186,8 @@ export default function RigidPavementEstimator() {
                   <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                     DLC Thk (mm)
                   </label>{" "}
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
                     value={dlcThickness}
                     onChange={(e) => setDlcThickness(e.target.value)}
                   />{" "}
@@ -200,9 +197,8 @@ export default function RigidPavementEstimator() {
                   <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                     PQC Thk (mm)
                   </label>{" "}
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 min-h-[44px]"
                     value={pqcThickness}
                     onChange={(e) => setPqcThickness(e.target.value)}
                   />{" "}
@@ -236,9 +232,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Cement
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={dlcRatioC}
                         onChange={(e) => setDlcRatioC(e.target.value)}
                       />{" "}
@@ -248,9 +243,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Sand
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={dlcRatioS}
                         onChange={(e) => setDlcRatioS(e.target.value)}
                       />{" "}
@@ -260,9 +254,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Aggr
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={dlcRatioA}
                         onChange={(e) => setDlcRatioA(e.target.value)}
                       />{" "}
@@ -273,10 +266,9 @@ export default function RigidPavementEstimator() {
                     <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                       Water/Cement Ratio
                     </label>{" "}
-                    <input
-                      type="number" inputMode="decimal"
+                    <input type="number" inputMode="decimal"
                       step="0.05"
-                      className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                       value={dlcWcRatio}
                       onChange={(e) => setDlcWcRatio(e.target.value)}
                     />{" "}
@@ -294,9 +286,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Cement
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={pqcRatioC}
                         onChange={(e) => setPqcRatioC(e.target.value)}
                       />{" "}
@@ -306,9 +297,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Sand
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={pqcRatioS}
                         onChange={(e) => setPqcRatioS(e.target.value)}
                       />{" "}
@@ -318,9 +308,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Aggr
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={pqcRatioA}
                         onChange={(e) => setPqcRatioA(e.target.value)}
                       />{" "}
@@ -331,10 +320,9 @@ export default function RigidPavementEstimator() {
                     <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                       Water/Cement Ratio
                     </label>{" "}
-                    <input
-                      type="number" inputMode="decimal"
+                    <input type="number" inputMode="decimal"
                       step="0.05"
-                      className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                       value={pqcWcRatio}
                       onChange={(e) => setPqcWcRatio(e.target.value)}
                     />{" "}
@@ -373,9 +361,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Joint Spacing (m)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={transverseSpacing}
                         onChange={(e) => setTransverseSpacing(e.target.value)}
                       />{" "}
@@ -385,9 +372,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Diameter (mm)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={dowelDiameter}
                         onChange={(e) => setDowelDiameter(e.target.value)}
                       />{" "}
@@ -397,9 +383,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Length (mm)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={dowelLength}
                         onChange={(e) => setDowelLength(e.target.value)}
                       />{" "}
@@ -409,9 +394,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Bar Spacing (mm)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={dowelSpacing}
                         onChange={(e) => setDowelSpacing(e.target.value)}
                       />{" "}
@@ -431,9 +415,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Joint Spacing (m)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={longitudinalSpacing}
                         onChange={(e) => setLongitudinalSpacing(e.target.value)}
                       />{" "}
@@ -443,9 +426,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Diameter (mm)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={tieDiameter}
                         onChange={(e) => setTieDiameter(e.target.value)}
                       />{" "}
@@ -455,9 +437,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Length (mm)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={tieLength}
                         onChange={(e) => setTieLength(e.target.value)}
                       />{" "}
@@ -467,9 +448,8 @@ export default function RigidPavementEstimator() {
                       <label className="block text-[10px] xl:text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 truncate" title={""}>
                         Bar Spacing (mm)
                       </label>{" "}
-                      <input
-                        type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
+                      <input type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 rounded-full px-4 py-2 focus:ring-2 focus:ring-slate-400 focus:outline-none min-h-[44px]"
                         value={tieSpacing}
                         onChange={(e) => setTieSpacing(e.target.value)}
                       />{" "}

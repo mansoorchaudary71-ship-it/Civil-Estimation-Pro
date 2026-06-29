@@ -111,9 +111,8 @@ export default function ToolCard({
           <span className="font-mono text-sm font-medium tracking-widest text-slate-400">
             {mod.id?.slice(0, 2).toUpperCase() || "01"}
           </span>
-          <button
-            onClick={toggleFavorite}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-slate-800 transition-colors -mr-2 -mt-2"
+          <button onClick={toggleFavorite}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-slate-800 transition-colors -mr-2 -mt-2 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             aria-label={saved ? "Remove from favorites" : "Add to favorites"}
           >
             <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
@@ -151,8 +150,7 @@ export default function ToolCard({
           <Dots level={level} color={cfg.c} />
           <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{LEVEL_MAP[level] || "Moderate"}</span>
         </div>
-        <button 
-          className="text-[13px] font-bold flex items-center gap-2 px-5 h-9 rounded-full transition-all bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
+        <button className="text-[13px] font-bold flex items-center gap-2 px-5 h-9 rounded-full transition-all bg-blue-600 hover:bg-blue-700 text-white shadow-sm active:scale-95 hover:-translate-y-0.5"
         >
           Open 
           <motion.div animate={{ x: hov ? 4 : 0 }} transition={{ type: "spring", stiffness: 300 }}>

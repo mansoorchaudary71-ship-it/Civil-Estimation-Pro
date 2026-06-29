@@ -63,9 +63,8 @@ export default function RecentSidebar({
                 <History className="w-5 h-5 text-indigo-600" />
                 Recent Tools
               </h2>
-              <button
-                onClick={onClose}
-                className="p-2 -mr-2 text-slate-600 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors text-base font-semibold"
+              <button onClick={onClose}
+                className="p-2 -mr-2 text-slate-600 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 <X className="w-5 h-5" />
               </button>

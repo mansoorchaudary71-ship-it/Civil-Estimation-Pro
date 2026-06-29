@@ -56,9 +56,8 @@ export default function RoadPavementEstimator({ onNavigate }: { onNavigate?: (id
               <option value="AASHTO 1993">AASHTO 1993</option>
             </select>
           </div>
-          <button
-            onClick={handleUseInBOQ}
-            className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white font-bold rounded-xl shadow-sm hover:shadow-md transition-all text-sm w-full sm:w-auto justify-center"
+          <button onClick={handleUseInBOQ}
+            className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white font-bold rounded-full shadow-sm hover:shadow-md transition-all text-sm w-full sm:w-auto justify-center active:scale-95 hover:-translate-y-0.5"
           >
             <Send className="w-4 h-4" />
             Use these quantities in BOQ Generator

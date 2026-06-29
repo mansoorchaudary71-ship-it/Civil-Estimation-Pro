@@ -143,9 +143,8 @@ const MaterialTakeoffSheet: React.FC = () => {
             Auto-calculate building material quantities based on area, floors, and finishes.
           </p>
         </div>
-        <button
-          onClick={copyToBOQ}
-          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
+        <button onClick={copyToBOQ}
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-full font-medium transition-colors whitespace-nowrap active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
         >
           <ClipboardCopy className="w-4 h-4" />
           Copy to BOQ
@@ -163,7 +162,7 @@ const MaterialTakeoffSheet: React.FC = () => {
               type="number" inputMode="decimal"
               value={area}
               onChange={(e) => setArea(parseFloat(e.target.value) || 0)}
-              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pr-12"
+              className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pr-12"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">sq ft</span>
           </div>
@@ -178,7 +177,7 @@ const MaterialTakeoffSheet: React.FC = () => {
               type="number" inputMode="decimal"
               value={floors}
               onChange={(e) => setFloors(parseFloat(e.target.value) || 1)}
-              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10"
+              className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10"
               min="1"
             />
           </div>
@@ -227,7 +226,7 @@ const MaterialTakeoffSheet: React.FC = () => {
                       type="number" inputMode="decimal"
                       value={item.rate}
                       onChange={(e) => handleRateChange(item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] px-2 py-1.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-full px-2 py-1.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none"
                     />
                   </div>
                 </td>

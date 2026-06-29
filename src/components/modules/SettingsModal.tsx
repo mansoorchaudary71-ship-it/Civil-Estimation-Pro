@@ -373,9 +373,8 @@ export default function SettingsModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Mobile Close Button */}
-        <button
-          onClick={onClose}
-          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white text-slate-700 hover:text-slate-800 transition-colors"
+        <button onClick={onClose}
+          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white text-slate-700 hover:text-slate-800 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
         >
           <X className="w-4 h-4" />
         </button>
@@ -409,7 +408,7 @@ export default function SettingsModal({
               );
             })}
           </div>
-          <div className="hidden md:block mt-auto pb-2">
+          <div className="hidden md:block mt-auto pb-2 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <p className="text-sm text-slate-700 font-medium px-4">
               Civil Estimation Pro Settings
               <br />
@@ -423,9 +422,8 @@ export default function SettingsModal({
             <h3 className="text-xl font-semibold text-slate-900 dark:text-white capitalize">
               {tabs.find((t) => t.id === activeTab)?.label}
             </h3>
-            <button
-              onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 text-slate-700 hover:text-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
+            <button onClick={onClose}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 text-slate-700 hover:text-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm transition-all active:scale-95 hover:-translate-y-0.5"
             >
               <X className="w-5 h-5" />
             </button>
@@ -457,7 +455,7 @@ export default function SettingsModal({
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] text-base font-medium hover:bg-transparent transition-colors shadow-sm">
+                        <button className="px-4 py-2 bg-bg-card border border-slate-200 dark:border-slate-700 rounded-full text-base font-medium hover:bg-transparent transition-colors shadow-sm active:scale-95 hover:-translate-y-0.5">
                           Upload New
                         </button>
                       </div>
@@ -472,7 +470,7 @@ export default function SettingsModal({
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-full px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                     <div>
@@ -483,7 +481,7 @@ export default function SettingsModal({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-[24px] px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-full px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                   </div>
@@ -583,7 +581,7 @@ export default function SettingsModal({
                             <div
                               className={`p-3 rounded-full ${isActive ? "bg-blue-100  text-indigo-600 " : "bg-white dark:bg-slate-800 text-slate-700 "}`}
                             >
-                              <Icon className="w-6 h-6" />
+                              <Icon className="w-6 h-6 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
                             </div>
                             <span
                               className={`font-bold ${isActive ? "text-blue-700 " : "text-slate-700  "}`}
@@ -604,9 +602,8 @@ export default function SettingsModal({
                       <h4 className="text-base font-bold text-slate-800">Company Material Rates</h4>
                       <p className="text-sm text-slate-600">Set custom rates that will override market defaults across all calculators.</p>
                     </div>
-                    <button
-                      onClick={handleClearCompanyRates}
-                      className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 text-base font-medium rounded-xl transition-all self-start sm:self-center"
+                    <button onClick={handleClearCompanyRates}
+                      className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 text-base font-medium rounded-full transition-all self-start sm:self-center active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                     >
                       <Trash2 className="w-4 h-4" /> Clear Rates
                     </button>
@@ -620,9 +617,8 @@ export default function SettingsModal({
                           <AlertCircle className="w-5 h-5 text-indigo-500" />
                           <h5 className="font-bold text-slate-800">Map Columns</h5>
                         </div>
-                        <button
-                          onClick={handleAutoMatch}
-                          className="flex items-center gap-1.5 px-3 py-1.5 text-base font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors"
+                        <button onClick={handleAutoMatch}
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-base font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           <Wand2 className="w-3.5 h-3.5" />
                           Auto-match
@@ -672,13 +668,12 @@ export default function SettingsModal({
                       <div className="flex gap-3 justify-end mt-4">
                         <button 
                           onClick={() => setMappingStep(null)}
-                          className="px-4 py-2 text-base font-medium hover:bg-slate-100 rounded-xl transition-colors min-w-[80px]"
+                          className="px-4 py-2 text-base font-medium hover:bg-slate-100 rounded-full transition-colors min-w-[80px] active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           Cancel
                         </button>
-                        <button 
-                          onClick={saveMapping}
-                          className="px-4 py-2 bg-slate-100 text-slate-700 text-base font-medium rounded-xl hover:bg-slate-200 transition-colors border border-slate-200"
+                        <button onClick={saveMapping}
+                          className="px-4 py-2 bg-slate-100 text-slate-700 text-base font-medium rounded-full hover:bg-slate-200 transition-colors border border-slate-200 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           Save Preset
                         </button>
@@ -699,12 +694,11 @@ export default function SettingsModal({
                       onDrop={handleDrop}
                       className={`relative border-2 border-dashed rounded-[24px] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 ${dragActive ? "border-indigo-500 bg-indigo-50/80 scale-[1.02]" : "border-slate-200 bg-slate-50/50 hover:bg-slate-50"}`}
                     >
-                      <input
-                        ref={fileInputRef}
+                      <input ref={fileInputRef}
                         type="file"
                         accept=".csv"
                         onChange={handleFileChange}
-                        className="hidden"
+                        className="hidden rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                       />
                       <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-sm mb-4 transition-all duration-300 ${dragActive ? "bg-indigo-600 shadow-indigo-200 animate-bounce" : "bg-white border border-slate-100"}`}>
                         <Upload className={`w-6 h-6 transition-colors duration-300 ${dragActive ? "text-white" : "text-indigo-500"}`} />
@@ -723,7 +717,7 @@ export default function SettingsModal({
                             Drag & drop your file here, or{" "}
                             <button 
                               onClick={() => fileInputRef.current?.click()}
-                              className="text-indigo-600 hover:text-indigo-700 hover:underline font-bold transition-colors select-none"
+                              className="text-indigo-600 hover:text-indigo-700 hover:underline font-bold transition-colors select-none rounded-full"
                             >
                               browse
                             </button>
@@ -738,7 +732,7 @@ export default function SettingsModal({
                         onClick={downloadTemplate}
                         className={`flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-800 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm hover:shadow transition-all font-semibold select-none ${dragActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                       >
-                        <Download className="w-3.5 h-3.5 text-slate-500" /> Download Template CSV
+                        <Download className="w-3.5 h-3.5 text-slate-500 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" /> Download Template CSV
                       </button>
                     </div>
                   )}
@@ -755,7 +749,7 @@ export default function SettingsModal({
                             value={companyRates[k] ?? ""}
                             placeholder="Default"
                             onChange={(e) => setCompanyRate(k, parseFloat(e.target.value))}
-                            className="w-32 bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-32 bg-white border border-slate-200 rounded-full px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                           />
                         </div>
                       );
@@ -774,7 +768,7 @@ export default function SettingsModal({
                             setImportHistory([]);
                             localStorage.removeItem("company_rates_import_history");
                           }}
-                          className="text-base font-medium hover:text-slate-800 transition-colors"
+                          className="text-base font-medium hover:text-slate-800 transition-colors rounded-full"
                         >
                           Clear History
                         </button>
@@ -802,9 +796,8 @@ export default function SettingsModal({
               )}
             </div>
             <div className="mt-12 max-w-xl mx-auto md:mx-0 flex justify-end">
-              <button
-                onClick={onClose}
-                className="px-8 py-3.5 bg-gradient-to-r hover:from-blue-700 hover: text-slate-900 font-bold rounded-[24px] shadow-md hover:shadow-lg transition-all"
+              <button onClick={onClose}
+                className="px-8 py-3.5 bg-gradient-to-r hover:from-blue-700 hover: text-slate-900 font-bold rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 hover:-translate-y-0.5"
               >
                 Save Changes
               </button>

@@ -206,14 +206,14 @@ export default function SlabEstimator() {
         
         <div className="flex gap-2">
           {results && (
-            <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
+            <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-full hover:bg-emerald-100 transition-colors border border-emerald-200 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               Send to BOQ
             </button>
           )}
-          <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-indigo-50 text-indigo-600 rounded-[16px] hover:bg-indigo-100 transition-colors">
+          <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-indigo-50 text-indigo-600 rounded-full hover:bg-indigo-100 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             Load Example
           </button>
-          <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
+          <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 text-slate-500 rounded-full hover:bg-slate-200 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             Reset
           </button>
         </div>
@@ -238,7 +238,7 @@ export default function SlabEstimator() {
               </button>
             </div>
             
-            <div className="flex items-center gap-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-2 rounded-[24px] border border-slate-200 w-full sm:w-auto min-w-max">
+            <div className="flex items-center gap-3 bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 p-2 rounded-full border border-slate-200 w-full sm:w-auto min-w-max transition-all duration-300 active:scale-95 hover:-translate-y-0.5">
                <span className="text-sm font-bold text-slate-700">Precast Mode</span>
                <button 
                 onClick={() => setIsPrecast(!isPrecast)}
@@ -249,7 +249,7 @@ export default function SlabEstimator() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-6 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <Settings2 className="w-5 h-5 text-indigo-600" />
             <h2 className="text-lg font-bold text-slate-800">Slab Dimensions</h2>
           </div>
@@ -383,9 +383,8 @@ export default function SlabEstimator() {
             </div>
           </div>
 
-          <button
-            onClick={calculateSlab}
-            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-4 rounded-[24px] transition-colors mt-8"
+          <button onClick={calculateSlab}
+            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-4 rounded-full transition-colors mt-8 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
           >
             Calculate Slab Quantities
           </button>

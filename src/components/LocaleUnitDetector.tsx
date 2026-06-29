@@ -27,13 +27,13 @@ export default function LocaleUnitDetector() {
                     toast.dismiss(t.id);
                     toast.success(`Switched to ${suggestedName} units`);
                   }}
-                  className="flex-1 px-3 py-2 bg-indigo-600 outline-none text-white text-base font-medium rounded-xl hover:bg-indigo-700 transition duration-150"
+                  className="flex-1 px-3 py-2 bg-indigo-600 outline-none text-white text-base font-medium rounded-full hover:bg-indigo-700 transition duration-150 transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   Switch to {suggestedName}
                 </button>
                 <button 
                   onClick={() => toast.dismiss(t.id)}
-                  className="flex-1 px-3 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 outline-none text-base font-medium rounded-xl transition duration-150"
+                  className="flex-1 px-3 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 outline-none text-base font-medium rounded-full transition duration-150 transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   Keep {settings.measurement === 'SI' ? 'Metric' : 'Imperial'}
                 </button>

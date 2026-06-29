@@ -141,10 +141,9 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
               rows={3}
             />
             {successMessage && <div className="absolute bottom-3 left-3 text-sm text-emerald-600 font-medium">{successMessage}</div>}
-            <button 
-              onClick={handlePost}
+            <button onClick={handlePost}
               disabled={isPosting || !newComment.trim()}
-              className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white px-4 py-1.5 rounded-[24px] transition-colors text-base font-semibold"
+              className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white px-4 py-1.5 rounded-full transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               {isPosting ? 'Posting...' : 'Post'}
             </button>

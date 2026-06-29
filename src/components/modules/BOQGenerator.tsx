@@ -297,7 +297,7 @@ export default function BOQGenerator() {
               type="text"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-slate-800 bg-transparent border-none outline-none hover:bg-slate-50 rounded-[24px] px-2 py-1 -ml-2 transition-colors w-full max-w-md"
+              className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-slate-800 bg-transparent border-none outline-none hover:bg-slate-50 rounded-full px-2 py-1 -ml-2 transition-colors w-full max-w-md"
             />
             <p className="ml-1 text-base font-normal text-slate-600 leading-relaxed">
               Professional Bill of Quantities Generator
@@ -323,7 +323,7 @@ export default function BOQGenerator() {
                 </button>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <span className="text-base font-medium uppercase tracking-widest hidden sm:block">Standard:</span>
               <select
                 value={measurementStandard}
@@ -349,35 +349,32 @@ export default function BOQGenerator() {
                 </option>
               ))}
             </select>
-            <button
-              onClick={syncRates}
-              className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-[24px] transition-colors border border-indigo-200 text-base font-semibold"
+            <button onClick={syncRates}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-full transition-colors border border-indigo-200 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <RefreshCw className="w-4 h-4" /> Sync DB Rates
             </button>
-            <button
-              onClick={exportCSV}
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-[24px] transition-colors border border-emerald-200 text-base font-semibold"
+            <button onClick={exportCSV}
+              className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-full transition-colors border border-emerald-200 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <FileSpreadsheet className="w-4 h-4" /> CSV
             </button>
-            <button
-              onClick={exportExcel}
-              className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 hover:bg-green-100 rounded-[24px] transition-colors border border-green-200 text-base font-semibold"
+            <button onClick={exportExcel}
+              className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 hover:bg-green-100 rounded-full transition-colors border border-green-200 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <FileSpreadsheet className="w-4 h-4" /> Excel
             </button>
             {selectedItemIds.size > 0 && (
               <button
                 onClick={() => triggerExportModal("selected")}
-                className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 font-bold rounded-[24px] transition-colors shadow-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 font-bold rounded-full transition-colors shadow-sm active:scale-95 hover:-translate-y-0.5"
               >
                 <FileOutput className="w-4 h-4" /> Export Selected ({selectedItemIds.size})
               </button>
             )}
             <button
               onClick={() => triggerExportModal("all")}
-              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[24px] transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-full transition-colors shadow-sm active:scale-95 hover:-translate-y-0.5"
             >
               <FileOutput className="w-4 h-4" /> PDF Report
             </button>
@@ -392,9 +389,8 @@ export default function BOQGenerator() {
               <h3 className="flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
                 <FileText className="w-5 h-5 text-indigo-500" /> BOQ Items
               </h3>
-              <button
-                onClick={handleAddItem}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white rounded-[16px] hover:bg-indigo-700 transition text-base font-semibold"
+              <button onClick={handleAddItem}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 <Plus className="w-4 h-4" /> Add Item
               </button>
@@ -514,7 +510,7 @@ export default function BOQGenerator() {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full p-2 bg-transparent text-sm rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all"
+                                className="w-full p-2 bg-transparent text-sm rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all rounded-full"
                               />
                             </td>
                             <td className="p-2 align-top">
@@ -537,7 +533,7 @@ export default function BOQGenerator() {
                                       !isNaN(val) ? Math.max(0, val) : 0,
                                     );
                                   }}
-                                  className="w-full p-2 bg-transparent text-sm text-right font-bold rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all"
+                                  className="w-full p-2 bg-transparent text-sm text-right font-bold rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all rounded-full"
                                 />
                                 <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
                                   Qty = L × W × D 
@@ -566,7 +562,7 @@ export default function BOQGenerator() {
                                       !isNaN(val) ? Math.max(0, val) : 0,
                                     );
                                   }}
-                                  className="w-full p-2 bg-transparent text-sm text-right font-bold text-emerald-600 rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all"
+                                  className="w-full p-2 bg-transparent text-sm text-right font-bold text-emerald-600 rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all rounded-full"
                                 />
                                 <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
                                   R = Mat + Lab + Eqp + OHP
@@ -586,7 +582,7 @@ export default function BOQGenerator() {
                             <td className="p-2 align-top text-center">
                               <button
                                 onClick={() => handleDeleteItem(item.id)}
-                                className="p-2 text-slate-600 hover:text-rose-500 hover:bg-rose-50 rounded-[16px] transition-colors"
+                                className="p-2 text-slate-600 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -648,7 +644,7 @@ export default function BOQGenerator() {
                         const val = parseFloat(e.target.value);
                         setContingencyPct(!isNaN(val) ? Math.max(0, val) : 0);
                       }}
-                      className="w-12 px-1 py-0.5 bg-slate-50 border border-slate-200 text-slate-800 rounded text-right text-sm focus:outline-none focus:border-indigo-300"
+                      className="w-12 px-1 py-0.5 bg-slate-50 border border-slate-200 text-slate-800 rounded text-right text-sm focus:outline-none focus:border-indigo-300 rounded-full"
                     />
                     <span className="font-bold tabular-nums text-orange-500">
                       +$
@@ -691,7 +687,7 @@ export default function BOQGenerator() {
                         const val = parseFloat(e.target.value);
                         setGstPct(!isNaN(val) ? Math.max(0, val) : 0);
                       }}
-                      className="w-12 px-1 py-0.5 bg-slate-50 border border-slate-200 text-slate-800 rounded text-right text-sm focus:outline-none focus:border-indigo-300"
+                      className="w-12 px-1 py-0.5 bg-slate-50 border border-slate-200 text-slate-800 rounded text-right text-sm focus:outline-none focus:border-indigo-300 rounded-full"
                     />
                     <span className="font-bold tabular-nums text-rose-500">
                       +$
@@ -769,7 +765,7 @@ export default function BOQGenerator() {
               </h2>
               <button 
                 onClick={() => setIsExportModalOpen(false)}
-                className="text-slate-600 hover:text-slate-600 bg-white hover:bg-slate-100 p-1.5 rounded-full transition-colors"
+                className="text-slate-600 hover:text-slate-600 bg-white hover:bg-slate-100 p-1.5 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -781,7 +777,7 @@ export default function BOQGenerator() {
                   type="text"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
                 />
               </div>
               <div>
@@ -791,7 +787,7 @@ export default function BOQGenerator() {
                   value={exportClientName}
                   onChange={(e) => setExportClientName(e.target.value)}
                   placeholder="e.g. Acme Corp"
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
                 />
               </div>
               <div>
@@ -801,20 +797,19 @@ export default function BOQGenerator() {
                   value={exportEngineerName}
                   onChange={(e) => setExportEngineerName(e.target.value)}
                   placeholder="e.g. John Doe"
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
                 />
               </div>
             </div>
             <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
               <button 
                 onClick={() => setIsExportModalOpen(false)}
-                className="px-5 py-2 text-slate-600 font-bold hover:bg-slate-200 rounded-xl transition-colors"
+                className="px-5 py-2 text-slate-600 font-bold hover:bg-slate-200 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 Cancel
               </button>
-              <button 
-                onClick={confirmPDFExport}
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-sm transition-colors flex items-center gap-2 text-base font-semibold"
+              <button onClick={confirmPDFExport}
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-sm transition-colors flex items-center gap-2 text-base font-semibold active:scale-95 hover:-translate-y-0.5"
               >
                 <FileOutput className="w-4 h-4" /> Download PDF
               </button>

@@ -99,7 +99,7 @@ function BOQRow({
               }
             >
               {row.isManualOverride ? (
-                <Unlink className="w-3 h-3" />
+                <Unlink className="w-3 h-3 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
               ) : (
                 <LinkIcon className="w-3 h-3" />
               )}
@@ -107,9 +107,8 @@ function BOQRow({
           )}
           <div className="relative">
             {useManual ? (
-              <input
-                type="number" inputMode="decimal"
-                className="w-16 bg-transparent border border-slate-200 rounded px-1.5 py-0.5 text-right focus:outline-none focus:border-blue-500 text-slate-800 font-mono min-h-[44px]"
+              <input type="number" inputMode="decimal"
+                className="w-16 bg-transparent border border-slate-200 rounded px-1.5 py-0.5 text-right focus:outline-none focus:border-blue-500 text-slate-800 font-mono min-h-[44px] rounded-full"
                 value={row.qtyOverride || 0}
                 onChange={(e) =>
                   updateBoqItem(row.id, {
@@ -334,11 +333,11 @@ export default function LiveBOQ() {
             <GlobalSettingsToggle align="left" showCurrency={true} />
             <button
               onClick={() => setShowExportModal(true)}
-              className="px-3 py-1.5 text-sm bg-transparent border border-slate-200 rounded hover:bg-slate-200 transition-colors flex items-center gap-1.5"
+              className="px-3 py-1.5 text-sm bg-transparent border border-slate-200 rounded hover:bg-slate-200 transition-colors flex items-center gap-1.5 rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <Download className="w-[14px] h-[14px]" /> Export Report
             </button>
-            <button className="px-3 py-1.5 text-sm bg-indigo-600 font-medium text-white rounded hover:bg-indigo-500 transition-colors flex items-center gap-1.5 shadow-sm">
+            <button className="px-3 py-1.5 text-sm bg-indigo-600 font-medium text-white rounded hover:bg-indigo-500 transition-colors flex items-center gap-1.5 shadow-sm rounded-full active:scale-95 hover:-translate-y-0.5">
               <Plus className="w-[14px] h-[14px]" /> Add Item
             </button>
           </div>
@@ -347,13 +346,12 @@ export default function LiveBOQ() {
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent/20 flex gap-4">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-[14px] h-[14px] absolute left-3 top-2.5 text-slate-700" />
-            <input
-              type="text"
+            <input type="text"
               placeholder="Search items..."
-              className="w-full bg-transparent border border-slate-200 rounded-[16px] px-3 pl-8 py-1.5 text-sm focus:outline-none focus:border-blue-500 text-slate-800 min-h-[44px]"
+              className="w-full bg-transparent border border-slate-200 rounded-full px-3 pl-8 py-1.5 text-sm focus:outline-none focus:border-blue-500 text-slate-800 min-h-[44px]"
             />
           </div>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-slate-200 rounded text-sm hover:bg-slate-200 transition-colors text-slate-700">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-slate-200 rounded text-sm hover:bg-slate-200 transition-colors text-slate-700 rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <Filter className="w-[14px] h-[14px]" /> Filters
           </button>
         </div>
@@ -433,7 +431,7 @@ export default function LiveBOQ() {
                       projectName: e.target.value,
                     }))
                   }
-                  className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500"
+                  className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500 rounded-full"
                 />
               </div>
               <div>
@@ -449,7 +447,7 @@ export default function LiveBOQ() {
                       clientName: e.target.value,
                     }))
                   }
-                  className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500"
+                  className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500 rounded-full"
                 />
               </div>
               <div>
@@ -465,7 +463,7 @@ export default function LiveBOQ() {
                       siteLocation: e.target.value,
                     }))
                   }
-                  className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500"
+                  className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500 rounded-full"
                 />
               </div>
             </div>
@@ -473,7 +471,7 @@ export default function LiveBOQ() {
               <button
                 onClick={() => handleExport("pdf")}
                 disabled={isPdfLoading || isExcelLoading}
-                className="flex flex-col items-center justify-center p-3 bg-transparent border border-slate-200 rounded hover:border-red-500/50 hover:bg-red-500/10 transition-colors gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative"
+                className="flex flex-col items-center justify-center p-3 bg-transparent border border-slate-200 rounded hover:border-red-500/50 hover:bg-red-500/10 transition-colors gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 {isPdfLoading ? (
                   <Loader2 className="w-6 h-6 text-red-500 animate-spin" />
@@ -487,7 +485,7 @@ export default function LiveBOQ() {
               <button
                 onClick={() => handleExport("excel")}
                 disabled={isPdfLoading || isExcelLoading}
-                className="flex flex-col items-center justify-center p-3 bg-transparent border border-slate-200 rounded hover:border-green-500/50 hover:bg-green-500/10 transition-colors gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative"
+                className="flex flex-col items-center justify-center p-3 bg-transparent border border-slate-200 rounded hover:border-green-500/50 hover:bg-green-500/10 transition-colors gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
               >
                 {isExcelLoading ? (
                   <Loader2 className="w-6 h-6 text-green-500 animate-spin" />
@@ -503,7 +501,7 @@ export default function LiveBOQ() {
               <button
                 onClick={() => setShowExportModal(false)}
                 disabled={isPdfLoading || isExcelLoading}
-                className="px-4 py-2 text-sm text-slate-700 hover:text-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm text-slate-700 hover:text-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed rounded-full"
               >
                 Cancel
               </button>

@@ -92,7 +92,7 @@ export default function CountertopModule() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <div>
               <label className="uppercase block mb-1 text-sm font-medium text-slate-700">
                 Main Length ({uL})
@@ -101,7 +101,7 @@ export default function CountertopModule() {
                 type="number" inputMode="decimal"
                 value={lengthA}
                 onChange={(e) => setLengthA(e.target.value)}
-                className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-full font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             {(shape === "L-Shape" || shape === "U-Shape") && (
@@ -113,7 +113,7 @@ export default function CountertopModule() {
                   type="number" inputMode="decimal"
                   value={lengthB}
                   onChange={(e) => setLengthB(e.target.value)}
-                  className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-full font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
@@ -126,7 +126,7 @@ export default function CountertopModule() {
                   type="number" inputMode="decimal"
                   value={lengthC}
                   onChange={(e) => setLengthC(e.target.value)}
-                  className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-full font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
@@ -138,7 +138,7 @@ export default function CountertopModule() {
                 type="number" inputMode="decimal"
                 value={depth}
                 onChange={(e) => setDepth(e.target.value)}
-                className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-full font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             <div>
@@ -149,7 +149,7 @@ export default function CountertopModule() {
                 type="number" inputMode="decimal"
                 value={skirtingHeight}
                 onChange={(e) => setSkirtingHeight(e.target.value)}
-                className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-white border border-slate-200 dark:border-slate-700 p-3 rounded-full font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
           </div>
@@ -164,11 +164,11 @@ export default function CountertopModule() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="uppercase block mb-1 text-sm font-medium text-slate-700">Length ({uL})</label>
-                  <input type="number" inputMode="decimal" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" inputMode="decimal" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-full text-sm" />
                 </div>
                 <div>
                   <label className="uppercase block mb-1 text-sm font-medium text-slate-700">Width ({uL})</label>
-                  <input type="number" inputMode="decimal" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" inputMode="decimal" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-full text-sm" />
                 </div>
               </div>
             )}
@@ -181,11 +181,11 @@ export default function CountertopModule() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="uppercase block mb-1 text-sm font-medium text-slate-700">Length ({uL})</label>
-                  <input type="number" inputMode="decimal" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" inputMode="decimal" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-full text-sm" />
                 </div>
                 <div>
                   <label className="uppercase block mb-1 text-sm font-medium text-slate-700">Width ({uL})</label>
-                  <input type="number" inputMode="decimal" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" inputMode="decimal" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-full text-sm" />
                 </div>
               </div>
             )}

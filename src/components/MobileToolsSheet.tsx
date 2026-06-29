@@ -256,8 +256,7 @@ export default function MobileToolsSheet({
               <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 Tools Directory
               </h2>
-              <button
-                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors text-base font-semibold"
+              <button className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 onClick={onClose}
               >
                 <X className="w-5 h-5" />
@@ -273,7 +272,7 @@ export default function MobileToolsSheet({
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search tools & calculations..."
-                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-sm font-medium text-slate-700 placeholder:text-slate-600 pl-10 pr-3"
+                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-sm font-medium text-slate-700 placeholder:text-slate-600 pl-10 pr-3 rounded-full"
                   />
                 </div>
               </div>
@@ -297,7 +296,7 @@ export default function MobileToolsSheet({
               </div>
             </div>
 
-            <div className="flex-1 overflow-x-hidden relative">
+            <div className="flex-1 overflow-x-hidden relative rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <motion.div
                 className="h-full overflow-y-auto px-6 pb-8 pt-4"
                 drag="x"

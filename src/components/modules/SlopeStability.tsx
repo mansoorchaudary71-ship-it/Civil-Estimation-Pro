@@ -84,7 +84,7 @@ export default function SlopeStability() {
                   type="number" inputMode="decimal"
                   value={cohesion}
                   onChange={(e) => setCohesion(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -93,7 +93,7 @@ export default function SlopeStability() {
                   type="number" inputMode="decimal"
                   value={frictionAngle}
                   onChange={(e) => setFrictionAngle(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -104,7 +104,7 @@ export default function SlopeStability() {
                   type="number" inputMode="decimal"
                   value={unitWeight}
                   onChange={(e) => setUnitWeight(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function SlopeStability() {
                   type="number" inputMode="decimal"
                   value={slopeHeight}
                   onChange={(e) => setSlopeHeight(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -124,7 +124,7 @@ export default function SlopeStability() {
                   type="number" inputMode="decimal"
                   value={slopeAngle}
                   onChange={(e) => setSlopeAngle(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
                 />
               </div>
             </div>

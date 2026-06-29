@@ -178,9 +178,8 @@ const ConstructionCostSummary: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <CurrencySelector />
-          <button
-            onClick={exportToPDF}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-slate-900 px-5 py-2.5 rounded-[24px] transition-colors whitespace-nowrap text-base font-semibold"
+          <button onClick={exportToPDF}
+            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-slate-900 px-5 py-2.5 rounded-full transition-colors whitespace-nowrap text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
           >
             <Download className="w-4 h-4" />
             Export Report
@@ -198,7 +197,7 @@ const ConstructionCostSummary: React.FC = () => {
             type="number" inputMode="decimal"
             value={totalArea}
             onChange={(e) => setTotalArea(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
           />
         </div>
       </div>
@@ -222,7 +221,7 @@ const ConstructionCostSummary: React.FC = () => {
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("grey", item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-full py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
@@ -249,7 +248,7 @@ const ConstructionCostSummary: React.FC = () => {
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("finish", item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-full py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
@@ -276,7 +275,7 @@ const ConstructionCostSummary: React.FC = () => {
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("labour", item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-full py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
@@ -308,7 +307,7 @@ const ConstructionCostSummary: React.FC = () => {
                   step="1"
                   value={overheadProfitPct}
                   onChange={(e) => setOverheadProfitPct(parseInt(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-[16px] appearance-none cursor-pointer accent-orange-500"
+                  className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-orange-500"
                 />
               </div>
 
@@ -324,7 +323,7 @@ const ConstructionCostSummary: React.FC = () => {
                   step="1"
                   value={contingencyPct}
                   onChange={(e) => setContingencyPct(parseInt(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-[16px] appearance-none cursor-pointer accent-orange-500"
+                  className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-orange-500"
                 />
               </div>
             </div>
@@ -337,66 +336,82 @@ const ConstructionCostSummary: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 h-[400px]"
+            className="bg-slate-50 rounded-[32px] border border-slate-200 shadow-sm p-6 flex flex-col min-h-[450px] mb-2"
           >
-            <h3 className="text-center mb-1 text-lg font-medium text-slate-800 mb-4">Project Summary Dashboard</h3>
-            <p className="text-center mb-4 text-base font-normal text-slate-600 leading-relaxed">Material vs. Labor Distribution</p>
-            <ResponsiveContainer width="100%" height="90%">
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={80}
-                  outerRadius={120}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <RechartsTooltip 
-                  formatter={(value: any) => formatCurrency(value, false)}
-                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                />
-                <Legend verticalAlign="bottom" height={36} />
-              </PieChart>
-            </ResponsiveContainer>
+            <h3 className="text-center text-lg font-semibold text-slate-800 mb-1">Project Summary Dashboard</h3>
+            <p className="text-center text-sm font-medium text-slate-500 mb-4">Material vs. Labor Distribution</p>
+            <div className="flex-1 w-full pt-4 pb-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={80}
+                    outerRadius={120}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <RechartsTooltip 
+                    formatter={(value: any) => formatCurrency(value, false)}
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                  />
+                  <Legend 
+                    verticalAlign="bottom" 
+                    content={(props: any) => {
+                      const { payload } = props;
+                      return (
+                        <ul className="flex flex-wrap justify-center gap-4 mt-8 mb-2">
+                          {payload.map((entry: any, index: number) => (
+                            <li key={`item-${index}`} className="flex items-center gap-2">
+                              <div className="w-3.5 h-3.5 rounded-sm" style={{ backgroundColor: entry.color }} />
+                              <span className="text-slate-800 font-medium text-sm">{entry.value}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      );
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </motion.div>
 
-          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[24px] p-6 text-slate-900 shadow-xl">
-            <h3 className="text-purple-200 uppercase r mb-4 text-lg font-medium text-slate-800">Final Cost Summary</h3>
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[32px] p-6 md:p-8 text-white shadow-xl">
+            <h3 className="text-purple-200 uppercase tracking-wider mb-6 text-lg font-semibold">Final Cost Summary</h3>
             
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
-                <span className="text-purple-100">Base Subtotal</span>
-                <span className="font-semibold">{formatCurrency(subTotal)}</span>
+            <div className="space-y-4 mb-8 text-slate-100">
+              <div className="flex justify-between items-center border-b border-purple-700/50 pb-3">
+                <span className="text-purple-200 font-medium">Base Subtotal</span>
+                <span className="font-semibold text-white">{formatCurrency(subTotal)}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
-                <span className="text-purple-100">Overhead & Profit ({overheadProfitPct}%)</span>
-                <span className="font-semibold">{formatCurrency(overheadProfitAmount)}</span>
+              <div className="flex justify-between items-center border-b border-purple-700/50 pb-3">
+                <span className="text-purple-200 font-medium">Overhead & Profit ({overheadProfitPct}%)</span>
+                <span className="font-semibold text-white">{formatCurrency(overheadProfitAmount)}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
-                <span className="text-purple-100">Contingency ({contingencyPct}%)</span>
-                <span className="font-semibold">{formatCurrency(contingencyAmount)}</span>
+              <div className="flex justify-between items-center border-b border-purple-700/50 pb-3">
+                <span className="text-purple-200 font-medium">Contingency ({contingencyPct}%)</span>
+                <span className="font-semibold text-white">{formatCurrency(contingencyAmount)}</span>
               </div>
             </div>
 
             <div className="pt-2">
-              <div className="text-purple-200 text-sm mb-1">Grand Total Estimation</div>
-              <div className="text-xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tracking-tight text-slate-900 mb-4">
-                {/* using standard large formatting */}
+              <div className="text-purple-200 font-medium text-sm mb-2">Grand Total Estimation</div>
+              <div className="text-3xl md:text-[clamp(2rem,5vw,3rem)] break-all font-bold tracking-tight text-white mb-6">
                 {formatCurrency(grandTotal)}
               </div>
               
-              <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] p-4 flex items-center justify-between">
+              <div className="bg-white rounded-[24px] shadow-sm p-5 flex items-center justify-between">
                 <div>
-                  <div className="text-purple-200 text-sm uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
-                  <div className="text-xl font-semibold text-slate-800">{formatCurrency(costPerSqFt)}</div>
+                  <div className="text-slate-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
+                  <div className="text-xl sm:text-2xl font-bold text-slate-900">{formatCurrency(costPerSqFt)}</div>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <PieChartIcon className="w-6 h-6 text-slate-900" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-100 flex items-center justify-center">
+                  <PieChartIcon className="w-6 h-6 sm:w-7 sm:h-7 text-slate-700" />
                 </div>
               </div>
             </div>

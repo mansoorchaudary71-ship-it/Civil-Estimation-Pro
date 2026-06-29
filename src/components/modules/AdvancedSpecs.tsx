@@ -162,7 +162,7 @@ export default function AdvancedSpecs({
         value={specs[specKey] as string}
         onChange={(e) => updateSpec(specKey, e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm"
+        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-full px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm"
       />
     </div>
   );
@@ -213,7 +213,7 @@ export default function AdvancedSpecs({
           <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(0)}
-              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <span className="font-bold text-sm text-slate-800">
                 1. Foundation & Substructure
@@ -254,7 +254,7 @@ export default function AdvancedSpecs({
           <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(1)}
-              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <span className="font-bold text-sm text-slate-800">
                 2. Above-Ground Work (Walls & Roof)
@@ -305,7 +305,7 @@ export default function AdvancedSpecs({
           <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(2)}
-              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <span className="font-bold text-sm text-slate-800">
                 3. Finishing & Surfaces
@@ -359,7 +359,7 @@ export default function AdvancedSpecs({
           <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(3)}
-              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <span className="font-bold text-sm text-slate-800">
                 4. Woodwork & Openings
@@ -417,7 +417,7 @@ export default function AdvancedSpecs({
           <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(4)}
-              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <span className="font-bold text-sm text-slate-800">
                 5. MEP Services

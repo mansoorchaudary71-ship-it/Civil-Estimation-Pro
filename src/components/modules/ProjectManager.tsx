@@ -88,13 +88,13 @@ export default function ProjectManager() {
         </div>
         <div className="flex gap-2">
            {compareIds[0] && compareIds[1] && (
-             <button onClick={() => setView('compare')} className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_14px_rgba(16,185,129,0.39)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.23)] transition-all animate-pulse">
+             <button onClick={() => setView('compare')} className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_14px_rgba(16,185,129,0.39)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.23)] transition-all animate-pulse active:scale-95 hover:-translate-y-0.5">
                 Compare Selected
              </button>
            )}
            <button 
              onClick={() => setIsCreating(!isCreating)}
-             className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_14px_rgba(99,102,241,0.39)] hover:shadow-[0_6px_20px_rgba(99,102,241,0.23)] transition-all flex items-center gap-2"
+             className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_14px_rgba(99,102,241,0.39)] hover:shadow-[0_6px_20px_rgba(99,102,241,0.23)] transition-all flex items-center gap-2 active:scale-95 hover:-translate-y-0.5"
            >
              <Plus className="w-5 h-5" /> New Project
            </button>
@@ -109,11 +109,11 @@ export default function ProjectManager() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Project Name</label>
-              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
+              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
             </div>
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Location</label>
-              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" />
+              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" />
             </div>
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Type</label>
@@ -126,12 +126,12 @@ export default function ProjectManager() {
             </div>
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Start Date</label>
-              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" />
+              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" />
             </div>
           </div>
           <div className="flex gap-3 mt-6">
-            <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white rounded-[24px] hover:bg-indigo-700 transition shadow-md text-base font-semibold">Save Project</button>
-            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-white/50 border border-white/60 text-gray-600 font-bold rounded-[24px] hover:bg-white/80 transition shadow-sm">Cancel</button>
+            <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition shadow-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5">Save Project</button>
+            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-white/50 border border-white/60 text-gray-600 font-bold rounded-full hover:bg-white/80 transition shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5">Cancel</button>
           </div>
         </form>
       )}
@@ -205,7 +205,7 @@ export default function ProjectManager() {
                         setNewProject({ name: 'My House Project', location: '', type: 'Residential', startDate: new Date().toISOString().split('T')[0] });
                         setIsCreating(true);
                      }}
-                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-indigo-50 rounded-[24px] border border-slate-100 hover:border-indigo-200 transition-all"
+                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-indigo-50 rounded-full border border-slate-100 hover:border-indigo-200 transition-all active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                    >
                       <div className="flex items-center gap-4">
                          <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
@@ -224,7 +224,7 @@ export default function ProjectManager() {
                         setNewProject({ name: 'Highway Expansion', location: '', type: 'Infrastructure', startDate: new Date().toISOString().split('T')[0] });
                         setIsCreating(true);
                      }}
-                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-emerald-50 rounded-[24px] border border-slate-100 hover:border-emerald-200 transition-all"
+                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-emerald-50 rounded-full border border-slate-100 hover:border-emerald-200 transition-all active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                    >
                       <div className="flex items-center gap-4">
                          <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
@@ -253,7 +253,7 @@ export default function ProjectManager() {
                    
                    <label className="cursor-pointer inline-flex w-[80%] items-center justify-center gap-2 px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-[24px] transition shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] text-sm font-medium text-gray-700 mb-1 block">
                       <Upload className="w-5 h-5" /> Select File to Import
-                      <input type="file" className="hidden text-base font-normal" accept=".json,.csv" onChange={(e) => {
+                      <input type="file" className="hidden text-base font-normal rounded-full" accept=".json,.csv" onChange={(e) => {
                          if (e.target.files && e.target.files.length > 0) {
                             alert("Import functionality would process: " + e.target.files[0].name + " here. (Feature coming soon)");
                          }
@@ -345,7 +345,7 @@ export default function ProjectManager() {
               
               <div className="mt-auto flex flex-col gap-2">
                  <div className="flex gap-2">
-                   <button onClick={() => handleView(proj.id)} className="flex-1 py-2.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-bold rounded-[24px] transition flex justify-center items-center gap-1">
+                   <button onClick={() => handleView(proj.id)} className="flex-1 py-2.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-bold rounded-full transition flex justify-center items-center gap-1 transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                       View Details <ChevronRight className="w-4 h-4" />
                    </button>
                    <button 
@@ -400,8 +400,8 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
   const allMaterialKeys = Array.from(new Set([...Object.keys(t1.materials), ...Object.keys(t2.materials)])).sort();
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
-       <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition text-base font-semibold">
+    <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
+       <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition text-base font-semibold rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
           <ChevronRight className="w-5 h-5 rotate-180" /> Back to Projects
        </button>
        
@@ -569,7 +569,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
-       <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition text-base font-semibold">
+       <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition text-base font-semibold rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
           <ChevronRight className="w-5 h-5 rotate-180" /> Back to Projects
        </button>
        
@@ -594,13 +594,13 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       </div>
                    </div>
                    <div className="flex gap-2">
-                      <button onClick={handleSaveVersion} className="p-3 bg-emerald-50/50 hover:bg-emerald-100/60 text-emerald-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold" title="Save Version Snapshot">
+                      <button onClick={handleSaveVersion} className="p-3 bg-emerald-50/50 hover:bg-emerald-100/60 text-emerald-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5" title="Save Version Snapshot">
                          <Save className="w-5 h-5" />
                       </button>
-                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-gray-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold" title="Share Project">
+                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-gray-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
-                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold" title="Export PDF">
+                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5" title="Export PDF">
                          <Printer className="w-5 h-5" />
                       </button>
                    </div>
@@ -618,7 +618,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           type="number" inputMode="decimal" 
                           value={budget || ''} 
                           onChange={(e) => { const v = Number(e.target.value); setBudget(v); updateProject(project.id, { budget: v }); }}
-                          className="w-full text-xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none"
+                          className="w-full text-xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none rounded-full"
                           placeholder="0.00"
                        />
                      ) : (
@@ -699,12 +699,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                  <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Cost Inflation / Contingency: <span className="text-indigo-600">{inflationRate}%</span></label>
-                    <input type="range" min="0" max="30" step="1" value={inflationRate} onChange={e => setInflationRate(Number(e.target.value))} className="w-full accent-indigo-600" />
+                    <input type="range" min="0" max="30" step="1" value={inflationRate} onChange={e => setInflationRate(Number(e.target.value))} className="w-full accent-indigo-600 rounded-full" />
                     <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Applies an automatic price hike to all historical estimates.</p>
                  </div>
                  <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Material Waste Factor: <span className="text-amber-600">{wasteFactor}%</span></label>
-                    <input type="range" min="0" max="25" step="1" value={wasteFactor} onChange={e => setWasteFactor(Number(e.target.value))} className="w-full accent-amber-600" />
+                    <input type="range" min="0" max="25" step="1" value={wasteFactor} onChange={e => setWasteFactor(Number(e.target.value))} className="w-full accent-amber-600 rounded-full" />
                     <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Uniformly bumps all BOQ material quantities.</p>
                  </div>
               </div>
@@ -877,7 +877,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                          if (window.confirm('Remove this member?')) {
                            removeMember(project.id, memberUid).catch(e => alert(e.message));
                          }
-                       }} className="text-rose-500 hover:text-rose-600 text-base font-medium px-2 py-1 bg-rose-50 rounded">Remove</button>
+                       }} className="text-rose-500 hover:text-rose-600 text-base font-medium px-2 py-1 bg-rose-50 rounded rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Remove</button>
                      )}
                    </div>
                  ))}
@@ -894,7 +894,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                          alert("Invalid role. Must be 'editor' or 'viewer'.");
                        }
                      }
-                   }} className="w-full flex items-center justify-center gap-2 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-[24px] font-bold text-sm transition">
+                   }} className="w-full flex items-center justify-center gap-2 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-full font-bold text-sm transition transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                      <Plus className="w-4 h-4" /> Add Member
                    </button>
                  </div>

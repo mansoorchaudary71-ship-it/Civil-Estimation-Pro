@@ -118,14 +118,14 @@ export default function CageEstimator() {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Pile/Col Diameter (mm)</label>
                 <input
                   type="number" inputMode="decimal"
                   value={pileDiameter}
                   onChange={(e) => setPileDiameter(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -134,7 +134,7 @@ export default function CageEstimator() {
                   type="number" inputMode="decimal"
                   value={pileLength}
                   onChange={(e) => setPileLength(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function CageEstimator() {
                   type="number" inputMode="decimal"
                   value={clearCover}
                   onChange={(e) => setClearCover(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -155,7 +155,7 @@ export default function CageEstimator() {
                   type="number" inputMode="decimal"
                   value={barDiameter}
                   onChange={(e) => setBarDiameter(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function CageEstimator() {
                   type="number" inputMode="decimal"
                   value={pitch}
                   onChange={(e) => setPitch(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -176,7 +176,7 @@ export default function CageEstimator() {
                   type="number" inputMode="decimal"
                   value={lapLength}
                   onChange={(e) => setLapLength(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
             </div>

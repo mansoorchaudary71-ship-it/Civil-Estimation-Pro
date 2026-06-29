@@ -413,7 +413,7 @@ export default function Sidebar({
             Esti<span className="text-indigo-600">Pro</span>
           </div>
           <div className="flex items-center space-x-2 text-slate-900 lg:hidden">
-            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-sm text-base font-semibold">
+            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-sm text-base font-semibold active:scale-95 hover:-translate-y-0.5">
               <X className="w-5 h-5 stroke-[2]" />
             </button>
           </div>
@@ -433,7 +433,7 @@ export default function Sidebar({
                    if (input) input.focus();
                 }, 300);
               }}
-              className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[24px] border border-[#ff9f43] [#ff7f50] text-[#ff9f43] [#ff7f50] bg-transparent hover:bg-[#ff9f43]/5[#ff7f50]/10 transition-colors"
+              className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-full border border-[#ff9f43] [#ff7f50] text-[#ff9f43] [#ff7f50] bg-transparent hover:bg-[#ff9f43]/5[#ff7f50]/10 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <span className="text-sm font-medium opacity-80">Search tools.</span>
             </button>
@@ -446,7 +446,7 @@ export default function Sidebar({
                    if (input) input.focus();
                 }, 300);
               }}
-              className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] [#ff7f50] text-[#ff9f43] [#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5[#ff7f50]/10 transition-colors"
+              className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] [#ff7f50] text-[#ff9f43] [#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5[#ff7f50]/10 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
               <Search className="w-5 h-5" strokeWidth={2.5} />
             </button>
@@ -464,7 +464,7 @@ export default function Sidebar({
               )}
             >
               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm bg-[#54a0ff]")}>
-                <LayoutDashboard className="w-5 h-5" strokeWidth={2} />
+                <LayoutDashboard className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" strokeWidth={2} />
               </div>
               <span className={cn(
                 "flex-1 text-left text-base font-medium tracking-tight",
@@ -481,7 +481,7 @@ export default function Sidebar({
               )}
             >
               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm bg-[#1dd1a1]")}>
-                <Layers className="w-5 h-5" strokeWidth={2} />
+                <Layers className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" strokeWidth={2} />
               </div>
               <span className={cn(
                 "flex-1 text-left text-base font-medium tracking-tight",
@@ -498,7 +498,7 @@ export default function Sidebar({
               )}
             >
               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm bg-[#8b6cff]")}>
-                 <Sparkles className="w-5 h-5" strokeWidth={2} />
+                 <Sparkles className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" strokeWidth={2} />
               </div>
               <span className={cn(
                 "flex-1 text-left text-base font-medium tracking-tight",
@@ -520,7 +520,7 @@ export default function Sidebar({
                   {/* Category Header */}
                   <button 
                     onClick={() => setExpandedCategory(isCategoryExpanded ? null : category.id)}
-                    className="flex justify-between items-center px-4 py-3 w-full group"
+                    className="flex justify-between items-center px-4 py-3 w-full group rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                   >
                     <span className="text-base font-medium uppercase tracking-wider group-hover:text-slate-800 transition-colors">
                       {category.label}
@@ -559,7 +559,7 @@ export default function Sidebar({
                               )}
                             >
                               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm", iconBg)}>
-                                <tool.icon className="w-5 h-5" strokeWidth={2} />
+                                <tool.icon className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" strokeWidth={2} />
                               </div>
                               <span className={cn(
                                 "flex-1 text-left text-base font-medium tracking-tight",
@@ -594,7 +594,7 @@ export default function Sidebar({
                                       )}
                                     >
                                       {isSubActive && (
-                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white border border-slate-200 shadow-sm" />
+                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white border border-slate-200 shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5" />
                                       )}
                                       <span className="relative z-10 transition-transform duration-200 block group-hover:translate-x-1">
                                         {subTool.label}
@@ -635,13 +635,13 @@ export default function Sidebar({
               <div className="flex gap-2">
                 <button
                   onClick={() => { onClose?.(); onOpenProfile?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-[24px] text-base font-medium bg-bg-card border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-full text-base font-medium bg-bg-card border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 transition-colors active:scale-95 hover:-translate-y-0.5"
                 >
                   <Settings className="w-4 h-4" /> Account
                 </button>
                 <button
                   onClick={async () => { await logOut(); onClose?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-[24px] text-base font-medium text-red-600 bg-bg-card border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 hover:border-red-100 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-full text-base font-medium text-red-600 bg-bg-card border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 hover:border-red-100 transition-colors active:scale-95 hover:-translate-y-0.5"
                 >
                   <LogOut className="w-4 h-4" /> Sign Out
                 </button>
@@ -649,10 +649,9 @@ export default function Sidebar({
             </div>
           ) : (
             <div className="flex flex-col gap-2">
-              <button
-                onClick={handleGoogleSignIn}
+              <button onClick={handleGoogleSignIn}
                 disabled={isAuthLoading}
-                className="w-full flex items-center justify-center gap-3 py-3 rounded-[24px] text-slate-700 bg-bg-card border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 transition-colors disabled:opacity-50 text-base font-semibold"
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-full text-slate-700 bg-bg-card border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 transition-colors disabled:opacity-50 text-base font-semibold active:scale-95 hover:-translate-y-0.5"
               >
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login Button Logo" title="Google External Sign in Auth" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
                 {isAuthLoading ? "..." : "Sign In with Google"}

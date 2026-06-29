@@ -157,12 +157,11 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
                 placeholder="Enter your professional email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full sm:flex-1 bg-white border border-slate-300 shadow-inner rounded-2xl py-3.5 px-5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF5F15]/30 focus:border-[#FF5F15] transition-all duration-300"
+                className="w-full sm:flex-1 bg-white border border-slate-300 shadow-inner rounded-full py-3.5 px-5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF5F15]/30 focus:border-[#FF5F15] transition-all duration-300"
               />
-              <button 
-                onClick={handleSubscribe} 
+              <button onClick={handleSubscribe} 
                 disabled={isSubscribing}
-                className="px-8 py-3.5 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-2xl transition-all duration-300 shadow-lg shadow-slate-900/20 text-[14px] font-semibold tracking-wide shrink-0 hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:-translate-y-0 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="px-8 py-3.5 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-xl shadow-slate-900/20 hover:shadow-slate-900/30 text-[14px] font-semibold tracking-wide shrink-0 hover:-translate-y-0.5 active:scale-95 disabled:opacity-70 disabled:hover:-translate-y-0 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubscribing ? (
                   <>
@@ -196,7 +195,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
                 <button 
                   key={link.id} 
                   onClick={() => onNavigate?.(link.id as ModuleId)}
-                  className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit"
+                  className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit rounded-full"
                 >
                   {link.name}
                 </button>
@@ -208,7 +207,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             <h3 className="text-[13px] uppercase tracking-widest font-bold text-slate-900">Company</h3>
             <div className="flex flex-col space-y-3">
               {['About Us', 'Careers', 'Contact', 'Blog'].map((link) => (
-                <button key={link} className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
+                <button key={link} className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit rounded-full">
                   {link}
                 </button>
               ))}
@@ -219,7 +218,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             <h3 className="text-[13px] uppercase tracking-widest font-bold text-slate-900">Legal</h3>
             <div className="flex flex-col space-y-3">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
-                <button key={link} className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
+                <button key={link} className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit rounded-full">
                   {link}
                 </button>
               ))}
@@ -230,7 +229,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             <h3 className="text-[13px] uppercase tracking-widest font-bold text-slate-900">Resources</h3>
             <div className="flex flex-col space-y-3">
               {['Embed Calculator', 'Link Exchange', 'APIs'].map((link) => (
-                <button key={link} className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
+                <button key={link} className="text-left text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] transition-colors w-fit rounded-full">
                   {link}
                 </button>
               ))}

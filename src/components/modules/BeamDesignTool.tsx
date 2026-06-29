@@ -223,9 +223,8 @@ export default function BeamDesignTool() {
                       <div className="flex-1">
                         <NumberInput label="Safety Factor (γf)" value={safetyFactor} onChange={setSafetyFactor} />
                       </div>
-                      <button 
-                        onClick={handleAiSafetyFactor}
-                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center transition-colors shadow-sm text-base font-semibold"
+                      <button onClick={handleAiSafetyFactor}
+                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center transition-colors shadow-sm text-base font-semibold active:scale-95 hover:-translate-y-0.5"
                         title="AI-Suggested Safety Factor based on Project Settings"
                       >
                         <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest

@@ -48,7 +48,7 @@ export default function MobileLandingPage() {
             </div>
             <div className="flex items-center gap-4">
               <Search className="w-5 h-5 text-slate-600" />
-              <button className="text-base font-medium hidden sm:block">Login</button>
+              <button className="text-base font-medium hidden sm:block rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Login</button>
               <Menu className="w-6 h-6 text-slate-900 sm:hidden" />
             </div>
           </header>
@@ -75,11 +75,11 @@ export default function MobileLandingPage() {
 
             {/* Buttons */}
             <div className="flex flex-col w-full gap-3 mb-12">
-              <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3.5 px-6 rounded-2xl font-semibold shadow-[0_8px_20px_rgb(249,115,22,0.3)] transition-transform active:scale-[0.98]">
+              <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3.5 px-6 rounded-full font-semibold shadow-[0_8px_20px_rgb(249,115,22,0.3)] transition-transform active:scale-[0.98] transition-all duration-300 active:scale-95 hover:-translate-y-0.5">
                 Start Estimating Free
                 <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-slate-200/60 backdrop-blur-sm text-slate-800 py-3.5 px-6 rounded-2xl font-semibold transition-transform active:scale-[0.98]">
+              <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-slate-200/60 backdrop-blur-sm text-slate-800 py-3.5 px-6 rounded-full font-semibold transition-transform active:scale-[0.98] transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                 <Play className="w-4 h-4 fill-slate-800" />
                 Watch Demo
               </button>
@@ -148,7 +148,7 @@ export default function MobileLandingPage() {
           </div>
 
           {/* Back to top button */}
-          <button className="absolute bottom-6 right-6 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-orange-600 transition-colors z-20">
+          <button className="absolute bottom-6 right-6 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-orange-600 transition-colors z-20 active:scale-95 hover:-translate-y-0.5">
             <ArrowUp className="w-5 h-5" />
           </button>
 

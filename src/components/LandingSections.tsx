@@ -301,7 +301,7 @@ export function FeatureComparisonSection({
               if (onNavigate) onNavigate("dashboard");
               window.scrollTo(0, 0);
             }}
-            className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 px-8 sm:px-10 py-4 lg:py-5 bg-[#FF5F15] hover:bg-[#ea580c] text-slate-900 font-bold text-base sm:text-lg rounded-[32px] sm:rounded-full group shadow-[0_5px_15px_rgba(255,95,21,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer whitespace-nowrap lg:whitespace-normal active:scale-[0.98] border border-[#FF5F15]"
+            className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 px-8 sm:px-10 py-4 lg:py-5 bg-[#FF5F15] hover:bg-[#ea580c] text-slate-900 font-bold text-base sm:text-lg rounded-full sm:rounded-full group shadow-[0_5px_15px_rgba(255,95,21,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer whitespace-nowrap lg:whitespace-normal active:scale-[0.98] border border-[#FF5F15]"
           >
             <span>Level up your estimations</span>
             <div className="flex items-center gap-2">

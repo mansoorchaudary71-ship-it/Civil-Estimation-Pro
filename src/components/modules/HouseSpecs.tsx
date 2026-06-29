@@ -338,10 +338,9 @@ function NumberInput({ label, value, onChange, desc }: any) {
       <label className="block uppercase tracking-widest mb-1.5 cursor-help text-sm font-medium text-slate-700 mb-1">
         {label}
       </label>
-      <input
-        type="number" inputMode="decimal"
+      <input type="number" inputMode="decimal"
         step="any"
-        className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px] text-base font-normal"
+        className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px] text-base font-normal"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

@@ -187,7 +187,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     type="number" inputMode="decimal"
                     value={wallLength}
                     onChange={(e) => setWallLength(e.target.value)}
-                    className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
+                    className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-full px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                     placeholder="e.g. 5"
                   />
                 </div>
@@ -199,7 +199,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     type="number" inputMode="decimal"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
-                    className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
+                    className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-full px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                     placeholder="e.g. 3"
                   />
                 </div>
@@ -211,7 +211,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     type="number" inputMode="decimal"
                     value={deductions}
                     onChange={(e) => setDeductions(e.target.value)}
-                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
+                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-full px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                     placeholder="e.g. 1.5"
                   />
                 </div>
@@ -234,7 +234,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                       onClick={() => setBrickType("standard")}
                       className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-base font-medium rounded-[24px] transition-all border ${brickType === "standard" ? "bg-orange-50  border-orange-200  text-orange-700  shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-slate-200 dark:border-slate-700 text-slate-700  hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
-                      <div className="flex items-center gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 mb-1.5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                         <div className={`w-4 h-4 rounded-full border-[3px] flex items-center justify-center shrink-0 ${brickType === "standard" ? "border-orange-500 bg-bg-card" : "border-slate-300"}`}>
                           {brickType === "standard" && <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>}
                         </div>
@@ -248,7 +248,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                       onClick={() => setBrickType("modular")}
                       className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-base font-medium rounded-[24px] transition-all border ${brickType === "modular" ? "bg-orange-50  border-orange-200  text-orange-700  shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-slate-200 dark:border-slate-700 text-slate-700  hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
-                      <div className="flex items-center gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 mb-1.5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                         <div className={`w-4 h-4 rounded-full border-[3px] flex items-center justify-center shrink-0 ${brickType === "modular" ? "border-orange-500 bg-bg-card" : "border-slate-300"}`}>
                           {brickType === "modular" && <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>}
                         </div>
@@ -299,7 +299,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           type="number" inputMode="decimal"
                           value={cementRatio}
                           onChange={(e) => { setCementRatio(e.target.value); setMixRatioPreset("custom"); }}
-                          className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
+                          className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-full px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                         />
                       </div>
                       <div className="flex-1">
@@ -310,7 +310,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           type="number" inputMode="decimal"
                           value={sandRatio}
                           onChange={(e) => { setSandRatio(e.target.value); setMixRatioPreset("custom"); }}
-                          className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
+                          className="w-full bg-bg-card/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-full px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                         />
                       </div>
                     </div>

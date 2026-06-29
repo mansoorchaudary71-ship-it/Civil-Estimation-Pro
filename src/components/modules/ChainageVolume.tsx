@@ -249,9 +249,8 @@ export default function ChainageVolumeEstimator() {
                   <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Formation Width ({unitL})
                   </label>
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-full px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                     value={formationWidth}
                     onChange={(e) => setFormationWidth(e.target.value === "" ? "" : Number(e.target.value))}
                   />
@@ -260,9 +259,8 @@ export default function ChainageVolumeEstimator() {
                   <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Cut Slope (H:1V)
                   </label>
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-full px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                     value={cutSlope}
                     onChange={(e) => setCutSlope(e.target.value === "" ? "" : Number(e.target.value))}
                   />
@@ -271,9 +269,8 @@ export default function ChainageVolumeEstimator() {
                   <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Fill Slope (H:1V)
                   </label>
-                  <input
-                    type="number" inputMode="decimal"
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
+                  <input type="number" inputMode="decimal"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-full px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                     value={fillSlope}
                     onChange={(e) => setFillSlope(e.target.value === "" ? "" : Number(e.target.value))}
                   />
@@ -298,9 +295,8 @@ export default function ChainageVolumeEstimator() {
                         <option value="trapezoidal">Trapezoidal Rule</option>
                         <option value="simpson">Simpson's (1/3) Rule</option>
                     </select>
-                    <button
-                      onClick={addStation}
-                      className="flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-800 hover:bg-amber-200 rounded-[12px] transition-colors text-base font-semibold"
+                    <button onClick={addStation}
+                      className="flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-800 hover:bg-amber-200 rounded-full transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                     >
                       <Plus className="w-4 h-4" /> Add Station
                     </button>
@@ -324,26 +320,23 @@ export default function ChainageVolumeEstimator() {
                     {results.segments.map((st) => (
                       <tr key={st.id} className="group hover:bg-slate-50/50 transition-colors">
                         <td className="py-2.5 pr-4">
-                          <input
-                            type="text"
-                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-[10px] px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
+                          <input type="text"
+                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-full px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                             value={st.chainage}
                             onChange={(e) => handleUpdateStation(st.id, "chainage", e.target.value)}
                             placeholder="e.g. 1+200"
                           />
                         </td>
                         <td className="py-2.5 px-4">
-                          <input
-                            type="number" inputMode="decimal"
-                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-[10px] px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
+                          <input type="number" inputMode="decimal"
+                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-full px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                             value={st.ngl}
                             onChange={(e) => handleUpdateStation(st.id, "ngl", e.target.value)}
                           />
                         </td>
                         <td className="py-2.5 px-4">
-                          <input
-                            type="number" inputMode="decimal"
-                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-[10px] px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
+                          <input type="number" inputMode="decimal"
+                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 text-slate-800 rounded-full px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                             value={st.fl}
                             onChange={(e) => handleUpdateStation(st.id, "fl", e.target.value)}
                           />
@@ -361,7 +354,7 @@ export default function ChainageVolumeEstimator() {
                             disabled={stations.length <= 2}
                             className={`p-2 rounded-full ${stations.length <= 2 ? "text-slate-700 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
                           </button>
                         </td>
                       </tr>
@@ -447,9 +440,8 @@ export default function ChainageVolumeEstimator() {
                        <span>Swell / Bulking Factor</span>
                        <span className="text-amber-600">%</span>
                     </label>
-                    <input
-                      type="number" inputMode="decimal"
-                      className="w-full bg-amber-50 border border-amber-200 text-amber-900 rounded-[12px] px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px] text-base font-normal"
+                    <input type="number" inputMode="decimal"
+                      className="w-full bg-amber-50 border border-amber-200 text-amber-900 rounded-full px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px] text-base font-normal"
                       value={swellFactor}
                       onChange={(e) => setSwellFactor(e.target.value === "" ? "" : Number(e.target.value))}
                     />
@@ -460,9 +452,8 @@ export default function ChainageVolumeEstimator() {
                        <span>Shrinkage Factor</span>
                        <span className="text-indigo-600">%</span>
                     </label>
-                    <input
-                      type="number" inputMode="decimal"
-                      className="w-full bg-indigo-50 border border-indigo-200 text-indigo-900 rounded-[12px] px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-h-[44px] text-base font-normal"
+                    <input type="number" inputMode="decimal"
+                      className="w-full bg-indigo-50 border border-indigo-200 text-indigo-900 rounded-full px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-h-[44px] text-base font-normal"
                       value={shrinkFactor}
                       onChange={(e) => setShrinkFactor(e.target.value === "" ? "" : Number(e.target.value))}
                     />
@@ -491,8 +482,7 @@ export default function ChainageVolumeEstimator() {
                 </div>
                 
                 <div className="mt-4 pt-4 border-t border-slate-100">
-                    <button 
-                        className="w-full bg-white hover:bg-slate-700 text-slate-900 py-3 rounded-xl transition-colors text-base font-semibold"
+                    <button className="w-full bg-white hover:bg-slate-700 text-slate-900 py-3 rounded-full transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         onClick={() => {
                             const items = [
                             {

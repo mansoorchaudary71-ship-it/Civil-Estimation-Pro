@@ -50,7 +50,7 @@ export default function DoorWindowSchedule() {
              <Columns className="w-6 h-6 text-teal-500" />
              Door & Window Schedule Generator
            </h2>
-           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-[24px] transition flex items-center gap-2 text-base font-semibold">
+           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-full transition flex items-center gap-2 text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
              <Save className="w-4 h-4"/> Export CSV
            </button>
          </div>
@@ -73,16 +73,16 @@ export default function DoorWindowSchedule() {
                 {entries.map(e => (
                    <tr key={e.id}>
                      <td className="p-2">
-                        <input type="text" value={e.type} onChange={(ev)=>updateEntry(e.id, 'type', ev.target.value)} className="w-[120px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="text" value={e.type} onChange={(ev)=>updateEntry(e.id, 'type', ev.target.value)} className="w-[120px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-full text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" inputMode="decimal" step="0.1" value={e.w} onChange={(ev)=>updateEntry(e.id, 'w', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="number" inputMode="decimal" step="0.1" value={e.w} onChange={(ev)=>updateEntry(e.id, 'w', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-full text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" inputMode="decimal" step="0.1" value={e.h} onChange={(ev)=>updateEntry(e.id, 'h', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="number" inputMode="decimal" step="0.1" value={e.h} onChange={(ev)=>updateEntry(e.id, 'h', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-full text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" inputMode="decimal" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="number" inputMode="decimal" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-full text-sm" />
                      </td>
                      <td className="p-2 text-base font-medium">
                         {((e.w * e.h) * e.qty).toFixed(2)}
@@ -91,10 +91,10 @@ export default function DoorWindowSchedule() {
                         {(e.w + 0.3).toFixed(2)}
                      </td>
                      <td className="p-2">
-                        <input type="text" value={e.notes} onChange={(ev)=>updateEntry(e.id, 'notes', ev.target.value)} className="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="text" value={e.notes} onChange={(ev)=>updateEntry(e.id, 'notes', ev.target.value)} className="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-full text-sm" />
                      </td>
                      <td className="p-2">
-                        <button onClick={()=>setEntries(entries.filter(x=>x.id!==e.id))} className="text-rose-500 hover:bg-rose-50 p-2 rounded-[16px] transition">✕</button>
+                        <button onClick={()=>setEntries(entries.filter(x=>x.id!==e.id))} className="text-rose-500 hover:bg-rose-50 p-2 rounded-full transition transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">✕</button>
                      </td>
                    </tr>
                 ))}
@@ -102,7 +102,7 @@ export default function DoorWindowSchedule() {
             </table>
          </div>
          <div className="mt-4">
-            <button onClick={addEntry} className="text-teal-600 bg-teal-50 px-4 py-2 rounded-[16px] hover:bg-teal-100 transition text-base font-semibold">
+            <button onClick={addEntry} className="text-teal-600 bg-teal-50 px-4 py-2 rounded-full hover:bg-teal-100 transition text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               + Add Item
             </button>
          </div>

@@ -98,11 +98,10 @@ export default function InteractiveSteelCalculator({
                 </span>
               </label>
               <div className="relative group">
-                <input
-                  type="number" inputMode="decimal"
+                <input type="number" inputMode="decimal"
                   readOnly
                   value={initialDiameter}
-                  className="block w-full rounded-[24px] border-slate-200 bg-slate-50 dark:bg-slate-800 py-4 pl-5 pr-16 text-xl text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default min-h-[44px] text-base font-normal"
+                  className="block w-full rounded-full border-slate-200 bg-slate-50 dark:bg-slate-800 py-4 pl-5 pr-16 text-xl text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default min-h-[44px] text-base font-normal"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
                   <span className="text-slate-600 font-semibold text-lg">
@@ -124,7 +123,7 @@ export default function InteractiveSteelCalculator({
                   onChange={(e) => setLength(e.target.value)}
                   min="0"
                   step="0.01"
-                  className="block w-full border-none py-4 pl-5 pr-4 text-xl font-semibold text-slate-900 focus:ring-0 bg-transparent"
+                  className="block w-full border-none py-4 pl-5 pr-4 text-xl font-semibold text-slate-900 focus:ring-0 bg-transparent rounded-full"
                 />
                 <div className="flex items-center bg-slate-50 border-l border-slate-200 px-2">
                   <select

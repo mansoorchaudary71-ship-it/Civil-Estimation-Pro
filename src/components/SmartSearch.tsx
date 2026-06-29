@@ -242,7 +242,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
           }}
           onBlur={() => setTimeout(() => setIsFocused(false), 200)}
           placeholder="Search tools, materials, or calculations..."
-          className="w-full h-full bg-transparent border-none outline-none text-base md:text-lg font-semibold text-slate-800  placeholder-slate-400 px-2 cursor-text"
+          className="w-full h-full bg-transparent border-none outline-none text-base md:text-lg font-semibold text-slate-800  placeholder-slate-400 px-2 cursor-text rounded-full"
         />
 
         {/* Keyboard Shortcut Hint */}
@@ -274,7 +274,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
             onClick={startVoiceSearch}
             className={`p-3 rounded-full transition-all duration-300 ${isListening ? "bg-red-50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-pulse" : "hover:bg-[#FFFFFF]/10  text-slate-600  hover:text-indigo-500"}`}
           >
-            <Mic className="w-5 h-5" />
+            <Mic className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
           </button>
         </div>
       </div>
@@ -302,7 +302,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           <button
                             key={i}
                             onClick={() => handleSelectQuery(rec)}
-                            className="bg-slate-50  hover:bg-slate-100   border border-slate-200  text-slate-600 text-sm font-medium px-4 py-2 rounded-full transition-colors flex items-center gap-2"
+                            className="bg-slate-50  hover:bg-slate-100   border border-slate-200  text-slate-600 text-sm font-medium px-4 py-2 rounded-full transition-colors flex items-center gap-2 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                           >
                             <Clock className="w-3.5 h-3.5 text-slate-600 " />
                             {rec}
@@ -322,7 +322,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                         <button
                           key={i}
                           onClick={() => handleSelectQuery(sugg)}
-                          className="w-full text-left px-4 py-3 rounded-[32px] hover:bg-[#FFFFFF]/10  text-slate-600 hover:text-slate-900  text-sm font-medium transition-colors flex items-center justify-between group"
+                          className="w-full text-left px-4 py-3 rounded-full hover:bg-[#FFFFFF]/10  text-slate-600 hover:text-slate-900  text-sm font-medium transition-colors flex items-center justify-between group active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                         >
                           <span>"{sugg}"</span>
                           <ArrowUpRight className="w-4 h-4 text-slate-700 group-hover:text-indigo-400 transition-colors" />
@@ -433,7 +433,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                       </p>
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="bg-white  border border-[#FFFFFF] text-slate-900  font-bold py-3 px-6 rounded-[32px] inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(15,23,42,0.15)] transition-all hover:bg-[#FFFFFF] hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+                        className="bg-white  border border-[#FFFFFF] text-slate-900  font-bold py-3 px-6 rounded-full inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(15,23,42,0.15)] transition-all hover:bg-[#FFFFFF] hover:-translate-y-0.5 w-full sm:w-auto justify-center active:scale-95"
                       >
                         <Sparkles className="w-5 h-5 text-amber-400" />
                         Calculate with AI
@@ -445,7 +445,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                     <div className="pt-2 border-t border-slate-100 mt-2">
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="w-full text-left px-4 py-3 rounded-[32px] hover:bg-[#FFFFFF]/10  text-slate-600 hover:text-slate-900  text-sm font-medium transition-colors flex items-center justify-between group bg-slate-50 "
+                        className="w-full text-left px-4 py-3 rounded-full hover:bg-[#FFFFFF]/10  text-slate-600 hover:text-slate-900  text-sm font-medium transition-colors flex items-center justify-between group bg-slate-50  active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                       >
                         <span className="flex items-center gap-2">
                           <Sparkles className="w-4 h-4 text-indigo-500" />

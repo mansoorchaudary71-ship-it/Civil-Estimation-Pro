@@ -174,7 +174,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
               placeholder="Search by code (e.g. 'IS 456') or title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border border-[#E8E4D9] rounded-xl py-4 pl-12 pr-4 text-[#4A443B] placeholder-[#A39D93] focus:outline-none focus:ring-2 focus:ring-[#B39B72]/50 shadow-sm"
+              className="w-full bg-white border border-[#E8E4D9] rounded-full py-4 pl-12 pr-4 text-[#4A443B] placeholder-[#A39D93] focus:outline-none focus:ring-2 focus:ring-[#B39B72]/50 shadow-sm"
             />
           </div>
         </div>
@@ -199,7 +199,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
         </div>
 
         {/* Standards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
           {filteredStandards.length > 0 ? (
             filteredStandards.map(std => (
               <div 
@@ -240,7 +240,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
                   <div className="mb-6 flex gap-2 flex-wrap">
                     <button
                       onClick={() => setViewPdfUrl(std.pdfLink)}
-                      className="inline-flex items-center gap-2 px-3 py-2 bg-[#F2EFE9] hover:bg-amber-500 hover:text-slate-900 border border-[#E8E4D9] rounded-lg text-base font-medium text-[#4A443B] transition-colors"
+                      className="inline-flex items-center gap-2 px-3 py-2 bg-[#F2EFE9] hover:bg-amber-500 hover:text-slate-900 border border-[#E8E4D9] rounded-full text-base font-medium text-[#4A443B] transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                     >
                       <Eye className="w-4 h-4" />
                       Read PDF
@@ -265,7 +265,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
                       <button
                         key={idx}
                         onClick={() => onNavigate?.(std.toolIds[idx])}
-                        className="text-base font-medium px-2.5 py-1.5 bg-[#FAF8F5] hover:bg-amber-50 hover:text-amber-600 border border-[#E8E4D9] hover:border-amber-200 rounded-md text-[#6A6458] transition-colors flex items-center gap-1.5 cursor-pointer"
+                        className="text-base font-medium px-2.5 py-1.5 bg-[#FAF8F5] hover:bg-amber-50 hover:text-amber-600 border border-[#E8E4D9] hover:border-amber-200 rounded-full text-[#6A6458] transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                       >
                         {tool}
                         <ArrowRight className="w-3 h-3 opacity-50" />
@@ -294,7 +294,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
               } else {
                  window.location.href = '/#tools';
               }
-           }} className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+           }} className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 hover:-translate-y-0.5">
              Explore All Tools
            </button>
         </div>
@@ -316,7 +316,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
                 </a>
                 <button
                   onClick={() => setViewPdfUrl(null)}
-                  className="p-2 text-[#A39D93] hover:text-[#4A443B] hover:bg-[#E8E4D9]/50 rounded-full transition-colors"
+                  className="p-2 text-[#A39D93] hover:text-[#4A443B] hover:bg-[#E8E4D9]/50 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   <X className="w-5 h-5" />
                 </button>

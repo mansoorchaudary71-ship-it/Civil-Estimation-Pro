@@ -103,7 +103,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={totalLength}
                     onChange={(e) => setTotalLength(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -112,7 +112,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={postSpacing}
                     onChange={(e) => setPostSpacing(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -137,7 +137,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={slabHeight}
                     onChange={(e) => setSlabHeight(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={postRate}
                     onChange={(e) => setPostRate(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
                 <div>
@@ -162,7 +162,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={slabRate}
                     onChange={(e) => setSlabRate(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
                 <div>
@@ -171,7 +171,7 @@ export default function PrecastWallCalculator() {
                     type="number" inputMode="decimal"
                     value={laborRatePerRunningMeter}
                     onChange={(e) => setLaborRate(e.target.value)}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
               </div>
@@ -179,7 +179,7 @@ export default function PrecastWallCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
+                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-full shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500 active:scale-95 hover:-translate-y-0.5"
               >
                 {isProcessing ? "Computing..." : "Generate BOM"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

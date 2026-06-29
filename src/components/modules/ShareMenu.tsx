@@ -396,7 +396,7 @@ export default function ShareButtonWithPopup({
       >
         {triggerContent || (
           <>
-            <Share2 className="w-4 h-4 group-hover:-translate-y-[1px] transition-transform" />
+            <Share2 className="w-4 h-4 group-hover:-translate-y-[1px] transition-transform rounded-full transition-all duration-300 active:scale-95 hover:shadow-lg shadow-sm" />
             <span>Share Results</span>
           </>
         )}
@@ -418,7 +418,7 @@ export default function ShareButtonWithPopup({
               <div className="pt-7 pb-5 px-7 flex flex-col items-center text-center relative">
                 <button 
                   onClick={() => setIsOpen(false)} 
-                  className="absolute right-5 top-5 p-2 bg-slate-100/80 hover:bg-slate-200   rounded-full transition-colors text-slate-500 "
+                  className="absolute right-5 top-5 p-2 bg-slate-100/80 hover:bg-slate-200   rounded-full transition-colors text-slate-500  active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
                   <X className="w-4 h-4"/>
                 </button>
@@ -431,9 +431,8 @@ export default function ShareButtonWithPopup({
 
               <div className="px-6 pb-7 max-h-[70vh] overflow-y-auto hide-scrollbar">
                 <div className="grid grid-cols-2 gap-3 mb-3">
-                  <button
-                    onClick={handleWhatsAppHTML}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#F0FDF4] hover:shadow-[0_8px_20px_rgba(22,101,52,0.08)]   border border-transparent hover:border-[#BBF7D0]  active:scale-95"
+                  <button onClick={handleWhatsAppHTML}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-full transition-all duration-300 bg-slate-50 hover:bg-[#F0FDF4] hover:shadow-[0_8px_20px_rgba(22,101,52,0.08)]   border border-transparent hover:border-[#BBF7D0]  active:scale-95 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <MessageCircle className="w-[20px] h-[20px]" strokeWidth={2} />
@@ -441,9 +440,8 @@ export default function ShareButtonWithPopup({
                     <span className="text-[12px] font-semibold text-slate-700  group-hover:text-emerald-700 ">WhatsApp</span>
                   </button>
 
-                  <button
-                    onClick={handleEmailHTML}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#EFF6FF] hover:shadow-[0_8px_20px_rgba(30,64,175,0.08)]   border border-transparent hover:border-[#BFDBFE]  active:scale-95"
+                  <button onClick={handleEmailHTML}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-full transition-all duration-300 bg-slate-50 hover:bg-[#EFF6FF] hover:shadow-[0_8px_20px_rgba(30,64,175,0.08)]   border border-transparent hover:border-[#BFDBFE]  active:scale-95 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Mail className="w-[20px] h-[20px]" strokeWidth={2.5} />
@@ -453,7 +451,7 @@ export default function ShareButtonWithPopup({
 
                   <button
                     onClick={() => generatePDF("pdf")}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#FEF2F2] hover:shadow-[0_8px_20px_rgba(153,27,27,0.08)]   border border-transparent hover:border-[#FECACA]  active:scale-95"
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-full transition-all duration-300 bg-slate-50 hover:bg-[#FEF2F2] hover:shadow-[0_8px_20px_rgba(153,27,27,0.08)]   border border-transparent hover:border-[#FECACA]  active:scale-95 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <FileText className="w-[20px] h-[20px]" strokeWidth={2.5} />
@@ -461,9 +459,8 @@ export default function ShareButtonWithPopup({
                     <span className="text-[12px] font-semibold text-slate-700  group-hover:text-rose-700  whitespace-nowrap">PDF Report</span>
                   </button>
                   
-                  <button
-                    onClick={generateExcel}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#ECFCCB] hover:shadow-[0_8px_20px_rgba(63,98,18,0.08)]   border border-transparent hover:border-[#D9F99D]  active:scale-95"
+                  <button onClick={generateExcel}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-full transition-all duration-300 bg-slate-50 hover:bg-[#ECFCCB] hover:shadow-[0_8px_20px_rgba(63,98,18,0.08)]   border border-transparent hover:border-[#D9F99D]  active:scale-95 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-10 rounded-full bg-lime-100 text-lime-700   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <FileSpreadsheet className="w-[20px] h-[20px]" strokeWidth={2.5} />
@@ -478,7 +475,7 @@ export default function ShareButtonWithPopup({
                       setIsOpen(false);
                       toast.success("Opened LinkedIn");
                     }}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#F0F9FF] hover:shadow-[0_8px_20px_rgba(3,105,161,0.08)]   border border-transparent hover:border-[#BAE6FD]  active:scale-95"
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-full transition-all duration-300 bg-slate-50 hover:bg-[#F0F9FF] hover:shadow-[0_8px_20px_rgba(3,105,161,0.08)]   border border-transparent hover:border-[#BAE6FD]  active:scale-95 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-10 rounded-full bg-sky-100 text-sky-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Share2 className="w-[20px] h-[20px]" strokeWidth={2.5} />
@@ -486,9 +483,8 @@ export default function ShareButtonWithPopup({
                     <span className="text-[12px] font-semibold text-slate-700  group-hover:text-sky-700 ">LinkedIn</span>
                   </button>
 
-                  <button
-                    onClick={handleDownloadText}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(15,23,42,0.05)]   border border-transparent hover:border-slate-200  active:scale-95"
+                  <button onClick={handleDownloadText}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-full transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(15,23,42,0.05)]   border border-transparent hover:border-slate-200  active:scale-95 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-700   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Download className="w-[20px] h-[20px]" strokeWidth={2.5} />

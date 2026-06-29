@@ -64,9 +64,8 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
         </div>
 
         <div className="flex flex-col items-start md:items-center justify-center shrink-0 w-full md:w-auto mt-2 md:mt-0">
-          <button 
-            onClick={onOpenChat} 
-            className="group relative w-full md:w-auto px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_35px_rgba(255,255,255,0.3)] border border-white overflow-hidden"
+          <button onClick={onOpenChat} 
+            className="group relative w-full md:w-auto px-8 py-4 bg-white text-slate-950 font-bold rounded-full transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_35px_rgba(255,255,255,0.3)] border border-white overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white via-slate-100 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <span className="relative z-10 flex items-center justify-center gap-2 text-[15px]">

@@ -153,7 +153,7 @@ export default function MasterQuantityEstimator({
                 placeholder="Search tools..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-[24px] shadow-sm focus:ring-2 focus:ring-indigo-500 font-medium outline-none placeholder:text-slate-400"
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full shadow-sm focus:ring-2 focus:ring-indigo-500 font-medium outline-none placeholder:text-slate-400"
               />
             </div>
 
@@ -169,7 +169,7 @@ export default function MasterQuantityEstimator({
                   <div key={group} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
                     <button
                       onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
-                      className="w-full flex items-center justify-between px-5 py-4 text-left font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                      className="w-full flex items-center justify-between px-5 py-4 text-left font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                     >
                       <span className="uppercase text-[11px] tracking-widest">{group}</span>
                       <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -192,7 +192,7 @@ export default function MasterQuantityEstimator({
                               }`}
                             >
                               <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-400"}`} />
-                              <span className="text-sm truncate">{calc.label}</span>
+                              <span className="text-sm truncate rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">{calc.label}</span>
                               {calc.sharedDependencies && calc.sharedDependencies.length > 0 && (
                                 <span title="Uses Shared Data" className="ml-auto flex items-center">
                                   <LinkIcon className="w-3 h-3 text-amber-500 opacity-60" />
@@ -239,7 +239,7 @@ export default function MasterQuantityEstimator({
                                  type="text"
                                  value={val}
                                  onChange={(e) => handleInputChange(activeCalc, inp.id, e.target.value)}
-                                 className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3.5 rounded-[16px] mt-1.5 font-bold text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                                 className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3.5 rounded-full mt-1.5 font-bold text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                                />
                              </div>
                           );
