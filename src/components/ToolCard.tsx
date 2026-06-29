@@ -80,47 +80,40 @@ export default function ToolCard({
       }}
       className={cn(
         "relative w-full flex flex-col font-sans overflow-hidden cursor-pointer",
-        "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
-        "rounded-[28px]", // One UI signature super-rounded corners (xl/2xl)
-        "border border-black/5 dark:border-white/10", // Very subtle border
-        "py-3 px-4 md:p-6 gap-3 md:gap-4 transition-all duration-300",
-        hov ? "shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)] -translate-y-1" : "shadow-sm"
+        "bg-white/60 dark:bg-slate-900/60 backdrop-blur-md",
+        "rounded-[28px]",
+        "border border-white/40 dark:border-white/10",
+        "p-6 md:p-8 gap-4 transition-all duration-300",
+        hov ? "shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)] -translate-y-1" : "shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
       )}
-      style={{
-        borderLeft: `4px solid ${cfg.c}`,
-      }}
     >
       <div 
         className="absolute -top-5 -right-5 w-24 h-24 rounded-full pointer-events-none transition-opacity duration-300"
         style={{
           background: cfg.c, 
-          opacity: hov ? 0.12 : 0.05,
+          opacity: hov ? 0.08 : 0.03,
           filter: "blur(30px)",
         }} 
       />
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <div 
-          className="w-12 h-12 rounded-[14px] flex items-center justify-center transition-colors duration-300"
-          style={{
-            background: `${cfg.c}14`, 
-            border: `1px solid ${cfg.c}24`,
-          }}
+          className="w-12 h-12 rounded-[14px] flex items-center justify-center transition-colors duration-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
         >
           <motion.div
              animate={{ scale: hov ? 1.1 : 1, rotate: hov ? [0, -5, 5, 0] : 0 }}
              transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <IconComponent size={24} color={cfg.c} strokeWidth={1.75} />
+            <IconComponent size={24} className="text-slate-800 dark:text-slate-100" strokeWidth={1.75} />
           </motion.div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="font-mono text-base font-medium tracking-widest text-slate-500 dark:text-slate-400">
+          <span className="font-mono text-sm font-medium tracking-widest text-slate-400">
             {mod.id?.slice(0, 2).toUpperCase() || "01"}
           </span>
           <button
             onClick={toggleFavorite}
-            className="w-12 h-12 flex items-center justify-center -mr-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-slate-800 transition-colors -mr-2 -mt-2"
             aria-label={saved ? "Remove from favorites" : "Add to favorites"}
           >
             <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
@@ -130,18 +123,17 @@ export default function ToolCard({
         </div>
       </div>
 
-      <div className="flex flex-col gap-1 md:gap-1.5 mt-0 md:mt-1">
+      <div className="flex flex-col gap-1.5 mt-2">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-[16px] md:text-[17px] font-bold text-slate-900 dark:text-slate-100 leading-tight">
+          <h3 className="text-[17px] md:text-[18px] font-bold text-slate-800 dark:text-slate-100 leading-tight">
             {mod.title}
           </h3>
           {mod.isNew && (
             <span 
-              className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-md shrink-0 mt-0.5"
+              className="text-[10px] font-bold tracking-wider px-2.5 py-0.5 rounded-full shrink-0"
               style={{
-                color: cfg.c, 
-                background: `${cfg.c}18`,
-                border: `1px solid ${cfg.c}32`,
+                color: "#FFFFFF", 
+                background: cfg.c,
               }}
             >
               NEW
@@ -149,22 +141,18 @@ export default function ToolCard({
           )}
         </div>
         
-        <p className="text-[13px] md:text-[14px] font-medium text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 md:line-clamp-none">
+        <p className="text-[14px] md:text-[15px] font-medium text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
           {mod.desc || "No description available."}
         </p>
       </div>
 
-      <div className="mt-auto pt-3 md:pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/50">
+      <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-200/50 dark:border-slate-800/50">
         <div className="flex items-center gap-2">
           <Dots level={level} color={cfg.c} />
-          <span className="text-[12px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{LEVEL_MAP[level] || "Moderate"}</span>
+          <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{LEVEL_MAP[level] || "Moderate"}</span>
         </div>
         <button 
-          className="text-[14px] font-bold flex items-center gap-2 px-4 h-10 rounded-[14px] transition-all"
-          style={{
-            background: hov ? cfg.c : "transparent",
-            color: hov ? "#FFFFFF" : cfg.c,
-          }}
+          className="text-[13px] font-bold flex items-center gap-2 px-5 h-9 rounded-full transition-all bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
         >
           Open 
           <motion.div animate={{ x: hov ? 4 : 0 }} transition={{ type: "spring", stiffness: 300 }}>

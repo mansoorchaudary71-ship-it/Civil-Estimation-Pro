@@ -23,7 +23,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
           setSubscriberCount(data.count);
         }
       } catch (err) {
-        console.error("Failed to fetch subscriber count", err);
+        // Silently ignore fetch errors in environments without the backend
       }
     };
     fetchCount();
