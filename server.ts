@@ -1504,6 +1504,42 @@ async function startServer() {
     }
   });
 
+  // Project Invite API route
+  app.post("/api/project/invite", async (req, res) => {
+    try {
+      const { email, projectName, inviteLink } = req.body;
+      
+      if (!email || !projectName || !inviteLink) {
+        return res.status(400).json({ error: "Email, projectName, and inviteLink are required." });
+      }
+
+      if (!process.env.RESEND_API_KEY) {
+        console.error("RESEND_API_KEY is not defined in environment variables.");
+        return res.status(500).json({ error: "Email service is not configured." });
+      }
+
+      const { Resend } = await import("resend");
+      const resend = new Resend(process.env.RESEND_API_KEY);
+
+      const data = await resend.emails.send({
+        from: 'Project Manager <onboarding@resend.dev>',
+        to: email,
+        subject: `Invitation to collaborate on ${projectName}`,
+        html: `
+          <h2>You have been invited to collaborate!</h2>
+          <p>You have been invited to collaborate on the project <strong>${projectName}</strong>.</p>
+          <p>Click the link below to view the project:</p>
+          <p><a href="${inviteLink}">${inviteLink}</a></p>
+        `
+      });
+
+      res.status(200).json({ success: true, data });
+    } catch (error) {
+      console.error("Failed to send invitation:", error);
+      res.status(500).json({ error: "Failed to send invitation." });
+    }
+  });
+
   // Blog API routes
   app.get("/api/blog/posts", async (req, res) => {
     try {
@@ -1680,6 +1716,75 @@ async function startServer() {
     } catch (e) {
       console.error(e);
       res.status(500).json({ error: "Search failed" });
+    }
+  });
+
+  // Intelligent Search Routing API Endpoint
+  app.post("/api/route", async (req, res) => {
+    try {
+      const { text } = req.body;
+      if (!text) {
+        return res.status(400).json({ error: "Text is required" });
+      }
+
+      if (!process.env.GEMINI_API_KEY) {
+        return res.status(500).json({ error: "Gemini API key is missing" });
+      }
+
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const prompt = `You are an intelligent search routing API for a website. Your sole purpose is to analyze a user's natural language search query, determine their underlying intent, and map it to the most relevant tool or page on the website.
+
+Below is the dictionary of available tools on the website. Each tool has an "ID" and a "Description" of what it handles.
+
+AVAILABLE TOOLS:
+- ID: "tile_calculator" | Description: Calculates tiles needed, tile design, washroom tiles, floor tiles, wall tiles.
+- ID: "door_catalog" | Description: Bedroom doors, main gates, wooden doors, door designs, interior doors.
+- ID: "rcc_load_calc" | Description: RCC roof load calculation, slab weight, concrete structural calculations, beam load.
+- ID: "paint_estimator" | Description: Wall paint calculator, room color estimator, primer requirements.
+- ID: "general_search" | Description: Use this ONLY as a fallback if the query absolutely does not match any specific tool above.
+
+INSTRUCTIONS:
+1. Analyze the user's input to understand what they are trying to achieve (e.g., "tiles in washroom" implies they want to calculate or view washroom tiles -> map to "tile_calculator").
+2. Match the intent to the most appropriate Tool ID from the list above.
+3. You must output strictly in valid JSON format.
+4. Do not include any conversational text, explanations, or Markdown formatting (like \`\`\`json). Just the raw JSON object.
+
+EXAMPLES:
+User Input: "how much weight can my concrete roof take"
+{"routed_tool_id": "rcc_load_calc"}
+
+User Input: "wooden door of bedroom"
+{"routed_tool_id": "door_catalog"}
+
+User Input: "tiles in washroom"
+{"routed_tool_id": "tile_calculator"}
+
+User Input: "cement prices today"
+{"routed_tool_id": "general_search"}
+
+User Input: "${text}"`;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+        }
+      });
+      
+      let responseText = response.text || "{}";
+      responseText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
+      
+      try {
+        const parsed = JSON.parse(responseText);
+        res.json(parsed);
+      } catch (e) {
+        console.error("Failed to parse JSON from AI response", e);
+        res.status(500).json({ error: "Invalid AI response format" });
+      }
+    } catch (error) {
+      console.error("Routing API error:", error);
+      res.status(500).json({ error: "Routing processing failed." });
     }
   });
 

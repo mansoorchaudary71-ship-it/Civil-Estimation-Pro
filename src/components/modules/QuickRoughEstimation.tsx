@@ -95,7 +95,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
     <div className="w-full mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white p-6 md:p-8 rounded-[24px] border border-slate-200 shadow-sm">
+      <div className="w-full bg-white p-4 sm:p-6 md:p-4 sm:p-8 rounded-[24px] border border-slate-200 shadow-sm overflow-hidden">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 uppercase tracking-tight flex items-center gap-3">
@@ -121,7 +121,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Input Panel */}
-        <div className="lg:col-span-4 bg-white rounded-[24px] p-6 border border-slate-200 shadow-sm space-y-6">
+        <div className="w-full lg:col-span-4 bg-white rounded-[24px] p-4 sm:p-6 border border-slate-200 shadow-sm space-y-6 overflow-hidden">
           <h3 className="text-lg font-bold border-b border-slate-100 pb-3 text-slate-800">
             Project Specs
           </h3>
@@ -136,13 +136,14 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                 </div>
               </label>
               <div className="relative rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
-                <input
+                <><label htmlFor="a11y-input-404" className="sr-only">Input</label>
+<input id="a11y-input-404"
                   type="number" inputMode="decimal"
                   min="1"
                   value={areaInput}
                   onChange={(e) => setAreaInput(parseFloat(e.target.value) || 0)}
-                  className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                  className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500"
+                /></>
                 <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               </div>
             </div>
@@ -150,14 +151,15 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">Number of Floors</label>
               <div className="relative">
-                <input
+                <><label htmlFor="a11y-input-405" className="sr-only">Input</label>
+<input id="a11y-input-405"
                   type="number" inputMode="decimal"
                   min="1"
                   max="10"
                   value={floors}
                   onChange={(e) => setFloors(parseInt(e.target.value) || 1)}
-                  className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                  className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500"
+                /></>
                 <Building className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               </div>
             </div>
@@ -195,7 +197,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value as LocationType)}
-                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 pl-10 text-lg font-bold text-slate-800 outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 appearance-none overflow-hidden"
                 >
                   <option value="lahore">Lahore</option>
                   <option value="karachi">Karachi (+5%)</option>
@@ -214,7 +216,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
           {results ? (
             <>
               {/* Grand Total Highlight */}
-              <div className="bg-white border border-slate-200 p-8 rounded-[24px] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+              <div className="w-full bg-white border border-slate-200 p-4 sm:p-8 rounded-[24px] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                   <Calculator className="w-48 h-48" />
                 </div>
@@ -232,16 +234,16 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-4 mt-4 text-sm font-medium">
-                    <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-3 py-1.5 rounded-[16px] text-slate-600">
+                    <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-3 py-1.5 rounded-[16px] text-slate-600 overflow-hidden">
                       Total: {totalSqft.toLocaleString()} sq.ft
                     </div>
-                    <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-3 py-1.5 rounded-[16px] text-slate-600">
+                    <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-3 py-1.5 rounded-[16px] text-slate-600 overflow-hidden">
                       {settings.currency} {results.costPerSqft.toLocaleString(undefined, { maximumFractionDigits: 0 })} / sq.ft
                     </div>
                   </div>
                 </div>
 
-                <div className="relative z-10 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 backdrop-blur-sm p-4 rounded-[24px] flex items-center gap-4 text-slate-900 border border-slate-100">
+                <div className="relative z-10 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 backdrop-blur-sm p-4 rounded-[24px] flex items-center gap-4 text-slate-900 border border-slate-100 flex-wrap">
                   <div className="bg-indigo-100 p-3 rounded-full text-indigo-600"><Clock className="w-6 h-6" /></div>
                   <div>
                     <div className="text-xs text-indigo-600 uppercase tracking-wider font-semibold">Rough Timeline</div>
@@ -281,20 +283,20 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                 <div className="calc-input p-6 shadow-sm">
                   <h3 className="text-base font-bold text-slate-800 mb-6">Major Material Budgets</h3>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                      <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-white border border-slate-200 shadow-sm" /> <span className="font-semibold text-slate-700">Steel / Rebar</span></div>
+                    <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden">
+                      <div className="flex items-center gap-3"><div className="w-full w-3 h-3 rounded-full bg-white/70 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden" /> <span className="font-semibold text-slate-700">Steel / Rebar</span></div>
                       <div className="font-bold text-slate-900">{formatCurrency(results.steelCost)}</div>
                     </div>
-                    <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
+                    <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden">
                       <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-slate-400" /> <span className="font-semibold text-slate-700">Cement</span></div>
                       <div className="font-bold text-slate-900">{formatCurrency(results.cementCost)}</div>
                     </div>
-                    <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                      <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-orange-600" /> <span className="font-semibold text-slate-700">Bricks / Blocks</span></div>
+                    <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden">
+                      <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-blue-700" /> <span className="font-semibold text-slate-700">Bricks / Blocks</span></div>
                       <div className="font-bold text-slate-900">{formatCurrency(results.bricksCost)}</div>
                     </div>
                     {constType !== "grey" && (
-                      <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
+                      <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden">
                         <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-blue-500" /> <span className="font-semibold text-slate-700">Tiles, Paint & Finishes</span></div>
                         <div className="font-bold text-slate-900">{formatCurrency(results.tilesPaintCost)}</div>
                       </div>
@@ -305,7 +307,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
               </div>
               
               {/* Disclaimer */}
-              <div className="bg-amber-50 border border-amber-200 p-4 rounded-[24px] flex items-start gap-4">
+              <div className="bg-amber-50 border border-amber-200 p-4 rounded-[24px] flex items-start gap-4 overflow-hidden flex-wrap">
                 <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-amber-800 mb-1">Rough Estimation Disclaimer</h4>

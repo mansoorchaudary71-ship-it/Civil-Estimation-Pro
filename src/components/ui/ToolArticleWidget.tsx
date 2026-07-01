@@ -2,7 +2,7 @@ import React from 'react';
 
 export function ToolArticleWidget({ toolName }: { toolName: string }) {
   return (
-    <div className="w-full bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-sm">
+    <div className="w-full bg-white rounded-[32px] p-4 sm:p-4 sm:p-4 sm:p-6 md:p-4 sm:p-4 sm:p-4 sm:p-8 border border-slate-100 shadow-sm overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
         <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight mb-6">How to use the {toolName}</h2>

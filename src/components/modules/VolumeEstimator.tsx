@@ -125,7 +125,7 @@ export default function VolumeEstimator() {
       id: "Frustum Cone",
       label: "Frustum Cone",
       icon: Database,
-      color: "text-orange-500 bg-orange-100 dark:bg-orange-500/20",
+      color: "text-blue-500 bg-blue-100 dark:bg-blue-500/20",
     },
     {
       id: "Parabolic Cone",
@@ -556,34 +556,37 @@ export default function VolumeEstimator() {
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Length ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-530" className="sr-only">Input</label>
+<input id="a11y-input-530"
                       type="number" inputMode="decimal"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Width ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-531" className="sr-only">Input</label>
+<input id="a11y-input-531"
                       type="number" inputMode="decimal"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-532" className="sr-only">Input</label>
+<input id="a11y-input-532"
                       type="number" inputMode="decimal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                 </div>
               )}
@@ -592,12 +595,13 @@ export default function VolumeEstimator() {
                   <label className="text-base font-medium dark:text-gray-300 uppercase">
                     Side Length ({system === "Metric" ? "m" : "ft"})
                   </label>
-                  <input
+                  <><label htmlFor="a11y-input-533" className="sr-only">Input</label>
+<input id="a11y-input-533"
                     type="number" inputMode="decimal"
                     value={side}
                     onChange={(e) => setSide(e.target.value)}
-                    className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                  />
+                    className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                  /></>
                 </div>
               )}
               {["Cylinder", "Cone", "Parabolic Cone"].includes(activeShape) && (
@@ -606,23 +610,25 @@ export default function VolumeEstimator() {
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Radius ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-534" className="sr-only">Input</label>
+<input id="a11y-input-534"
                       type="number" inputMode="decimal"
                       value={radius}
                       onChange={(e) => setRadius(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-535" className="sr-only">Input</label>
+<input id="a11y-input-535"
                       type="number" inputMode="decimal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                 </div>
               )}
@@ -631,12 +637,13 @@ export default function VolumeEstimator() {
                   <label className="text-base font-medium dark:text-gray-300 uppercase">
                     Radius ({system === "Metric" ? "m" : "ft"})
                   </label>
-                  <input
+                  <><label htmlFor="a11y-input-536" className="sr-only">Input</label>
+<input id="a11y-input-536"
                     type="number" inputMode="decimal"
                     value={radius}
                     onChange={(e) => setRadius(e.target.value)}
-                    className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                  />
+                    className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                  /></>
                 </div>
               )}
               {activeShape === "Frustum Cone" && (
@@ -645,34 +652,37 @@ export default function VolumeEstimator() {
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Top Radius ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-537" className="sr-only">Input</label>
+<input id="a11y-input-537"
                       type="number" inputMode="decimal"
                       value={topRadius}
                       onChange={(e) => setTopRadius(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Bottom Radius ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-538" className="sr-only">Input</label>
+<input id="a11y-input-538"
                       type="number" inputMode="decimal"
                       value={bottomRadius}
                       onChange={(e) => setBottomRadius(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-539" className="sr-only">Input</label>
+<input id="a11y-input-539"
                       type="number" inputMode="decimal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                 </div>
               )}
@@ -682,35 +692,38 @@ export default function VolumeEstimator() {
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Base Width ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-540" className="sr-only">Input</label>
+<input id="a11y-input-540"
                       type="number" inputMode="decimal"
                       value={base}
                       onChange={(e) => setBase(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Vertical / Triangle Height (
                       {system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-541" className="sr-only">Input</label>
+<input id="a11y-input-541"
                       type="number" inputMode="decimal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Length ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-542" className="sr-only">Input</label>
+<input id="a11y-input-542"
                       type="number" inputMode="decimal"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                 </div>
               )}
@@ -721,23 +734,25 @@ export default function VolumeEstimator() {
                       <label className="text-base font-medium dark:text-gray-300 uppercase">
                         Top Width ({system === "Metric" ? "m" : "ft"})
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-543" className="sr-only">Input</label>
+<input id="a11y-input-543"
                         type="number" inputMode="decimal"
                         value={topWidth}
                         onChange={(e) => setTopWidth(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                      />
+                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      /></>
                     </div>
                     <div>
                       <label className="text-base font-medium dark:text-gray-300 uppercase">
                         Bottom Width ({system === "Metric" ? "m" : "ft"})
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-544" className="sr-only">Input</label>
+<input id="a11y-input-544"
                         type="number" inputMode="decimal"
                         value={bottomWidth}
                         onChange={(e) => setBottomWidth(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                      />
+                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      /></>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -745,23 +760,25 @@ export default function VolumeEstimator() {
                       <label className="text-base font-medium dark:text-gray-300 uppercase">
                         Depth / Height ({system === "Metric" ? "m" : "ft"})
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-545" className="sr-only">Input</label>
+<input id="a11y-input-545"
                         type="number" inputMode="decimal"
                         value={depth}
                         onChange={(e) => setDepth(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                      />
+                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      /></>
                     </div>
                     <div>
                       <label className="text-base font-medium dark:text-gray-300 uppercase">
                         Length ({system === "Metric" ? "m" : "ft"})
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-546" className="sr-only">Input</label>
+<input id="a11y-input-546"
                         type="number" inputMode="decimal"
                         value={length}
                         onChange={(e) => setLength(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                      />
+                        className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      /></>
                     </div>
                   </div>
                 </div>
@@ -788,62 +805,73 @@ export default function VolumeEstimator() {
                       <>
                         <div>
                           <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Length ({system === "Metric" ? "m" : "ft"})</label>
-                          <input type="number" inputMode="decimal" value={length} onChange={(e) => setLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          <><label htmlFor="a11y-input-547" className="sr-only">Input</label>
+<input id="a11y-input-547" type="number" inputMode="decimal" value={length} onChange={(e) => setLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                         </div>
                         <div>
                           <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Width ({system === "Metric" ? "m" : "ft"})</label>
-                          <input type="number" inputMode="decimal" value={width} onChange={(e) => setWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          <><label htmlFor="a11y-input-548" className="sr-only">Input</label>
+<input id="a11y-input-548" type="number" inputMode="decimal" value={width} onChange={(e) => setWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                         </div>
                       </>
                     ) : (
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Radius ({system === "Metric" ? "m" : "ft"})</label>
-                        <input type="number" inputMode="decimal" value={radius} onChange={(e) => setRadius(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                        <><label htmlFor="a11y-input-549" className="sr-only">Input</label>
+<input id="a11y-input-549" type="number" inputMode="decimal" value={radius} onChange={(e) => setRadius(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                       </div>
                     )}
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Main Height ({system === "Metric" ? "m" : "ft"})</label>
-                      <input type="number" inputMode="decimal" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      <><label htmlFor="a11y-input-550" className="sr-only">Input</label>
+<input id="a11y-input-550" type="number" inputMode="decimal" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Freeboard (%)</label>
-                      <input type="number" inputMode="decimal" value={freeboardPercent} onChange={(e) => setFreeboardPercent(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      <><label htmlFor="a11y-input-551" className="sr-only">Input</label>
+<input id="a11y-input-551" type="number" inputMode="decimal" value={freeboardPercent} onChange={(e) => setFreeboardPercent(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                     </div>
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Dead Storage Depth ({system === "Metric" ? "m" : "ft"})</label>
-                      <input type="number" inputMode="decimal" value={deadStorageDepth} onChange={(e) => setDeadStorageDepth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      <><label htmlFor="a11y-input-552" className="sr-only">Input</label>
+<input id="a11y-input-552" type="number" inputMode="decimal" value={deadStorageDepth} onChange={(e) => setDeadStorageDepth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                     </div>
                   </div>
                   
                   <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
                     <label className="flex items-center gap-2 text-base font-medium dark:text-slate-300 mb-4 cursor-pointer">
-                      <input type="checkbox" checked={hasSlopedBase} onChange={(e) => setHasSlopedBase(e.target.checked)} className="rounded text-indigo-500 focus:ring-indigo-500 bg-white" />
+                      <><label htmlFor="a11y-input-553" className="sr-only">Input</label>
+<input id="a11y-input-553" type="checkbox" checked={hasSlopedBase} onChange={(e) => setHasSlopedBase(e.target.checked)} className="rounded text-indigo-500 focus:ring-indigo-500 bg-white" /></>
                       Include Sloped / Hopper Base
                     </label>
                     {hasSlopedBase && (
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                           <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Hopper Depth ({system === "Metric" ? "m" : "ft"})</label>
-                          <input type="number" inputMode="decimal" value={slopedHeight} onChange={(e) => setSlopedHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          <><label htmlFor="a11y-input-554" className="sr-only">Input</label>
+<input id="a11y-input-554" type="number" inputMode="decimal" value={slopedHeight} onChange={(e) => setSlopedHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                         </div>
                         {tankBaseShape === "Rectangular" ? (
                           <>
                             <div>
                               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Length</label>
-                              <input type="number" inputMode="decimal" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                              <><label htmlFor="a11y-input-555" className="sr-only">Input</label>
+<input id="a11y-input-555" type="number" inputMode="decimal" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                             </div>
                             <div>
                               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Width</label>
-                              <input type="number" inputMode="decimal" value={outletWidth} onChange={(e) => setOutletWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                              <><label htmlFor="a11y-input-556" className="sr-only">Input</label>
+<input id="a11y-input-556" type="number" inputMode="decimal" value={outletWidth} onChange={(e) => setOutletWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                             </div>
                           </>
                         ) : (
                           <div>
                             <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Radius</label>
-                            <input type="number" inputMode="decimal" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                            <><label htmlFor="a11y-input-557" className="sr-only">Input</label>
+<input id="a11y-input-557" type="number" inputMode="decimal" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all outline-none" /></>
                           </div>
                         )}
                       </div>
@@ -857,34 +885,37 @@ export default function VolumeEstimator() {
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Length ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-558" className="sr-only">Input</label>
+<input id="a11y-input-558"
                       type="number" inputMode="decimal"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Width ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-559" className="sr-only">Input</label>
+<input id="a11y-input-559"
                       type="number" inputMode="decimal"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Height/Depth ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-560" className="sr-only">Input</label>
+<input id="a11y-input-560"
                       type="number" inputMode="decimal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                 </div>
               )}
@@ -897,23 +928,25 @@ export default function VolumeEstimator() {
                           <label className="text-base font-medium dark:text-gray-300 uppercase">
                             Outer Diameter ({system === "Metric" ? "m" : "ft"})
                           </label>
-                          <input
+                          <><label htmlFor="a11y-input-561" className="sr-only">Input</label>
+<input id="a11y-input-561"
                             type="number" inputMode="decimal"
                             value={outerDiameter}
                             onChange={(e) => setOuterDiameter(e.target.value)}
-                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
-                          />
+                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 transition-all placeholder:text-slate-500"
+                          /></>
                         </div>
                         <div>
                           <label className="text-base font-medium dark:text-gray-300 uppercase">
                             Inner Diameter ({system === "Metric" ? "m" : "ft"})
                           </label>
-                          <input
+                          <><label htmlFor="a11y-input-562" className="sr-only">Input</label>
+<input id="a11y-input-562"
                             type="number" inputMode="decimal"
                             value={innerDiameter}
                             onChange={(e) => setInnerDiameter(e.target.value)}
-                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
-                          />
+                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 transition-all placeholder:text-slate-500"
+                          /></>
                         </div>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -921,23 +954,25 @@ export default function VolumeEstimator() {
                           <label className="text-base font-medium dark:text-gray-300 uppercase">
                             Length ({system === "Metric" ? "m" : "ft"})
                           </label>
-                          <input
+                          <><label htmlFor="a11y-input-563" className="sr-only">Input</label>
+<input id="a11y-input-563"
                             type="number" inputMode="decimal"
                             value={length}
                             onChange={(e) => setLength(e.target.value)}
-                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
-                          />
+                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 transition-all placeholder:text-slate-500"
+                          /></>
                         </div>
                         <div>
                           <label className="text-base font-medium dark:text-gray-300 uppercase">
                             Concrete Density ({system === "Metric" ? "kg/m³" : "lb/ft³"})
                           </label>
-                          <input
+                          <><label htmlFor="a11y-input-564" className="sr-only">Input</label>
+<input id="a11y-input-564"
                             type="number" inputMode="decimal"
                             value={density}
                             onChange={(e) => setDensity(e.target.value)}
-                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
-                          />
+                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 transition-all placeholder:text-slate-500"
+                          /></>
                         </div>
                       </div>
                     </div>
@@ -975,34 +1010,37 @@ export default function VolumeEstimator() {
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Base Area ({system === "Metric" ? "m²" : "sq.ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-565" className="sr-only">Input</label>
+<input id="a11y-input-565"
                       type="number" inputMode="decimal"
                       value={baseArea}
                       onChange={(e) => setBaseArea(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Base Perimeter ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-566" className="sr-only">Input</label>
+<input id="a11y-input-566"
                       type="number" inputMode="decimal"
                       value={basePerimeter}
                       onChange={(e) => setBasePerimeter(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                   <div>
                     <label className="text-base font-medium dark:text-gray-300 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-567" className="sr-only">Input</label>
+<input id="a11y-input-567"
                       type="number" inputMode="decimal"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
-                    />
+                      className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-[24px] mt-1 font-medium text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    /></>
                   </div>
                 </div>
               )}

@@ -10,11 +10,11 @@ interface CategoryCardProps {
 
 function CategoryCard({ title, subtitle, rating, icon }: CategoryCardProps) {
   return (
-    <div className="group relative flex flex-col justify-between w-56 h-56 bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-pointer shrink-0">
+    <div className="w-full group relative flex flex-col justify-between w-56 h-56 bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-4 sm:p-4 sm:p-6 shadow-sm border border-slate-100 dark:border-slate-800 hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-pointer shrink-0 overflow-hidden">
       
       {/* Top-Right Badge: Pill format, absolute positioning */}
       <div className="absolute top-6 right-6">
-        <span className="bg-orange-50 dark:bg-orange-500/10 text-orange-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+        <span className="bg-blue-50 dark:bg-blue-500/10 text-orange-400 text-xs font-semibold px-2.5 py-1 rounded-full">
           {rating}
         </span>
       </div>

@@ -167,7 +167,7 @@ export function ToolGuidedTour({ steps, tourId, onComplete }: ToolGuidedTourProp
             >
               <X className="w-4 h-4" />
             </button>
-            <div className="text-[10px] font-bold text-[#FF5F15] uppercase tracking-wider mb-2">
+            <div className="text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-2">
               Guided Tour • Step {currentStep + 1} of {steps.length}
             </div>
             <h4 className="text-lg font-bold text-slate-900 mb-1">{steps[currentStep].title}</h4>
@@ -184,7 +184,7 @@ export function ToolGuidedTour({ steps, tourId, onComplete }: ToolGuidedTourProp
             </button>
             <button
               onClick={handleNext}
-              className="bg-[#FF5F15] hover:bg-[#ea580c] text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center transition-colors shadow-sm outline-none"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center transition-colors shadow-sm outline-none"
             >
               {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
               {currentStep < steps.length - 1 && <ChevronRight className="w-4 h-4 ml-1" />}

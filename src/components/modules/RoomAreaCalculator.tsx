@@ -43,8 +43,8 @@ export default function RoomAreaCalculator() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+    <div className="w-full md:max-w-4xl md:mx-auto space-y-6 px-4 md:px-0">
+      <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-6 rounded-3xl shadow-sm overflow-hidden">
         <h2 className="text-2xl font-bold flex items-center gap-2 mb-6">
           <Layout className="w-6 h-6 text-indigo-500" />
           Room Area Calculator (NBC/RERA)
@@ -56,7 +56,7 @@ export default function RoomAreaCalculator() {
             <select
               value={roomType}
               onChange={(e) => setRoomType(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500"
             >
               <option value="bedroom">Bedroom</option>
               <option value="living">Living Room</option>
@@ -67,30 +67,33 @@ export default function RoomAreaCalculator() {
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Wall Thickness (m)</label>
-            <input
+            <><label htmlFor="a11y-input-460" className="sr-only">Input</label>
+<input id="a11y-input-460"
               type="number" inputMode="decimal"
               value={wallThickness || ''}
               onChange={(e) => setWallThickness(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-indigo-500"
-            />
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500"
+            /></>
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Internal Length (m)</label>
-            <input
+            <><label htmlFor="a11y-input-461" className="sr-only">Input</label>
+<input id="a11y-input-461"
               type="number" inputMode="decimal"
               value={length || ''}
               onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-indigo-500"
-            />
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500"
+            /></>
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Internal Width (m)</label>
-            <input
+            <><label htmlFor="a11y-input-462" className="sr-only">Input</label>
+<input id="a11y-input-462"
               type="number" inputMode="decimal"
               value={width || ''}
               onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-indigo-500"
-            />
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500"
+            /></>
           </div>
         </div>
 

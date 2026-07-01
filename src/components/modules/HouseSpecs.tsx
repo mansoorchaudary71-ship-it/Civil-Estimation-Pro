@@ -16,7 +16,7 @@ export default function HouseSpecs() {
   const { specs, updateSpecs } = useHouseSpecs();
   return (
     <div className="w-full h-full bg-transparent text-slate-900 font-sans p-6 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-8 pb-24">
+      <div className="w-full md:max-w-6xl md:mx-auto space-y-8 pb-24 px-4 md:px-0">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Brickwork Card */}
@@ -276,12 +276,12 @@ function GlassCard({
     fuchsia: "bg-fuchsia-500/10 border-fuchsia-500/20 text-fuchsia-600",
   };
   return (
-    <div className="bg-white/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
+    <div className="w-full bg-white/70 backdrop-blur-3xl border border-white p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all overflow-hidden">
       <div className="flex items-center gap-3 mb-6">
         <div className={`p-2.5 rounded-[24px] ${bgColors[color]}`}>
           {icon}
         </div>
-        <h3 className=" text-lg font-medium text-slate-800 mb-4">
+        <h3 className="text-lg font-medium text-slate-800 mb-4">
           {title}
         </h3>
       </div>
@@ -297,7 +297,7 @@ function SelectInput({ label, value, options, onChange }: any) {
       </label>
       <div className="relative">
         <select
-          className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors text-base font-normal"
+          className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-[24px] px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/30 transition-shadow transition-colors text-base font-normal overflow-hidden"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
@@ -338,18 +338,19 @@ function NumberInput({ label, value, onChange, desc }: any) {
       <label className="block uppercase tracking-widest mb-1.5 cursor-help text-sm font-medium text-slate-700 mb-1">
         {label}
       </label>
-      <input type="number" inputMode="decimal"
+      <><label htmlFor="a11y-input-283" className="sr-only">Input</label>
+<input id="a11y-input-283" type="number" inputMode="decimal"
         step="any"
-        className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px] text-base font-normal"
+        className="w-full bg-gray-50/80 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px] text-base font-normal"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-      />
+      /></>
     </div>
   );
 }
 function ToggleGroup({ value, onChange, options }: any) {
   return (
-    <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-[24px] w-full border border-gray-200/50">
+    <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-[24px] w-full border border-gray-200/50 overflow-hidden">
       {options.map((opt: any) => (
         <button
           key={opt.value}

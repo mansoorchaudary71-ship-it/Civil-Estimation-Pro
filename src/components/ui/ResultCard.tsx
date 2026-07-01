@@ -218,7 +218,7 @@ export function ResultCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
       transition={{ duration: 0.4, delay, ease: [0.23, 1, 0.32, 1] }}
-      className={`relative p-3 sm:p-4 md:p-5 lg:p-6 bg-white  border border-slate-200   rounded-[24px] shadow-sm hover:shadow-md flex flex-col gap-2 transition-all duration-300 w-full overflow-hidden ${className}`}
+      className={`relative p-3 sm:p-4 md:p-5 lg:p-6 bg-white border border-slate-200 rounded-[24px] shadow-sm hover:shadow-md flex flex-col justify-between gap-2 transition-all duration-300 w-full h-full overflow-hidden ${className}`}
     >
       <div className="flex items-start justify-between gap-3 w-full relative z-10">
         <div className="flex flex-col max-w-[80%]">

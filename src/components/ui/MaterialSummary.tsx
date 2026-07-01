@@ -163,7 +163,7 @@ export function MaterialSummary({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      className={`w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-[32px] p-6 sm:p-8 overflow-visible relative shadow-sm ${className}`}
+      className={`w-[calc(100%+1.5rem)] -ml-3 md:w-full md:ml-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-[24px] md:rounded-[32px] p-4 sm:p-6 md:p-8 overflow-visible relative shadow-sm ${className}`}
     >
       {/* Header section with Save button */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 relative z-20">
@@ -187,7 +187,7 @@ export function MaterialSummary({
                     <FolderPlus className="w-4 h-4" /> Save to: {activeProj!.name}
                  </button>
                  <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 my-auto mx-1"></div>
-                 <button onClick={() => setShowProjectSelect(true)} className="px-2 text-slate-400 hover:text-gray-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                 <button aria-label="Move Down" onClick={() => setShowProjectSelect(true)} className="px-2 text-slate-400 hover:text-gray-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                     <ChevronDown className="w-4 h-4" />
                  </button>
               </div>
@@ -195,7 +195,7 @@ export function MaterialSummary({
                <div className="absolute right-0 top-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl w-64 p-2 z-50">
                  <div className="flex justify-between items-center mb-2 px-2 pt-1">
                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Select Project</span>
-                   <button onClick={() => setShowProjectSelect(false)} className="text-slate-400 hover:text-gray-600"><ChevronDown className="w-4 h-4 rotate-180" /></button>
+                   <button aria-label="Move Down" onClick={() => setShowProjectSelect(false)} className="text-slate-400 hover:text-gray-600"><ChevronDown className="w-4 h-4 rotate-180" /></button>
                  </div>
                  {editableProjects.map(p => (
                     <button key={p.id} onClick={() => handleSave(p.id)} className="w-full text-left px-3 py-2 text-sm font-semibold text-gray-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:text-[#6B46C1] dark:hover:text-[#8b5cf6] rounded-lg transition-colors mb-1 truncate">

@@ -184,7 +184,7 @@ export default function RecentEstimates({
 
   if (!user) {
     return (
-      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans mb-auto">
+      <div className="flex-1 w-full md:max-w-7xl md:mx-auto flex flex-col font-sans mb-auto px-4 md:px-0">
         <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
           <h1 className="md: text-slate-900 dark:text-white flex items-center justify-center gap-2 text-xl font-semibold text-slate-800 tracking-tight mb-6">
             My Projects
@@ -193,8 +193,8 @@ export default function RecentEstimates({
             Manage your saved construction projects and estimates
           </p>
         </div>
-        <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-slate-200 dark:border-slate-700 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-slate-700 shadow-inner">
+        <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-slate-200 dark:border-slate-700 rounded-[2rem] p-5 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="w-full w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-slate-700 shadow-inner overflow-hidden">
             <FolderOpen className="w-8 h-8" />
           </div>
           <h4 className="mb-1 text-lg font-medium text-slate-800 mb-4">
@@ -218,7 +218,7 @@ export default function RecentEstimates({
   }
 
   return (
-    <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans pb-12">
+    <div className="flex-1 w-full md:max-w-7xl md:mx-auto flex flex-col font-sans pb-12 px-4 md:px-0">
       <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
         <h1 className="md: text-slate-900 dark:text-white flex items-center justify-center gap-2 text-xl font-semibold text-slate-800 tracking-tight mb-6">
           My Projects
@@ -229,8 +229,8 @@ export default function RecentEstimates({
       </div>
 
       {estimates.length === 0 ? (
-        <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-slate-200 dark:border-slate-700 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-slate-700 shadow-inner">
+        <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-slate-200 dark:border-slate-700 rounded-[2rem] p-5 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="w-full w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-slate-700 shadow-inner overflow-hidden">
             <FolderOpen className="w-8 h-8" />
           </div>
           <h4 className="mb-1 text-lg font-medium text-slate-800 mb-4">
@@ -271,7 +271,7 @@ export default function RecentEstimates({
                     value={est.status}
                     onClick={(e) => e.stopPropagation()}
                     onChange={(e) => handleStatusChange(e, est.id)}
-                    className={`text-base font-medium rounded-[24px] px-2 py-1.5 border-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer shadow-sm transition-colors ${
+                    className={`text-base font-medium rounded-[24px] px-2 py-1.5 border-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 cursor-pointer shadow-sm transition-colors ${
                       est.status === "Completed"
                         ? "bg-green-100 text-green-700  "
                         : est.status === "In Progress"
@@ -311,7 +311,7 @@ export default function RecentEstimates({
                       <FileText className="w-3 h-3 inline mr-1 opacity-70" />{" "}
                       {est.desc}
                     </p>
-                    <p className=" text-base font-normal text-slate-600 leading-relaxed">
+                    <p className="text-base font-normal text-slate-600 leading-relaxed">
                       Saved: {est.date}
                     </p>
                   </div>

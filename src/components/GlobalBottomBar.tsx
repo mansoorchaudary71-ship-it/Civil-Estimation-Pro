@@ -21,7 +21,7 @@ export default function GlobalBottomBar({
 
   return (
     <div
-      className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70  backdrop-blur-2xl border border-white/60  shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
+      className="w-full fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
       style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
     >
       {navItems.map((item) => {

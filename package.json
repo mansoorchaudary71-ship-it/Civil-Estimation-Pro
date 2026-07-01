@@ -1,6 +1,7 @@
 {
   "name": "civil-estimation-pro",
   "version": "1.0.0",
+  "type": "module",
   "description": "Civil Estimation Pro with Mintro Hero",
   "scripts": {
     "dev": "tsx server.ts",
@@ -18,9 +19,11 @@
     "file-saver": "^2.0.5",
     "firebase": "^12.15.0",
     "firebase-admin": "^14.1.0",
+    "framer-motion": "^12.42.0",
     "fuse.js": "^7.4.2",
     "google-auth-library": "^10.9.0",
     "googleapis": "^173.0.0",
+    "html2pdf.js": "^0.14.0",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.8",
     "konva": "^10.3.0",

@@ -10,7 +10,9 @@ import {
   Share2,
   Printer,
   User,
-  Scale
+  Scale,
+  ChevronDown,
+  Calculator
 } from "lucide-react";
 import { saveEstimate, getToolEstimates } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
@@ -379,6 +381,7 @@ export function CalculationHistory({
   const [saveName, setSaveName] = useState("");
   const [saveType, setSaveType] = useState("General");
   const [compareItem, setCompareItem] = useState<HistoryItem | null>(null);
+  const [isExplanationOpen, setIsExplanationOpen] = useState(false);
   const { user } = useAuth();
 
   const finalExplanationOpts =
@@ -600,8 +603,27 @@ export function CalculationHistory({
   return (
     <>
       {finalExplanationOpts && (
-        <div className="w-full flex justify-center mt-2 mb-4 px-4 sm:px-0">
-          <CalculationExplanation {...finalExplanationOpts} />
+        <div className="w-[calc(100%+1.5rem)] -ml-3 md:w-full md:ml-0 mt-2 mb-4 bg-slate-50 dark:bg-slate-900/60 rounded-[20px] md:rounded-[24px] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300">
+          <button
+            onClick={() => setIsExplanationOpen(!isExplanationOpen)}
+            className="w-full flex items-center justify-between p-4 sm:p-6 md:p-8 relative z-10 text-left focus:outline-none min-h-[44px]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 text-slate-700 dark:text-slate-300">
+                <Calculator className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-slate-800 dark:text-slate-100 text-lg sm:text-xl tracking-tight">
+                {finalExplanationOpts.hasInputs ? "Calculation Breakdown" : "Formulas Used"}
+              </h3>
+            </div>
+            <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isExplanationOpen ? 'rotate-180' : ''}`} />
+          </button>
+          
+          <div className={`transition-all duration-300 overflow-hidden ${isExplanationOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 pt-0">
+              <CalculationExplanation {...finalExplanationOpts} />
+            </div>
+          </div>
         </div>
       )}
 
@@ -650,7 +672,7 @@ export function CalculationHistory({
                           {new Date(item.date).toLocaleString("en-US")}
                         </p>
                       </div>
-                      <button
+                      <button aria-label="Delete"
                         onClick={() => deleteItem(item.id)}
                         className="text-slate-700 hover:text-red-500 p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
                       >
@@ -834,14 +856,15 @@ export function CalculationHistory({
                 <label className="block text-base font-medium dark:text-slate-300 mb-1.5 ml-0.5">
                   Project Name
                 </label>
-                <input
+                <><label htmlFor="a11y-input-582" className="sr-only">e.g. Dream House Ground Floor</label>
+<input id="a11y-input-582"
                   type="text"
                   value={saveName}
                   onChange={(e) => setSaveName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
                   placeholder="e.g. Dream House Ground Floor"
                   autoFocus
-                />
+                /></>
               </div>
 
               <div>
@@ -852,7 +875,7 @@ export function CalculationHistory({
                   <select
                     value={saveType}
                     onChange={(e) => setSaveType(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium appearance-none"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium appearance-none"
                   >
                     <option value="General">General</option>
                     <option value="House">House</option>

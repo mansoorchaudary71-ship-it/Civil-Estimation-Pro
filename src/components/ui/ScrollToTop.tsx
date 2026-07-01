@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-export default function ScrollToTop() {
+export default function ScrollToTop({ isHome = true }: { isHome?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -72,22 +72,22 @@ export default function ScrollToTop() {
     if (activeContainer instanceof HTMLElement) {
       if (toolHeader && activeContainer.contains(toolHeader)) {
         const y = toolHeader.offsetTop - 80;
-        activeContainer.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        activeContainer.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       } else if (dashboardHero && activeContainer.contains(dashboardHero)) {
         const y = (dashboardHero as HTMLElement).offsetTop - 80;
-        activeContainer.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        activeContainer.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       } else {
-        activeContainer.scrollTo({ top: 0, behavior: "smooth" });
+        activeContainer.scrollTo({ top: 0, behavior: "auto" });
       }
     } else {
       if (toolHeader) {
         const y = toolHeader.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       } else if (dashboardHero) {
         const y = dashboardHero.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: "auto" });
       }
     }
   };
@@ -102,9 +102,11 @@ export default function ScrollToTop() {
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-12 h-12 flex items-center justify-center rounded-full bg-slate-900/80 dark:bg-slate-100/80 text-white dark:text-slate-900 shadow-[0_8px_24px_rgba(0,0,0,0.15)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur-2xl z-[90] transition-all duration-300 ease-out border border-white/20 dark:border-slate-900/10 hover:bg-slate-900 dark:hover:bg-slate-100 hover:scale-[1.05] hover:shadow-[0_12px_32px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] active:scale-90 focus:outline-none"
+          className={`group fixed ${isHome ? 'bottom-6 md:bottom-8' : 'bottom-[5.5rem] md:bottom-[6.5rem]'} right-6 md:right-8 w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 dark:from-indigo-500 dark:to-violet-500 text-white shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] backdrop-blur-xl z-[90] transition-all duration-200 ease-out border border-white/20 hover:scale-110 hover:shadow-[0_12px_25px_-4px_rgba(99,102,241,0.7)] active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-offset-2 focus:ring-indigo-500 overflow-hidden`}
         >
-          <ArrowUp className="w-5 h-5" strokeWidth={2.5} />
+          <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 mix-blend-overlay rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent translate-y-full group-hover:-translate-y-full transition-transform duration-500 ease-in-out" />
+          <ArrowUp className="w-5 h-5 relative z-10 transition-transform duration-200 ease-out group-hover:-translate-y-1" strokeWidth={2.5} />
         </motion.button>
       )}
     </AnimatePresence>

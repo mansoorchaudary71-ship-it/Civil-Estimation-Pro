@@ -31,13 +31,14 @@ export function MaskedInput({ value, onValueChange, className, ...props }: Maske
   };
 
   return (
-    <input
+    <><label htmlFor="a11y-input-584" className="sr-only">Input</label>
+<input id="a11y-input-584"
       type="text"
       inputMode="decimal"
       value={displayValue}
       onChange={handleChange}
       className={className}
       {...props}
-    />
+    /></>
   );
 }

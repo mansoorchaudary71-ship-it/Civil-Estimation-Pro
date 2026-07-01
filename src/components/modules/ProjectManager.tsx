@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useProjects, Project } from '../../context/ProjectContext';
 import { auth } from '../../lib/firebase';
-import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route, Save } from 'lucide-react';
+import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route, Save, X, Check } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { CalculationHistory } from '../ui/CalculationHistory';
 
@@ -74,12 +74,12 @@ export default function ProjectManager() {
     .slice(0, 5);
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/40 backdrop-blur-xl border border-white/60 p-6 md:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+    <div className="w-full md:max-w-6xl md:mx-auto space-y-8 animate-in fade-in duration-500 px-4 md:px-0">
+      <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 md:p-4 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
 
         <div>
           <h2 className="tabular-nums flex items-center gap-3 text-xl font-semibold text-gray-900 tracking-tight mb-4">
-             <div className="p-3 bg-indigo-500 text-white rounded-[24px] shadow-[0_4px_14px_rgba(99,102,241,0.39)]">
+             <div className="p-3 bg-indigo-500 text-white rounded-[24px] shadow-[0_4px_14px_rgba(99,102,241,0.39)] overflow-hidden">
                <FolderOpen className="w-8 h-8" />
              </div>
              Project Manager
@@ -102,22 +102,24 @@ export default function ProjectManager() {
       </div>
 
       {isCreating && (
-        <form onSubmit={handleCreate} className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform transition-all">
+        <form onSubmit={handleCreate} className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform transition-all overflow-hidden">
           <h3 className="mb-4 flex items-center gap-2 text-lg font-medium text-gray-800">
             <Plus className="text-indigo-500" /> Create New Project
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Project Name</label>
-              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
+              <><label htmlFor="a11y-input-378" className="sr-only">e.g. Al-Hamra Tower</label>
+<input id="a11y-input-378" type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" /></>
             </div>
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Location</label>
-              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" />
+              <><label htmlFor="a11y-input-379" className="sr-only">City, Area</label>
+<input id="a11y-input-379" type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" /></>
             </div>
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Type</label>
-              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm">
+              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 outline-none backdrop-blur-sm overflow-hidden">
                 <option>Residential</option>
                 <option>Commercial</option>
                 <option>Infrastructure</option>
@@ -126,23 +128,24 @@ export default function ProjectManager() {
             </div>
             <div>
               <label className="block mb-1.5 text-sm font-medium text-gray-700 mb-1">Start Date</label>
-              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" />
+              <><label htmlFor="a11y-input-380" className="sr-only">Input</label>
+<input id="a11y-input-380" type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-full border border-white/60 bg-white/50 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 outline-none backdrop-blur-sm" /></>
             </div>
           </div>
           <div className="flex gap-3 mt-6">
             <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition shadow-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5">Save Project</button>
-            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-white/50 border border-white/60 text-gray-600 font-bold rounded-full hover:bg-white/80 transition shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5">Cancel</button>
+            <button type="button" onClick={() => setIsCreating(false)} className="w-full px-6 py-2.5 bg-white/50 border border-white/60 text-gray-600 font-bold rounded-full hover:bg-white/80 transition shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5 overflow-hidden">Cancel</button>
           </div>
         </form>
       )}
 
       {projects.length === 0 && !isCreating ? (
-        <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto py-6">
+        <div className="flex flex-col gap-8 w-full md:max-w-4xl md:mx-auto py-6 px-4 md:px-0">
           <div className="text-center space-y-4">
             {/* Animated Workflow Illustration */}
             <div className="flex justify-center mb-6">
                <div className="flex items-center gap-3">
-                  <div className="w-16 h-16 rounded-[24px] bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 transform transition duration-500 hover:scale-110">
+                  <div className="w-16 h-16 rounded-[24px] bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 transform transition duration-500 hover:scale-110 overflow-hidden">
                      <Building className="w-7 h-7 text-gray-900" />
                   </div>
                   <div className="flex flex-col gap-1 w-10">
@@ -150,7 +153,7 @@ export default function ProjectManager() {
                         <div className="h-full bg-indigo-500 w-full animate-[translateX_2s_ease-in-out_infinite]" style={{ animationName: 'progress' }}></div>
                      </div>
                   </div>
-                  <div className="w-16 h-16 rounded-[24px] bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 transform transition duration-500 hover:scale-110 animation-delay-200">
+                  <div className="w-16 h-16 rounded-[24px] bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 transform transition duration-500 hover:scale-110 animation-delay-200 overflow-hidden">
                      <BarChart3 className="w-7 h-7 text-gray-900" />
                   </div>
                   <div className="flex flex-col gap-1 w-10">
@@ -158,7 +161,7 @@ export default function ProjectManager() {
                         <div className="h-full bg-emerald-500 w-full animate-[translateX_2s_ease-in-out_infinite]" style={{ animationName: 'progress', animationDelay: '0.4s' }}></div>
                      </div>
                   </div>
-                  <div className="w-16 h-16 rounded-[24px] bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 transform transition duration-500 hover:scale-110 animation-delay-400">
+                  <div className="w-16 h-16 rounded-[24px] bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 transform transition duration-500 hover:scale-110 animation-delay-400 overflow-hidden">
                      <FileText className="w-7 h-7 text-gray-900" />
                   </div>
                </div>
@@ -172,31 +175,31 @@ export default function ProjectManager() {
             </div>
              
              <h3 className="tabular-nums text-lg font-medium text-gray-800 mb-4">Welcome to Project Manager</h3>
-             <p className="max-w-2xl mx-auto text-base font-normal text-gray-600 leading-relaxed">
+             <p className="w-full md:max-w-2xl md:mx-auto text-base font-normal text-gray-600 leading-relaxed px-4 md:px-0">
                Group your estimates, track material quantities, and manage multi-stage construction projects in one centralized dashboard.
              </p>
           </div>
 
           {/* 3-Step Workflow Onboarding Card */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative bg-white border border-slate-200 rounded-[2rem] shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden mt-2">
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-0 relative bg-white border border-slate-200 rounded-[2rem] shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden mt-2">
              {[
                { icon: Plus, title: "1. Create Project", desc: "Set up a workspace for your site" },
                { icon: Play, title: "2. Run Calculations", desc: "Use estimators & save results" },
                { icon: FileText, title: "3. View Reports", desc: "Track aggregated materials & costs" }
              ].map((step, i) => (
-                <div key={i} className="p-8 flex flex-col items-center text-center bg-slate-50/30 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 transition cursor-default">
-                   <div className="w-12 h-12 rounded-full border-2 border-indigo-100 flex items-center justify-center mb-4 bg-white text-indigo-600 shadow-sm">
+                <div key={i} className="p-4 sm:p-8 md:p-8 flex flex-col items-center text-center bg-slate-50/30 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 transition cursor-default overflow-hidden">
+                   <div className="w-full w-12 h-12 rounded-full border-2 border-indigo-100 flex items-center justify-center mb-4 bg-white text-indigo-600 shadow-sm overflow-hidden">
                       <step.icon className="w-5 h-5" />
                    </div>
                    <h4 className="mb-2 text-lg font-medium text-gray-800 mb-4">{step.title}</h4>
-                   <p className=" text-base font-normal text-gray-600 leading-relaxed">{step.desc}</p>
+                   <p className="text-base font-normal text-gray-600 leading-relaxed">{step.desc}</p>
                 </div>
              ))}
           </div>
 
           {/* Setup Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
-             <div className="bg-white border border-indigo-100 p-8 rounded-[2rem] shadow-sm flex flex-col justify-center">
+             <div className="w-full bg-white border border-indigo-100 p-4 sm:p-8 rounded-[2rem] shadow-sm flex flex-col justify-center overflow-hidden">
                 <h4 className="mb-1 text-lg font-medium text-gray-800 mb-4">Quick Start Templates</h4>
                 <p className="mb-5 text-base font-normal text-gray-600 leading-relaxed">Begin with a predefined project framework.</p>
                 <div className="space-y-3">
@@ -207,8 +210,8 @@ export default function ProjectManager() {
                      }}
                      className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-indigo-50 rounded-full border border-slate-100 hover:border-indigo-200 transition-all active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                    >
-                      <div className="flex items-center gap-4">
-                         <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
+                      <div className="flex items-center gap-4 flex-wrap">
+                         <div className="w-full bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform overflow-hidden">
                             <Home className="w-5 h-5 text-indigo-500" />
                          </div>
                          <div className="text-left">
@@ -226,8 +229,8 @@ export default function ProjectManager() {
                      }}
                      className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-emerald-50 rounded-full border border-slate-100 hover:border-emerald-200 transition-all active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                    >
-                      <div className="flex items-center gap-4">
-                         <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
+                      <div className="flex items-center gap-4 flex-wrap">
+                         <div className="w-full bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform overflow-hidden">
                             <Route className="w-5 h-5 text-emerald-500" />
                          </div>
                          <div className="text-left">
@@ -240,24 +243,25 @@ export default function ProjectManager() {
                 </div>
              </div>
 
-             <div className="bg-white border p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-gray-900 relative overflow-hidden group">
+             <div className="w-full bg-white border p-4 sm:p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-gray-900 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 group-hover:rotate-12 transition-all duration-700 pointer-events-none">
                    <Upload className="w-40 h-40" />
                 </div>
                 <div className="relative z-10 w-full">
-                   <div className="w-12 h-12 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 group-hover:scale-110 transition-transform">
+                   <div className="w-12 h-12 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 group-hover:scale-110 transition-transform overflow-hidden">
                       <FileText className="w-6 h-6 text-slate-300" />
                    </div>
                    <h4 className="mb-2 text-lg font-medium text-gray-800 mb-4">Import Existing Data</h4>
                    <p className="mb-8 px-4 text-base font-normal text-gray-600 leading-relaxed">Restore a previously saved project from a JSON or CSV file to continue your work without losing history.</p>
                    
-                   <label className="cursor-pointer inline-flex w-[80%] items-center justify-center gap-2 px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-[24px] transition shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] text-sm font-medium text-gray-700 mb-1 block">
+                   <label className="cursor-pointer inline-flex w-[80%] items-center justify-center gap-2 px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-[24px] transition shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] text-sm font-medium text-gray-700 mb-1 block overflow-hidden">
                       <Upload className="w-5 h-5" /> Select File to Import
-                      <input type="file" className="hidden text-base font-normal rounded-full" accept=".json,.csv" onChange={(e) => {
+                      <><label htmlFor="a11y-input-381" className="sr-only">Input</label>
+<input id="a11y-input-381" type="file" className="hidden text-base font-normal rounded-full" accept=".json,.csv" onChange={(e) => {
                          if (e.target.files && e.target.files.length > 0) {
                             alert("Import functionality would process: " + e.target.files[0].name + " here. (Feature coming soon)");
                          }
-                      }} />
+                      }} /></>
                    </label>
                 </div>
              </div>
@@ -265,7 +269,7 @@ export default function ProjectManager() {
         </div>
       ) : (
         <div className="space-y-8">
-          <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
             <h3 className="mb-6 text-lg font-medium text-gray-800 mb-4">Portfolio Overview</h3>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div>
@@ -400,7 +404,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
   const allMaterialKeys = Array.from(new Set([...Object.keys(t1.materials), ...Object.keys(t2.materials)])).sort();
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
+    <div className="w-full md:max-w-6xl md:mx-auto space-y-6 animate-in fade-in duration-500 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm px-4 md:px-0">
        <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition text-base font-semibold rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
           <ChevronRight className="w-5 h-5 rotate-180" /> Back to Projects
        </button>
@@ -415,7 +419,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
            initial={{ opacity: 0, x: i === 0 ? -20 : 20 }}
            animate={{ opacity: 1, x: 0 }}
            transition={{ duration: 0.5, delay: 0.2 + (i * 0.1), ease: [0.23, 1, 0.32, 1] }}
-           className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+           className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
          >
             <h1 className="tabular-nums mb-6 flex items-center gap-2 text-xl font-semibold text-slate-800 tracking-tight">
                <span className="w-6 h-6 rounded-full bg-indigo-500 text-white shadow-md flex items-center justify-center text-sm">{i+1}</span>
@@ -423,7 +427,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
             </h1>
             
             <div className="space-y-6">
-              <div className="p-4 bg-emerald-50/50 backdrop-blur-md rounded-[24px] border border-emerald-100/50 shadow-sm text-gray-800 rounded-[24px]">
+              <div className="p-4 bg-emerald-50/50 backdrop-blur-md rounded-[24px] border border-emerald-100/50 shadow-sm text-gray-800 rounded-[24px] overflow-hidden">
                  <p className="text-emerald-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Cost estimate</p>
                  <p className="text-xl tabular-nums tracking-tight text-emerald-600 text-base font-normal text-gray-600 leading-relaxed">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                  {i === 1 && t1.cost !== 0 && (
@@ -433,7 +437,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                  )}
               </div>
               
-              <div className="bg-white/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
+              <div className="w-full bg-white/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] overflow-hidden">
                  <h4 className="mb-3 border-b border-slate-200/50 pb-2 text-lg font-medium text-gray-800 mb-4">Material Comparison</h4>
                  <div className="space-y-3">
                     {allMaterialKeys.map(m => {
@@ -465,6 +469,9 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
   const [inflationRate, setInflationRate] = useState<number>(0);
   const [wasteFactor, setWasteFactor] = useState<number>(0);
   const [budget, setBudget] = useState<number>(project.budget || 0);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteStatus, setInviteStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   const handleSaveVersion = async () => {
     const versionName = prompt("Enter a name for this version snapshot (e.g., 'Option A', 'v2'):", `${project.name} - Version`);
@@ -518,9 +525,39 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
   };
 
   const handleShare = () => {
-    const url = `${window.location.origin}/project?id=${project.id}&share=true`;
-    navigator.clipboard.writeText(url);
-    alert("Read-only share link copied to clipboard!");
+    setIsShareModalOpen(true);
+  };
+
+  const handleSendInvite = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inviteEmail) return;
+
+    setInviteStatus("sending");
+    try {
+      const url = `${window.location.origin}/project?id=${project.id}&share=true`;
+      const res = await fetch("/api/project/invite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: inviteEmail,
+          projectName: project.name,
+          inviteLink: url
+        })
+      });
+
+      if (!res.ok) throw new Error("Failed to send");
+      
+      setInviteStatus("success");
+      setTimeout(() => {
+        setIsShareModalOpen(false);
+        setInviteStatus("idle");
+        setInviteEmail("");
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      setInviteStatus("error");
+      setTimeout(() => setInviteStatus("idle"), 3000);
+    }
   };
 
   const timelineData = [...project.estimates]
@@ -568,7 +605,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
   const chartColors = ['#6366f1', '#10b981', '#f59e0b'];
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
+    <div className="w-full md:max-w-6xl md:mx-auto space-y-6 animate-in fade-in duration-500 px-4 md:px-0">
        <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition text-base font-semibold rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
           <ChevronRight className="w-5 h-5 rotate-180" /> Back to Projects
        </button>
@@ -576,7 +613,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
        <div className="flex flex-col lg:flex-row gap-6">
          {/* Main Summary Panel */}
          <div className="flex-1 space-y-6">
-           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
+           <div className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
              <div className="absolute top-0 right-0 p-8 opacity-5">
                <Building className="w-48 h-48" />
              </div>
@@ -584,11 +621,11 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
              <div className="relative z-10">
                 <div className="flex justify-between items-start">
                    <div>
-                      <span className="px-3 py-1 bg-white/60 shadow-sm text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block backdrop-blur-md">
+                      <span className="w-full px-3 py-1 bg-white/60 shadow-sm text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block backdrop-blur-md overflow-hidden">
                          {project.type}
                       </span>
                       <h1 className="md:text-[clamp(1.75rem,5vw,2.5rem)] break-all tabular-nums mb-2 text-xl font-semibold text-slate-800 tracking-tight mb-6">{project.name}</h1>
-                      <div className="flex items-center gap-4 text-gray-500 font-medium">
+                      <div className="flex items-center gap-4 text-gray-500 font-medium flex-wrap">
                          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {project.location}</span>
                          <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> Started {project.startDate ? new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date(project.startDate)) : 'N/A'}</span>
                       </div>
@@ -597,7 +634,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       <button onClick={handleSaveVersion} className="p-3 bg-emerald-50/50 hover:bg-emerald-100/60 text-emerald-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5" title="Save Version Snapshot">
                          <Save className="w-5 h-5" />
                       </button>
-                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-gray-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5" title="Share Project">
+                      <button onClick={handleShare} className="w-full p-3 bg-white/50 hover:bg-white/80 text-gray-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5 overflow-hidden" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
                       <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-full transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md text-base font-semibold transition-all duration-300 active:scale-95 hover:-translate-y-0.5" title="Export PDF">
@@ -607,39 +644,40 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                 </div>
 
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                   <div className="bg-emerald-50/50 backdrop-blur-md p-5 rounded-[24px] border border-emerald-100/50">
+                   <div className="bg-emerald-50/50 backdrop-blur-md p-5 rounded-[24px] border border-emerald-100/50 overflow-hidden">
                      <p className="text-emerald-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Estimated Cost</p>
                      <p className="text-xl tabular-nums tracking-tight text-emerald-600 text-base font-normal text-gray-600 leading-relaxed">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                    </div>
-                   <div className="bg-rose-50/50 backdrop-blur-md p-5 rounded-[24px] border border-rose-100/50">
+                   <div className="bg-rose-50/50 backdrop-blur-md p-5 rounded-[24px] border border-rose-100/50 overflow-hidden">
                      <p className="text-rose-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Budget</p>
                      {canEdit ? (
-                       <input 
+                       <><label htmlFor="a11y-input-382" className="sr-only">0.00</label>
+<input id="a11y-input-382" 
                           type="number" inputMode="decimal" 
                           value={budget || ''} 
                           onChange={(e) => { const v = Number(e.target.value); setBudget(v); updateProject(project.id, { budget: v }); }}
                           className="w-full text-xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none rounded-full"
                           placeholder="0.00"
-                       />
+                       /></>
                      ) : (
                        <p className="text-xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent">${budget.toLocaleString()}</p>
                      )}
                    </div>
-                   <div className="bg-indigo-50/50 backdrop-blur-md p-5 rounded-[24px] border border-indigo-100/50">
+                   <div className="bg-indigo-50/50 backdrop-blur-md p-5 rounded-[24px] border border-indigo-100/50 overflow-hidden">
                      <p className="text-indigo-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Calculations Run</p>
                      <p className="text-xl tabular-nums tracking-tight text-indigo-600 text-base font-normal text-gray-600 leading-relaxed">{project.estimates.length}</p>
                    </div>
-                   <div className="bg-amber-50/50 backdrop-blur-md p-5 rounded-[24px] border border-amber-100/50">
+                   <div className="bg-amber-50/50 backdrop-blur-md p-5 rounded-[24px] border border-amber-100/50 overflow-hidden">
                      <p className="text-amber-700 uppercase tracking-wider mb-1 text-base font-normal text-gray-600 leading-relaxed">Total Materials</p>
                      <p className="text-xl tabular-nums tracking-tight text-amber-600 text-base font-normal text-gray-600 leading-relaxed">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
 
                 {budget > 0 && (
-                  <div className="mt-6 bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-sm">
+                  <div className="w-full mt-6 bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-sm overflow-hidden">
                       <div className="flex justify-between mb-2">
-                        <p className=" text-base font-normal text-gray-600 leading-relaxed">Remaining Budget: <span className={totalCost > budget ? "text-rose-500" : "text-emerald-500"}>${(budget - totalCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
-                        <p className=" text-base font-normal text-gray-600 leading-relaxed">{((totalCost / budget) * 100).toFixed(1)}% Spent</p>
+                        <p className="text-base font-normal text-gray-600 leading-relaxed">Remaining Budget: <span className={totalCost > budget ? "text-rose-500" : "text-emerald-500"}>${(budget - totalCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
+                        <p className="text-base font-normal text-gray-600 leading-relaxed">{((totalCost / budget) * 100).toFixed(1)}% Spent</p>
                       </div>
                       <div className="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
                         <div className={`h-full transition-all duration-700 ease-in-out ${totalCost > budget ? "bg-rose-500" : "bg-emerald-500"}`} style={{ width: `${Math.min((totalCost / budget) * 100, 100)}%` }}></div>
@@ -691,7 +729,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
            {/* Global Adjustments / Executive Variables */}
            <motion.div 
              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
-             className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+             className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
            >
               <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight">
                  Global Macro Adjustments
@@ -699,12 +737,14 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                  <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Cost Inflation / Contingency: <span className="text-indigo-600">{inflationRate}%</span></label>
-                    <input type="range" min="0" max="30" step="1" value={inflationRate} onChange={e => setInflationRate(Number(e.target.value))} className="w-full accent-indigo-600 rounded-full" />
+                    <><label htmlFor="a11y-input-383" className="sr-only">Input</label>
+<input id="a11y-input-383" type="range" min="0" max="30" step="1" value={inflationRate} onChange={e => setInflationRate(Number(e.target.value))} className="w-full accent-indigo-600 rounded-full" /></>
                     <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Applies an automatic price hike to all historical estimates.</p>
                  </div>
                  <div>
                     <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Material Waste Factor: <span className="text-amber-600">{wasteFactor}%</span></label>
-                    <input type="range" min="0" max="25" step="1" value={wasteFactor} onChange={e => setWasteFactor(Number(e.target.value))} className="w-full accent-amber-600 rounded-full" />
+                    <><label htmlFor="a11y-input-384" className="sr-only">Input</label>
+<input id="a11y-input-384" type="range" min="0" max="25" step="1" value={wasteFactor} onChange={e => setWasteFactor(Number(e.target.value))} className="w-full accent-amber-600 rounded-full" /></>
                     <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Uniformly bumps all BOQ material quantities.</p>
                  </div>
               </div>
@@ -713,25 +753,25 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
            {/* Timeline & Operations */}
            <motion.div 
              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
-             className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+             className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
            >
               <h2 className="mb-6 text-xl font-semibold text-gray-900 tracking-tight mb-4">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
-                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-gray-800 rounded-[24px] border border-dashed border-slate-200/60">
+                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-gray-800 rounded-[24px] border border-dashed border-slate-200/60 overflow-hidden">
                     <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
                     No calculation results saved to this project yet.
                  </div>
               ) : (
                 <div className="space-y-4">
                   {project.estimates.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((est, idx) => (
-                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-white/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(15,23,42,0.02)]">
+                    <div key={est.id} className="w-full flex items-start gap-4 p-4 rounded-[24px] hover:bg-white/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(15,23,42,0.02)] overflow-hidden flex-wrap">
                        <div className="flex flex-col items-center mt-1">
                          <div className="w-3 h-3 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
                          {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200/60 my-1"></div>}
                        </div>
                        <div className="flex-1">
                           <div className="flex justify-between">
-                            <h4 className=" text-lg font-medium text-gray-800 mb-4">{est.name}</h4>
+                            <h4 className="text-lg font-medium text-gray-800 mb-4">{est.name}</h4>
                             <span className="text-base font-medium text-indigo-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                           </div>
                           <p className="mb-2 text-base font-normal text-gray-600 leading-relaxed">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(est.date))} • {est.category}</p>
@@ -740,12 +780,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           {est.materials && Object.keys(est.materials).length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                                {Object.entries(est.materials).slice(0, 4).map(([mat, data]) => (
-                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-gray-600 rounded text-base font-medium shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
+                                 <span key={mat} className="w-full px-2 py-1 bg-white/60 border border-white/80 text-gray-600 rounded text-base font-medium shadow-[0_2px_8px_rgba(15,23,42,0.02)] overflow-hidden">
                                    {mat}: {(data.quantity * qtyMultiplier).toFixed(1)} {data.unit}
                                  </span>
                                ))}
                                {Object.keys(est.materials).length > 4 && (
-                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-gray-500 rounded text-base font-medium shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
+                                 <span className="w-full px-2 py-1 bg-white/60 border border-white/80 text-gray-500 rounded text-base font-medium shadow-[0_2px_8px_rgba(15,23,42,0.02)] overflow-hidden">
                                    +{Object.keys(est.materials).length - 4} more
                                  </span>
                                )}
@@ -761,27 +801,27 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
            {/* Resource Allocation Timeline */}
            <motion.div 
              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}
-             className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+             className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
            >
               <h2 className="text-xl font-semibold text-gray-900 tracking-tight mb-6">Resource Allocation Timeline</h2>
               <p className="text-base font-normal text-gray-600 leading-relaxed mb-6">Visualize when materials and labour are needed on site based on your saved calculations.</p>
               
               {project.estimates.length === 0 ? (
-                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-gray-800 border border-dashed border-slate-200/60">
+                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-gray-800 border border-dashed border-slate-200/60 overflow-hidden">
                     <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
                     No calculation results saved to generate a timeline.
                  </div>
               ) : (
                 <div className="overflow-x-auto custom-scrollbar pb-4 relative">
                    <div className="absolute top-[28px] left-0 w-full h-1 bg-slate-200/60 rounded-full z-0"></div>
-                   <div className="min-w-[800px] flex gap-6 relative z-10">
+                   <div className="min-w-[800px] flex gap-6 relative z-10 flex-wrap">
                      {project.estimates.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map((est, idx) => (
                        <div key={est.id} className="flex-1 min-w-[280px]">
                          <div className="flex flex-col items-center mb-4">
                            <div className="w-5 h-5 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] border-4 border-white mb-2 z-10"></div>
                            <div className="text-base font-medium text-indigo-600">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(est.date))}</div>
                          </div>
-                         <div className="bg-white border border-slate-200 rounded-[24px] p-5 shadow-[0_4px_14px_rgba(15,23,42,0.02)] hover:shadow-lg hover:-translate-y-1 transition-all">
+                         <div className="w-full bg-white border border-slate-200 rounded-[24px] p-5 shadow-[0_4px_14px_rgba(15,23,42,0.02)] hover:shadow-lg hover:-translate-y-1 transition-all overflow-hidden">
                            <h4 className="font-semibold text-gray-800 mb-1 truncate" title={est.name}>{est.name}</h4>
                            <p className="text-xs text-gray-500 mb-4">{est.category || 'General Task'}</p>
                            
@@ -827,7 +867,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
          <div className="w-full lg:w-80 space-y-6">
             <motion.div 
               initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+              className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
             >
                <h3 className="mb-4 text-lg font-medium text-gray-800">Cost Breakdown</h3>
                {pieData.length > 0 ? (
@@ -844,7 +884,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     </ResponsiveContainer>
                  </div>
                ) : (
-                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200/60 bg-white/30">No data</div>
+                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200/60 bg-white/30 overflow-hidden">No data</div>
                )}
                
                <div className="space-y-3 mt-4">
@@ -862,7 +902,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
             <motion.div 
               initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
-              className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+              className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
             >
                <h3 className="mb-4 text-lg font-medium text-gray-800">Workspace Members</h3>
                <div className="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
@@ -903,12 +943,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
             <motion.div 
               initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.3 }}
-              className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+              className="w-full bg-white/40 backdrop-blur-xl border border-white/60 p-4 sm:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden"
             >
                <h3 className="mb-4 text-lg font-medium text-gray-800">Aggregated Materials</h3>
                <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(aggregatedMaterials).length === 0 ? (
-                     <p className=" text-base font-normal text-gray-600 leading-relaxed">No materials calculated.</p>
+                     <p className="text-base font-normal text-gray-600 leading-relaxed">No materials calculated.</p>
                   ) : (
                      Object.entries(aggregatedMaterials).map(([key, data]) => {
                         const [name, _] = key.split('_');
@@ -934,6 +974,85 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
         estimationName="Project Summary"
         currentInputs={{}}
       />
+
+      <AnimatePresence>
+        {isShareModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
+              className="bg-white rounded-[2rem] p-6 max-w-md w-full shadow-2xl relative overflow-hidden"
+            >
+              <button 
+                onClick={() => setIsShareModalOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center">
+                  <Share2 className="w-6 h-6 text-indigo-600" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-slate-800">Share Project</h2>
+                  <p className="text-sm text-slate-500">Invite collaborators via email</p>
+                </div>
+              </div>
+
+              <form onSubmit={handleSendInvite} className="space-y-4">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={inviteEmail}
+                    onChange={(e) => setInviteEmail(e.target.value)}
+                    placeholder="colleague@example.com"
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none"
+                    disabled={inviteStatus === "sending" || inviteStatus === "success"}
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={inviteStatus === "sending" || inviteStatus === "success"}
+                  className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 transition-all active:scale-95 disabled:opacity-70 disabled:active:scale-100 flex items-center justify-center gap-2"
+                >
+                  {inviteStatus === "sending" ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending Invite...
+                    </span>
+                  ) : inviteStatus === "success" ? (
+                    <span className="flex items-center gap-2">
+                      <Check className="w-5 h-5" /> Sent Successfully
+                    </span>
+                  ) : inviteStatus === "error" ? (
+                    <span className="flex items-center gap-2">
+                      <AlertCircle className="w-5 h-5" /> Failed to Send
+                    </span>
+                  ) : (
+                    "Send Invitation"
+                  )}
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       </div>
   );
 }

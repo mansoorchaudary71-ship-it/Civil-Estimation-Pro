@@ -35,7 +35,7 @@ export function UniversalTabs({
       border: "border-purple-600 dark:border-purple-400",
     },
     {
-      text: "text-orange-600 dark:text-orange-400",
+      text: "text-blue-600 dark:text-orange-400",
       border: "border-orange-600 dark:border-orange-400",
     },
     {

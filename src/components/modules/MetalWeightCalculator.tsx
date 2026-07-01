@@ -242,16 +242,17 @@ export default function MetalWeightCalculator() {
  "Total Weight": `${totalWeight.toFixed(2)} kg`,
  };
  return (
- <div className="w-full h-full bg-[#F5F5F7] text-slate-900 dark:text-white p-6 md:p-8"><div className="max-w-4xl mx-auto"><div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-200 mb-8"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
+ <div className="w-full h-full bg-[#F5F5F7] text-slate-900 dark:text-white p-6 md:p-8"><div className="w-full md:max-w-4xl md:mx-auto px-4 md:px-0"><div className="w-full bg-white rounded-[32px] p-4 sm:p-6 shadow-sm border border-slate-200 mb-8 overflow-hidden"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
  <label className="text-base font-medium uppercase block mb-1.5">
  Element Length (m)
  </label>
- <input
+ <><label htmlFor="a11y-input-349" className="sr-only">Input</label>
+<input id="a11y-input-349"
  type="number" inputMode="decimal"
  value={length}
  onChange={(e) => setLength(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-neutral-500"
- />
+ className="w-full bg-transparent bg-white border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
+ /></>
  <p className="text-[10px] text-slate-700 mt-1 pl-1">
  Total run length of member
  </p>
@@ -267,7 +268,7 @@ export default function MetalWeightCalculator() {
  </div>
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
  {/* Inputs Section */}
- <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm">
+ <div className="w-full lg:col-span-7 bg-white p-4 sm:p-6 md:p-4 sm:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
  <h3 className="font-bold text-xl mb-6">
  {activeProfile} Dimensions
  </h3>
@@ -277,13 +278,14 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Diameter (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-350" className="sr-only">e.g. 20</label>
+<input id="a11y-input-350"
  type="number" inputMode="decimal"
  value={d}
  onChange={(e) => setD(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 20"
- />
+ /></>
  </div>
  )}
  {activeProfile === "Square bar" && (
@@ -291,13 +293,14 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Side Width (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-351" className="sr-only">e.g. 50</label>
+<input id="a11y-input-351"
  type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 50"
- />
+ /></>
  </div>
  )}
  {activeProfile === "Round pipe bar" && (
@@ -306,25 +309,27 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Outer Diameter (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-352" className="sr-only">e.g. 100</label>
+<input id="a11y-input-352"
  type="number" inputMode="decimal"
  value={d}
  onChange={(e) => setD(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 100"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Wall Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-353" className="sr-only">e.g. 5</label>
+<input id="a11y-input-353"
  type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 5"
- />
+ /></>
  </div>
  </>
  )}
@@ -333,13 +338,14 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Size Across Flats (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-354" className="sr-only">e.g. 30</label>
+<input id="a11y-input-354"
  type="number" inputMode="decimal"
  value={s}
  onChange={(e) => setS(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 30"
- />
+ /></>
  </div>
  )}
  {activeProfile === "Square tubing bar" && (
@@ -348,25 +354,27 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Outer Width (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-355" className="sr-only">e.g. 50</label>
+<input id="a11y-input-355"
  type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 50"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Wall Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-356" className="sr-only">e.g. 3</label>
+<input id="a11y-input-356"
  type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 3"
- />
+ /></>
  </div>
  </>
  )}
@@ -376,37 +384,40 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Flange Width (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-357" className="sr-only">e.g. 40</label>
+<input id="a11y-input-357"
  type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 40"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Total Height (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-358" className="sr-only">e.g. 40</label>
+<input id="a11y-input-358"
  type="number" inputMode="decimal"
  value={h}
  onChange={(e) => setH(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 40"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-359" className="sr-only">e.g. 5</label>
+<input id="a11y-input-359"
  type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 5"
- />
+ /></>
  </div>
  </>
  )}
@@ -416,49 +427,53 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Flange Width (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-360" className="sr-only">e.g. 150</label>
+<input id="a11y-input-360"
  type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 150"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Depth / Height (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-361" className="sr-only">e.g. 300</label>
+<input id="a11y-input-361"
  type="number" inputMode="decimal"
  value={h}
  onChange={(e) => setH(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 300"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Flange Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-362" className="sr-only">e.g. 10</label>
+<input id="a11y-input-362"
  type="number" inputMode="decimal"
  value={tf}
  onChange={(e) => setTf(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 10"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Web Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-363" className="sr-only">e.g. 7</label>
+<input id="a11y-input-363"
  type="number" inputMode="decimal"
  value={tw}
  onChange={(e) => setTw(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 7"
- />
+ /></>
  </div>
  </>
  )}
@@ -468,37 +483,40 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Leg 1 Length (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-364" className="sr-only">e.g. 50</label>
+<input id="a11y-input-364"
  type="number" inputMode="decimal"
  value={leg1}
  onChange={(e) => setLeg1(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 50"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Leg 2 Length (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-365" className="sr-only">e.g. 50</label>
+<input id="a11y-input-365"
  type="number" inputMode="decimal"
  value={leg2}
  onChange={(e) => setLeg2(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 50"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-366" className="sr-only">e.g. 6</label>
+<input id="a11y-input-366"
  type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 6"
- />
+ /></>
  </div>
  </>
  )}
@@ -508,25 +526,27 @@ export default function MetalWeightCalculator() {
  <label className="text-base font-medium uppercase">
  Width (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-367" className="sr-only">e.g. 1000</label>
+<input id="a11y-input-367"
  type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 1000"
- />
+ /></>
  </div>
  <div>
  <label className="text-base font-medium uppercase">
  Thickness (mm)
  </label>
- <input
+ <><label htmlFor="a11y-input-368" className="sr-only">e.g. 10</label>
+<input id="a11y-input-368"
  type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-full mt-1.5 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-neutral-500"
  placeholder="e.g. 10"
- />
+ /></>
  </div>
  </>
  )}

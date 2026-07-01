@@ -244,14 +244,15 @@ export default function PricingPage() {
               <span>BOQs created per month</span>
               <span className="text-indigo-600 dark:text-indigo-400">{boqCount}</span>
             </label>
-            <input 
+            <><label htmlFor="a11y-input-578" className="sr-only">Input</label>
+<input id="a11y-input-578" 
               type="range" 
               min="1" 
               max="50" 
               value={boqCount} 
               onChange={(e) => setBoqCount(parseInt(e.target.value))}
               className="w-full accent-indigo-600 h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer"
-            />
+            /></>
           </div>
           <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center gap-8 bg-indigo-600 dark:bg-indigo-900 text-white">
             <div>

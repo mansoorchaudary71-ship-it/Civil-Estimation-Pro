@@ -103,7 +103,7 @@ export default function TopSoilFillCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
+            <div className="w-full bg-white p-4 sm:p-4 sm:p-4 sm:p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
@@ -114,24 +114,26 @@ export default function TopSoilFillCalculator() {
                 <div>
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Area to Cover</label>
                   <div className="relative">
-                    <input
+                    <><label htmlFor="a11y-input-519" className="sr-only">Input</label>
+<input id="a11y-input-519"
                       type="number" inputMode="decimal"
                       value={area}
                       onChange={(e) => { setArea(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
-                    />
+                      className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-semibold"
+                    /></>
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "sq m" : "sq ft"}</span>
                   </div>
                 </div>
                 <div>
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Average Depth</label>
                   <div className="relative">
-                    <input
+                    <><label htmlFor="a11y-input-520" className="sr-only">Input</label>
+<input id="a11y-input-520"
                       type="number" inputMode="decimal"
                       value={depth}
                       onChange={(e) => { setDepth(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
-                    />
+                      className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-semibold"
+                    /></>
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "m" : "ft"}</span>
                   </div>
                 </div>
@@ -149,7 +151,7 @@ export default function TopSoilFillCalculator() {
                     setSelectedSoilIndex(parseInt(e.target.value));
                     handleDataChange();
                   }}
-                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold appearance-none"
+                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-semibold appearance-none"
                 >
                   {soilTypes.map((t, idx) => (
                     <option key={idx} value={idx}>{t.name} (×{t.factor})</option>
@@ -163,13 +165,14 @@ export default function TopSoilFillCalculator() {
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Custom Bulking Factor (e.g. 1.2)</label>
                   <div className="flex items-center gap-3">
                     <span className="text-slate-400 font-bold font-mono">× </span>
-                    <input
+                    <><label htmlFor="a11y-input-521" className="sr-only">Input</label>
+<input id="a11y-input-521"
                       type="number" inputMode="decimal"
                       step="0.01"
                       value={customFactor}
                       onChange={(e) => { setCustomFactor(e.target.value); handleDataChange(); }}
-                      className="flex-1 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500"
-                    />
+                      className="flex-1 bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500"
+                    /></>
                   </div>
                 </div>
               )}
@@ -178,12 +181,13 @@ export default function TopSoilFillCalculator() {
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Truck Capacity</label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold"><Truck className="w-4 h-4"/></span>
-                  <input
+                  <><label htmlFor="a11y-input-522" className="sr-only">Input</label>
+<input id="a11y-input-522"
                     type="number" inputMode="decimal"
                     value={truckCapacity}
                     onChange={(e) => { setTruckCapacity(e.target.value); handleDataChange(); }}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] pl-10 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
-                  />
+                    className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full pl-10 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-semibold"
+                  /></>
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">{isMetric ? "cu m" : "cu ft"}</span>
                 </div>
               </div>
@@ -191,7 +195,7 @@ export default function TopSoilFillCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-amber-600 hover:bg-amber-700 text-slate-900 font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-amber-200 transition-all flex justify-center items-center gap-2 group border border-amber-500"
+                className="w-full mt-6 bg-amber-600 hover:bg-amber-700 text-slate-900 font-bold py-3.5 px-6 rounded-full shadow-md shadow-amber-200 transition-all flex justify-center items-center gap-2 group border border-amber-500 active:scale-95 hover:-translate-y-0.5"
               >
                 {isProcessing ? "Calculating..." : "Calculate Loose Volume"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -216,7 +220,7 @@ export default function TopSoilFillCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden">
+                <div className="w-full bg-white p-4 sm:p-4 sm:p-4 sm:p-6 md:p-4 sm:p-4 sm:p-4 sm:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden">
                   
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
                     <div>

@@ -95,12 +95,13 @@ export function ShareModal({
 
                 <div className="w-full flex items-center gap-2">
                   <div className="relative flex-1">
-                    <input
+                    <><label htmlFor="a11y-input-589" className="sr-only">Input</label>
+<input id="a11y-input-589"
                       type="text"
                       readOnly
                       value={url}
                       className="w-full pl-4 pr-12 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium  text-slate-900 dark:text-white  dark:text-slate-300 outline-none truncate"
-                    />
+                    /></>
                     <button
                       onClick={handleCopy}
                       className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"

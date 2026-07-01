@@ -93,7 +93,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
   };
 
   return (
-    <div className="mt-8 p-6 rounded-[2rem] bg-white border border-slate-200">
+    <div className="mt-8 p-4 sm:p-6 rounded-[2rem] bg-white border border-slate-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h2 className="text-xl md:text-xl font-semibold text-slate-800 tracking-tight mb-6">Discussion & Comments</h2>
         <span className="text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
@@ -103,14 +103,14 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
       
       <div className="flex flex-col gap-4">
         {comments.map(comment => (
-          <div key={comment.id} className="flex items-start gap-4">
+          <div key={comment.id} className="flex items-start gap-4 flex-wrap">
             <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 font-bold text-slate-500">
               {comment.userName.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1">
-              <div className="bg-slate-50 p-4 rounded-[24px] rounded-tl-none border border-slate-100">
+              <div className="bg-slate-50 p-4 rounded-[24px] rounded-tl-none border border-slate-100 overflow-hidden">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className=" text-lg font-medium text-slate-800 mb-4">{comment.userName}</h4>
+                  <h4 className="text-lg font-medium text-slate-800 mb-4">{comment.userName}</h4>
                   <span className="text-sm text-slate-500">
                     {comment.timestamp && comment.timestamp.toDate 
                       ? comment.timestamp.toDate().toLocaleDateString()
@@ -127,7 +127,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
           <p className="italic mb-4 text-base font-normal text-slate-600 leading-relaxed">No comments yet. Be the first to share your thoughts on the {toolName}!</p>
         )}
         
-        <div className="mt-4 flex items-start gap-4">
+        <div className="mt-4 flex items-start gap-4 flex-wrap">
           <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center shrink-0 font-bold text-indigo-600">
              {user ? user.displayName?.charAt(0).toUpperCase() || 'U' : 'You'}
           </div>
@@ -137,7 +137,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
               onChange={(e) => setNewComment(e.target.value)}
               placeholder={user ? "Add a comment or ask a question..." : "Sign in to post a comment..."}
               disabled={isPosting}
-              className="w-full bg-slate-50 border border-slate-200 rounded-[24px] p-4 pb-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none disabled:opacity-60"
+              className="w-full bg-slate-50 border border-slate-200 rounded-[24px] p-4 pb-12 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 resize-none disabled:opacity-60 overflow-hidden"
               rows={3}
             />
             {successMessage && <div className="absolute bottom-3 left-3 text-sm text-emerald-600 font-medium">{successMessage}</div>}

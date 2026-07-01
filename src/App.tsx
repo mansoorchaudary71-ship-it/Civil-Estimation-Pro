@@ -1,4 +1,5 @@
 
+import { ArrowLeft } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import Dashboard, { ALL_MODULES as ALL_TOOLS } from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -62,7 +63,6 @@ import UnitConverter from "./components/modules/UnitConverter";
 import AIAssistant from "./components/modules/AIAssistant";
 import MasterRccCore from "./components/modules/MasterRccCore";
 import Calculators from "./components/modules/Calculators";
-import MixDesignCalculator from "./components/modules/MixDesignCalculator";
 import BarBendingSchedule from "./components/modules/BarBendingSchedule";
 import ReinforcementVisualizer from "./components/modules/ReinforcementVisualizer";
 import IsolatedFootingCalculator from "./components/modules/IsolatedFootingCalculator";
@@ -124,9 +124,11 @@ const ModuleWrapper = ({ id, title, onNavigate, children }: { id: string, title:
 
   return (
     <div className="flex-1 flex flex-col min-h-0 relative w-full h-full overflow-y-auto overflow-x-hidden bg-transparent">
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 flex-1 flex flex-col">
-        <ToolHeader id={id} title={actualTitle} themeType={themeType} subtitle={subtitle} icon={Icon} />
-        {children}
+      <div className="max-w-7xl mx-auto w-full px-2 sm:px-4 md:px-8 flex-1 flex flex-col">
+        <ToolHeader id={id} title={actualTitle} themeType={themeType} subtitle={subtitle} icon={Icon} onNavigate={onNavigate} />
+        <div className="global-form-card-wrapper w-full flex-1">
+          {children}
+        </div>
         
         <div className="mt-12 space-y-8 pb-16 print:hidden">
           <ProTipsWidget moduleId={id} />
@@ -148,6 +150,18 @@ const ModuleWrapper = ({ id, title, onNavigate, children }: { id: string, title:
       <div className="w-full shrink-0">
          <Footer activeModule={id} onNavigate={onNavigate} />
       </div>
+
+      {/* Floating Back to Dashboard Button */}
+      <button
+        onClick={() => onNavigate('home')}
+        aria-label="Back to dashboard"
+        title="Back to Dashboard"
+        className="group fixed bottom-6 right-6 md:bottom-8 md:right-8 w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 dark:from-indigo-500 dark:to-violet-500 text-white shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] backdrop-blur-xl z-[85] transition-all duration-200 ease-out border border-white/20 hover:scale-110 hover:shadow-[0_12px_25px_-4px_rgba(99,102,241,0.7)] active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-offset-2 focus:ring-indigo-500 print:hidden overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 mix-blend-overlay rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent translate-y-full group-hover:-translate-y-full transition-transform duration-500 ease-in-out" />
+        <ArrowLeft className="w-5 h-5 relative z-10 transition-transform duration-200 ease-out group-hover:-translate-x-1" strokeWidth={2.5} />
+      </button>
     </div>
   );
 };
@@ -209,9 +223,6 @@ function renderModule(activeModule: string, onNavigate: (id: string) => void) {
 
     case "calculators":
       return <ModuleWrapper id={activeModule} onNavigate={onNavigate} title="Calculators"><Calculators /></ModuleWrapper>;
-
-    case "mix-design":
-      return <ModuleWrapper id={activeModule} onNavigate={onNavigate} title="MixDesignCalculator"><MixDesignCalculator /></ModuleWrapper>;
 
     case "bbs-generator":
       return <ModuleWrapper id={activeModule} onNavigate={onNavigate} title="BarBendingSchedule"><BarBendingSchedule /></ModuleWrapper>;
@@ -329,7 +340,15 @@ function renderModule(activeModule: string, onNavigate: (id: string) => void) {
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeModule, setActiveModule] = useState<ModuleId>("home");
+  const [activeModule, setActiveModule] = useState<ModuleId>(() => {
+    const saved = sessionStorage.getItem("activeModule");
+    return (saved as ModuleId) || "home";
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem("activeModule", activeModule);
+  }, [activeModule]);
+
   const [previousModule, setPreviousModule] = useState<ModuleId | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
@@ -372,13 +391,13 @@ export default function App() {
       <SkipToContent />
       <LoadingScreen />
       <CustomCursor />
-      <ScrollToTop />
+      <ScrollToTop isHome={activeModule === "home"} />
       <SettingsProvider>
         <HouseSpecsProvider>
           <MarketRatesProvider>
             <TakeoffProvider>
               <ProjectProvider>
-                <div className="flex flex-col h-[100dvh] w-full bg-[#FAFAF8] font-sans text-slate-900 transition-colors duration-500">
+                <div className="flex flex-col h-[100dvh] w-full bg-gradient-to-br from-slate-50 via-[#f8fafc] to-blue-50/50 font-sans text-slate-900 transition-colors duration-500">
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   

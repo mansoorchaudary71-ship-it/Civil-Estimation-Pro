@@ -194,10 +194,10 @@ export default function SolarRoofCalculator() {
           </span>
         </label>
         <div className="relative">
-          <input 
-            type={type} step={step} value={value} onChange={onChange}
-            className="w-full bg-white dark:bg-slate-800 border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-400 font-medium min-h-[44px]"
-          />
+          <><label htmlFor="a11y-input-514" className="sr-only">Input</label>
+<input id="a11y-input-514" type={type} step={step} value={value} onChange={onChange}
+            className="w-full bg-white dark:bg-slate-800 border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-500 font-medium min-h-[44px]"
+          /></>
           {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-medium pointer-events-none">{unit}</span>}
         </div>
       </div>
@@ -205,11 +205,11 @@ export default function SolarRoofCalculator() {
   };
 
   return (
-    <div className="bg-white text-slate-800 min-h-screen rounded-[32px] overflow-hidden shadow-sm border border-slate-200 font-sans" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+    <div className="w-full bg-white text-slate-800 min-h-screen rounded-[32px] overflow-hidden shadow-sm border border-slate-200 font-sans" style={{ fontFamily: 'DM Sans, sans-serif' }}>
       
       {/* Header */}
       <div className="bg-slate-50 border-b border-slate-200 p-6 md:p-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="w-full md:max-w-7xl md:mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4 px-4 md:px-0">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-3">
                <Sun className="w-4 h-4 text-indigo-600" />
@@ -220,14 +220,14 @@ export default function SolarRoofCalculator() {
             </h1>
             <p className="text-slate-500 mt-2 max-w-2xl">Complete end-to-end solar array, inverter, and financial payback analysis for PK, IN, and UAE markets.</p>
           </div>
-          <button onClick={resetCalc} className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl transition-all font-medium text-sm border border-slate-200 shadow-sm">
+          <button onClick={resetCalc} className="w-full flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-full transition-all font-medium text-sm border border-slate-200 shadow-sm active:scale-95 hover:-translate-y-0.5 overflow-hidden">
             <RotateCcw className="w-4 h-4" /> Reset Data
           </button>
         </div>
       </div>
 
       {/* Main Layout */}
-      <div className="flex flex-col xl:flex-row gap-6 p-4 md:p-8 max-w-[1400px] mx-auto">
+      <div className="w-full flex flex-col xl:flex-row gap-6 p-4 md:p-8 md:max-w-[1400px] md:mx-auto">
         
         <div className="xl:w-2/3 flex flex-col">
           {/* Tab Navigation */}
@@ -244,7 +244,7 @@ export default function SolarRoofCalculator() {
                     isActive ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-slate-50 text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900"
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
                   <span className="hidden sm:inline">{mod.id}.</span> {mod.name}
                 </button>
               )
@@ -252,7 +252,7 @@ export default function SolarRoofCalculator() {
           </div>
 
           {/* Module Content */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+          <div className="w-full bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 md:p-4 sm:p-8 shadow-sm overflow-hidden">
             
             {activeTab === 1 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
@@ -269,7 +269,7 @@ export default function SolarRoofCalculator() {
                   <InputField label="Peak Daily Load" value={peakLoad} onChange={(e:any) => setPeakLoad(Number(e.target.value))} unit="kW" tooltip="Maximum concurrent power draw" />
                   <div className="flex flex-col md:col-span-2">
                     <label className="text-sm text-slate-700 font-medium mb-1.5">Grid System Type</label>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                       {["On-Grid", "Off-Grid", "Hybrid"].map(t => (
                         <button key={t} onClick={() => setGridType(t as GridType)} className={`flex-1 py-3 rounded-xl border font-bold text-sm transition-all ${gridType === t ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
                           {t}
@@ -282,7 +282,7 @@ export default function SolarRoofCalculator() {
             )}
 
             {activeTab === 2 && (
-              <div className="animate-in fade-in zoom-in-95 duration-300">
+              <div className="animate-in fade-in zoom-in-95 duration-300 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                 <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Sun className="text-indigo-600"/> Solar Potential & Sizing</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <InputField label="Peak Sun Hours (PSH)" value={psh} onChange={(e:any) => setPsh(Number(e.target.value))} step="0.1" unit="hrs/day" />
@@ -292,7 +292,7 @@ export default function SolarRoofCalculator() {
                   <InputField label="Panel Efficiency" value={panelEfficiency} onChange={(e:any) => setPanelEfficiency(Number(e.target.value))} step="0.1" unit="%" />
                   <InputField label="Panel Tilt Angle" value={tilt} onChange={(e:any) => setTilt(Number(e.target.value))} unit="°" />
                 </div>
-                <div className="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-xl flex flex-col md:flex-row gap-6 justify-between items-center text-center md:text-left">
+                <div className="mt-8 p-4 sm:p-6 bg-indigo-50 border border-indigo-100 rounded-xl flex flex-col md:flex-row gap-6 justify-between items-center text-center md:text-left">
                   <div>
                     <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Required Array Size</p>
                     <p className="text-xl font-bold text-indigo-600">{actualKw.toFixed(2)} kWp</p>
@@ -335,7 +335,7 @@ export default function SolarRoofCalculator() {
                     <p className="text-base font-medium flex items-center gap-2">
                       <Grid className="w-4 h-4 text-indigo-500" /> Roof Layout Visualization
                     </p>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                        <p className="text-sm font-medium text-slate-500 flex items-center gap-1.5">
                          <span className="w-2 h-2 rounded-full bg-indigo-500"></span> Valid Panel
                        </p>
@@ -394,7 +394,7 @@ export default function SolarRoofCalculator() {
                       <InputField label="System DC Voltage" value={batteryVoltage} onChange={(e:any) => setBatteryVoltage(Number(e.target.value))} step="12" unit="V" />
                     </>
                   ) : (
-             <div className="md:col-span-2 p-6 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-4 text-slate-500">
+             <div className="md:col-span-2 p-4 sm:p-6 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-4 text-slate-500 flex-wrap">
                <Plug className="w-6 h-6" /> Battery bank sizing is skipped for On-Grid purely net-metered systems.
              </div>
                   )}
@@ -496,7 +496,7 @@ export default function SolarRoofCalculator() {
             {activeTab === 7 && (
               <div className="animate-in fade-in zoom-in-95 duration-300">
                 <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2"><Calculator className="text-indigo-600"/> Final Report Summary</h2>
-                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+                <div className="w-full bg-white rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-sm relative overflow-hidden">
                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-50 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
                    
                    <div className="flex justify-between items-start mb-10 relative z-10">
@@ -539,7 +539,7 @@ export default function SolarRoofCalculator() {
                    </div>
                    
                    <div className="mt-8 flex justify-end relative z-10">
-                     <button onClick={() => console.log("Download PDF triggered")} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md active:scale-95">
+                     <button onClick={() => console.log("Download PDF triggered")} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 hover:-translate-y-0.5">
                         <Download className="w-5 h-5"/> Download PDF Proposal
                      </button>
                    </div>
@@ -551,7 +551,7 @@ export default function SolarRoofCalculator() {
               <button 
                 onClick={() => setActiveTab(Math.max(1, activeTab - 1))} 
                 disabled={activeTab === 1}
-                className="px-6 py-2.5 rounded-xl font-bold text-sm bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                className="w-full px-6 py-2.5 rounded-full font-bold text-sm bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden"
               >
                 Previous
               </button>
@@ -563,7 +563,7 @@ export default function SolarRoofCalculator() {
               <button 
                 onClick={() => setActiveTab(Math.min(7, activeTab + 1))}
                 disabled={activeTab === 7}
-                className="px-6 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-2 transition-all shadow-sm"
+                className="px-6 py-2.5 rounded-full font-bold text-sm bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-2 transition-all shadow-sm active:scale-95 hover:-translate-y-0.5"
               >
                 {activeTab === 6 ? "View Summary" : "Next Step"} <ChevronRight className="w-4 h-4"/>
               </button>
@@ -574,7 +574,7 @@ export default function SolarRoofCalculator() {
 
         {/* Right Sidebar Sticky Summary */}
         <div className="xl:w-1/3">
-          <div className="sticky top-6 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div className="sticky top-6 bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm overflow-hidden">
              <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2 border-b border-slate-200 pb-4">
                <Settings className="text-slate-400 w-5 h-5" /> Live System Snapshot
              </h3>
@@ -608,7 +608,7 @@ export default function SolarRoofCalculator() {
                </div>
              </div>
 
-             <div className="mt-8 bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+             <div className="w-full mt-8 bg-white border border-slate-200 rounded-xl p-4 shadow-sm overflow-hidden">
                <div className="flex justify-between items-center">
                   <span className="text-slate-500 font-medium text-sm">Est. Payback</span>
                   <div className="text-right">

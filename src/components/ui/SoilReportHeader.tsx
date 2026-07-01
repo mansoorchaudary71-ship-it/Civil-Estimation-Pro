@@ -30,58 +30,64 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Project Name</label>
-          <input
+          <><label htmlFor="a11y-input-590" className="sr-only">Input</label>
+<input id="a11y-input-590"
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500"
             value={details.projectName}
             onChange={(e) => onChange("projectName", e.target.value)}
-          />
+          /></>
         </div>
         <div>
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Client Name</label>
-          <input
+          <><label htmlFor="a11y-input-591" className="sr-only">Input</label>
+<input id="a11y-input-591"
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500"
             value={details.clientName}
             onChange={(e) => onChange("clientName", e.target.value)}
-          />
+          /></>
         </div>
         <div>
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Lab Name</label>
-          <input
+          <><label htmlFor="a11y-input-592" className="sr-only">Central Soils Laboratory</label>
+<input id="a11y-input-592"
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500"
             value={details.labName}
             onChange={(e) => onChange("labName", e.target.value)}
             placeholder="Central Soils Laboratory"
-          />
+          /></>
         </div>
         <div>
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sample ID</label>
-          <input
+          <><label htmlFor="a11y-input-593" className="sr-only">Input</label>
+<input id="a11y-input-593"
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500"
             value={details.sampleId}
             onChange={(e) => onChange("sampleId", e.target.value)}
-          />
+          /></>
         </div>
         <div>
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Depth (m/ft)</label>
-          <input
+          <><label htmlFor="a11y-input-594" className="sr-only">Input</label>
+<input id="a11y-input-594"
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500"
             value={details.depth}
             onChange={(e) => onChange("depth", e.target.value)}
-          />
+          /></>
         </div>
         <div>
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Tested By</label>
-          <input
+          <><label htmlFor="a11y-input-595" className="sr-only">Input</label>
+<input id="a11y-input-595"
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark: text-slate-900 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500"
             value={details.testedBy}
             onChange={(e) => onChange("testedBy", e.target.value)}
-          />
+          /></>
         </div>
       </div>
     </div>

@@ -81,21 +81,21 @@ export default function CageEstimator() {
           <RotateCw className="w-6 h-6 text-emerald-500" />
           Cage / Spiral Estimator
         </h2>
-        <p className=" text-base font-normal text-slate-600 leading-relaxed">
+        <p className="text-base font-normal text-slate-600 leading-relaxed">
           Calculate quantities for helical spirals or circular hoops used in piles and columns.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Form */}
-        <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
+        <div className="w-full bg-white rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
           <h3 className="mb-6 flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
             <Calculator className="w-5 h-5 text-emerald-500" />
             Cage Parameters
           </h3>
           
           <div className="space-y-4">
-             <div className="flex bg-slate-100 p-1 rounded-[24px] w-full">
+             <div className="flex bg-slate-100 p-1 rounded-[24px] w-full overflow-hidden">
               <button
                 onClick={() => setCageType("spiral")}
                 className={`flex-1 py-3 rounded-[24px] text-base font-medium transition-all ${
@@ -121,63 +121,69 @@ export default function CageEstimator() {
             <div className="grid grid-cols-2 gap-4 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Pile/Col Diameter (mm)</label>
-                <input
+                <><label htmlFor="a11y-input-132" className="sr-only">Input</label>
+<input id="a11y-input-132"
                   type="number" inputMode="decimal"
                   value={pileDiameter}
                   onChange={(e) => setPileDiameter(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500 transition-all font-mono"
+                /></>
               </div>
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Length ({isMetric ? "m" : "ft"})</label>
-                <input
+                <><label htmlFor="a11y-input-133" className="sr-only">Input</label>
+<input id="a11y-input-133"
                   type="number" inputMode="decimal"
                   value={pileLength}
                   onChange={(e) => setPileLength(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500 transition-all font-mono"
+                /></>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Clear Cover (mm)</label>
-                <input
+                <><label htmlFor="a11y-input-134" className="sr-only">Input</label>
+<input id="a11y-input-134"
                   type="number" inputMode="decimal"
                   value={clearCover}
                   onChange={(e) => setClearCover(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500 transition-all font-mono"
+                /></>
               </div>
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Bar Dia (mm)</label>
-                <input
+                <><label htmlFor="a11y-input-135" className="sr-only">Input</label>
+<input id="a11y-input-135"
                   type="number" inputMode="decimal"
                   value={barDiameter}
                   onChange={(e) => setBarDiameter(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500 transition-all font-mono"
+                /></>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Pitch/Spacing (mm)</label>
-                <input
+                <><label htmlFor="a11y-input-136" className="sr-only">Input</label>
+<input id="a11y-input-136"
                   type="number" inputMode="decimal"
                   value={pitch}
                   onChange={(e) => setPitch(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500 transition-all font-mono"
+                /></>
               </div>
               <div>
                 <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Lap Length (x Dia)</label>
-                <input
+                <><label htmlFor="a11y-input-137" className="sr-only">Input</label>
+<input id="a11y-input-137"
                   type="number" inputMode="decimal"
                   value={lapLength}
                   onChange={(e) => setLapLength(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500 transition-all font-mono"
+                /></>
               </div>
             </div>
             
@@ -186,7 +192,7 @@ export default function CageEstimator() {
 
         {/* Results */}
         <div className="bg-slate-50 space-y-6">
-           <div className="bg-emerald-600 rounded-[24px] p-6 text-slate-900 shadow-lg relative overflow-hidden">
+           <div className="bg-emerald-600 rounded-[24px] p-4 sm:p-6 text-slate-900 shadow-lg relative overflow-hidden">
              <RefreshCw className="absolute -right-6 -bottom-6 w-32 h-32 text-emerald-500 opacity-20" />
               <h3 className="text-emerald-100 uppercase st mb-1 relative z-10 text-lg font-medium text-slate-800 mb-4">Total Rebar Weight</h3>
               <div className="flex items-end gap-2 relative z-10">
@@ -196,7 +202,7 @@ export default function CageEstimator() {
            </div>
 
            {results && (
-             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
+             <div className="w-full bg-white rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
                 <h3 className="tabular-nums uppercase st mb-4 text-lg font-medium text-slate-800">Detailed Breakdown</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">

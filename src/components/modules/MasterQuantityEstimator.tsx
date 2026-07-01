@@ -148,13 +148,14 @@ export default function MasterQuantityEstimator({
           {/* Tool Selection Sidebar */}
           <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
             <div className="relative">
-              <input
+              <><label htmlFor="a11y-input-329" className="sr-only">Search tools...</label>
+<input id="a11y-input-329"
                 type="text"
                 placeholder="Search tools..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full shadow-sm focus:ring-2 focus:ring-indigo-500 font-medium outline-none placeholder:text-slate-400"
-              />
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-full shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 font-medium outline-none placeholder:text-slate-500 overflow-hidden"
+              /></>
             </div>
 
             <div className="xl:h-[600px] xl:overflow-y-auto pr-2 space-y-4 custom-scrollbar">
@@ -166,7 +167,7 @@ export default function MasterQuantityEstimator({
                 
                 const isExpanded = expandedGroup === group || searchTerm !== "";
                 return (
-                  <div key={group} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
+                  <div key={group} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
                     <button
                       onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
                       className="w-full flex items-center justify-between px-5 py-4 text-left font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
@@ -213,7 +214,7 @@ export default function MasterQuantityEstimator({
           <div className="flex-1">
             {activeCalculator ? (
                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-start">
-                 <div className="lg:col-span-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] px-6 py-6 shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
+                 <div className="w-full lg:col-span-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] px-6 py-6 shadow-[0_4px_24px_rgba(15,23,42,0.02)] overflow-hidden">
                    <h3 className="font-bold mb-6 text-base text-slate-800 dark:text-white flex items-center justify-between">
                      <span>Input Parameters</span>
                      {activeCalculator.sharedDependencies && activeCalculator.sharedDependencies.length > 0 && (
@@ -235,12 +236,13 @@ export default function MasterQuantityEstimator({
                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                                  {inp.label} {inp.unit && `(${inp.unit === 'L' ? unitL : inp.unit === 'A' ? unitA : inp.unit === 'V' ? unitV : inp.unit})`}
                                </label>
-                               <input
+                               <><label htmlFor="a11y-input-330" className="sr-only">Input</label>
+<input id="a11y-input-330"
                                  type="text"
                                  value={val}
                                  onChange={(e) => handleInputChange(activeCalc, inp.id, e.target.value)}
-                                 className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3.5 rounded-full mt-1.5 font-bold text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
-                               />
+                                 className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3.5 rounded-full mt-1.5 font-bold text-white dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 outline-none transition-all"
+                               /></>
                              </div>
                           );
                         })

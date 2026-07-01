@@ -58,7 +58,7 @@ export default function EarthworksEstimator() {
 
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto">
-        <div className="p-4 md:p-0 max-w-7xl mx-auto">
+        <div className="w-full p-4 md:p-0 md:max-w-7xl md:mx-auto">
           {activeTab === "general" && <StandardEarthworks />}
           {activeTab === "chainage" && <ChainageVolumeEstimator />}
           {activeTab === "grid" && <GridEarthworkEstimator />}

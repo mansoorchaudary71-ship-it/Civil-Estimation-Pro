@@ -6,7 +6,7 @@ interface AIEstimatorBannerProps {
 
 export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps) {
   return (
-    <div className="mt-8 mb-4 w-full relative group rounded-[32px] border border-white/10 bg-slate-950 shadow-2xl overflow-hidden backdrop-blur-xl">
+    <div className="mt-8 mb-4 w-full relative group rounded-[32px] border border-white/10 bg-black/40 shadow-2xl overflow-hidden backdrop-blur-lg">
       {/* Mesh Gradient Animation Styles */}
       <style>{`
         @keyframes mesh-rotate {
@@ -38,8 +38,8 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
         <div className="flex items-start md:items-center gap-6 flex-col md:flex-row w-full md:w-auto">
           {/* Logo / Icon */}
           <div className="relative shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-cyan-400 blur-lg opacity-40 rounded-2xl animate-mesh-3"></div>
-            <div className="relative w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] border border-white/20 backdrop-blur-xl transition-transform duration-500 hover:scale-105">
+            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-cyan-400 blur-lg opacity-40 rounded-2xl animate-mesh-3 overflow-hidden"></div>
+            <div className="w-full relative w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] border border-white/20 backdrop-blur-xl transition-transform duration-500 hover:scale-105 overflow-hidden">
               <Sparkles className="w-7 h-7 text-white drop-shadow-md" />
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
             {/* Capability Chips */}
             <div className="flex flex-wrap gap-2.5">
               {["BOQ Generation", "Cost Estimation", "Material Takeoff", "Code Lookup"].map((chip) => (
-                <span key={chip} className="text-[11px] uppercase tracking-wider font-semibold px-3.5 py-1.5 bg-white/5 text-slate-300 rounded-full border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-300 cursor-default hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:-translate-y-0.5">
+                <span key={chip} className="w-full text-[11px] uppercase tracking-wider font-semibold px-3.5 py-1.5 bg-white/5 text-slate-300 rounded-full border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-300 cursor-default hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:-translate-y-0.5 overflow-hidden">
                   {chip}
                 </span>
               ))}

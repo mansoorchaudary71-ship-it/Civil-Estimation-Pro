@@ -8,7 +8,7 @@ export function ConcreteCalculator({ initialData }: { initialData: any }) {
       <pre className="bg-slate-50 p-4 rounded text-sm overflow-auto">
         {JSON.stringify(initialData, null, 2)}
       </pre>
-      <div className="mt-4 p-4 bg-orange-50 text-orange-900 rounded">
+      <div className="mt-4 p-4 bg-blue-50 text-orange-900 rounded">
         <strong>Cement Bags Required:</strong> {initialData.cement_bags_required} bags
       </div>
     </div>

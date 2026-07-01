@@ -245,7 +245,7 @@ export default function MobileToolsSheet({
                 onClose();
               }
             }}
-            className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 backdrop-blur-2xl border-t border-slate-200 dark:border-slate-700/50 shadow-[0_-8px_30px_rgba(15,23,42,0.12)] rounded-t-[32px] will-change-transform"
+            className="w-full fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 backdrop-blur-2xl border-t border-slate-200 dark:border-slate-700/50 shadow-[0_-8px_30px_rgba(15,23,42,0.12)] rounded-t-[32px] will-change-transform overflow-hidden"
             style={{ maxHeight: "85vh", height: "85vh" }}
           >
             <div className="flex justify-center pt-3 pb-2 w-full touch-none cursor-grab active:cursor-grabbing">
@@ -253,7 +253,7 @@ export default function MobileToolsSheet({
             </div>
 
             <div className="px-6 pb-2 pt-1 flex items-center justify-between shrink-0">
-              <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
+              <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 Tools Directory
               </h2>
               <button className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
@@ -265,15 +265,16 @@ export default function MobileToolsSheet({
 
             <div className="px-6 pb-2 pt-2 shrink-0">
               <div className="flex items-center gap-2">
-                <div className="relative flex flex-1 items-center h-[46px] bg-white rounded-[50px] border border-slate-200 shadow-sm transition-all overflow-hidden focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100">
+                <div className="w-full relative flex flex-1 items-center h-[46px] bg-white rounded-[50px] border border-slate-200 shadow-sm transition-all overflow-hidden focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100">
                   <Search className="w-4 h-4 text-slate-600 ml-4 absolute" />
-                  <input
+                  <><label htmlFor="a11y-input-7" className="sr-only">Search tools & calculations...</label>
+<input id="a11y-input-7"
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search tools & calculations..."
                     className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-sm font-medium text-slate-700 placeholder:text-slate-600 pl-10 pr-3 rounded-full"
-                  />
+                  /></>
                 </div>
               </div>
             </div>
@@ -321,9 +322,9 @@ export default function MobileToolsSheet({
                           onSelectModule(tool.id as ModuleId);
                           onClose();
                         }}
-                        className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-[24px] border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                        className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-[24px] border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95 flex-wrap"
                       >
-                        <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-white border border-slate-100 flex items-center justify-center text-slate-700 group-hover:text-indigo-600 group-hover:bg-indigo-50 transition-colors shadow-sm relative z-10">
+                        <div className="w-full flex-shrink-0 w-12 h-12 rounded-[14px] bg-white border border-slate-100 flex items-center justify-center text-slate-700 group-hover:text-indigo-600 group-hover:bg-indigo-50 transition-colors shadow-sm relative z-10 overflow-hidden">
                           {typeof tool.icon === "function"
                             ? (() => {
                                 const Icon = tool.icon as any;

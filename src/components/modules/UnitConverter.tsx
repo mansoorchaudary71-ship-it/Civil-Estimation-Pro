@@ -53,7 +53,7 @@ const categories: { id: Category; label: string; icon: any; color: string }[] = 
   { id: "Volume", label: "Volume", icon: Box, color: "text-purple-500 bg-purple-100/50 " },
   { id: "Mass", label: "Mass (Weignt)", icon: Scale, color: "text-rose-500 bg-rose-100/50 " },
   { id: "Density", label: "Density", icon: Droplets, color: "text-teal-500 bg-teal-100/50 " },
-  { id: "Force", label: "Force", icon: Hammer, color: "text-orange-500 bg-orange-100/50 " },
+  { id: "Force", label: "Force", icon: Hammer, color: "text-blue-500 bg-blue-100/50 " },
   { id: "Pressure & Stress", label: "Pressure / Stress", icon: Gauge, color: "text-red-500 bg-red-100/50 " },
   { id: "Torque & Moment", label: "Torque / Moment", icon: RotateCcw, color: "text-indigo-600 bg-indigo-50/50 " },
   { id: "Velocity", label: "Velocity", icon: GaugeCircle, color: "text-sky-500 bg-sky-100/50 " },
@@ -252,13 +252,13 @@ export default function UnitConverter() {
   return (
     <div className="w-full h-full bg-transparent text-slate-900  p-6 md:p-8">
       {" "}
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full md:max-w-6xl md:mx-auto px-4 md:px-0">
         {" "}
         {" "}
         {" "}
         {/* Categories Tabs */}
         <div className="mb-10">
-          <div className="w-full bg-white/70 backdrop-blur-3xl rounded-none p-6 mb-8 border-y border-slate-200/50 shadow-sm overflow-hidden relative">
+          <div className="w-full bg-white/70 backdrop-blur-3xl rounded-none p-4 sm:p-4 sm:p-4 sm:p-6 mb-8 border-y border-slate-200/50 shadow-sm overflow-hidden relative">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div>
                 <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -295,13 +295,13 @@ export default function UnitConverter() {
           </div>
 
           <UniversalTabs 
-            tabs={categories.map(c => ({ id: c.id, label: c.label, icon: <c.icon className="w-5 h-5" /> }))}
+            tabs={categories.map(c => ({ id: c.id, label: c.label, icon: <c.icon className="w-5 h-5 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" /> }))}
             activeTab={activeCategory}
             onTabChange={(id) => setActiveCategory(id as Category)}
           />
         </div>
         {/* Conversion UI */}{" "}
-        <div className="bg-white/70  backdrop-blur-3xl rounded-[2.5rem] p-8 md:p-12 border border-slate-200/50  shadow-sm  overflow-hidden relative">
+        <div className="w-full bg-white/70  backdrop-blur-3xl rounded-[2.5rem] p-4 sm:p-4 sm:p-4 sm:p-8 md:p-5 sm:p-5 sm:p-5 sm:p-12 border border-slate-200/50  shadow-sm  overflow-hidden relative">
           {" "}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
             <h2 className="text-xl font-bold text-center sm:text-left text-slate-900  uppercase tracking-widest">
@@ -331,7 +331,7 @@ export default function UnitConverter() {
 
           {/* Quick Pair Toggle */}
           {QUICK_PAIRS[activeCategory] && QUICK_PAIRS[activeCategory]!.length > 0 && !isBatchMode && !isCompareMode && (
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-8 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-8 animate-in fade-in slide-in-from-top-2 duration-300 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <span className="text-sm font-semibold text-slate-500 uppercase tracking-widest mr-2 hidden sm:block">
                 Quick Pairs
               </span>
@@ -365,7 +365,7 @@ export default function UnitConverter() {
             </div>
           )}
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             {" "}
             {/* FROM PANE */}{" "}
             <div className={`w-full bg-slate-100/50  backdrop-blur-xl rounded-[2rem] border border-slate-200  shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80  flex flex-col items-center justify-center relative ${isBatchMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
@@ -376,7 +376,7 @@ export default function UnitConverter() {
               <select
                 value={fromUnit}
                 onChange={(e) => handleFromUnitChange(e.target.value)}
-                className="w-full bg-white/70  border border-slate-300  text-slate-800  px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm  z-10"
+                className="w-full bg-white/70  border border-slate-300  text-slate-800  px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm  z-10 overflow-hidden"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -390,24 +390,24 @@ export default function UnitConverter() {
                   value={batchInput}
                   onChange={(e) => setBatchInput(e.target.value)}
                   placeholder="Paste comma-separated values (e.g., 5, 10, 15)"
-                  className="w-full bg-white/50  border border-slate-300  text-slate-900  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] focus:outline-none focus:border-fuchsia-500 transition-colors z-10 resize-none shadow-sm "
+                  className="w-full bg-white/50  border border-slate-300  text-slate-900  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] focus:outline-none focus:border-fuchsia-500 transition-colors z-10 resize-none shadow-sm  overflow-hidden"
                 />
               ) : (
-                <input
+                <><label htmlFor="a11y-input-529" className="sr-only">0</label>
+<input id="a11y-input-529"
                   type="text"
                   value={fromValue}
                   onChange={(e) => handleFromValueChange(e.target.value)}
-                  className="w-full bg-transparent border-0 text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-slate-900  placeholder-slate-400  focus:ring-0 focus:outline-none p-0 text-center drop-shadow-sm  z-10"
+                  className="w-full bg-transparent border-0 text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-slate-900  placeholder-slate-500  focus:ring-0 focus:outline-none p-0 text-center drop-shadow-sm  z-10 rounded-full"
                   placeholder="0"
                   autoComplete="off"
-                />
+                /></>
               )}{" "}
             </div>{" "}
             {/* SWAP BUTTON */}{" "}
             {!isCompareMode ? (
-              <button
-                onClick={handleSwap}
-                className="p-5 rounded-full bg-fuchsia-100 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-slate-900 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0"
+              <button onClick={handleSwap}
+                className="p-5 rounded-full bg-fuchsia-100 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-slate-900 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0 active:scale-95 hover:-translate-y-0.5"
                 title="Swap Units"
               >
                 {" "}
@@ -428,7 +428,7 @@ export default function UnitConverter() {
               <select
                 value={toUnit}
                 onChange={(e) => handleToUnitChange(e.target.value)}
-                className="w-full bg-white/70  border border-slate-300  text-slate-800  px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm  z-10"
+                className="w-full bg-white/70  border border-slate-300  text-slate-800  px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm  z-10 overflow-hidden"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -440,7 +440,7 @@ export default function UnitConverter() {
               )}
               
               {isBatchMode ? (
-                <div className="w-full bg-white/50  border border-slate-300  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[200px] overflow-y-auto custom-scrollbar shadow-sm  z-10 flex flex-col gap-1">
+                <div className="w-full bg-white/50  border border-slate-300  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[200px] overflow-y-auto custom-scrollbar shadow-sm  z-10 flex flex-col gap-1 overflow-hidden">
                    {batchResults.length === 0 ? (
                      <div className="text-slate-500 italic my-auto">Results will appear here</div>
                    ) : (
@@ -453,9 +453,9 @@ export default function UnitConverter() {
                    )}
                 </div>
               ) : isCompareMode ? (
-                <div className="w-full bg-white/50 border border-slate-300 rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[300px] overflow-y-auto custom-scrollbar shadow-sm z-10 flex flex-col gap-2">
+                <div className="w-full bg-white/50 border border-slate-300 rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[300px] overflow-y-auto custom-scrollbar shadow-sm z-10 flex flex-col gap-2 overflow-hidden">
                    {currentUnits.filter(u => u.id !== fromUnit).map((u, i) => (
-                     <div key={i} className="flex justify-between items-center text-slate-700 bg-white/80 p-3 rounded-xl border border-slate-200 shadow-sm">
+                     <div key={i} className="w-full flex justify-between items-center text-slate-700 bg-white/80 p-3 rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                        <span className="font-bold text-fuchsia-600 text-lg truncate mr-3">{convertValue(fromValue, fromUnit, u.id, activeCategory)}</span>
                        <span className="text-xs uppercase font-bold text-slate-600 text-right shrink-0">{u.id} <br/><span className="font-normal opacity-70 text-[10px]">{u.label.split(' (')[0]}</span></span>
                      </div>
@@ -497,7 +497,7 @@ export default function UnitConverter() {
                       setFromValue(preset.value);
                       setToValue(convertValue(preset.value, preset.unit, toUnit, activeCategory));
                     }}
-                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-full transition-colors border border-slate-200 hover:border-slate-300 shadow-sm active:scale-95"
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-full transition-colors border border-slate-200 hover:border-slate-300 shadow-sm active:scale-95 hover:-translate-y-0.5"
                   >
                     {preset.label}
                   </button>

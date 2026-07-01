@@ -211,7 +211,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 z-20">
-                  <button className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 transition-colors">
+                  <button aria-label="Bookmark" className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 transition-colors">
                     <Bookmark className="w-4 h-4 fill-current" />
                   </button>
                 </div>
@@ -256,7 +256,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
       <div className="flex flex-col items-center mt-2 relative w-full h-24">
         <div className="flex items-center justify-center gap-6 h-12">
           {/* We only show Arrows next to Counter and Classic, or keep them anyway */}
-          <button 
+          <button aria-label="ChevronLeft" 
             onClick={handlePrev}
             disabled={activeIndex === 0}
             className="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 disabled:opacity-30 transition-all z-20"
@@ -322,7 +322,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
             </AnimatePresence>
           </div>
 
-          <button 
+          <button aria-label="ChevronRight" 
             onClick={handleNext}
             disabled={activeIndex === PROJECT_DATA.length - 1}
             className="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 disabled:opacity-30 transition-all z-20"

@@ -49,7 +49,7 @@ export default function SearchAndFilterBar({
 
   return (
     <div id="tools" className="sticky top-[64px] z-40 bg-[#eef2f6]/95 backdrop-blur-md border-b border-white/50 py-4 w-full shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 w-full flex flex-col gap-4">
+      <div className="md:max-w-7xl md:mx-auto px-4 w-full flex flex-col gap-4">
         
         {/* Search Bar */}
         <div className="w-full max-w-2xl">
@@ -57,7 +57,8 @@ export default function SearchAndFilterBar({
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
               <Search className="w-5 h-5 text-slate-600 group-focus-within:text-indigo-500 transition-colors" />
             </div>
-            <input
+            <><label htmlFor="a11y-input-8" className="sr-only">Search tools, materials, or calculations...</label>
+<input id="a11y-input-8"
               type="text"
               value={searchTerm}
               onChange={(e) => {
@@ -67,12 +68,12 @@ export default function SearchAndFilterBar({
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               placeholder="Search tools, materials, or calculations..."
-              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-full py-4 pl-12 pr-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-base"
-            />
+              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-full py-4 pl-12 pr-4 text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-base"
+            /></>
 
             {/* Suggestions Dropdown */}
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="w-full absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                 {suggestions.map((tool) => (
                   <button
                     key={tool.id}
@@ -105,7 +106,7 @@ export default function SearchAndFilterBar({
               <button
                 key={idx}
                 onClick={() => setSearchTerm(chip)}
-                className="text-sm font-medium text-slate-500 bg-white hover:bg-indigo-50 hover:text-indigo-600 px-3 py-1.5 rounded-full transition-colors border border-slate-200 shadow-sm active:scale-95 hover:-translate-y-0.5"
+                className="w-full text-sm font-medium text-slate-500 bg-white hover:bg-indigo-50 hover:text-indigo-600 px-3 py-1.5 rounded-full transition-colors border border-slate-200 shadow-sm active:scale-95 hover:-translate-y-0.5 overflow-hidden"
               >
                 {chip}
               </button>

@@ -17,7 +17,7 @@ export function DarkModeToggle({ isMobile }: { isMobile?: boolean }) {
   const getThemeIcon = () => {
     if (isHighContrast) return <Eye className="w-5 h-5 text-yellow-500" />;
     if (isDarkMode) return <Moon className="w-5 h-5 text-amber-500" />;
-    return <Sun className="w-5 h-5 text-orange-500" />;
+    return <Sun className="w-5 h-5 text-blue-500" />;
   };
 
   const getThemeLabel = () => {

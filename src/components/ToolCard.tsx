@@ -112,7 +112,7 @@ export default function ToolCard({
             {mod.id?.slice(0, 2).toUpperCase() || "01"}
           </span>
           <button onClick={toggleFavorite}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-slate-800 transition-colors -mr-2 -mt-2 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
+            className="w-full w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-slate-800 transition-colors -mr-2 -mt-2 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden"
             aria-label={saved ? "Remove from favorites" : "Add to favorites"}
           >
             <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
@@ -148,7 +148,7 @@ export default function ToolCard({
       <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-200/50 dark:border-slate-800/50">
         <div className="flex items-center gap-2">
           <Dots level={level} color={cfg.c} />
-          <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{LEVEL_MAP[level] || "Moderate"}</span>
+          <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">{LEVEL_MAP[level] || "Moderate"}</span>
         </div>
         <button className="text-[13px] font-bold flex items-center gap-2 px-5 h-9 rounded-full transition-all bg-blue-600 hover:bg-blue-700 text-white shadow-sm active:scale-95 hover:-translate-y-0.5"
         >

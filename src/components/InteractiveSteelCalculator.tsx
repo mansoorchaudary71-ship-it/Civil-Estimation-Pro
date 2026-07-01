@@ -52,7 +52,7 @@ export default function InteractiveSteelCalculator({
   }, [length, unit, initialDiameter]);
 
   return (
-    <main className="bg-white rounded-[24px] shadow-xl overflow-hidden border border-slate-200">
+    <main className="w-full bg-white rounded-[24px] shadow-xl overflow-hidden border border-slate-200">
       <ToolGuidedTour steps={STEEL_TOUR_STEPS} tourId={`steel-calc-${initialDiameter}`} />
       <div className="grid grid-cols-1 lg:grid-cols-5">
         {/* Calculator Settings UI */}
@@ -80,7 +80,7 @@ export default function InteractiveSteelCalculator({
               </svg>
             </div>
             <div>
-              <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
+              <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 Bar Specifications
               </h2>
               <p className="mt-1 text-base font-normal text-slate-600 leading-relaxed">
@@ -98,11 +98,12 @@ export default function InteractiveSteelCalculator({
                 </span>
               </label>
               <div className="relative group">
-                <input type="number" inputMode="decimal"
+                <><label htmlFor="a11y-input-6" className="sr-only">Input</label>
+<input id="a11y-input-6" type="number" inputMode="decimal"
                   readOnly
                   value={initialDiameter}
                   className="block w-full rounded-full border-slate-200 bg-slate-50 dark:bg-slate-800 py-4 pl-5 pr-16 text-xl text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default min-h-[44px] text-base font-normal"
-                />
+                /></>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
                   <span className="text-slate-600 font-semibold text-lg">
                     mm
@@ -115,8 +116,9 @@ export default function InteractiveSteelCalculator({
               <label className="flex items-center mb-2 text-sm font-medium text-slate-700 mb-1 block">
                 Total Length
               </label>
-              <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-[24px] shadow-sm border border-slate-300 bg-white overflow-hidden flex transition-all">
-                <input
+              <div className="w-full relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-[24px] shadow-sm border border-slate-300 bg-white overflow-hidden flex transition-all">
+                <label htmlFor="tour-steel-length" className="sr-only">Input</label>
+<input
                   id="tour-steel-length"
                   type="number" inputMode="decimal"
                   value={length}
@@ -178,7 +180,7 @@ export default function InteractiveSteelCalculator({
               <span className="text-xl font-semibold text-slate-600 whitespace-nowrap">kg</span>
             </div>
 
-            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-5 border border-slate-200">
+            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-5 border border-slate-200 overflow-hidden">
               <h4 className="text-sm uppercase r mb-4 flex items-center text-lg font-medium text-slate-800">
                 <svg
                   className="w-3.5 h-3.5 mr-1.5"

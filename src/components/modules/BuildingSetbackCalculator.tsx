@@ -47,8 +47,8 @@ export default function BuildingSetbackCalculator() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
-      <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
+    <div className="w-full md:max-w-4xl md:mx-auto space-y-6 px-4 md:px-0">
+      <div className="w-full bg-white border border-slate-200 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
         <h2 className="flex items-center gap-2 mb-6 text-xl font-semibold text-slate-900 tracking-tight mb-4">
           <ArrowLeftRight className="w-6 h-6 text-purple-500" />
           Building Setback Calculator
@@ -58,26 +58,30 @@ export default function BuildingSetbackCalculator() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Plot Frontage (m)</label>
-            <input type="number" inputMode="decimal" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" />
+            <><label htmlFor="a11y-input-128" className="sr-only">Input</label>
+<input id="a11y-input-128" type="number" inputMode="decimal" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" /></>
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Plot Depth (m)</label>
-            <input type="number" inputMode="decimal" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" />
+            <><label htmlFor="a11y-input-129" className="sr-only">Input</label>
+<input id="a11y-input-129" type="number" inputMode="decimal" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" /></>
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Total Plot Area (m²)</label>
-            <input type="number" inputMode="decimal" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-full min-h-[44px] text-base font-normal" disabled />
+            <><label htmlFor="a11y-input-130" className="sr-only">Input</label>
+<input id="a11y-input-130" type="number" inputMode="decimal" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-full min-h-[44px] text-base font-normal" disabled /></>
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Building Type</label>
-            <select value={buildingType} onChange={(e) => setBuildingType(e.target.value)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]">
+            <select value={buildingType} onChange={(e) => setBuildingType(e.target.value)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px] overflow-hidden">
               <option value="residential">Residential</option>
               <option value="commercial">Commercial/Public</option>
             </select>
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">Approach Road Width (m)</label>
-            <input type="number" inputMode="decimal" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" />
+            <><label htmlFor="a11y-input-131" className="sr-only">Input</label>
+<input id="a11y-input-131" type="number" inputMode="decimal" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-full" /></>
           </div>
         </div>
 

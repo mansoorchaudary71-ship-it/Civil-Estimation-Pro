@@ -105,12 +105,13 @@ export default function TrenchExcavationEstimator() {
                         Trench Length (L) [{unitL}]
                         <Tooltip content="The total linear distance of the trench along its centerline." />
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-523" className="sr-only">Input</label>
+<input id="a11y-input-523"
                         type="number" inputMode="decimal"
-                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow min-h-[44px]"
+                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500/50 focus:border-teal-500 transition-shadow min-h-[44px]"
                         value={length}
                         onChange={(e) => setLength(e.target.value)}
-                      />
+                      /></>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
@@ -118,12 +119,13 @@ export default function TrenchExcavationEstimator() {
                           Bottom Width [{unitL}]
                           <Tooltip content="The width of the trench at its flat base." />
                         </label>
-                        <input
+                        <><label htmlFor="a11y-input-524" className="sr-only">Input</label>
+<input id="a11y-input-524"
                           type="number" inputMode="decimal"
-                          className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow min-h-[44px]"
+                          className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500/50 focus:border-teal-500 transition-shadow min-h-[44px]"
                           value={bottomWidth}
                           onChange={(e) => setBottomWidth(e.target.value)}
-                        />
+                        /></>
                       </div>
                       <div>
                         <label className="text-base font-medium dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
@@ -132,14 +134,15 @@ export default function TrenchExcavationEstimator() {
                         </label>
                         <div className="flex items-center gap-3 w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-teal-500/50 transition-shadow">
                           <span className="text-slate-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
-                          <input
+                          <><label htmlFor="a11y-input-525" className="sr-only">e.g. 0.5</label>
+<input id="a11y-input-525"
                             type="number" inputMode="decimal"
                             step="0.1"
                             className="w-full bg-transparent text-slate-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold min-h-[44px]"
                             value={sideSlope}
                             placeholder="e.g. 0.5"
                             onChange={(e) => setSideSlope(e.target.value)}
-                          />
+                          /></>
                           <span className="text-slate-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">H</span>
                         </div>
                       </div>
@@ -149,12 +152,13 @@ export default function TrenchExcavationEstimator() {
                         Depth [{unitL}]
                         <Tooltip content="The vertical distance from the ground surface to the bottom of the trench." />
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-526" className="sr-only">Input</label>
+<input id="a11y-input-526"
                         type="number" inputMode="decimal"
-                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow min-h-[44px]"
+                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-teal-500/50 focus:border-teal-500 transition-shadow min-h-[44px]"
                         value={depth}
                         onChange={(e) => setDepth(e.target.value)}
-                      />
+                      /></>
                     </div>
                   </div>
                 </div>
@@ -189,26 +193,28 @@ export default function TrenchExcavationEstimator() {
                         Pipe Diameter [{unitL}]
                         <Tooltip content="The outer diameter of the pipe. Used to deduct pipe volume from bedding material." />
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-527" className="sr-only">Input</label>
+<input id="a11y-input-527"
                         type="number" inputMode="decimal"
-                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
+                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
                         value={pipeDiameter}
                         onChange={(e) => setPipeDiameter(e.target.value)}
                         placeholder={`e.g. 0.3`}
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block text-base font-medium dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                         Bedding Depth [{unitL}]
                         <Tooltip content="The thickness of bedding material placed below and around the pipe inside the trench." />
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-528" className="sr-only">Input</label>
+<input id="a11y-input-528"
                         type="number" inputMode="decimal"
-                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
+                        className="w-full bg-white dark:bg-slate-800 border border-gray-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
                         value={beddingDepth}
                         onChange={(e) => setBeddingDepth(e.target.value)}
                         placeholder={`e.g. 0.5`}
-                      />
+                      /></>
                     </div>
                     <p className="text-sm text-slate-700 dark:text-gray-300 font-medium px-1">
                       Leave empty if bedding calculation is not required.

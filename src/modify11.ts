@@ -5,7 +5,7 @@ const filePath = path.join(process.cwd(), 'src/components/modules/Calculators.ts
 let content = fs.readFileSync(filePath, 'utf-8');
 
 content = content.replace(
-  /<div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col gap-6">/g,
+  /<div className="bg-white/70 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-sm flex flex-col gap-6">/g,
   '<div className="bg-slate-50/50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-6">'
 );
 

@@ -17,7 +17,7 @@ export function DetailedRoomEstimators() {
   return (
     <div className="w-full flex justify-center animate-in fade-in slide-in-from-top-4 duration-500 pb-16">
       <div className="w-full max-w-6xl">
-        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-[24px] w-fit mx-auto mb-8 shadow-sm border border-slate-200 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-x-auto max-w-full">
+        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-[24px] w-fit mx-auto mb-8 shadow-sm border border-slate-200 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-x-auto max-w-full overflow-hidden">
           {tabs.map(tab => (
             <button
               key={tab}
@@ -61,7 +61,7 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
       <h4 className="uppercase st mb-4 flex items-center gap-2 text-lg font-medium text-slate-800">
         <Icon className="w-4 h-4 text-purple-500"/> {title}
       </h4>
-      <div className="bg-white shadow-sm border border-slate-200 rounded-[24px] overflow-hidden">
+      <div className="w-full bg-white shadow-sm border border-slate-200 rounded-[24px] overflow-hidden">
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-800">
@@ -80,12 +80,13 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
                   <td className="py-3 px-4 text-slate-500 text-base font-medium">{item.unit}</td>
                   <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
                   <td className="py-2 px-4 min-w-[100px]">
-                    <input type="number" inputMode="decimal"
+                    <><label htmlFor="a11y-input-208" className="sr-only">0.00</label>
+<input id="a11y-input-208" type="number" inputMode="decimal"
                       min="0"
                       placeholder="0.00"
-                      className="w-full bg-slate-100 border-none rounded-full px-2 py-1.5 text-right sm: focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 min-h-[44px] text-base font-normal"
+                      className="w-full bg-slate-100 border-none rounded-full px-2 py-1.5 text-right sm: focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 focus:outline-none text-slate-800 min-h-[44px] text-base font-normal"
                       onChange={(e) => onRateChange(item.name, parseFloat(e.target.value) || 0)}
-                    />
+                    /></>
                   </td>
                   <td className="py-3 px-4 text-right font-bold text-slate-800">
                     {item.total ? (item.total).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : "0.00"}
@@ -130,14 +131,14 @@ function BaseEstimatorWrapper({ title, inputs, renderInputs, calculate }: {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <div className="lg:col-span-4 space-y-6">
-        <h3 className=" text-lg font-medium text-slate-800 mb-4">{title} Estimator</h3>
+        <h3 className="text-lg font-medium text-slate-800 mb-4">{title} Estimator</h3>
         <div className="space-y-6">
           {renderInputs()}
         </div>
       </div>
-      <div className="lg:col-span-8 bg-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100">
+      <div className="w-full lg:col-span-8 bg-white p-4 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden">
         <div className="flex justify-between items-end mb-8">
-          <h3 className=" text-lg font-medium text-slate-800 mb-4">Calculation Results</h3>
+          <h3 className="text-lg font-medium text-slate-800 mb-4">Calculation Results</h3>
           <div className="text-right">
             <span className="text-base font-medium uppercase tracking-wider block">Grand Total</span>
             <span className="text-xl font-semibold tabular-nums tracking-tight text-purple-600 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-500">{grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
@@ -158,11 +159,12 @@ function CommonNumInput({ label, val, setVal, unit }: { label: string, val: stri
     <div className="flex flex-col gap-1.5">
       <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">{label}</label>
       <div className="relative">
-        <input 
+        <><label htmlFor="a11y-input-209" className="sr-only">Input</label>
+<input id="a11y-input-209" 
           type="number" inputMode="decimal" 
           value={val} onChange={(e)=>setVal(e.target.value)}
-          className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 text-base font-medium focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800"
-        />
+          className="w-full bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 text-base font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none transition-all text-slate-800"
+        /></>
         {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-medium">{unit}</span>}
       </div>
     </div>
@@ -235,13 +237,13 @@ function KitchenEstimator() {
 
   return <BaseEstimatorWrapper title="Kitchen" inputs={null} calculate={cb} renderInputs={() => (
     <div className="grid grid-cols-2 gap-4">
-      <div className="col-span-2 border-b border-slate-200 pb-2 mb-2"><h4 className=" text-lg font-medium text-slate-800 mb-4">Room Dimensions</h4></div>
+      <div className="col-span-2 border-b border-slate-200 pb-2 mb-2"><h4 className="text-lg font-medium text-slate-800 mb-4">Room Dimensions</h4></div>
       <CommonNumInput label="Length" val={L} setVal={setL} unit="ft" />
       <CommonNumInput label="Width" val={W} setVal={setW} unit="ft" />
       <CommonNumInput label="Height" val={H} setVal={setH} unit="ft" />
       <CommonNumInput label="Deductions" val={doorSqft} setVal={setDoorSqft} unit="sqft" />
       
-      <div className="col-span-2 border-b border-slate-200 pb-2 mt-4 mb-2"><h4 className=" text-lg font-medium text-slate-800 mb-4">Kitchen Specifics</h4></div>
+      <div className="col-span-2 border-b border-slate-200 pb-2 mt-4 mb-2"><h4 className="text-lg font-medium text-slate-800 mb-4">Kitchen Specifics</h4></div>
       <CommonNumInput label="Countertop Length" val={counterL} setVal={setCounterL} unit="ft" />
       <CommonNumInput label="Countertop Width" val={counterW} setVal={setCounterW} unit="ft" />
       <CommonNumInput label="Lower Cabinets" val={lowerCabL} setVal={setLowerCabL} unit="l.ft" />
@@ -476,7 +478,7 @@ function BasementEstimator() {
       <CommonNumInput label="Excavation Depth" val={depth} setVal={setDepth} unit="ft" />
       <div className="flex flex-col gap-1.5">
         <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">Soil Bulking Factor</label>
-        <select value={bulkingF} onChange={e=>setBulkingF(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 text-base font-medium focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800">
+        <select value={bulkingF} onChange={e=>setBulkingF(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 text-base font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none transition-all text-slate-800 overflow-hidden">
           <option value="1.15">Hard Soil (1.15)</option>
           <option value="1.25">Normal Soil (1.25)</option>
           <option value="1.35">Loose Soil (1.35)</option>

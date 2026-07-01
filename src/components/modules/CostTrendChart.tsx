@@ -286,10 +286,10 @@ export function CostTrendChart() {
   }, [data, formatCurrency]);
 
   return (
-    <div className="bg-slate-50  rounded-[24px] shadow-sm border border-slate-200  p-6 w-full relative">
+    <div className="bg-slate-50 rounded-[24px] shadow-sm border border-slate-200 p-4 sm:p-6 w-full relative">
       <div className="flex justify-between items-center mb-2">
         <div>
-          <h3 className=" text-lg font-medium text-slate-800 mb-4">Historical Cost Trend</h3>
+          <h3 className="text-lg font-medium text-slate-800 mb-4">Historical Cost Trend</h3>
           <p className="mt-1 text-base font-normal text-slate-600 leading-relaxed">Estimates trajectory over time based on project history</p>
         </div>
       </div>

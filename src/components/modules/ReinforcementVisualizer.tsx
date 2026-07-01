@@ -151,7 +151,7 @@ export default function ReinforcementVisualizer() {
                   <select
                     value={type}
                     onChange={(e) => setType(e.target.value as ElementType)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] focus:ring-2 focus:ring-indigo-500 outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 outline-none"
                   >
                     <option value="Beam">Beam</option>
                     <option value="Column">Column</option>
@@ -164,34 +164,37 @@ export default function ReinforcementVisualizer() {
                     <label className="block text-xs font-bold text-slate-700 mb-1">
                       Width (mm)
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-414" className="sr-only">Input</label>
+<input id="a11y-input-414"
                       type="number" inputMode="decimal"
                       value={width}
                       onChange={(e) => setWidth(Number(e.target.value))}
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
-                    />
+                    /></>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
                       Depth (mm)
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-415" className="sr-only">Input</label>
+<input id="a11y-input-415"
                       type="number" inputMode="decimal"
                       value={depth}
                       onChange={(e) => setDepth(Number(e.target.value))}
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
-                    />
+                    /></>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
                       Clear Cover (mm)
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-416" className="sr-only">Input</label>
+<input id="a11y-input-416"
                       type="number" inputMode="decimal"
                       value={cover}
                       onChange={(e) => setCover(Number(e.target.value))}
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
-                    />
+                    /></>
                   </div>
                 </div>
               </div>
@@ -208,7 +211,8 @@ export default function ReinforcementVisualizer() {
                       <label className="block text-xs font-bold text-slate-700 mb-1">
                         Top Bars Count
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-417" className="sr-only">Input</label>
+<input id="a11y-input-417"
                         type="number" inputMode="decimal"
                         value={topBarsCount}
                         onChange={(e) =>
@@ -216,7 +220,7 @@ export default function ReinforcementVisualizer() {
                         }
                         className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                         min={2}
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
@@ -242,7 +246,8 @@ export default function ReinforcementVisualizer() {
                     <label className="block text-xs font-bold text-slate-700 mb-1">
                       {type === "Slab" ? "Main Bars" : "Bottom Bars"} Count
                     </label>
-                    <input
+                    <><label htmlFor="a11y-input-418" className="sr-only">Input</label>
+<input id="a11y-input-418"
                       type="number" inputMode="decimal"
                       value={bottomBarsCount}
                       onChange={(e) =>
@@ -250,7 +255,7 @@ export default function ReinforcementVisualizer() {
                       }
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
                       min={2}
-                    />
+                    /></>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
@@ -292,14 +297,15 @@ export default function ReinforcementVisualizer() {
                       <label className="block text-xs font-bold text-slate-700 mb-1">
                         Spacing (c/c)
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-419" className="sr-only">Input</label>
+<input id="a11y-input-419"
                         type="number" inputMode="decimal"
                         value={stirrupSpacing}
                         onChange={(e) =>
                           setStirrupSpacing(Number(e.target.value))
                         }
                         className="w-full px-3 py-2 bg-white border border-slate-300 rounded-full outline-none"
-                      />
+                      /></>
                     </div>
                   </div>
                 )}

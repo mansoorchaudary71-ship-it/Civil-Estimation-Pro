@@ -125,7 +125,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 <div>
                   <div className="relative flex items-center">
                     <User className="absolute left-3.5 w-5 h-5 text-slate-700" />
-                    <input
+                    <><label htmlFor="a11y-input-11" className="sr-only">Full Name</label>
+<input id="a11y-input-11"
                       type="text"
                       placeholder="Full Name"
                       value={name}
@@ -134,8 +135,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         setError('');
                       }}
                       required
-                      className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                    />
+                      className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 transition-all"
+                    /></>
                   </div>
                 </div>
               )}
@@ -143,7 +144,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <div>
                 <div className="relative flex items-center">
                   <AtSign className="absolute left-3.5 w-5 h-5 text-slate-700" />
-                  <input
+                  <><label htmlFor="a11y-input-12" className="sr-only">Email Address</label>
+<input id="a11y-input-12"
                     type="email"
                     placeholder="Email Address"
                     value={email}
@@ -152,15 +154,16 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                  />
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 transition-all"
+                  /></>
                 </div>
               </div>
 
               <div>
                 <div className="relative flex items-center">
                   <Lock className="absolute left-3.5 w-5 h-5 text-slate-700" />
-                  <input
+                  <><label htmlFor="a11y-input-13" className="sr-only">Password</label>
+<input id="a11y-input-13"
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
@@ -169,8 +172,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-12 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                  />
+                    className="w-full pl-11 pr-12 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 transition-all"
+                  /></>
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -182,7 +185,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               </div>
 
               {error && (
-                <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-[24px]">
+                <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-[24px] overflow-hidden">
                   {error}
                 </div>
               )}

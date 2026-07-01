@@ -195,7 +195,7 @@ export default function RoadEstimator() {
 
   return (
     <div className="w-full flex flex-col gap-8 animate-in fade-in">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
+        <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold flex items-center gap-2 text-slate-800 dark:text-slate-200">
                     <Route className="w-6 h-6 text-emerald-600" />
@@ -292,7 +292,7 @@ export default function RoadEstimator() {
                     </MaterialSummary>
 
                     {/* Compacted Densities Config */}
-                    <div className="p-5 border border-slate-200 rounded-3xl bg-slate-50">
+                    <div className="p-5 border border-slate-200 rounded-3xl bg-slate-50 overflow-hidden">
                         <h3 className="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
                             <Layers className="w-4 h-4 text-slate-500" />
                             Compacted Densities (t/m³)
@@ -300,19 +300,23 @@ export default function RoadEstimator() {
                         <div className="flex flex-wrap gap-3">
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">BC</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={bcD} onChange={(e) => setBcD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <><label htmlFor="a11y-input-456" className="sr-only">Input</label>
+<input id="a11y-input-456" type="number" inputMode="decimal" step="0.05" value={bcD} onChange={(e) => setBcD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" /></>
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">DBM</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={dbmD} onChange={(e) => setDbmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <><label htmlFor="a11y-input-457" className="sr-only">Input</label>
+<input id="a11y-input-457" type="number" inputMode="decimal" step="0.05" value={dbmD} onChange={(e) => setDbmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" /></>
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">WMM</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={wmmD} onChange={(e) => setWmmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <><label htmlFor="a11y-input-458" className="sr-only">Input</label>
+<input id="a11y-input-458" type="number" inputMode="decimal" step="0.05" value={wmmD} onChange={(e) => setWmmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" /></>
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">GSB</label>
-                                <input type="number" inputMode="decimal" step="0.05" value={gsbD} onChange={(e) => setGsbD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <><label htmlFor="a11y-input-459" className="sr-only">Input</label>
+<input id="a11y-input-459" type="number" inputMode="decimal" step="0.05" value={gsbD} onChange={(e) => setGsbD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-full px-3 py-2 text-sm font-semibold focus:outline-none" /></>
                             </div>
                         </div>
                     </div>

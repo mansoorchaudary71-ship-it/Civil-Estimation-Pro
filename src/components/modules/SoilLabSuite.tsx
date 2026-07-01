@@ -66,7 +66,7 @@ export default function SoilLabSuite() {
 
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto">
-        <div className="p-4 md:p-0 max-w-7xl mx-auto h-full">
+        <div className="w-full p-4 md:p-0 md:max-w-7xl md:mx-auto h-full">
           {activeTab === "index" && <GeotechnicalIndexProperties />}
           {activeTab === "gradation" && <GradationSuite />}
           {activeTab === "strength" && <StrengthPermeabilitySuite />}
@@ -85,7 +85,7 @@ function GeotechnicalIndexProperties() {
   const [test, setTest] = useState<"wc" | "atterberg">("wc");
   
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto">
+    <div className="p-4 md:p-6 w-full md:max-w-7xl md:mx-auto">
       <div className="flex bg-slate-100 p-1 rounded-xl w-full mb-6">
         <button onClick={() => setTest("wc")} className={`flex-1 px-3 py-2 rounded-lg text-sm font-bold transition-all ${test === "wc" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"}`}>Moisture & Gravity Tool</button>
         <button onClick={() => setTest("atterberg")} className={`flex-1 px-3 py-2 rounded-lg text-sm font-bold transition-all ${test === "atterberg" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"}`}>Atterberg Limits</button>
@@ -116,17 +116,20 @@ function AtterbergLimitsCalc() {
 
   return (
     <div className="grid md:grid-cols-2 gap-8 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
-      <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
+      <div className="w-full bg-white p-4 sm:p-6 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
         <h3 className="font-bold border-b pb-2 mb-4">Liquid Limit (One-Point)</h3>
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Blows (N)</label><input type="number" inputMode="decimal" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Water Content (%)</label><input type="number" inputMode="decimal" value={llWater} onChange={e => setLlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Blows (N)</label><><label htmlFor="a11y-input-503" className="sr-only">Input</label>
+<input id="a11y-input-503" type="number" inputMode="decimal" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Water Content (%)</label><><label htmlFor="a11y-input-504" className="sr-only">Input</label>
+<input id="a11y-input-504" type="number" inputMode="decimal" value={llWater} onChange={e => setLlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
         </div>
 
         <h3 className="font-bold border-b pb-2 mb-4">Plastic Limit</h3>
-        <div><label className="text-xs font-bold text-slate-500 uppercase">Plastic Limit w (%)</label><input type="number" inputMode="decimal" value={plWater} onChange={e => setPlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+        <div><label className="text-xs font-bold text-slate-500 uppercase">Plastic Limit w (%)</label><><label htmlFor="a11y-input-505" className="sr-only">Input</label>
+<input id="a11y-input-505" type="number" inputMode="decimal" value={plWater} onChange={e => setPlWater(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
       </div>
-      <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6">
+      <div className="bg-slate-50 p-4 sm:p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6 overflow-hidden">
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Liquid Limit (LL)</h4>
            <div className="text-3xl font-bold tabular-nums tracking-tight text-indigo-600">{LL.toFixed(1)}%</div>
@@ -149,8 +152,8 @@ function GradationSuite() {
   const [test, setTest] = useState<"sieve" | "blending" | "hydrometer">("sieve");
   
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto h-full flex flex-col">
-      <div className="flex bg-slate-100 p-1 rounded-[24px] w-full max-w-3xl mb-6">
+    <div className="p-4 md:p-6 w-full md:max-w-7xl md:mx-auto h-full flex flex-col">
+      <div className="flex bg-slate-100 p-1 rounded-[24px] w-full max-w-3xl mb-6 overflow-hidden">
         <button onClick={() => setTest("sieve")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "sieve" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Sieve Analysis</button>
         <button onClick={() => setTest("blending")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "blending" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Aggregate Blending</button>
         <button onClick={() => setTest("hydrometer")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "hydrometer" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Hydrometer</button>
@@ -192,16 +195,20 @@ function HydrometerCalc() {
 
   return (
     <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
-      <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
+      <div className="w-full bg-white p-4 sm:p-6 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
         <h3 className="font-bold border-b pb-2 mb-4">Input Data (Single Reading Example)</h3>
         <div className="space-y-4">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Specific Gravity (G)</label><input type="number" inputMode="decimal" step="0.01" value={sg} onChange={e => setSg(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Temperature (°C)</label><input type="number" inputMode="decimal" value={temp} onChange={e => setTemp(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Hydrometer Reading (R)</label><input type="number" inputMode="decimal" value={reading} onChange={e => setReading(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Elapsed Time (min)</label><input type="number" inputMode="decimal" value={time} onChange={e => setTime(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Specific Gravity (G)</label><><label htmlFor="a11y-input-506" className="sr-only">Input</label>
+<input id="a11y-input-506" type="number" inputMode="decimal" step="0.01" value={sg} onChange={e => setSg(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Temperature (°C)</label><><label htmlFor="a11y-input-507" className="sr-only">Input</label>
+<input id="a11y-input-507" type="number" inputMode="decimal" value={temp} onChange={e => setTemp(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Hydrometer Reading (R)</label><><label htmlFor="a11y-input-508" className="sr-only">Input</label>
+<input id="a11y-input-508" type="number" inputMode="decimal" value={reading} onChange={e => setReading(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Elapsed Time (min)</label><><label htmlFor="a11y-input-509" className="sr-only">Input</label>
+<input id="a11y-input-509" type="number" inputMode="decimal" value={time} onChange={e => setTime(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
         </div>
       </div>
-      <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6">
+      <div className="bg-slate-50 p-4 sm:p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6 overflow-hidden">
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Particle Diameter (D)</h4>
            <div className="text-3xl font-bold tabular-nums tracking-tight text-indigo-600">{D.toFixed(4)} mm</div>
@@ -220,8 +227,8 @@ function StrengthPermeabilitySuite() {
   const [test, setTest] = useState<"directshear" | "cbr" | "perm" | "uct">("directshear");
   
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto h-full flex flex-col">
-      <div className="flex flex-wrap bg-slate-100 p-1 rounded-[24px] w-full mb-6">
+    <div className="p-4 md:p-6 w-full md:max-w-7xl md:mx-auto h-full flex flex-col">
+      <div className="flex flex-wrap bg-slate-100 p-1 rounded-[24px] w-full mb-6 overflow-hidden">
         <button onClick={() => setTest("directshear")} className={`flex-1 py-2 px-2 rounded-[24px] text-sm font-bold transition-all ${test === "directshear" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Direct Shear</button>
         <button onClick={() => setTest("cbr")} className={`flex-1 py-2 px-2 rounded-[24px] text-sm font-bold transition-all ${test === "cbr" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>CBR Test</button>
         <button onClick={() => setTest("perm")} className={`flex-1 py-2 px-2 rounded-[24px] text-sm font-bold transition-all ${test === "perm" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Permeability</button>
@@ -257,17 +264,21 @@ function UnconfinedCompressionTest() {
   const cu = qu / 2;
 
   return (
-    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto p-4">
-      <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
+    <div className="w-full grid md:grid-cols-2 gap-8 md:max-w-4xl md:mx-auto p-4">
+      <div className="w-full bg-white p-4 sm:p-6 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
         <h3 className="font-bold border-b pb-2 mb-4">UCT Input (at failure)</h3>
         <div className="space-y-4">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Diameter (mm)</label><input type="number" inputMode="decimal" value={dia} onChange={e => setDia(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Height (mm)</label><input type="number" inputMode="decimal" value={height} onChange={e => setHeight(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Failure Load (N)</label><input type="number" inputMode="decimal" value={load} onChange={e => setLoad(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">Axial Deformation (mm)</label><input type="number" inputMode="decimal" value={deformation} onChange={e => setDeformation(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Diameter (mm)</label><><label htmlFor="a11y-input-510" className="sr-only">Input</label>
+<input id="a11y-input-510" type="number" inputMode="decimal" value={dia} onChange={e => setDia(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Sample Height (mm)</label><><label htmlFor="a11y-input-511" className="sr-only">Input</label>
+<input id="a11y-input-511" type="number" inputMode="decimal" value={height} onChange={e => setHeight(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Failure Load (N)</label><><label htmlFor="a11y-input-512" className="sr-only">Input</label>
+<input id="a11y-input-512" type="number" inputMode="decimal" value={load} onChange={e => setLoad(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
+          <div><label className="text-xs font-bold text-slate-500 uppercase">Axial Deformation (mm)</label><><label htmlFor="a11y-input-513" className="sr-only">Input</label>
+<input id="a11y-input-513" type="number" inputMode="decimal" value={deformation} onChange={e => setDeformation(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-full" /></></div>
         </div>
       </div>
-      <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6">
+      <div className="bg-slate-50 p-4 sm:p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center gap-6 overflow-hidden">
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Unconfined Compressive Strength (qu)</h4>
            <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-indigo-600">{qu.toFixed(1)} kPa</div>

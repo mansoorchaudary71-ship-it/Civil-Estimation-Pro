@@ -72,12 +72,12 @@ export default function GridEarthworkEstimator() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <section className="space-y-6">
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="w-full bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] overflow-hidden">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px]">
+                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px] overflow-hidden">
                   <Grid2X2 className="w-5 h-5" />
                 </div>
-                <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
+                <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
                   Grid Dimensions
                 </h2>
               </div>
@@ -86,36 +86,38 @@ export default function GridEarthworkEstimator() {
                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Length [{unitL}]
                   </label>
-                  <input type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
+                  <><label htmlFor="a11y-input-251" className="sr-only">Input</label>
+<input id="a11y-input-251" type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={gridLength}
                     onChange={(e) => setGridLength(e.target.value)}
-                  />
+                  /></>
                 </div>
                 <div>
                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-slate-700 mb-1">
                     Width [{unitL}]
                   </label>
-                  <input type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
+                  <><label htmlFor="a11y-input-252" className="sr-only">Input</label>
+<input id="a11y-input-252" type="number" inputMode="decimal"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-slate-800 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={gridWidth}
                     onChange={(e) => setGridWidth(e.target.value)}
-                  />
+                  /></>
                 </div>
               </div>
-              <div className="mt-4 p-3 bg-gray-50 rounded-[24px] font-medium text-slate-600 flex justify-between">
+              <div className="mt-4 p-3 bg-gray-50 rounded-[24px] font-medium text-slate-600 flex justify-between overflow-hidden">
                 <span>Grid Area:</span>
                 <span className="font-bold text-slate-800">
                   {area.toFixed(2)} {unitA}
                 </span>
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="w-full bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] overflow-hidden">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[24px]">
+                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[24px] overflow-hidden">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
+                <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
                   Corner Elevations
                 </h2>
               </div>
@@ -124,7 +126,7 @@ export default function GridEarthworkEstimator() {
                 <div className="absolute top-1/2 left-6 right-6 h-0.5 bg-gray-100 -translate-y-1/2" />
                 <div className="absolute left-1/2 top-6 bottom-6 w-0.5 bg-gray-100 -translate-x-1/2" />
                 {/* Top Left */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="w-full bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors overflow-hidden">
                   <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Top Left
                     <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
@@ -136,30 +138,32 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-253" className="sr-only">Input</label>
+<input id="a11y-input-253" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTL.existing}
                         onChange={(e) =>
                           setCornerTL({ ...cornerTL, existing: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-254" className="sr-only">Input</label>
+<input id="a11y-input-254" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTL.proposed}
                         onChange={(e) =>
                           setCornerTL({ ...cornerTL, proposed: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                   </div>
                 </div>
                 {/* Top Right */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="w-full bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors overflow-hidden">
                   <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Top Right
                     <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
@@ -171,30 +175,32 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-255" className="sr-only">Input</label>
+<input id="a11y-input-255" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTR.existing}
                         onChange={(e) =>
                           setCornerTR({ ...cornerTR, existing: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-256" className="sr-only">Input</label>
+<input id="a11y-input-256" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerTR.proposed}
                         onChange={(e) =>
                           setCornerTR({ ...cornerTR, proposed: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                   </div>
                 </div>
                 {/* Bottom Left */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="w-full bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors overflow-hidden">
                   <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Bottom Left
                     <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
@@ -206,30 +212,32 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-257" className="sr-only">Input</label>
+<input id="a11y-input-257" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBL.existing}
                         onChange={(e) =>
                           setCornerBL({ ...cornerBL, existing: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-258" className="sr-only">Input</label>
+<input id="a11y-input-258" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBL.proposed}
                         onChange={(e) =>
                           setCornerBL({ ...cornerBL, proposed: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                   </div>
                 </div>
                 {/* Bottom Right */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="w-full bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors overflow-hidden">
                   <h3 className="mb-3 flex items-center justify-between text-lg font-medium text-slate-800 mb-4">
                     Bottom Right
                     <span className="text-sm uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-slate-700">
@@ -241,25 +249,27 @@ export default function GridEarthworkEstimator() {
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Existing
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-259" className="sr-only">Input</label>
+<input id="a11y-input-259" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBR.existing}
                         onChange={(e) =>
                           setCornerBR({ ...cornerBR, existing: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block uppercase tracking-wider mb-1 text-sm font-medium text-slate-700">
                         Proposed
                       </label>
-                      <input type="number" inputMode="decimal"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
+                      <><label htmlFor="a11y-input-260" className="sr-only">Input</label>
+<input id="a11y-input-260" type="number" inputMode="decimal"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50 min-h-[44px] text-base font-normal"
                         value={cornerBR.proposed}
                         onChange={(e) =>
                           setCornerBR({ ...cornerBR, proposed: e.target.value })
                         }
-                      />
+                      /></>
                     </div>
                   </div>
                 </div>

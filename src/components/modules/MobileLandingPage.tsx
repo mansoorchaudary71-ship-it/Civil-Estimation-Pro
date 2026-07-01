@@ -36,7 +36,7 @@ export default function MobileLandingPage() {
                 <span>93%</span>
               </div>
             </div>
-            <div className="w-full bg-white/50 backdrop-blur-md rounded-full px-4 py-2 flex items-center justify-center border border-white/40 shadow-sm text-xs font-medium text-slate-600">
+            <div className="w-full bg-white/50 backdrop-blur-md rounded-full px-4 py-2 flex items-center justify-center border border-white/40 shadow-sm text-xs font-medium text-slate-600 overflow-hidden">
               <span className="opacity-50">🔒</span> <span className="ml-1">y71-ship-it.github.io</span>
             </div>
           </div>
@@ -46,7 +46,7 @@ export default function MobileLandingPage() {
             <div className="font-bold text-slate-900 text-lg tracking-tight">
               Civil Est. Pro
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
               <Search className="w-5 h-5 text-slate-600" />
               <button className="text-base font-medium hidden sm:block rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">Login</button>
               <Menu className="w-6 h-6 text-slate-900 sm:hidden" />
@@ -57,15 +57,15 @@ export default function MobileLandingPage() {
           <main className="flex-1 px-6 pt-6 pb-24 flex flex-col items-center text-center">
             
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/50 shadow-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+            <div className="w-full inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/50 shadow-sm mb-6 overflow-hidden">
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               <span className="text-base font-medium tracking-wide uppercase">NEW: AI-Powered Estimations</span>
             </div>
 
             {/* Headlines */}
             <h1 className="text-2xl md:text-xl font-semibold text-slate-800 mb-4 leading-[1.1]">
               <span className="text-slate-400 block mb-1">Build Smarter.</span>
-              <span className="text-slate-900">Estimate <span className="text-orange-500">Faster.</span></span>
+              <span className="text-slate-900">Estimate <span className="text-blue-500">Faster.</span></span>
             </h1>
 
             {/* Description Text */}
@@ -75,11 +75,11 @@ export default function MobileLandingPage() {
 
             {/* Buttons */}
             <div className="flex flex-col w-full gap-3 mb-12">
-              <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3.5 px-6 rounded-full font-semibold shadow-[0_8px_20px_rgb(249,115,22,0.3)] transition-transform active:scale-[0.98] transition-all duration-300 active:scale-95 hover:-translate-y-0.5">
+              <button className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-700 text-white py-3.5 px-6 rounded-full font-semibold shadow-[0_8px_20px_rgb(249,115,22,0.3)] transition-transform active:scale-[0.98] transition-all duration-300 active:scale-95 hover:-translate-y-0.5">
                 Start Estimating Free
                 <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-slate-200/60 backdrop-blur-sm text-slate-800 py-3.5 px-6 rounded-full font-semibold transition-transform active:scale-[0.98] transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
+              <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-slate-200/60 backdrop-blur-sm text-slate-800 py-3.5 px-6 rounded-full font-semibold transition-transform active:scale-[0.98] transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden">
                 <Play className="w-4 h-4 fill-slate-800" />
                 Watch Demo
               </button>
@@ -95,7 +95,7 @@ export default function MobileLandingPage() {
                   <div className="w-8 h-8 rounded-full bg-emerald-500/20" />
                 </div>
               </div>
-              <div className="flex-1 flex gap-4">
+              <div className="flex-1 flex gap-4 flex-wrap">
                 <div className="flex-1 bg-slate-800 rounded-xl p-3 flex items-end gap-2">
                    {/* Fake Bar Chart */}
                    <div className="w-full bg-indigo-500/80 rounded-t-sm h-[40%]" />
@@ -105,7 +105,7 @@ export default function MobileLandingPage() {
                 </div>
                 <div className="w-[40%] bg-slate-800 rounded-xl p-3 flex flex-col gap-3">
                    {/* Fake Doughnut */}
-                   <div className="w-12 h-12 rounded-full border-4 border-orange-500/80 mx-auto mt-2" />
+                   <div className="w-12 h-12 rounded-full border-4 border-blue-600/80 mx-auto mt-2" />
                    <div className="space-y-2 mt-auto">
                      <div className="w-full h-2 bg-slate-700 rounded-full" />
                      <div className="w-2/3 h-2 bg-slate-700 rounded-full" />
@@ -117,7 +117,7 @@ export default function MobileLandingPage() {
           </main>
 
           {/* Floating Social Proof Card 1 */}
-          <div className="absolute top-[35%] -left-8 bg-white/80 backdrop-blur-xl p-3 rounded-2xl shadow-xl border border-white flex flex-col gap-2 max-w-[140px] animate-float-slow">
+          <div className="w-full absolute top-[35%] -left-8 bg-white/80 backdrop-blur-xl p-3 rounded-2xl shadow-xl border border-white flex flex-col gap-2 max-w-[140px] animate-float-slow overflow-hidden">
              <div className="flex items-center gap-1.5">
                <CheckCircle className="w-4 h-4 text-emerald-500" />
                <span className="text-[10px] font-bold text-slate-800 leading-tight">30+ Professional<br/>Tools</span>
@@ -125,13 +125,13 @@ export default function MobileLandingPage() {
              <div className="flex -space-x-2">
                <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white" />
                <div className="w-6 h-6 rounded-full bg-pink-100 border-2 border-white" />
-               <div className="w-6 h-6 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center text-[8px] font-bold">+</div>
+               <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-[8px] font-bold">+</div>
              </div>
              <span className="text-[9px] font-medium text-slate-500">10k+ Trust Us</span>
           </div>
 
           {/* Floating Social Proof Card 2 */}
-          <div className="absolute bottom-[20%] -right-6 bg-white/90 backdrop-blur-xl p-4 rounded-2xl shadow-xl border border-white flex flex-col gap-2 max-w-[180px] animate-float-delayed">
+          <div className="w-full absolute bottom-[20%] -right-6 bg-white/90 backdrop-blur-xl p-4 rounded-2xl shadow-xl border border-white flex flex-col gap-2 max-w-[180px] animate-float-delayed overflow-hidden">
              <div className="flex gap-0.5">
                {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-orange-400 text-orange-400" />)}
              </div>
@@ -148,7 +148,7 @@ export default function MobileLandingPage() {
           </div>
 
           {/* Back to top button */}
-          <button className="absolute bottom-6 right-6 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-orange-600 transition-colors z-20 active:scale-95 hover:-translate-y-0.5">
+          <button aria-label="ArrowUp" className="absolute bottom-6 right-6 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors z-20 active:scale-95 hover:-translate-y-0.5">
             <ArrowUp className="w-5 h-5" />
           </button>
 

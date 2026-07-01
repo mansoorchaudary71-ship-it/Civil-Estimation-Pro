@@ -81,14 +81,15 @@ export function FormulaVisualizer({ title }: VisualizerProps) {
           <label className="text-[10px] uppercase font-bold text-slate-400 mb-1">
             Variable Multiplier: {sliderValue}%
           </label>
-          <input
+          <><label htmlFor="a11y-input-583" className="sr-only">Input</label>
+<input id="a11y-input-583"
             type="range"
             min="10"
             max="150"
             value={sliderValue}
             onChange={(e) => setSliderValue(Number(e.target.value))}
             className="w-full accent-indigo-500"
-          />
+          /></>
         </div>
       </div>
 

@@ -67,7 +67,7 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
           {activeTab === "general-concrete" && <ConstructionMaterialEstimator forcedTab="concrete" hideHeader />}
           {activeTab === "bricks-blocks" && (
             <div className="space-y-4">
-              <div className="flex bg-slate-100 p-1 rounded-[24px] w-fit">
+              <div className="flex bg-slate-100 p-1 rounded-[24px] w-fit overflow-hidden">
                 <button
                   onClick={() => setBrickBlockTab("bricks")}
                   className={`px-6 py-2 rounded-[24px] text-base font-medium transition-all ${

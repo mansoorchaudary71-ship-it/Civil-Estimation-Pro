@@ -200,70 +200,76 @@ const MeasurementSheetCalculator: React.FC = () => {
       <div className="overflow-x-auto w-full rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-orange-50 text-orange-800">
+            <tr className="bg-blue-50 text-orange-800">
               <th className="p-3 font-semibold rounded-tl-xl w-24">Item No</th>
               <th className="p-3 font-semibold min-w-[200px]">Description</th>
               <th className="p-3 font-semibold w-20">Nos</th>
               <th className="p-3 font-semibold w-24">L</th>
               <th className="p-3 font-semibold w-24">W</th>
               <th className="p-3 font-semibold w-24">H/D</th>
-              <th className="p-3 font-semibold w-32 border-l border-orange-200">Total</th>
+              <th className="p-3 font-semibold w-32 border-l border-blue-200">Total</th>
               <th className="p-3 font-semibold rounded-tr-xl w-16"></th>
             </tr>
           </thead>
           <tbody>
             {sheets[activeTab].map((row, idx) => (
-              <tr key={row.id} className="border-b border-slate-100 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
+              <tr key={row.id} className="border-b border-slate-100 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden">
                 <td className="p-2">
-                  <input
+                  <><label htmlFor="a11y-input-343" className="sr-only">Input</label>
+<input id="a11y-input-343"
                     type="text"
                     value={row.itemNo}
                     onChange={(e) => handleRowChange(activeTab, row.id, "itemNo", e.target.value)}
                     className="w-full bg-transparent border-none outline-none focus:ring-0 px-1 text-slate-800 rounded-full"
                     placeholder={`${idx + 1}`}
-                  />
+                  /></>
                 </td>
                 <td className="p-2">
-                  <input
+                  <><label htmlFor="a11y-input-344" className="sr-only">Enter description...</label>
+<input id="a11y-input-344"
                     type="text"
                     value={row.description}
                     onChange={(e) => handleRowChange(activeTab, row.id, "description", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-full px-3 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-slate-800"
                     placeholder="Enter description..."
-                  />
+                  /></>
                 </td>
                 <td className="p-2">
-                  <input
+                  <><label htmlFor="a11y-input-345" className="sr-only">Input</label>
+<input id="a11y-input-345"
                     type="number" inputMode="decimal"
                     value={row.nos}
                     onChange={(e) => handleRowChange(activeTab, row.id, "nos", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-full px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
                     min="0"
-                  />
+                  /></>
                 </td>
                 <td className="p-2">
-                  <input
+                  <><label htmlFor="a11y-input-346" className="sr-only">Input</label>
+<input id="a11y-input-346"
                     type="number" inputMode="decimal"
                     value={row.length}
                     onChange={(e) => handleRowChange(activeTab, row.id, "length", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-full px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
-                  />
+                  /></>
                 </td>
                 <td className="p-2">
-                  <input
+                  <><label htmlFor="a11y-input-347" className="sr-only">Input</label>
+<input id="a11y-input-347"
                     type="number" inputMode="decimal"
                     value={row.width}
                     onChange={(e) => handleRowChange(activeTab, row.id, "width", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-full px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
-                  />
+                  /></>
                 </td>
                 <td className="p-2">
-                  <input
+                  <><label htmlFor="a11y-input-348" className="sr-only">Input</label>
+<input id="a11y-input-348"
                     type="number" inputMode="decimal"
                     value={row.heightDepth}
                     onChange={(e) => handleRowChange(activeTab, row.id, "heightDepth", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-full px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
-                  />
+                  /></>
                 </td>
                 <td className="p-2 border-l border-slate-100 bg-slate-50 border-b-0 font-medium text-slate-900">
                   <div className="w-full text-right px-2">
@@ -283,7 +289,7 @@ const MeasurementSheetCalculator: React.FC = () => {
             ))}
           </tbody>
           <tfoot>
-            <tr className="border-t-2 border-orange-200">
+            <tr className="border-t-2 border-blue-200">
               <td colSpan={6} className="p-4 text-right font-bold text-slate-700">
                 SUBTOTAL
               </td>

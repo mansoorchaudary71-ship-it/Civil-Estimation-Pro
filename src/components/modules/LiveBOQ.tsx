@@ -107,7 +107,8 @@ function BOQRow({
           )}
           <div className="relative">
             {useManual ? (
-              <input type="number" inputMode="decimal"
+              <><label htmlFor="a11y-input-317" className="sr-only">Input</label>
+<input id="a11y-input-317" type="number" inputMode="decimal"
                 className="w-16 bg-transparent border border-slate-200 rounded px-1.5 py-0.5 text-right focus:outline-none focus:border-blue-500 text-slate-800 font-mono min-h-[44px] rounded-full"
                 value={row.qtyOverride || 0}
                 onChange={(e) =>
@@ -115,7 +116,7 @@ function BOQRow({
                     qtyOverride: parseFloat(e.target.value) || 0,
                   })
                 }
-              />
+              /></>
             ) : (
               <span className="font-mono text-blue-400 px-1.5 py-0.5 inline-block min-w-[4rem] text-right">
                 {qty.toFixed(2)}
@@ -142,7 +143,7 @@ function BOQRow({
               className="fixed inset-0 z-10"
               onClick={() => setDropdownOpen(false)}
             />
-            <div className="absolute right-3 top-8 w-44 bg-white border border-slate-200 rounded-[16px] shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto">
+            <div className="w-full absolute right-3 top-8 w-44 bg-white border border-slate-200 rounded-[16px] shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto overflow-hidden">
               <div className="px-2 pb-1 border-b border-slate-200 mb-1">
                 <span className="text-[10px] text-slate-700 font-semibold uppercase">
                   Measurements
@@ -173,7 +174,8 @@ function BOQRow({
                     key={m.id}
                     className="flex items-center gap-2 px-3 py-1.5 hover:bg-transparent cursor-pointer text-sm text-slate-800"
                   >
-                    <input
+                    <><label htmlFor="a11y-input-318" className="sr-only">Input</label>
+<input id="a11y-input-318"
                       type="checkbox"
                       className="accent-blue-500 rounded bg-transparent border-slate-200 shrink-0"
                       checked={isSelected}
@@ -185,7 +187,7 @@ function BOQRow({
                             );
                         updateBoqItem(row.id, { linkedMeasurementIds: newIds });
                       }}
-                    />
+                    /></>
                     <div
                       className="w-2 h-2 rounded-full shrink-0"
                       style={{ backgroundColor: m.color }}
@@ -343,13 +345,14 @@ export default function LiveBOQ() {
           </div>
         </div>
         {/* Search */}
-        <div className="px-6 py-4 border-b border-slate-200 bg-transparent/20 flex gap-4">
+        <div className="px-6 py-4 border-b border-slate-200 bg-transparent/20 flex gap-4 flex-wrap">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-[14px] h-[14px] absolute left-3 top-2.5 text-slate-700" />
-            <input type="text"
+            <><label htmlFor="a11y-input-319" className="sr-only">Search items...</label>
+<input id="a11y-input-319" type="text"
               placeholder="Search items..."
               className="w-full bg-transparent border border-slate-200 rounded-full px-3 pl-8 py-1.5 text-sm focus:outline-none focus:border-blue-500 text-slate-800 min-h-[44px]"
-            />
+            /></>
           </div>
           <button className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-slate-200 rounded text-sm hover:bg-slate-200 transition-colors text-slate-700 rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <Filter className="w-[14px] h-[14px]" /> Filters
@@ -412,7 +415,7 @@ export default function LiveBOQ() {
       {/* Export Modal */}
       {showExportModal && (
         <div className="absolute inset-0 bg-slate-50/60 flex items-center justify-center z-50">
-          <div className="bg-white border border-slate-200 rounded-[16px] p-6 max-w-sm w-full shadow-2xl">
+          <div className="bg-white border border-slate-200 rounded-[16px] p-4 sm:p-6 max-w-sm w-full shadow-2xl overflow-hidden">
             <h3 className="text-base font-medium mb-4 text-slate-900 flex items-center gap-2">
               <Download className="w-[16px] h-[16px] text-blue-400" /> Generate
               Professional Report
@@ -422,7 +425,8 @@ export default function LiveBOQ() {
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
                   Project Name
                 </label>
-                <input
+                <><label htmlFor="a11y-input-320" className="sr-only">Input</label>
+<input id="a11y-input-320"
                   type="text"
                   value={exportData.projectName}
                   onChange={(e) =>
@@ -432,13 +436,14 @@ export default function LiveBOQ() {
                     }))
                   }
                   className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500 rounded-full"
-                />
+                /></>
               </div>
               <div>
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
                   Client Name
                 </label>
-                <input
+                <><label htmlFor="a11y-input-321" className="sr-only">Input</label>
+<input id="a11y-input-321"
                   type="text"
                   value={exportData.clientName}
                   onChange={(e) =>
@@ -448,13 +453,14 @@ export default function LiveBOQ() {
                     }))
                   }
                   className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500 rounded-full"
-                />
+                /></>
               </div>
               <div>
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
                   Site Location
                 </label>
-                <input
+                <><label htmlFor="a11y-input-322" className="sr-only">Input</label>
+<input id="a11y-input-322"
                   type="text"
                   value={exportData.siteLocation}
                   onChange={(e) =>
@@ -464,7 +470,7 @@ export default function LiveBOQ() {
                     }))
                   }
                   className="w-full bg-transparent border border-slate-200 rounded p-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500 rounded-full"
-                />
+                /></>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3 mb-4">

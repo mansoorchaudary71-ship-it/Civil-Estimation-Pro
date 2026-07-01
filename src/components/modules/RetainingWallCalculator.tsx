@@ -203,25 +203,32 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
           <ToolSection title="Wall Dimensions" number={1} color="blue">
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               <InputGroup label="Wall Height (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={wallH} onChange={(e) => setWallH(e.target.value)} />
+                <><label htmlFor="a11y-input-420" className="sr-only">Input</label>
+<input id="a11y-input-420" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={wallH} onChange={(e) => setWallH(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Wall Length (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={wallL} onChange={(e) => setWallL(e.target.value)} />
+                <><label htmlFor="a11y-input-421" className="sr-only">Input</label>
+<input id="a11y-input-421" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={wallL} onChange={(e) => setWallL(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Base Width (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
+                <><label htmlFor="a11y-input-422" className="sr-only">Input</label>
+<input id="a11y-input-422" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={baseW} onChange={(e) => setBaseW(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Base Thk (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
+                <><label htmlFor="a11y-input-423" className="sr-only">Input</label>
+<input id="a11y-input-423" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={baseD} onChange={(e) => setBaseD(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Stem Top (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
+                <><label htmlFor="a11y-input-424" className="sr-only">Input</label>
+<input id="a11y-input-424" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Stem Bot (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
+                <><label htmlFor="a11y-input-425" className="sr-only">Input</label>
+<input id="a11y-input-425" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Toe Proj (m)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
+                <><label htmlFor="a11y-input-426" className="sr-only">Input</label>
+<input id="a11y-input-426" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50" value={toeProj} onChange={(e) => setToeProj(e.target.value)} /></>
               </InputGroup>
             </div>
           </ToolSection>
@@ -235,7 +242,8 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                   <FieldTooltip content="Unit weight of retained soil. Typical values: Loose soil = 14-16, Compacted soil = 18-20, Gravel/Rock = 20-22" />
                 </span>
               }>
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
+                <><label htmlFor="a11y-input-427" className="sr-only">Input</label>
+<input id="a11y-input-427" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} /></>
               </InputGroup>
               <InputGroup label={
                 <span className="flex items-center">
@@ -243,16 +251,20 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                   <FieldTooltip content="Angle of internal friction of soil (Φ). Typical values: Clay = 0-20°, Silt = 26-30°, Sand = 30-40°, Gravel = 35-45°" />
                 </span>
               }>
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
+                <><label htmlFor="a11y-input-428" className="sr-only">Input</label>
+<input id="a11y-input-428" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Base Friction (μ)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
+                <><label htmlFor="a11y-input-429" className="sr-only">Input</label>
+<input id="a11y-input-429" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" /></>
               </InputGroup>
               <InputGroup label="Surcharge (kN/m²)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
+                <><label htmlFor="a11y-input-430" className="sr-only">Input</label>
+<input id="a11y-input-430" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} /></>
               </InputGroup>
               <InputGroup label="Safe Bearing (kN/m²)">
-                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+                <><label htmlFor="a11y-input-431" className="sr-only">Input</label>
+<input id="a11y-input-431" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-full px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50" value={sbc} onChange={(e) => setSbc(e.target.value)} /></>
               </InputGroup>
             </div>
           </ToolSection>
@@ -261,7 +273,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
           <ToolSection title="Materials" number={3} color="violet">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <InputGroup label="Concrete Mix">
-                <select className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-violet-500/50" value={mix} onChange={(e) => setMix(e.target.value)}>
+                <select className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-violet-500/50" value={mix} onChange={(e) => setMix(e.target.value)}>
                   {Object.keys(mixRatios).map((m) => <option key={m} value={m}>{m}</option>)}
                 </select>
               </InputGroup>
@@ -367,14 +379,18 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                     <div className="grid grid-cols-2 gap-3 mb-3">
                       <InputGroup label="V. Dia/Spc">
                         <div className="flex gap-1">
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={vertDia} onChange={e => setVertDia(e.target.value)} />
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
+                           <><label htmlFor="a11y-input-432" className="sr-only">Input</label>
+<input id="a11y-input-432" type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={vertDia} onChange={e => setVertDia(e.target.value)} /></>
+                           <><label htmlFor="a11y-input-433" className="sr-only">Input</label>
+<input id="a11y-input-433" type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={vertSpace} onChange={e => setVertSpace(e.target.value)} /></>
                         </div>
                       </InputGroup>
                       <InputGroup label="H. Dia/Spc">
                         <div className="flex gap-1">
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
+                           <><label htmlFor="a11y-input-434" className="sr-only">Input</label>
+<input id="a11y-input-434" type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={horizDia} onChange={e => setHorizDia(e.target.value)} /></>
+                           <><label htmlFor="a11y-input-435" className="sr-only">Input</label>
+<input id="a11y-input-435" type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-full px-2 py-2 min-h-[40px] text-sm font-semibold" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} /></>
                         </div>
                       </InputGroup>
                     </div>

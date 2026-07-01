@@ -188,7 +188,7 @@ export default function DirectShearTestCalculator() {
         <meta name="description" content="Calculate Cohesion (c) and Angle of Internal Friction (φ) from Direct Shear Test data." />
       </Helmet>
       
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+      <div className="w-full md:max-w-7xl md:mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <h2 className="flex items-center gap-3 text-xl font-semibold text-slate-900 tracking-tight mb-4">
@@ -217,11 +217,11 @@ export default function DirectShearTestCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
+            <div className="w-full bg-white p-4 sm:p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
-                <h3 className=" text-lg font-medium text-slate-800 mb-4">Sample Readings</h3>
+                <h3 className="text-lg font-medium text-slate-800 mb-4">Sample Readings</h3>
                 <button onClick={addRow}
                   className="flex items-center gap-1 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-full transition-colors border border-indigo-100 text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 >
@@ -240,23 +240,25 @@ export default function DirectShearTestCalculator() {
                   {testData.map((row, idx) => (
                     <div key={idx} className="grid grid-cols-12 gap-2 items-center">
                       <div className="col-span-5 relative group">
-                        <input
+                        <><label htmlFor="a11y-input-210" className="sr-only">Input</label>
+<input id="a11y-input-210"
                           type="number" inputMode="decimal"
                           value={row.normalStress}
                           onChange={(e) => handleDataChange(idx, "normalStress", e.target.value)}
-                          className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
-                        />
+                          className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all font-semibold"
+                        /></>
                       </div>
                       <div className="col-span-5 relative">
-                        <input
+                        <><label htmlFor="a11y-input-211" className="sr-only">Input</label>
+<input id="a11y-input-211"
                           type="number" inputMode="decimal"
                           value={row.shearStress}
                           onChange={(e) => handleDataChange(idx, "shearStress", e.target.value)}
-                          className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
-                        />
+                          className="w-full bg-slate-50 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-full px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-all font-semibold"
+                        /></>
                       </div>
                       <div className="col-span-2 flex justify-end">
-                        <button
+                        <button aria-label="Delete"
                           onClick={() => removeRow(idx)}
                           disabled={testData.length <= 3}
                           className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors disabled:opacity-30 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
@@ -282,7 +284,7 @@ export default function DirectShearTestCalculator() {
               </button>
             </div>
 
-            <div className="p-5 rounded-[24px] border border-indigo-200 bg-indigo-50/50 shadow-sm">
+            <div className="p-5 rounded-[24px] border border-indigo-200 bg-indigo-50/50 shadow-sm overflow-hidden">
               <h4 className="text-indigo-900 mb-3 flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
                 <Calculator className="w-4 h-4" /> Math Logic & Formulas
               </h4>
@@ -293,7 +295,7 @@ export default function DirectShearTestCalculator() {
                 <li><strong>c</strong> : Cohesion (y-axis intercept)</li>
                 <li><strong>φ</strong> : Angle of Internal Friction</li>
               </ul>
-              <div className="mt-3 p-3 bg-white/60 rounded-[24px] border border-indigo-100 text-sm text-indigo-900 font-medium">
+              <div className="mt-3 p-3 bg-white/60 rounded-[24px] border border-indigo-100 text-sm text-indigo-900 font-medium overflow-hidden">
                 Uses linear least-squares regression to fit the best failure line through observed test points.
               </div>
             </div>
@@ -305,7 +307,7 @@ export default function DirectShearTestCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden transition-all duration-500">
+                <div className="w-full bg-white p-4 sm:p-6 md:p-4 sm:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden transition-all duration-500">
                   
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-300/5 pb-6 mb-6">
                     <div>
@@ -332,7 +334,7 @@ export default function DirectShearTestCalculator() {
                   </div>
                   
                   {/* Chart section */}
-                  <div className="bg-white p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[350px] w-full pt-6 mb-6">
+                  <div className="bg-white p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[350px] w-full pt-6 mb-6 overflow-hidden">
                      <h3 className="text-sm uppercase st mb-4 text-center text-lg font-medium text-slate-800">Mohr-Coulomb Failure Envelope</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <ComposedChart>
@@ -396,14 +398,14 @@ export default function DirectShearTestCalculator() {
                   </div>
                   
                   {estimateData.outlierCount > 0 && (
-                       <div className="bg-rose-50 border border-rose-200 p-4 rounded-[24px] text-rose-700 text-base font-medium mb-6 shadow-sm flex items-center justify-center">
+                       <div className="bg-rose-50 border border-rose-200 p-4 rounded-[24px] text-rose-700 text-base font-medium mb-6 shadow-sm flex items-center justify-center overflow-hidden">
                            Note: {estimateData.outlierCount} outlier point(s) rejected to improve Mohr-Coulomb regression fit.
                        </div>
                   )}
                 </div>
               </div>
             ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[2rem] border-2 border-dashed border-slate-200 p-8 text-center bg-graph-pattern opacity-80 mix-blend-multiply">
+              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[2rem] border-2 border-dashed border-slate-200 p-4 sm:p-8 md:p-8 text-center bg-graph-pattern opacity-80 mix-blend-multiply overflow-hidden">
                 <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-highlight">
                   <Activity className="w-10 h-10 text-indigo-600 opacity-80" />
                 </div>

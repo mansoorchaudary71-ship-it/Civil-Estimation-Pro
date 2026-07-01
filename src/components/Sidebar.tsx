@@ -413,7 +413,7 @@ export default function Sidebar({
             Esti<span className="text-indigo-600">Pro</span>
           </div>
           <div className="flex items-center space-x-2 text-slate-900 lg:hidden">
-            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-sm text-base font-semibold active:scale-95 hover:-translate-y-0.5">
+            <button onClick={onClose} aria-label="Close menu" className="w-full hover:text-slate-500 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-sm text-base font-semibold active:scale-95 hover:-translate-y-0.5 overflow-hidden">
               <X className="w-5 h-5 stroke-[2]" />
             </button>
           </div>
@@ -437,7 +437,7 @@ export default function Sidebar({
             >
               <span className="text-sm font-medium opacity-80">Search tools.</span>
             </button>
-            <button 
+            <button aria-label="Search" 
               onClick={() => {
                 handleSelectStandalone("home");
                 setTimeout(() => {
@@ -594,7 +594,7 @@ export default function Sidebar({
                                       )}
                                     >
                                       {isSubActive && (
-                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white border border-slate-200 shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5" />
+                                        <span className="w-full absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white/70 backdrop-blur-md border border-white/20 shadow-sm transition-all duration-300 active:scale-95 hover:-translate-y-0.5 overflow-hidden" />
                                       )}
                                       <span className="relative z-10 transition-transform duration-200 block group-hover:translate-x-1">
                                         {subTool.label}

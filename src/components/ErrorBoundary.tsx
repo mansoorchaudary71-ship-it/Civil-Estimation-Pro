@@ -26,7 +26,7 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="p-8 text-red-500 bg-red-50">
+        <div className="p-4 sm:p-8 md:p-8 text-red-500 bg-red-50">
           <h1>Sorry.. there was an error</h1>
           <pre className="mt-4 text-sm whitespace-pre-wrap">{this.state.error?.toString()}</pre>
           <pre className="mt-4 text-sm whitespace-pre-wrap">{this.state.error?.stack}</pre>

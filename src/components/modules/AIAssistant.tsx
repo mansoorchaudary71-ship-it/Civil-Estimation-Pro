@@ -91,7 +91,7 @@ export default function AIAssistant() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-transparent text-slate-900 p-8">
+    <div className="flex flex-col h-full bg-transparent text-slate-900 p-4 sm:p-8 md:p-8">
       <div className="flex-1 calc-input flex flex-col overflow-hidden relative shadow-sm">
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
@@ -136,11 +136,11 @@ export default function AIAssistant() {
             </div>
           ))}
           {isLoading && (
-            <div className="flex gap-4 max-w-4xl mx-auto justify-start">
+            <div className="w-full flex gap-4 md:max-w-4xl md:mx-auto justify-start px-4 md:px-0 flex-wrap">
               <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
                 <Loader2 className="w-[18px] h-[18px] text-indigo-600 animate-spin" />
               </div>
-              <div className="rounded-[24px] px-5 py-4 bg-transparent border border-slate-100 flex items-center gap-2 shadow-sm">
+              <div className="rounded-[24px] px-5 py-4 bg-transparent border border-slate-100 flex items-center gap-2 shadow-sm overflow-hidden">
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"></span>
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-75"></span>
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-150"></span>
@@ -149,7 +149,7 @@ export default function AIAssistant() {
           )}
         </div>
         <div className="p-4 border-t border-slate-200 bg-white relative">
-          <div className="max-w-4xl mx-auto relative flex items-center">
+          <div className="w-full md:max-w-4xl md:mx-auto relative flex items-center px-4 md:px-0">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -160,10 +160,10 @@ export default function AIAssistant() {
                 }
               }}
               placeholder="Ask about cost optimization or estimation..."
-              className="w-full bg-transparent border border-slate-200 rounded-[24px] py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
+              className="w-full bg-transparent border border-slate-200 rounded-[24px] py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all overflow-hidden"
               rows={1}
             />
-            <button onClick={handleSend}
+            <button aria-label="Send" onClick={handleSend}
               disabled={!input.trim() || isLoading}
               className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >

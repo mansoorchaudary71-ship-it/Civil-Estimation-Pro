@@ -193,36 +193,32 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               displayError 
                 ? 'border-red-400 dark:border-red-500/50 focus:ring-red-500/50 focus:border-red-500' 
                 : 'border-slate-200 dark:border-slate-700/80 focus:ring-indigo-500/50 focus:border-indigo-500'
-            } text-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 min-h-[44px] ${
-              displayUnit ? 'pr-20' : 'pr-8'
-            } focus:outline-none focus:ring-2 transition-all placeholder:text-slate-700 dark:placeholder:text-slate-400 font-semibold text-sm ${className || ''}`}
+            } text-slate-800 dark:text-slate-100 rounded-[16px] px-4 py-3 min-h-[44px] min-w-[44px] ${
+              displayUnit ? 'pr-[130px]' : 'pr-[100px]'
+            } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all placeholder:text-slate-700 dark:placeholder:text-slate-500 font-semibold text-base truncate ${className || ''}`}
             {...props}
           />
-          <div className={`absolute right-0 top-0 bottom-0 flex items-center pr-2 ${displayUnit ? 'mr-12' : ''}`}>
-            <div className="flex flex-col border-l border-slate-200 dark:border-slate-700 pl-1">
-              <button 
-                type="button" 
+          <div className={`absolute right-0 top-0 bottom-0 flex items-center pr-1`}>
+            {displayUnit && (
+              <span className="text-slate-500 dark:text-slate-400 text-base font-medium select-none mr-2">{displayUnit}</span>
+            )}
+            <div className="flex items-center border-l border-slate-200 dark:border-slate-700 pl-1 gap-0.5">
+              <button aria-label="Move Up" type="button" 
                 tabIndex={-1} 
-                className="text-slate-400 hover:text-indigo-500 transition-colors p-0.5" 
+                className="text-slate-400 hover:text-indigo-500 transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm min-h-[44px] min-w-[44px] flex items-center justify-center" 
                 onClick={() => handleIncrement(1)}
               >
-                <ChevronUp className="w-3 h-3" />
+                <ChevronUp className="w-5 h-5" />
               </button>
-              <button 
-                type="button" 
+              <button aria-label="Move Down" type="button" 
                 tabIndex={-1} 
-                className="text-slate-400 hover:text-indigo-500 transition-colors p-0.5" 
+                className="text-slate-400 hover:text-indigo-500 transition-colors rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm min-h-[44px] min-w-[44px] flex items-center justify-center" 
                 onClick={() => handleIncrement(-1)}
               >
-                <ChevronDown className="w-3 h-3" />
+                <ChevronDown className="w-5 h-5" />
               </button>
             </div>
           </div>
-          {displayUnit && (
-            <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-              <span className="text-slate-500 dark:text-slate-400 text-base font-medium select-none">{displayUnit}</span>
-            </div>
-          )}
         </div>
         {displayError && (
           <span id={`${inputId}-error`} className="text-base font-medium text-red-500 mt-1.5 ml-1 block animate-in fade-in slide-in-from-top-1">

@@ -19,7 +19,7 @@ export default function ToolPageFooter({
   category,
 }: ToolPageFooterProps) {
   return (
-    <div className="w-full bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-sm space-y-3">
+    <div className="w-full bg-white rounded-[32px] p-4 sm:p-6 md:p-4 sm:p-8 border border-slate-100 shadow-sm space-y-3 overflow-hidden">
       {/* Formula Transparency Box */}
       <div className="bg-[#FFFFFF] border border-slate-200 rounded-xl p-5 shadow-sm">
         <h3 className="flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
@@ -49,7 +49,7 @@ export default function ToolPageFooter({
       </div>
 
       {/* Professional Disclaimer */}
-      <div className="bg-[#FFFFFF] border border-amber-200 rounded-xl p-5 flex gap-4 items-start">
+      <div className="bg-[#FFFFFF] border border-amber-200 rounded-xl p-5 flex gap-4 items-start flex-wrap">
         <div className="bg-amber-500/10 p-2 rounded-lg shrink-0 mt-0.5">
           <AlertTriangle className="w-5 h-5 text-[#F59E0B]" />
         </div>

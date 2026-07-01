@@ -72,7 +72,7 @@ export default function SlopeStability() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Inputs */}
-        <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
+        <div className="w-full bg-white p-4 sm:p-6 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
           <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
             <Layers className="w-5 h-5 text-amber-500" /> Soil & Geometry
           </h3>
@@ -80,59 +80,64 @@ export default function SlopeStability() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase">Cohesion (c) [kPa]</label>
-                <input
+                <><label htmlFor="a11y-input-498" className="sr-only">Input</label>
+<input id="a11y-input-498"
                   type="number" inputMode="decimal"
                   value={cohesion}
                   onChange={(e) => setCohesion(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-mono"
+                /></>
               </div>
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase">Friction Angle (φ) [°]</label>
-                <input
+                <><label htmlFor="a11y-input-499" className="sr-only">Input</label>
+<input id="a11y-input-499"
                   type="number" inputMode="decimal"
                   value={frictionAngle}
                   onChange={(e) => setFrictionAngle(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-mono"
+                /></>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase">Unit Weight (γ) [kN/m³]</label>
-                <input
+                <><label htmlFor="a11y-input-500" className="sr-only">Input</label>
+<input id="a11y-input-500"
                   type="number" inputMode="decimal"
                   value={unitWeight}
                   onChange={(e) => setUnitWeight(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-mono"
+                /></>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100 mt-4">
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase">Slope Height (H) [m]</label>
-                <input
+                <><label htmlFor="a11y-input-501" className="sr-only">Input</label>
+<input id="a11y-input-501"
                   type="number" inputMode="decimal"
                   value={slopeHeight}
                   onChange={(e) => setSlopeHeight(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-mono"
+                /></>
               </div>
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase">Slope Angle (β) [°]</label>
-                <input
+                <><label htmlFor="a11y-input-502" className="sr-only">Input</label>
+<input id="a11y-input-502"
                   type="number" inputMode="decimal"
                   value={slopeAngle}
                   onChange={(e) => setSlopeAngle(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-amber-500 transition-all font-mono"
-                />
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-full font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-mono"
+                /></>
               </div>
             </div>
           </div>
         </div>
 
         {/* Results */}
-        <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center relative overflow-hidden">
+        <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 sm:p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center relative overflow-hidden">
            <Calculator className="absolute right-[-20px] bottom-[-20px] w-64 h-64 text-amber-500/5 pointer-events-none" />
            <div className="relative z-10 text-center">
              <h4 className="text-sm font-bold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-2">Factor of Safety (FOS)</h4>
@@ -147,7 +152,7 @@ export default function SlopeStability() {
              )}
              
              {results && parseFloat(results.fos) < 1.5 && (
-               <div className="mt-8 bg-amber-50 border border-amber-200 text-amber-700 p-4 rounded-[24px] text-sm font-medium text-left flex gap-3">
+               <div className="mt-8 bg-amber-50 border border-amber-200 text-amber-700 p-4 rounded-[24px] text-sm font-medium text-left flex gap-3 overflow-hidden">
                  <ShieldAlert className="w-5 h-5 flex-shrink-0" />
                  <p>
                    A minimum FOS of 1.5 is typically required for permanent slopes under static loads. Consider flattening the slope, reducing height, or adding soil reinforcement.

@@ -23,7 +23,7 @@ export function BottomNavBar({ onHome, onHistory, onSave, onShare, onPrint }: Bo
         <div className="relative -top-5">
           <button
             onClick={onSave}
-            className="flex items-center justify-center w-14 h-14 bg-indigo-600 text-white rounded-full shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+            className="flex items-center justify-center w-14 h-14 bg-indigo-600 text-white rounded-full shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
             aria-label="Save Project"
             role="button"
           >
@@ -48,7 +48,7 @@ function NavItem({ icon, label, onClick }: NavItemProps) {
   return (
     <button
       onClick={onClick}
-      className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl transition-colors min-w-[64px]"
+      className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 rounded-xl transition-colors min-w-[64px]"
       aria-label={label}
       role="button"
     >

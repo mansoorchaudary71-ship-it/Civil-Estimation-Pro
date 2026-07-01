@@ -18,66 +18,64 @@ export function CalculationExplanation({
     return null;
   }
 
-  return (
-    <div className="w-full max-w-3xl mx-auto mt-2 mb-8 font-sans">
-      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl p-5 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-rose-500 to-amber-500 rounded-l-2xl" />
-        
-        <div className="flex items-center gap-2 mb-4">
-          <div className="bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400">
-            <Calculator className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-slate-800 dark:text-slate-100 text-lg">
-            {hasInputs ? "Calculation Breakdown" : "Formulas Used"}
-          </h3>
-        </div>
+  const matureColors = [
+    'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300',
+    'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300',
+    'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-300',
+    'bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300',
+    'bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-orange-300',
+  ];
 
+  const matureDotColors = [
+    'bg-indigo-600 dark:bg-indigo-400',
+    'bg-emerald-600 dark:bg-emerald-400',
+    'bg-slate-600 dark:bg-slate-400',
+    'bg-sky-600 dark:bg-sky-400',
+    'bg-blue-700 dark:bg-orange-400'
+  ];
+
+  return (
+    <div className="font-sans h-fit space-y-6">
+      {!hasInputs ? (
         <div className="space-y-4">
-          {!hasInputs ? (
-            <div className="space-y-3">
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
-                Enter your dimensions to see the step-by-step calculation. Here are the formulas we use:
-              </p>
-              {genericFormula.map((item, idx) => (
-                <div key={idx} className="bg-white dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700/50">
-                  <span className="text-[13px] sm:text-base font-medium dark:text-slate-500 dark:text-slate-400 block mb-1">
-                    {item.label}
-                  </span>
-                  <div className="font-mono text-sm text-indigo-600 dark:text-indigo-400 overflow-x-auto pb-1">
-                    {item.formula}
-                  </div>
-                </div>
-              ))}
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+            Enter your dimensions to see the step-by-step calculation. Here are the formulas we use:
+          </p>
+          {genericFormula.map((item, idx) => (
+            <div key={idx} className="bg-white/90 dark:bg-slate-800/80 backdrop-blur-md rounded-2xl p-4 shadow-sm">
+              <span className="text-[13px] sm:text-base font-semibold text-slate-700 dark:text-slate-300 block mb-2">
+                {item.label}
+              </span>
+              <div className="font-mono text-sm text-slate-600 dark:text-slate-400 overflow-x-auto pb-1">
+                {item.formula}
+              </div>
             </div>
-          ) : (
-            <div className="space-y-3">
+          ))}
+        </div>
+      ) : (
+            <div className="space-y-1">
               {activeBreakdown.map((step, idx) => {
-                const colors = [
-                  'text-indigo-600 dark:text-indigo-400',
-                  'text-pink-600 dark:text-pink-400',
-                  'text-amber-600 dark:text-amber-400',
-                  'text-emerald-600 dark:text-emerald-400',
-                  'text-sky-600 dark:text-sky-400',
-                  'text-purple-600 dark:text-purple-400'
-                ];
-                const dotColors = [
-                  'bg-indigo-400', 'bg-pink-400', 'bg-amber-400', 'bg-emerald-400', 'bg-sky-400', 'bg-purple-400'
-                ];
+                const colorClass = matureColors[idx % matureColors.length];
+                const dotColorClass = matureDotColors[idx % matureDotColors.length];
+                
                 return (
-                 <div key={idx} className="relative pl-6">
-                  <div className={`absolute left-1 top-2 w-2 h-2 rounded-full ${dotColors[idx % dotColors.length]} border border-white dark:border-slate-900 z-10`} />
+                 <div key={idx} className="relative pl-8 pb-5">
+                  <div className={`absolute left-[5px] top-2.5 w-3 h-3 rounded-full ${dotColorClass} shadow-sm z-10`} />
                   {idx !== activeBreakdown.length - 1 && (
-                    <div className="absolute left-[0.3125rem] top-4 w-[2px] h-full bg-slate-200 dark:bg-slate-700 -z-0" />
+                    <div className="absolute left-[10px] top-5 w-[2px] h-full bg-slate-200 dark:bg-slate-700/50 -z-0" />
                   )}
-                  <span className="text-base font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                  <span className="text-[13px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 block mb-2">
                     {step.label}
                   </span>
-                  <div className="bg-white dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700/50">
-                    <div className="font-mono text-sm text-slate-600 dark:text-slate-300 mb-1 overflow-x-auto">
-                      {step.formula}
+                  <div className="bg-white/90 dark:bg-slate-800/80 backdrop-blur-md rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="font-mono text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 overflow-x-auto whitespace-nowrap scrollbar-hide flex-1">
+                      {step.formula !== "Derived from calculation" ? step.formula : ""}
                     </div>
-                    <div className={`font-mono text-base font-medium flex items-center gap-2 ${colors[idx % colors.length]}`}>
-                      <span className="text-slate-400 dark:text-slate-500">=</span> {step.result}
+                    <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto">
+                      <span className="text-slate-300 dark:text-slate-600 font-mono text-lg">=</span>
+                      <div className={`px-4 py-1.5 rounded-full text-sm font-mono font-bold ${colorClass}`}>
+                        {step.result}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -87,25 +85,23 @@ export function CalculationExplanation({
           )}
 
           {notes && notes.length > 0 && (
-            <div className="mt-5 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl p-4 flex gap-3">
-              <Lightbulb className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-              <div className="space-y-2">
-                <span className="text-base font-medium text-emerald-800 dark:text-emerald-300 block">
-                  Rule of Thumb / Notes
+            <div className="mt-8 bg-white/60 dark:bg-slate-800/40 backdrop-blur-md rounded-2xl p-5 flex gap-4 shadow-sm border border-white/50 dark:border-white/5">
+              <Lightbulb className="w-5 h-5 text-slate-600 dark:text-slate-400 shrink-0 mt-0.5" />
+              <div className="space-y-3">
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-200 block tracking-wide">
+                  RULES OF THUMB / NOTES
                 </span>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {notes.map((note, idx) => (
-                    <li key={idx} className="text-sm text-emerald-700 dark:text-emerald-400/90 flex gap-2">
-                      <span className="text-emerald-500 dark:text-emerald-500/50 shrink-0 mt-0.5" aria-hidden="true">•</span>
-                      <span>{note}</span>
+                    <li key={idx} className="text-sm text-slate-600 dark:text-slate-400 flex gap-3">
+                      <span className="text-slate-300 dark:text-slate-600 shrink-0 mt-0.5" aria-hidden="true">•</span>
+                      <span className="leading-relaxed">{note}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
           )}
-        </div>
-      </div>
     </div>
   );
 }

@@ -60,7 +60,7 @@ export default function MintroHero() {
         />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-8 mt-12 lg:mt-0">
+      <div className="relative z-10 w-full md:max-w-7xl md:mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-8 mt-12 lg:mt-0 px-4 md:px-0">
         
         {/* Left Content Column */}
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
@@ -121,7 +121,7 @@ export default function MintroHero() {
               Start Estimating Free
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="w-full sm:w-auto px-8 py-4 rounded-full font-medium transition-all hover:bg-white/10 flex items-center justify-center gap-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
+            <button className="w-full sm:w-auto px-8 py-4 rounded-full font-medium transition-all hover:bg-white/10 flex items-center justify-center gap-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden"
             >
               <Play className="w-5 h-5 fill-white" />
               Watch Demo
@@ -132,7 +132,7 @@ export default function MintroHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-8 flex items-center gap-4 text-sm text-white/50"
+            className="mt-8 flex items-center gap-4 text-sm text-white/50 flex-wrap"
           >
             <div className="flex -space-x-2">
               <img className="w-8 h-8 rounded-full border border-[#0A0F1E]" src="https://i.pravatar.cc/100?img=1" alt="User" />
@@ -175,7 +175,7 @@ export default function MintroHero() {
                 
                 <div className="grid grid-cols-2 gap-4 h-full">
                   <div className="space-y-4">
-                    <div className="h-24 rounded-2xl bg-white/5 border border-white/5 p-4 flex flex-col justify-between">
+                    <div className="h-24 rounded-2xl bg-white/5 border border-white/5 p-4 flex flex-col justify-between overflow-hidden">
                        <div className="flex items-center gap-2 text-white/60 text-xs font-medium"><Calculator className="w-4 h-4"/> Concrete Volume</div>
                        <div className="text-xl font-semibold text-slate-800 text-white">450 <span className="text-sm font-normal text-white/40">cu.m</span></div>
                     </div>
@@ -216,7 +216,7 @@ export default function MintroHero() {
             <motion.div 
                animate={{ y: [0, -10, 0] }}
                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-               className="absolute -right-6 top-12 p-3 rounded-2xl bg-[#0A0F1E]/90 backdrop-blur-xl border border-white/10 shadow-2xl flex items-center gap-3 z-20"
+               className="absolute -right-6 top-12 p-3 rounded-2xl bg-[#0A0F1E]/90 backdrop-blur-xl border border-white/10 shadow-2xl flex items-center gap-3 z-20 overflow-hidden"
             >
                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30">
                  <span className="font-bold text-white text-lg">AI</span>
@@ -236,7 +236,7 @@ export default function MintroHero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
-        className="w-full max-w-7xl mx-auto mt-20 pt-10 border-t border-white/10"
+        className="w-full md:max-w-7xl md:mx-auto mt-20 pt-10 border-t border-white/10 px-4 md:px-0"
       >
         <p className="text-center text-sm font-medium text-white/40 mb-8 uppercase tracking-widest" style={{ fontFamily: themeConfig.typography.headline }}>
           Powering the world's leading construction firms

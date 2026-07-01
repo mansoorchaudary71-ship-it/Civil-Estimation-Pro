@@ -35,7 +35,7 @@ export const MetricInput = React.forwardRef<HTMLInputElement, MetricInputProps>(
                 : 'border-slate-200 dark:border-slate-700/80 focus:ring-indigo-500/50 focus:border-indigo-500'
             } text-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 min-h-[44px] ${
               unit ? 'pr-12' : ''
-            } focus:outline-none focus:ring-2 transition-all placeholder:text-slate-700 font-semibold text-sm ${className || ''}`}
+            } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all placeholder:text-slate-700 font-semibold text-sm ${className || ''}`}
             inputMode={props.type === 'number' ? 'decimal' : props.inputMode}
             {...props}
           />

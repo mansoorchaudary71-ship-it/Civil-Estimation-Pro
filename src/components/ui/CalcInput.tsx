@@ -31,7 +31,8 @@ export function CalcInput({
         {label}
       </label>
       <div className="relative flex items-center">
-        <input
+        <><label htmlFor="a11y-input-581" className="sr-only">Input</label>
+<input id="a11y-input-581"
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -40,7 +41,7 @@ export function CalcInput({
           }`}
           inputMode={props.type === 'number' ? 'decimal' : props.inputMode}
           {...props}
-        />
+        /></>
         {unit && (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#F59E0B] text-xs font-semibold bg-[rgba(245,158,11,0.1)] px-2 py-1 rounded select-none pointer-events-none">
             {unit}

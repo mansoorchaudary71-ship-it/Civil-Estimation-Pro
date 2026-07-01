@@ -29,7 +29,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
-    <div className="bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-6 shadow-sm border border-slate-200 dark:border-slate-700/50">
+    <div className="w-full bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-4 sm:p-4 sm:p-4 sm:p-6 shadow-sm border border-slate-200 dark:border-slate-700/50 overflow-hidden">
       <h4 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
         <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-black">
           {idx + 1}
@@ -47,7 +47,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
             {step.insight && (
               <button
                 onClick={() => setShowInsight(!showInsight)}
-                className="text-sm flex items-center gap-1.5 font-bold text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 rounded-full"
+                className="text-sm flex items-center gap-1.5 font-bold text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                 title="View Scientific Justification"
               >
                 <Lightbulb className="w-3.5 h-3.5" />
@@ -120,7 +120,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
              <div className={`px-5 py-2 rounded-full inline-flex items-baseline gap-1.5 w-fit border ${
                step.resultColor === "purple" ? "bg-purple-500/20 text-purple-400 border-purple-500/30" :
                step.resultColor === "blue" ? "bg-blue-500/20 text-blue-400 border-blue-500/30" :
-               step.resultColor === "orange" ? "bg-orange-500/20 text-orange-400 border-orange-500/30" :
+               step.resultColor === "orange" ? "bg-blue-500/20 text-orange-400 border-blue-600/30" :
                "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
              }`}>
                <span className="font-mono text-xl sm:text-2xl font-black whitespace-nowrap">{step.result}</span>
@@ -146,12 +146,12 @@ export function DetailedCalculationDisplay({
 
   return (
     <div className={`w-full max-w-4xl mx-auto mt-8 mb-4 font-sans ${className}`}>
-      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(15,23,42,0.08)] border border-white/40 dark:border-slate-800/60 overflow-hidden transition-all duration-300">
+      <div className="w-full bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(15,23,42,0.08)] border border-white/40 dark:border-slate-800/60 overflow-hidden transition-all duration-300">
         
         {/* Header Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-5 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/40 focus:outline-none"
+          className="w-full px-5 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/40 focus:outline-none rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
         >
           <div className="flex items-center gap-4 sm:gap-5">
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[16px] bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-500/30">

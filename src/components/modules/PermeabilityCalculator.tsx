@@ -92,7 +92,7 @@ export default function PermeabilityCalculator() {
             description="Process constant head and falling head laboratory data to compute soil permeability with temperature corrections (Darcy's Law)."
         />
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
+        <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
             <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200">
                 <Droplets className="w-6 h-6 text-blue-600" />
                 Permeability Coefficient Engine
@@ -163,7 +163,7 @@ export default function PermeabilityCalculator() {
                         totalUnit="cm/s"
                     >
                         <div className="mt-6 flex flex-col gap-4">
-                             <div className="bg-white border border-slate-200 p-5 rounded-2xl flex items-center justify-between">
+                             <div className="bg-white border border-slate-200 p-5 rounded-2xl flex items-center justify-between overflow-hidden">
                                  <div>
                                      <span className="block text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-1">Soil Classification</span>
                                      <span className="text-base font-medium">{results.soilClass}</span>
@@ -172,11 +172,11 @@ export default function PermeabilityCalculator() {
                              </div>
 
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl">
+                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl overflow-hidden">
                                      <span className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Raw Permeability (k_T)</span>
                                      <span className="text-lg font-mono font-bold text-slate-700">{results.k > 0 ? results.k.toExponential(3) : "0"} cm/s</span>
                                  </div>
-                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl">
+                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl overflow-hidden">
                                      <span className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Viscosity Correction (Rt)</span>
                                      <span className="text-lg font-mono font-bold text-slate-700">{results.Rt.toFixed(3)}</span>
                                  </div>

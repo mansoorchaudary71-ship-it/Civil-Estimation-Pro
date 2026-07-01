@@ -90,7 +90,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
           <form onSubmit={handleSubmit} className="px-6 py-6 space-y-6">
             <div className="flex flex-col items-center gap-4">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-white border-4 border-white shadow-sm flex items-center justify-center group">
+              <div className="w-full relative w-24 h-24 rounded-full overflow-hidden bg-white border-4 border-white shadow-sm flex items-center justify-center group">
                 {photoURL ? (
                   <img src={photoURL} alt="User Profile Details Settings Photo" title="Profile Avatar" loading="lazy" className="w-full h-full object-cover" />
                 ) : (
@@ -107,12 +107,13 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Display Name</label>
                 <div className="relative flex items-center">
                   <User className="absolute left-3.5 w-5 h-5 text-slate-700" />
-                  <input
+                  <><label htmlFor="a11y-input-14" className="sr-only">Input</label>
+<input id="a11y-input-14"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                  />
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 transition-all"
+                  /></>
                 </div>
               </div>
 
@@ -120,13 +121,14 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Photo URL</label>
                 <div className="relative flex items-center">
                   <Camera className="absolute left-3.5 w-5 h-5 text-slate-700" />
-                  <input
+                  <><label htmlFor="a11y-input-15" className="sr-only">https://example.com/avatar.png</label>
+<input id="a11y-input-15"
                      type="url"
                      value={photoURL}
                      onChange={(e) => setPhotoURL(e.target.value)}
                      placeholder="https://example.com/avatar.png"
-                     className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                  />
+                     className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 transition-all"
+                  /></>
                 </div>
               </div>
 
@@ -135,7 +137,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 <label className="block mb-2 uppercase tracking-wider text-sm font-medium text-slate-700 mb-1">Appearance</label>
                 <button type="button"
                   onClick={toggleTheme}
-                  className="w-full flex items-center justify-between p-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-50 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
+                  className="w-full flex items-center justify-between p-3 bg-white border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-50 transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden"
                 >
                   <div className="flex items-center gap-3">
                     {getThemeIcon()}
@@ -151,7 +153,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             </div>
 
             {successMsg && (
-              <div className="p-3 text-sm text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-[24px] text-center font-medium">
+              <div className="p-3 text-sm text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-[24px] text-center font-medium overflow-hidden">
                 {successMsg}
               </div>
             )}

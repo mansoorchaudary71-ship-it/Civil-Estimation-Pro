@@ -374,14 +374,14 @@ export default function SettingsModal({
       >
         {/* Mobile Close Button */}
         <button onClick={onClose}
-          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white text-slate-700 hover:text-slate-800 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
+          className="w-full md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white text-slate-700 hover:text-slate-800 transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden"
         >
           <X className="w-4 h-4" />
         </button>
         {/* Sidebar */}
-        <div className="w-full md:w-64 bg-transparent/50 border-r border-slate-200/50 p-6 flex flex-col shrink-0 overflow-y-auto">
+        <div className="w-full md:w-64 bg-transparent/50 border-r border-slate-200/50 p-4 sm:p-6 flex flex-col shrink-0 overflow-y-auto">
           <div className="flex items-center gap-3 mb-10 pt-2">
-            <div className="w-10 h-10 bg-gradient-to-tr rounded-[24px] flex items-center justify-center shadow-md shadow-blue-500/20">
+            <div className="w-10 h-10 bg-gradient-to-tr rounded-[24px] flex items-center justify-center shadow-md shadow-blue-500/20 overflow-hidden">
               <SettingsIcon className="w-5 h-5 text-slate-900" />
             </div>
             <div>
@@ -429,14 +429,14 @@ export default function SettingsModal({
             </button>
           </div>
           <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
-            <div className="max-w-xl mx-auto md:mx-0">
+            <div className="w-full md:max-w-xl md:mx-auto md:mx-0 px-4 md:px-0">
               {/* Mobile Header */}
               <h3 className="md:hidden text-xl font-semibold text-slate-900 dark:text-white capitalize mb-6">
                 {tabs.find((t) => t.id === activeTab)?.label}
               </h3>
               {activeTab === "account" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-6 flex-wrap">
                     <div className="relative group">
                       <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 flex items-center justify-center text-xl font-bold text-slate-900 shadow-lg overflow-hidden relative">
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
@@ -466,30 +466,32 @@ export default function SettingsModal({
                       <label className="block text-base font-medium mb-2">
                         Full Name
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-463" className="sr-only">Input</label>
+<input id="a11y-input-463"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-full px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
-                      />
+                      /></>
                     </div>
                     <div>
                       <label className="block text-base font-medium mb-2">
                         Email Address
                       </label>
-                      <input
+                      <><label htmlFor="a11y-input-464" className="sr-only">Input</label>
+<input id="a11y-input-464"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-bg-card border border-slate-200 dark:border-slate-700 rounded-full px-4 py-3.5 text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-sm"
-                      />
+                      /></>
                     </div>
                   </div>
                 </div>
               )}
               {activeTab === "measurements" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <div className="bg-blue-50 border border-blue-100 rounded-[24px] p-5 mb-6">
+                  <div className="bg-blue-50 border border-blue-100 rounded-[24px] p-5 mb-6 overflow-hidden">
                     <p className="text-sm font-medium text-blue-700">
                       This preference affects all calculation modules globally.
                       Some legacy fields may still expect native inputs.
@@ -515,13 +517,14 @@ export default function SettingsModal({
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
                           )}
                         </div>
-                        <input
+                        <><label htmlFor="a11y-input-465" className="sr-only">measurement</label>
+<input id="a11y-input-465"
                           type="radio"
                           name="measurement"
                           className="hidden"
                           checked={settings.measurement === "SI"}
                           onChange={() => updateSettings({ measurement: "SI" })}
-                        />
+                        /></>
                       </label>
                       <label
                         className={`relative flex items-center justify-between p-5 rounded-[24px] border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 " : "border-slate-200 dark:border-slate-700 hover:border-slate-300 : bg-bg-card"}`}
@@ -541,7 +544,8 @@ export default function SettingsModal({
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
                           )}
                         </div>
-                        <input
+                        <><label htmlFor="a11y-input-466" className="sr-only">measurement</label>
+<input id="a11y-input-466"
                           type="radio"
                           name="measurement"
                           className="hidden"
@@ -549,7 +553,7 @@ export default function SettingsModal({
                           onChange={() =>
                             updateSettings({ measurement: "FPS" })
                           }
-                        />
+                        /></>
                       </label>
                     </div>
                   </div>
@@ -611,7 +615,7 @@ export default function SettingsModal({
 
                   {/* CSV Bulk Import Dropzone or Column Mapping UI */}
                   {mappingStep ? (
-                    <div className="bg-white border text-left border-slate-200 rounded-[24px] p-6 shadow-sm">
+                    <div className="w-full bg-white border text-left border-slate-200 rounded-[24px] p-4 sm:p-6 shadow-sm overflow-hidden">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <AlertCircle className="w-5 h-5 text-indigo-500" />
@@ -640,7 +644,7 @@ export default function SettingsModal({
                           <select 
                             value={columnMap.material} 
                             onChange={e => setColumnMap(p => ({ ...p, material: e.target.value }))}
-                            className={`w-full bg-slate-50 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition-colors ${columnMap.material ? (isMaterialValid ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30') : 'border-slate-200 focus:border-indigo-500'}`}
+                            className={`w-full bg-slate-50 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-colors ${columnMap.material ? (isMaterialValid ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30') : 'border-slate-200 focus:border-indigo-500'}`}
                           >
                             <option value="">-- Select --</option>
                             {mappingStep.headers.map((h, i) => <option key={i} value={h}>{h}</option>)}
@@ -658,7 +662,7 @@ export default function SettingsModal({
                           <select 
                             value={columnMap.rate} 
                             onChange={e => setColumnMap(p => ({ ...p, rate: e.target.value }))}
-                            className={`w-full bg-slate-50 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition-colors ${columnMap.rate ? (isRateValid ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30') : 'border-slate-200 focus:border-indigo-500'}`}
+                            className={`w-full bg-slate-50 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 transition-colors ${columnMap.rate ? (isRateValid ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30') : 'border-slate-200 focus:border-indigo-500'}`}
                           >
                             <option value="">-- Select --</option>
                             {mappingStep.headers.map((h, i) => <option key={i} value={h}>{h}</option>)}
@@ -694,12 +698,13 @@ export default function SettingsModal({
                       onDrop={handleDrop}
                       className={`relative border-2 border-dashed rounded-[24px] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 ${dragActive ? "border-indigo-500 bg-indigo-50/80 scale-[1.02]" : "border-slate-200 bg-slate-50/50 hover:bg-slate-50"}`}
                     >
-                      <input ref={fileInputRef}
+                      <><label htmlFor="a11y-input-467" className="sr-only">Input</label>
+<input id="a11y-input-467" ref={fileInputRef}
                         type="file"
                         accept=".csv"
                         onChange={handleFileChange}
                         className="hidden rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
-                      />
+                      /></>
                       <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-sm mb-4 transition-all duration-300 ${dragActive ? "bg-indigo-600 shadow-indigo-200 animate-bounce" : "bg-white border border-slate-100"}`}>
                         <Upload className={`w-6 h-6 transition-colors duration-300 ${dragActive ? "text-white" : "text-indigo-500"}`} />
                       </div>
@@ -742,15 +747,16 @@ export default function SettingsModal({
                     {Object.keys(RATE_LABELS).map((key) => {
                       const k = key as keyof MarketRates;
                       return (
-                        <div key={k} className="flex items-center justify-between gap-4 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-xl transition-colors">
+                        <div key={k} className="flex items-center justify-between gap-4 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-xl transition-colors flex-wrap">
                           <label className="text-sm font-medium text-slate-700">{RATE_LABELS[k]}</label>
-                          <input
+                          <><label htmlFor="a11y-input-468" className="sr-only">Default</label>
+<input id="a11y-input-468"
                             type="number" inputMode="decimal"
                             value={companyRates[k] ?? ""}
                             placeholder="Default"
                             onChange={(e) => setCompanyRate(k, parseFloat(e.target.value))}
-                            className="w-32 bg-white border border-slate-200 rounded-full px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-                          />
+                            className="w-32 bg-white border border-slate-200 rounded-full px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500 outline-none"
+                          /></>
                         </div>
                       );
                     })}
@@ -758,7 +764,7 @@ export default function SettingsModal({
 
                   {/* Recent Imports History */}
                   {importHistory.length > 0 && (
-                    <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-sm border-t mt-4">
+                    <div className="w-full bg-white border border-slate-200 rounded-[24px] p-4 sm:p-6 shadow-sm border-t mt-4 overflow-hidden">
                       <div className="flex justify-between items-center mb-4">
                         <h5 className="font-bold text-slate-800 flex items-center gap-2">
                           <Clock className="w-5 h-5 text-indigo-500" /> Recent Imports
@@ -795,7 +801,7 @@ export default function SettingsModal({
                 </div>
               )}
             </div>
-            <div className="mt-12 max-w-xl mx-auto md:mx-0 flex justify-end">
+            <div className="w-full mt-12 md:max-w-xl md:mx-auto md:mx-0 flex justify-end px-4 md:px-0">
               <button onClick={onClose}
                 className="px-8 py-3.5 bg-gradient-to-r hover:from-blue-700 hover: text-slate-900 font-bold rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 hover:-translate-y-0.5"
               >

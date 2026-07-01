@@ -187,7 +187,7 @@ export default function MasterRccCore() {
 
       <div className="space-y-4">
         {elements.length === 0 && (
-          <div className="p-8 text-center text-slate-500 border border-dashed border-slate-300 rounded-[24px]">
+          <div className="p-4 sm:p-8 md:p-8 text-center text-slate-500 border border-dashed border-slate-300 rounded-[24px]">
             Add structural elements to begin the master calculation.
           </div>
         )}
@@ -199,7 +199,7 @@ export default function MasterRccCore() {
                 <span className="bg-slate-100 text-slate-500 w-6 h-6 rounded-full flex items-center justify-center text-sm">{i + 1}</span>
                 {el.type}
               </h3>
-              <button onClick={() => removeElement(el.id)} className="text-rose-500 hover:text-rose-600 p-1 bg-rose-50 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
+              <button aria-label="Delete" onClick={() => removeElement(el.id)} className="text-rose-500 hover:text-rose-600 p-1 bg-rose-50 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
@@ -207,7 +207,8 @@ export default function MasterRccCore() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div className="col-span-2">
                 <label className="text-base font-medium mb-1 block">Description</label>
-                <input value={el.name} onChange={(e) => updateElement(el.id, 'name', e.target.value)} className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none" />
+                <><label htmlFor="a11y-input-331" className="sr-only">Input</label>
+<input id="a11y-input-331" value={el.name} onChange={(e) => updateElement(el.id, 'name', e.target.value)} className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none" /></>
               </div>
               <div className="col-span-2 md:col-span-2">
                 <label className="text-base font-medium mb-1 block">Multiplier (Count)</label>
@@ -292,13 +293,15 @@ export default function MasterRccCore() {
             </div>
 
             <div className="bg-slate-50 p-3 rounded-[16px] border border-slate-100">
-              <div className="flex gap-4 mb-3">
+              <div className="flex gap-4 mb-3 flex-wrap">
                 <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
-                  <input type="radio" checked={el.steelMode === "thumb"} onChange={() => updateElement(el.id, 'steelMode', 'thumb')} className="w-4 h-4 text-indigo-600" />
+                  <><label htmlFor="a11y-input-332" className="sr-only">Input</label>
+<input id="a11y-input-332" type="radio" checked={el.steelMode === "thumb"} onChange={() => updateElement(el.id, 'steelMode', 'thumb')} className="w-4 h-4 text-indigo-600" /></>
                   Thumb Rule (Vol %)
                 </label>
                 <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
-                  <input type="radio" checked={el.steelMode === "exact"} onChange={() => updateElement(el.id, 'steelMode', 'exact')} className="w-4 h-4 text-indigo-600" />
+                  <><label htmlFor="a11y-input-333" className="sr-only">Input</label>
+<input id="a11y-input-333" type="radio" checked={el.steelMode === "exact"} onChange={() => updateElement(el.id, 'steelMode', 'exact')} className="w-4 h-4 text-indigo-600" /></>
                   Exact Basic BBS
                 </label>
               </div>
@@ -306,22 +309,26 @@ export default function MasterRccCore() {
               {el.steelMode === "thumb" ? (
                 <div>
                   <label className="text-base font-medium mb-1 block">Steel % of Concrete Volume</label>
-                  <p className="text-[10px] text-slate-400 mb-2">Typically slabs 1%, columns 2-2.5%, beams 1-2%, stairs 1%</p>
-                  <input value={el.thumbPercentage} onChange={(e) => updateElement(el.id, 'thumbPercentage', e.target.value)} type="number" inputMode="decimal" step="0.1" className="w-32 h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" />
+                  <p className="text-[10px] text-slate-400 mb-2">Typical reinforcement ratios: slabs (1%), columns (2.0-2.5%), beams (1-2%), stairs (1%).</p>
+                  <><label htmlFor="a11y-input-334" className="sr-only">Input</label>
+<input id="a11y-input-334" value={el.thumbPercentage} onChange={(e) => updateElement(el.id, 'thumbPercentage', e.target.value)} type="number" inputMode="decimal" step="0.1" className="w-32 h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" /></>
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <label className="text-base font-medium mb-1 block">Bar Dia (mm)</label>
-                    <input value={el.mainDia} onChange={(e) => updateElement(el.id, 'mainDia', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" />
+                    <><label htmlFor="a11y-input-335" className="sr-only">Input</label>
+<input id="a11y-input-335" value={el.mainDia} onChange={(e) => updateElement(el.id, 'mainDia', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" /></>
                   </div>
                   <div>
                     <label className="text-base font-medium mb-1 block">Spacing / c/c (mm)</label>
-                    <input value={el.mainSpacing} onChange={(e) => updateElement(el.id, 'mainSpacing', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" />
+                    <><label htmlFor="a11y-input-336" className="sr-only">Input</label>
+<input id="a11y-input-336" value={el.mainSpacing} onChange={(e) => updateElement(el.id, 'mainSpacing', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" /></>
                   </div>
                   <div>
                     <label className="text-base font-medium mb-1 block">Bar Length (m)</label>
-                    <input value={el.longLength} onChange={(e) => updateElement(el.id, 'longLength', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" />
+                    <><label htmlFor="a11y-input-337" className="sr-only">Input</label>
+<input id="a11y-input-337" value={el.longLength} onChange={(e) => updateElement(el.id, 'longLength', e.target.value)} type="number" inputMode="decimal" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-full text-sm focus:outline-none" /></>
                   </div>
                 </div>
               )}
@@ -349,7 +356,7 @@ export default function MasterRccCore() {
                   {results.elementsOutputs.map((out, idx) => (
                     <div key={idx} className="flex justify-between items-center text-sm p-3 bg-slate-50 border border-slate-100 rounded-[16px]">
                        <span className="font-bold text-slate-700">{out.name}</span>
-                       <div className="flex gap-4 text-slate-500">
+                       <div className="flex gap-4 text-slate-500 flex-wrap">
                          <span><strong className="text-slate-800">{out.conc.toFixed(2)}</strong> m³ conc</span>
                          <span><strong className="text-slate-800">{out.shut.toFixed(2)}</strong> m² shut</span>
                          <span><strong className="text-slate-800">{out.steel.toFixed(2)}</strong> kg stl</span>

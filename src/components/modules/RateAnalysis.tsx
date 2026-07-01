@@ -214,13 +214,14 @@ export default function RateAnalysis() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <input type="number" inputMode="decimal"
-                      className="w-24 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-full px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
+                    <><label htmlFor="a11y-input-412" className="sr-only">Input</label>
+<input id="a11y-input-412" type="number" inputMode="decimal"
+                      className="w-24 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-full px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500/30 min-h-[44px]"
                       value={rates.overheadMarkup}
                       onChange={(e) =>
                         handleRateChange("overheadMarkup", e.target.value)
                       }
-                    />
+                    /></>
                     <span className="text-lg font-bold tabular-nums tracking-tight text-slate-700">
                       %
                     </span>
@@ -462,18 +463,19 @@ function InputCard({
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-700 font-bold mb-0.5 pointer-events-none">
               {symbol}
             </span>
-            <input
+            <><label htmlFor="a11y-input-413" className="sr-only">Input</label>
+<input id="a11y-input-413"
               type="number" inputMode="decimal"
               min="0"
               step="any"
-              className={`w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] py-2.5 text-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? "pl-10" : "pl-7"}`}
+              className={`w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] py-2.5 text-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? "pl-10" : "pl-7"}`}
               value={value}
               onChange={(e) => {
                 const num = parseFloat(e.target.value);
                 if (!isNaN(num) && num < 0) return;
                 onChange(e.target.value);
               }}
-            />
+            /></>
           </div>
           <span className="text-base font-medium uppercase w-10 text-right rounded-full">
             {unit}

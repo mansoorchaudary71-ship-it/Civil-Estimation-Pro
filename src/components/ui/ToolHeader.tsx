@@ -15,9 +15,10 @@ interface ToolHeaderProps {
   themeType?: ThemeType;
   subtitle?: string;
   icon?: React.ElementType;
+  onNavigate?: (id: string) => void;
 }
 
-export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps) {
+export function ToolHeader({ id, title, subtitle, icon: Icon, onNavigate }: ToolHeaderProps) {
   const { settings, updateSettings } = useSettings();
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [showReferences, setShowReferences] = useState(false);
@@ -54,10 +55,10 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
 
   return (
     <div id="tool-header-top" className="relative -mx-4 md:-mx-8 px-4 md:px-8 bg-slate-50/30 pb-8 flex flex-col gap-6 pt-6">
-      <div className="max-w-7xl mx-auto w-full flex flex-col gap-6">
+      <div className="md:max-w-7xl md:mx-auto w-full flex flex-col gap-6 px-4 md:px-0">
         
         {/* Title Header */}
-        <div className="bg-white rounded-[32px] p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.03)] border border-slate-200/50 flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative overflow-hidden">
+        <div className="w-full bg-white rounded-[32px] p-4 sm:p-4 sm:p-4 sm:p-6 sm:p-4 sm:p-4 sm:p-4 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.03)] border border-slate-200/50 flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative overflow-hidden">
           {/* Subtle Background Glow */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-slate-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -102,7 +103,7 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
 
           {/* Print Only QR Code */}
           {currentUrl && (
-            <div className="hidden print:flex flex-col items-center justify-center gap-1">
+            <div className="hidden print:flex flex-col items-center justify-center gap-1 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <QRCodeSVG value={currentUrl} size={80} level="M" />
               <span className="text-[10px] text-slate-500 font-medium max-w-[120px] text-center leading-tight">Scan to verify session data</span>
             </div>
@@ -115,39 +116,35 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
         <div className="print:hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
            <button 
              onClick={() => setIsFormulaModalOpen(true)}
-             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-green-50/80 hover:bg-green-100 text-green-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-green-100/50"
+             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-green-50/80 hover:bg-green-100 text-green-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-green-100/50 active:scale-95 hover:-translate-y-0.5"
            >
              <Info className="w-5 h-5 opacity-80" />
              <span className="text-base font-medium">Formulas</span>
            </button>
            
-           <button 
-             onClick={handlePrint}
-             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-blue-50/80 hover:bg-blue-100 text-blue-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-blue-100/50"
+           <button onClick={handlePrint}
+             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-blue-50/80 hover:bg-blue-100 text-blue-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-blue-100/50 active:scale-95 hover:-translate-y-0.5"
            >
              <Printer className="w-5 h-5 opacity-80" />
              <span className="text-base font-medium">Print</span>
            </button>
            
-           <button 
-             onClick={handleSaveDraft}
-             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-teal-50/80 hover:bg-teal-100 text-teal-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-teal-100/50"
+           <button onClick={handleSaveDraft}
+             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-teal-50/80 hover:bg-teal-100 text-teal-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-teal-100/50 active:scale-95 hover:-translate-y-0.5"
            >
              <Save className="w-5 h-5 opacity-80" />
              <span className="text-base font-medium">Save Draft</span>
            </button>
            
-           <button 
-             onClick={handleLoadDraft}
-             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-orange-50/80 hover:bg-orange-100 text-orange-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-orange-100/50"
+           <button onClick={handleLoadDraft}
+             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-blue-50/80 hover:bg-blue-100 text-blue-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-blue-100/50 active:scale-95 hover:-translate-y-0.5"
            >
              <Download className="w-5 h-5 opacity-80" />
              <span className="text-base font-medium">Load Draft</span>
            </button>
            
-           <button 
-             onClick={handleShare}
-             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-purple-50/80 hover:bg-purple-100 text-purple-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-purple-100/50"
+           <button onClick={handleShare}
+             className="flex items-center justify-center gap-2.5 py-4 px-4 bg-purple-50/80 hover:bg-purple-100 text-purple-700 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border border-purple-100/50 active:scale-95 hover:-translate-y-0.5"
            >
              <Share2 className="w-5 h-5 opacity-80" />
              <span className="text-base font-medium">Share</span>
@@ -157,7 +154,7 @@ export function ToolHeader({ id, title, subtitle, icon: Icon }: ToolHeaderProps)
              onClick={() => setShowReferences(!showReferences)}
              className={`flex items-center justify-center gap-2.5 py-4 px-4 rounded-full font-medium transition-all shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_14px_rgba(0,0,0,0.03)] border ${showReferences ? 'bg-slate-800 text-white border-slate-700' : 'bg-rose-50/80 hover:bg-rose-100 text-rose-700 border-rose-100/50'}`}
            >
-             <BookOpen className="w-5 h-5 opacity-80" />
+             <BookOpen className="w-5 h-5 opacity-80 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm" />
              <span className="text-base font-medium">References</span>
            </button>
         </div>

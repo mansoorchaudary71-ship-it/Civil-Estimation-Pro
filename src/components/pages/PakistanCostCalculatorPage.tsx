@@ -163,12 +163,13 @@ export default function PakistanCostCalculatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div>
                   <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Plot Area</label>
-                  <input 
+                  <><label htmlFor="a11y-input-577" className="sr-only">Input</label>
+<input id="a11y-input-577" 
                     type="number" inputMode="decimal" 
                     value={area} 
                     onChange={(e) => setArea(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-[#FFFFFF] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
-                  />
+                    className="w-full bg-[#FFFFFF] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all font-semibold"
+                  /></>
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Measurement Unit</label>
@@ -193,7 +194,7 @@ export default function PakistanCostCalculatorPage() {
                     <select 
                        value={city}
                        onChange={(e) => setCity(e.target.value)}
-                       className="w-full bg-[#FFFFFF] border border-slate-200 rounded-xl px-4 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all appearance-none font-semibold cursor-pointer"
+                       className="w-full bg-[#FFFFFF] border border-slate-200 rounded-xl px-4 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-amber-500 transition-all appearance-none font-semibold cursor-pointer"
                     >
                       {Object.keys(cityRates).map(c => <option key={c} value={c}>{c}</option>)}
                     </select>

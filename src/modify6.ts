@@ -20,12 +20,12 @@ content = content.replace(
 
 content = content.replace(
   /\{activeTab === "concrete" && \(/g,
-  `<div className="bg-white p-6 md:p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">\n        {activeTab === "concrete" && (`
+  `<div className="bg-white/70 backdrop-blur-md p-6 md:p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-white/20 flex-1 relative overflow-hidden transition-all duration-300">\n        {activeTab === "concrete" && (`
 );
 
 content = content.replace(
   /bg-slate-50 border border-slate-200 rounded-xl p-6/g,
-  'bg-white border border-slate-100 rounded-2xl p-6 shadow-sm'
+  'bg-white/70 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-sm'
 );
 
 content = content.replace(

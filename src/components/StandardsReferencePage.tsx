@@ -158,7 +158,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
         {/* Background glow */}
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[#E8E4D9]/20 blur-[120px] pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
+        <div className="w-full md:max-w-7xl md:mx-auto flex flex-col items-center text-center relative z-10 px-4 md:px-0">
           <BookOpen className="w-12 h-12 text-[#B39B72] mb-6" />
           <h1 className="md: lg: text-[#4A443B] mb-4 relative text-xl font-semibold text-slate-800 tracking-tight mb-6">
             Engineering <span className="text-[#B39B72]">Standards & Codes</span> Hub
@@ -169,18 +169,19 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
 
           <div className="w-full max-w-xl relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#A39D93]" />
-            <input
+            <><label htmlFor="a11y-input-9" className="sr-only">Search by code (e.g. 'IS 456') or title...</label>
+<input id="a11y-input-9"
               type="text"
               placeholder="Search by code (e.g. 'IS 456') or title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border border-[#E8E4D9] rounded-full py-4 pl-12 pr-4 text-[#4A443B] placeholder-[#A39D93] focus:outline-none focus:ring-2 focus:ring-[#B39B72]/50 shadow-sm"
-            />
+              className="w-full bg-white border border-[#E8E4D9] rounded-full py-4 pl-12 pr-4 text-[#4A443B] placeholder-[#A39D93] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[#B39B72]/50 shadow-sm overflow-hidden"
+            /></>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pt-10">
+      <div className="w-full md:max-w-7xl md:mx-auto px-6 pt-10">
         {/* Country Filter */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
           {countries.map(country => (
@@ -204,7 +205,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
             filteredStandards.map(std => (
               <div 
                 key={std.id} 
-                className="bg-white border border-[#E8E4D9] rounded-2xl p-6 flex flex-col group hover:border-[#B39B72] hover:shadow-lg transition-all duration-300"
+                className="w-full bg-white border border-[#E8E4D9] rounded-2xl p-4 sm:p-6 flex flex-col group hover:border-[#B39B72] hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="font-mono text-base font-medium bg-amber-50 text-amber-600 border border-amber-100 px-3 py-1 rounded-lg">
@@ -285,9 +286,9 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 bg-white border border-[#E8E4D9] rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-sm">
+        <div className="w-full mt-20 bg-white border border-[#E8E4D9] rounded-3xl p-4 sm:p-8 md:p-5 sm:p-12 text-center md:max-w-4xl md:mx-auto shadow-sm overflow-hidden">
            <h2 className="md: text-[#4A443B] mb-4 text-xl font-semibold text-slate-900 tracking-tight">Ready to put these standards into practice?</h2>
-           <p className="text-[#8B8476] mb-8 max-w-xl mx-auto text-base font-normal text-slate-600 leading-relaxed">Access 55+ professional civil engineering calculators and tools that automatically apply these specific country codes to your estimates.</p>
+           <p className="w-full text-[#8B8476] mb-8 md:max-w-xl md:mx-auto text-base font-normal text-slate-600 leading-relaxed px-4 md:px-0">Access 55+ professional civil engineering calculators and tools that automatically apply these specific country codes to your estimates.</p>
            <button onClick={() => {
               if (onNavigate) {
                  onNavigate('home');

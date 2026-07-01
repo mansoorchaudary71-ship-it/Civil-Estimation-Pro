@@ -19,7 +19,7 @@ export default function EnergyMepCalculator() {
   const results: any = {};
 
   return (
-    <div className="max-w-4xl mx-auto pb-20">
+    <div className="w-full md:max-w-4xl md:mx-auto pb-20 px-4 md:px-0">
       
 
       <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
@@ -119,7 +119,7 @@ function SolarCalculator() {
               <select
                 value={areaUnit}
                 onChange={(e) => setAreaUnit(e.target.value as "sqft" | "sqm")}
-                className="h-[46px] bg-slate-100 border border-slate-200 rounded-r-xl px-4 text-slate-700 font-bold outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="h-[46px] bg-slate-100 border border-slate-200 rounded-r-xl px-4 text-slate-700 font-bold outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50"
               >
                 <option value="sqft">Sq Ft</option>
                 <option value="sqm">Sq M</option>
@@ -152,7 +152,7 @@ function SolarCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+            <div className="w-full relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm overflow-hidden">
               Enter specifications to see estimation.
             </div>
           )}
@@ -197,7 +197,7 @@ function WaterHeaterCalculator() {
                totalUnit="Liters per Day (LPD)"
              />
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+            <div className="w-full relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm overflow-hidden">
               Enter specifications to see estimation.
             </div>
           )}
@@ -283,7 +283,7 @@ function AcCalculator() {
             <select
               value={sunlight}
               onChange={(e) => setSunlight(e.target.value as any)}
-              className="w-full h-[46px] bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-slate-700 font-medium outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full h-[46px] bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-slate-700 font-medium outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/50"
             >
               <option value="shaded">Shaded (-10% BTU)</option>
               <option value="normal">Normal</option>
@@ -292,12 +292,13 @@ function AcCalculator() {
           </div>
           
           <label className="flex items-center gap-2 cursor-pointer pt-2 text-sm font-medium text-slate-700 mb-1 block">
-            <input 
+            <><label htmlFor="a11y-input-227" className="sr-only">Input</label>
+<input id="a11y-input-227" 
               type="checkbox" 
               checked={isKitchen} 
               onChange={(e) => setIsKitchen(e.target.checked)} 
               className="w-4 h-4 text-blue-600 rounded" 
-            />
+            /></>
             Is this a kitchen? (+4000 BTU)
           </label>
         </div>
@@ -326,7 +327,7 @@ function AcCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+            <div className="w-full relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm overflow-hidden">
               Enter room dimensions to calculate required AC tonnage.
             </div>
           )}

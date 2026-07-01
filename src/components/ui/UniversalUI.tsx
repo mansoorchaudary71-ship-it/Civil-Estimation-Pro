@@ -30,7 +30,7 @@ export function MetricCard({
   const colorMap = {
     blue: "text-blue-600 dark:text-blue-400",
     purple: "text-purple-600 dark:text-purple-400",
-    orange: "text-orange-600 dark:text-orange-400",
+    orange: "text-blue-600 dark:text-orange-400",
     teal: "text-teal-600 dark:text-teal-400",
     emerald: "text-emerald-600 dark:text-emerald-400",
     amber: "text-amber-500 dark:text-amber-400",
@@ -153,7 +153,8 @@ export function RangeSlider({
           style={{ width: `${percentage}%` }}
         />
         {/* Invisible Range Input for interaction */}
-        <input 
+        <><label htmlFor="a11y-input-596" className="sr-only">Input</label>
+<input id="a11y-input-596" 
           type="range" 
           min={min} 
           max={max} 
@@ -161,7 +162,7 @@ export function RangeSlider({
           value={value} 
           onChange={(e) => onChange(parseFloat(e.target.value))}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-        />
+        /></>
         {/* Custom Handle Visual */}
         <div 
           className="absolute top-1/2 -mt-2.5 -ml-2.5 w-5 h-5 bg-white border-2 border-slate-300 dark:border-slate-600 rounded-full shadow-sm pointer-events-none transition-transform duration-100 shadow-slate-900/10"

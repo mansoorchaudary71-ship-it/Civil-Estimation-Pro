@@ -70,8 +70,8 @@ export default function StaircaseDesignReference() {
   }, [totalHeight, riser, going, width, headroom, landingDepth, occupancy]);
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
+      <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
          <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200">
           <Spline className="w-6 h-6 text-indigo-600" />
           Staircase & Exit Clearance Reference
@@ -143,7 +143,7 @@ export default function StaircaseDesignReference() {
                     </div>
                 </MaterialSummary>
 
-                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6">
+                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-4 sm:p-6 overflow-hidden">
                     <h3 className="font-bold text-slate-800 text-sm mb-4 flex items-center justify-between">
                         <span>Code Compliance Matrix</span>
                         {results.isFullyCompliant 
@@ -191,25 +191,25 @@ export default function StaircaseDesignReference() {
 
                         {/* Riser / Going */}
                         <div className="grid grid-cols-2 gap-3">
-                            <div className={`p-3 rounded-xl border flex flex-col justify-between ${results.riserSafe ? "bg-white border-slate-200" : "bg-orange-50 border-orange-200"}`}>
+                            <div className={`p-3 rounded-xl border flex flex-col justify-between ${results.riserSafe ? "bg-white border-slate-200" : "bg-blue-50 border-blue-200"}`}>
                                 <div>
                                     <h4 className={`text-xs font-bold leading-tight ${results.riserSafe ? "text-slate-700" : "text-orange-900"}`}>Maximum Riser Check</h4>
                                     <p className="text-[10px] text-slate-500 mt-0.5">Required limit: {results.reqMaxRiser}mm</p>
                                 </div>
                                 <div className="mt-2 flex items-center justify-between">
-                                    <span className={`font-mono text-sm font-bold ${results.riserSafe ? "text-slate-800" : "text-orange-700"}`}>{results.actualRiser.toFixed(1)} mm</span>
-                                    <span>{results.riserSafe ? <CheckCircle2 className="w-4 h-4 text-teal-600"/> : <AlertTriangle className="w-4 h-4 text-orange-500"/>}</span>
+                                    <span className={`font-mono text-sm font-bold ${results.riserSafe ? "text-slate-800" : "text-blue-700"}`}>{results.actualRiser.toFixed(1)} mm</span>
+                                    <span>{results.riserSafe ? <CheckCircle2 className="w-4 h-4 text-teal-600"/> : <AlertTriangle className="w-4 h-4 text-blue-500"/>}</span>
                                 </div>
                             </div>
                             
-                            <div className={`p-3 rounded-xl border flex flex-col justify-between ${results.goingSafe ? "bg-white border-slate-200" : "bg-orange-50 border-orange-200"}`}>
+                            <div className={`p-3 rounded-xl border flex flex-col justify-between ${results.goingSafe ? "bg-white border-slate-200" : "bg-blue-50 border-blue-200"}`}>
                                 <div>
                                     <h4 className={`text-xs font-bold leading-tight ${results.goingSafe ? "text-slate-700" : "text-orange-900"}`}>Minimum Going Check</h4>
                                     <p className="text-[10px] text-slate-500 mt-0.5">Required min: {results.reqMinGoing}mm</p>
                                 </div>
                                 <div className="mt-2 flex items-center justify-between">
-                                    <span className={`font-mono text-sm font-bold ${results.goingSafe ? "text-slate-800" : "text-orange-700"}`}>{Number(going).toFixed(1)} mm</span>
-                                    <span>{results.goingSafe ? <CheckCircle2 className="w-4 h-4 text-teal-600"/> : <AlertTriangle className="w-4 h-4 text-orange-500"/>}</span>
+                                    <span className={`font-mono text-sm font-bold ${results.goingSafe ? "text-slate-800" : "text-blue-700"}`}>{Number(going).toFixed(1)} mm</span>
+                                    <span>{results.goingSafe ? <CheckCircle2 className="w-4 h-4 text-teal-600"/> : <AlertTriangle className="w-4 h-4 text-blue-500"/>}</span>
                                 </div>
                             </div>
                         </div>

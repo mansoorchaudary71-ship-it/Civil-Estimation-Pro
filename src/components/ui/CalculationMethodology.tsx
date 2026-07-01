@@ -133,8 +133,8 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
 
                     {/* Justification */}
                     {step.justification && (
-                      <div className="flex gap-3 p-4 md:p-5 rounded-xl bg-orange-50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/30">
-                        <Info className="w-5 h-5 md:w-6 md:h-6 text-orange-500 dark:text-orange-400 shrink-0 mt-0.5" />
+                      <div className="flex gap-3 p-4 md:p-5 rounded-xl bg-blue-50 dark:bg-orange-950/20 border border-blue-100 dark:border-orange-900/30">
+                        <Info className="w-5 h-5 md:w-6 md:h-6 text-blue-500 dark:text-orange-400 shrink-0 mt-0.5" />
                         <p className="text-sm md:text-base font-semibold text-orange-800 dark:text-orange-300 leading-relaxed">
                           {step.justification}
                         </p>

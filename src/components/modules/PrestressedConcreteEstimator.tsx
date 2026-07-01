@@ -95,12 +95,12 @@ export default function PrestressedConcreteEstimator() {
   const results = calculateLosses();
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+    <div className="flex flex-col gap-8 w-full md:max-w-4xl md:mx-auto px-4 md:px-0">
+      <div className="w-full bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
          <h2 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <Layers className="text-pink-600" /> Pre-stressed Concrete Estimator
          </h2>
-         <div className="p-6 bg-pink-50 dark:bg-pink-900/20 rounded-[24px] border border-pink-100 dark:border-pink-900 text-center mb-6">
+         <div className="p-4 sm:p-6 bg-pink-50 dark:bg-pink-900/20 rounded-[24px] border border-pink-100 dark:border-pink-900 text-center mb-6 overflow-hidden">
             <p className="text-pink-800 dark:text-pink-200 font-medium">Evaluate tendon profiles, compute prestress losses (friction, anchorage slip, elastic shortening), and design sections per IS 1343:2012.</p>
          </div>
 
@@ -131,13 +131,15 @@ export default function PrestressedConcreteEstimator() {
                
                <div className="mb-4">
                  <label className="text-base font-medium uppercase tracking-wider mb-2 block">System Type</label>
-                 <div className="flex gap-4">
+                 <div className="flex gap-4 flex-wrap">
                     <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
-                      <input type="radio" checked={type === "Pre-tensioned"} onChange={() => setType("Pre-tensioned")} className="w-4 h-4 text-pink-600" />
+                      <><label htmlFor="a11y-input-376" className="sr-only">Input</label>
+<input id="a11y-input-376" type="radio" checked={type === "Pre-tensioned"} onChange={() => setType("Pre-tensioned")} className="w-4 h-4 text-pink-600" /></>
                       Pre-tensioned
                     </label>
                     <label className="flex items-center gap-2 text-base font-medium cursor-pointer">
-                      <input type="radio" checked={type === "Post-tensioned"} onChange={() => setType("Post-tensioned")} className="w-4 h-4 text-pink-600" />
+                      <><label htmlFor="a11y-input-377" className="sr-only">Input</label>
+<input id="a11y-input-377" type="radio" checked={type === "Post-tensioned"} onChange={() => setType("Post-tensioned")} className="w-4 h-4 text-pink-600" /></>
                       Post-tensioned
                     </label>
                  </div>
@@ -168,11 +170,11 @@ export default function PrestressedConcreteEstimator() {
                 relatedToolIds={[]}
               >
                 <div className="mb-6 grid grid-cols-2 gap-4">
-                  <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                  <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden">
                     <p className="text-base font-medium mb-1">Initial Stress</p>
                     <p className="text-xl font-bold text-slate-800">{results.initialStress.toFixed(1)} MPa</p>
                   </div>
-                  <div className="p-4 bg-pink-50 border border-pink-100 rounded-2xl">
+                  <div className="p-4 bg-pink-50 border border-pink-100 rounded-2xl overflow-hidden">
                     <p className="text-base font-medium text-pink-500 mb-1">Final Effective Stress</p>
                     <p className="text-xl font-bold text-pink-700">{results.finalStress.toFixed(1)} MPa</p>
                   </div>

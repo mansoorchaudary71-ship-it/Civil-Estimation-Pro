@@ -15,7 +15,7 @@ export function MarketRatesTrendChart() {
   const { region, setRegion, trendData } = useMarketRates();
 
   return (
-    <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 p-8 w-full mt-8">
+    <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 p-4 sm:p-4 sm:p-4 sm:p-8 w-full mt-8 overflow-hidden">
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="text-xl font-bold text-gray-800 tracking-tight">6-Month Price Trends</h3>
@@ -23,7 +23,7 @@ export function MarketRatesTrendChart() {
         </div>
         <div>
           <select 
-            className="px-4 py-2 border border-slate-200 rounded-xl bg-slate-50 text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+            className="px-4 py-2 border border-slate-200 rounded-xl bg-slate-50 text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-blue-500/20"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
           >

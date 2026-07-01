@@ -136,7 +136,7 @@ export default function AdvancedSpecs({
         <select
           value={specs[specKey] as string}
           onChange={(e) => updateSpec(specKey, e.target.value)}
-          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium appearance-none text-sm cursor-pointer hover:bg-slate-50 transition-colors"
+          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 font-medium appearance-none text-sm cursor-pointer hover:bg-slate-50 transition-colors overflow-hidden"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -157,25 +157,27 @@ export default function AdvancedSpecs({
       <label className="uppercase tracking-widest text-sm font-medium text-slate-700 mb-1 block">
         {label}
       </label>
-      <input
+      <><label htmlFor="a11y-input-32" className="sr-only">Input</label>
+<input id="a11y-input-32"
         type="number" inputMode="decimal"
         value={specs[specKey] as string}
         onChange={(e) => updateSpec(specKey, e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-full px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm"
-      />
+        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-full px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500/50 font-medium text-sm"
+      /></>
     </div>
   );
   const renderToggle = (label: string, specKey: keyof SpecsState) => (
-    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-[24px] px-4 py-2.5">
+    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-[24px] px-4 py-2.5 overflow-hidden">
       <span className="text-base font-medium">{label}</span>
       <label className="relative inline-flex items-center cursor-pointer text-sm font-medium text-slate-700 mb-1 block">
-        <input
+        <><label htmlFor="a11y-input-33" className="sr-only">Input</label>
+<input id="a11y-input-33"
           type="checkbox"
           checked={specs[specKey] as boolean}
           onChange={(e) => updateSpec(specKey, e.target.checked)}
           className="sr-only peer"
-        />
+        /></>
         <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
       </label>
     </div>
@@ -187,10 +189,10 @@ export default function AdvancedSpecs({
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-teal-50 text-teal-600 rounded-[24px]">
+          <div className="p-3 bg-teal-50 text-teal-600 rounded-[24px] overflow-hidden">
             <Sliders className="w-6 h-6" />
           </div>
-          <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
             Advanced Specifications
           </h2>
         </div>
@@ -203,7 +205,7 @@ export default function AdvancedSpecs({
         </div>
       </div>
       {!isOpen && (
-        <p className=" text-base font-normal text-slate-600 leading-relaxed">
+        <p className="text-base font-normal text-slate-600 leading-relaxed">
           Using standard smart defaults for accurate initial estimates.
         </p>
       )}

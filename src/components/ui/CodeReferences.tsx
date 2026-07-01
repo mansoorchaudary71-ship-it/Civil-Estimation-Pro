@@ -88,10 +88,10 @@ export function CodeReferences({ moduleId }: { moduleId: string }) {
   if (!references || references.length === 0) return null;
 
   return (
-    <div className="mt-4 mb-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white dark:bg-slate-800/80 overflow-hidden shadow-sm">
+    <div className="w-full mt-4 mb-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white dark:bg-slate-800/80 overflow-hidden shadow-sm">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 text-white dark:text-slate-200 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700"
+        className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 text-white dark:text-slate-200 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
       >
         <span className="flex items-center gap-2 font-bold text-sm uppercase tracking-wider text-slate-600 dark:text-slate-400">
           <BookOpen className="w-4 h-4 text-indigo-500" />

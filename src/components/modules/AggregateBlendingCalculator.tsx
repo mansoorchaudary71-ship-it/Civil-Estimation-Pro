@@ -1,7 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { RefreshCw, Calculator, Layers, AlertCircle, ArrowRightLeft, Wand2 } from "lucide-react";
+import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { RefreshCw, Calculator, Layers, AlertCircle, ArrowRightLeft, Wand2, LineChart as LineChartIcon } from "lucide-react";
 import toast from "react-hot-toast";
+
+const LazyAggregateChart = lazy(() => import("./AggregateChart"));
+
+// Custom hook for debouncing values (e.g. for slider interactions)
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
 
 interface BinData {
   size: number;
@@ -183,22 +198,39 @@ export default function AggregateBlendingCalculator() {
     toast.success("Optimized proportions for best fit!");
   };
 
-  const chartData = sieveData.map(row => {
-    const blendValue = getBlendedValue(row);
-    return {
-      size: row.size,
-      logSize: row.size === 0 ? 0.001 : row.size,
-      Blend: blendValue !== null ? parseFloat(blendValue.toFixed(2)) : null,
-      Min: row.minPassing,
-      Max: row.maxPassing
-    };
-  }).sort((a, b) => a.size - b.size);
+  // Debounce the proportions to prevent chart lag during slider drag
+  const debouncedProportions = useDebounce(proportions, 100);
+
+  const chartData = useMemo(() => {
+    return sieveData.map(row => {
+      const a = row.binA === "" ? 0 : row.binA;
+      const b = row.binB === "" ? 0 : row.binB;
+      const c = row.binC === "" ? 0 : row.binC;
+      const d = row.binD === "" ? 0 : row.binD;
+      
+      let blendValue = null;
+      if (row.binA !== "" || row.binB !== "" || row.binC !== "" || row.binD !== "") {
+        blendValue = (a * debouncedProportions[0] / 100) + 
+                     (b * debouncedProportions[1] / 100) + 
+                     (c * debouncedProportions[2] / 100) + 
+                     (d * debouncedProportions[3] / 100);
+      }
+
+      return {
+        size: row.size,
+        logSize: row.size === 0 ? 0.001 : row.size,
+        Blend: blendValue !== null ? parseFloat(blendValue.toFixed(2)) : null,
+        Min: row.minPassing,
+        Max: row.maxPassing
+      };
+    }).sort((a, b) => a.size - b.size);
+  }, [sieveData, debouncedProportions]);
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-7xl mx-auto pb-20">
+    <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-500 md:max-w-7xl md:mx-auto pb-20 px-4 md:px-0">
       
       {/* Header */}
-      <div className="bg-white [#151821] rounded-[24px] p-6 md:p-8 mb-6 shadow-sm border border-slate-200">
+      <div className="w-full bg-white [#151821] rounded-[24px] p-4 sm:p-6 md:p-4 sm:p-8 mb-6 shadow-sm border border-slate-200 overflow-hidden">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[16px] bg-[var(--accent-vibrant)]/10 border border-[var(--accent-vibrant)]/20 mb-3">
            <ArrowRightLeft className="w-4 h-4 text-[var(--accent-vibrant)]" />
            <span className="text-base font-medium text-[var(--accent-vibrant)] uppercase tracking-wider">Mix Design Toolkit</span>
@@ -214,7 +246,7 @@ export default function AggregateBlendingCalculator() {
         {/* Top/Left Section: Inputs & Spec Selection */}
         <div className="xl:col-span-7 space-y-6">
           
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
               <div>
                 <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">
@@ -222,7 +254,7 @@ export default function AggregateBlendingCalculator() {
                   <FieldTooltip content="The classification or standard specifying the required aggregate mix properties." />
                 </label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 transition-all text-base font-normal"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 transition-all text-base font-normal overflow-hidden"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -235,7 +267,7 @@ export default function AggregateBlendingCalculator() {
                   <FieldTooltip content="The specific grading limits (min and max percent passing) required for the blended aggregate." />
                 </label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 transition-all text-base font-normal"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 transition-all text-base font-normal overflow-hidden"
                   value={selectedGrading}
                   onChange={(e) => setSelectedGrading(e.target.value)}
                 >
@@ -247,7 +279,7 @@ export default function AggregateBlendingCalculator() {
             </div>
           </div>
 
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200 overflow-x-auto">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-x-auto">
             <h3 className="text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-lg font-medium text-slate-800">
               <Layers className="w-5 h-5 text-[var(--accent-vibrant)]" /> Stockpile Percent Passing
             </h3>
@@ -258,12 +290,13 @@ export default function AggregateBlendingCalculator() {
                   <th className="py-2 px-2 text-base font-medium uppercase tracking-wider w-24">IS Sieve</th>
                   {[0, 1, 2, 3].map(i => (
                     <th key={i} className="py-2 px-2">
-                      <input 
+                      <><label htmlFor="a11y-input-34" className="sr-only">Input</label>
+<input id="a11y-input-34" 
                         type="text"
                         value={binNames[i]}
                         onChange={(e) => handleBinNameChange(i, e.target.value)}
                         className="w-full text-base font-medium bg-transparent border-b border-dashed border-slate-200 dark:border-slate-700 focus:border-[var(--accent-vibrant)] outline-none pb-1 uppercase tracking-wider rounded-full"
-                      />
+                      /></>
                     </th>
                   ))}
                   <th className="py-2 px-2 text-base font-medium uppercase tracking-wider text-right w-24">Blended %</th>
@@ -281,32 +314,36 @@ export default function AggregateBlendingCalculator() {
                         {row.size} mm
                       </td>
                       <td className="py-2 px-2">
-                        <input type="number" inputMode="decimal"
+                        <><label htmlFor="a11y-input-35" className="sr-only">Input</label>
+<input id="a11y-input-35" type="number" inputMode="decimal"
                           className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binA}
                           onChange={(e) => handleBinDataChange(idx, 'binA', e.target.value)}
-                        />
+                        /></>
                       </td>
                       <td className="py-2 px-2">
-                        <input type="number" inputMode="decimal"
+                        <><label htmlFor="a11y-input-36" className="sr-only">Input</label>
+<input id="a11y-input-36" type="number" inputMode="decimal"
                           className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binB}
                           onChange={(e) => handleBinDataChange(idx, 'binB', e.target.value)}
-                        />
+                        /></>
                       </td>
                       <td className="py-2 px-2">
-                        <input type="number" inputMode="decimal"
+                        <><label htmlFor="a11y-input-37" className="sr-only">Input</label>
+<input id="a11y-input-37" type="number" inputMode="decimal"
                           className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binC}
                           onChange={(e) => handleBinDataChange(idx, 'binC', e.target.value)}
-                        />
+                        /></>
                       </td>
                       <td className="py-2 px-2">
-                        <input type="number" inputMode="decimal"
+                        <><label htmlFor="a11y-input-38" className="sr-only">Input</label>
+<input id="a11y-input-38" type="number" inputMode="decimal"
                           className="w-full px-2 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none min-h-[44px] text-base font-normal rounded-full"
                           value={row.binD}
                           onChange={(e) => handleBinDataChange(idx, 'binD', e.target.value)}
-                        />
+                        /></>
                       </td>
                       <td className="py-2 px-2 text-right">
                         {blend !== null ? (
@@ -330,7 +367,7 @@ export default function AggregateBlendingCalculator() {
         {/* Right Section: Sliders & Graph */}
         <div className="xl:col-span-5 space-y-6">
           
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-slate-900 dark:text-white flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
                 <Calculator className="w-5 h-5 text-[var(--accent-vibrant)]" /> Trial Blending
@@ -347,7 +384,8 @@ export default function AggregateBlendingCalculator() {
                     <span className="font-semibold text-slate-700">{binNames[i]}</span>
                     <span className="font-mono font-bold text-[var(--accent-vibrant)]">{proportions[i].toFixed(1)}%</span>
                   </div>
-                  <input 
+                  <><label htmlFor="a11y-input-39" className="sr-only">Input</label>
+<input id="a11y-input-39" 
                     type="range"
                     min="0"
                     max="100"
@@ -355,57 +393,31 @@ export default function AggregateBlendingCalculator() {
                     value={proportions[i]}
                     onChange={(e) => handleProportionChange(i, e.target.value)}
                     className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-[var(--accent-vibrant)]"
-                  />
+                  /></>
                 </div>
               ))}
             </div>
             
-            <div className="mt-6 p-4 rounded-[24px] bg-orange-50 border border-orange-200 text-sm text-orange-800 flex items-start gap-2">
+            <div className="mt-6 p-4 rounded-[24px] bg-blue-50 border border-blue-200 text-sm text-orange-800 flex items-start gap-2 overflow-hidden">
                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-               <p>Moving a slider will automatically adjust the remaining proportions to ensure the total blend always equals 100%.</p>
+               <p>Moving a slider will automatically adjust the remaining materials to ensure the blend always equals 100%.</p>
             </div>
 
             <button onClick={optimizeBlend}
-                className="mt-6 w-full bg-[#FFFFFF] text-slate-900 py-3.5 rounded-full shadow-sm flex items-center justify-center gap-2 hover:bg-white transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5"
+                className="mt-6 w-full bg-[#FFFFFF] text-slate-900 py-3.5 rounded-full shadow-sm flex items-center justify-center gap-2 hover:bg-white transition-colors text-base font-semibold active:scale-95 hover:-translate-y-0.5 overflow-hidden"
             >
                 <Wand2 className="w-5 h-5" /> Auto-Optimize Blend (Least Squares)
             </button>
           </div>
 
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200 h-[400px] flex flex-col">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 h-[400px] flex flex-col overflow-hidden">
             <h3 className="text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-lg font-medium text-slate-800">
-              <LineChart className="w-5 h-5 text-[var(--accent-vibrant)]" /> Blended Gradation Curve
+              <LineChartIcon className="w-5 h-5 text-[var(--accent-vibrant)]" /> Blended Gradation Curve
             </h3>
             <div className="flex-1 w-full relative min-h-0">
-               <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: -20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#475569" opacity={0.2} />
-                    <XAxis 
-                      dataKey="logSize" 
-                      scale="log" 
-                      domain={['auto', 'auto']} 
-                      type="number"
-                      tickFormatter={(val) => val === 0.001 ? "Pan" : val.toString()}
-                      stroke="#64748b"
-                      tick={{ fontSize: 12 }}
-                    />
-                    <YAxis 
-                      domain={[0, 100]} 
-                      stroke="#64748b"
-                      tick={{ fontSize: 12 }}
-                    />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: "#1e293b", borderColor: "#334155", borderRadius: "8px", color: "#f8fafc" }}
-                      itemStyle={{ color: "#f8fafc" }}
-                      labelFormatter={(val) => val === 0.001 ? "Pan" : `Sieve: ${val}mm`}
-                    />
-                    <Legend verticalAlign="top" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px' }} />
-                    
-                    <Line type="stepAfter" dataKey="Max" stroke="#f43f5e" strokeWidth={2} strokeDasharray="5 5" name="Upper Limit" dot={false} />
-                    <Line type="stepAfter" dataKey="Min" stroke="#3b82f6" strokeWidth={2} strokeDasharray="5 5" name="Lower Limit" dot={false} />
-                    <Line type="monotone" dataKey="Blend" stroke="#10b981" strokeWidth={3} name="Blended %" dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
-                  </LineChart>
-                </ResponsiveContainer>
+               <Suspense fallback={<div className="flex items-center justify-center w-full h-full text-slate-500">Loading chart...</div>}>
+                 <LazyAggregateChart data={chartData} />
+               </Suspense>
             </div>
           </div>
 

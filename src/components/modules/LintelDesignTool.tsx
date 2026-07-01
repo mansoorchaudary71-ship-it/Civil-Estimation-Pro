@@ -132,9 +132,9 @@ export default function LintelDesignTool() {
   }, [clearSpan, wallThickness, wallHeightAbove, masonryDensity, floorLoad, lintelDepth, bearingLength, fck, fy, cover, barDia]);
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
-         <h2 className="text-xl font-bold mb-6 text-slate-800  flex items-center gap-2">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
+      <div className="w-full bg-white rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
+         <h2 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2">
             <Columns className="text-indigo-600" /> Lintel Scheduler & Design Tool
          </h2>
          
@@ -186,7 +186,7 @@ export default function LintelDesignTool() {
                     </div>
 
                     {!results.depthSafe && (
-                        <div className="mt-4 p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-start gap-3">
+                        <div className="mt-4 p-4 bg-rose-50 border border-rose-200 rounded-2xl flex items-start gap-3 overflow-hidden">
                             <AlertTriangle className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
                             <div>
                                 <p className="text-base font-medium text-rose-900 mb-1">Section Depth Unsafe</p>
@@ -216,7 +216,7 @@ export default function LintelDesignTool() {
                     </div>
                     
                     {/* Rebar Suggestion */}
-                    <div className="p-6 rounded-3xl border bg-slate-50 border-slate-200 flex flex-col gap-4">
+                    <div className="p-4 sm:p-6 rounded-3xl border bg-slate-50 border-slate-200 flex flex-col gap-4 overflow-hidden">
                        <div className="flex items-center gap-2">
                           <CheckCircle2 className="text-slate-600 w-5 h-5" />
                           <h3 className="font-bold text-slate-900">Provision Summary</h3>
@@ -239,7 +239,7 @@ export default function LintelDesignTool() {
                 </div>
 
                 {/* Diagram visual guide */}
-                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 relative overflow-hidden h-40 flex items-end justify-center mt-2 group">
+                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-4 sm:p-6 relative overflow-hidden h-40 flex items-end justify-center mt-2 group">
                    <div className="absolute inset-x-0 bottom-0 border-b-8 border-slate-300 w-3/4 mx-auto rounded"></div>
                    <div className="absolute bottom-2 inset-x-0 flex justify-between px-10 text-base font-medium">
                       <span>Support ({Number(bearingLength)}mm)</span>
@@ -253,7 +253,7 @@ export default function LintelDesignTool() {
                         <span className="absolute top-1/2 text-indigo-900 font-bold text-sm">60° Dispersion</span>
                      </div>
                    ) : (
-                     <div className="absolute bottom-2 w-[60%] h-24 bg-orange-100 border-x border-t border-orange-200 border-dashed rounded-t flex items-center justify-center">
+                     <div className="absolute bottom-2 w-[60%] h-24 bg-blue-100 border-x border-t border-blue-200 border-dashed rounded-t flex items-center justify-center">
                          <span className="text-orange-800 font-bold text-sm opacity-60">Rectangular Load Zone</span>
                      </div>
                    )}

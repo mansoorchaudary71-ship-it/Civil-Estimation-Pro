@@ -83,7 +83,7 @@ export default function MoistureGravityCalculator() {
             description="Process raw pycnometer and oven-dry weights to calculate natural moisture content, specific gravity, dry density, void ratio, and degree of saturation."
         />
 
-        <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
+        <div className="w-full bg-white border border-slate-200 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
             <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800">
                 <FlaskConical className="w-6 h-6 text-blue-600" />
                 Moisture & Gravity Data Flow
@@ -131,18 +131,18 @@ export default function MoistureGravityCalculator() {
                     >
                         <div className="mt-6 flex flex-col gap-4">
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl">
+                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl overflow-hidden">
                                      <span className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Natural Moisture Content (w)</span>
                                      <span className="text-xl font-mono font-bold text-blue-600">{results.mcPercent.toFixed(2)} %</span>
                                  </div>
-                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl">
+                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl overflow-hidden">
                                      <span className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Dry Density (\u03b3_d)</span>
                                      <span className="text-xl font-mono font-bold text-amber-600">{results.dryDensity > 0 ? results.dryDensity.toFixed(3) : "0.000"} <span className="text-sm">g/cm³</span></span>
                                  </div>
                              </div>
                              
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl">
+                                 <div className="bg-white border border-slate-200 p-4 rounded-2xl overflow-hidden">
                                      <span className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Void Ratio (e)</span>
                                      <span className="text-xl font-mono font-bold text-slate-800">{results.voidRatio > 0 ? results.voidRatio.toFixed(3) : "0.000"}</span>
                                  </div>

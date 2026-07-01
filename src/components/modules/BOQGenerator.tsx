@@ -286,26 +286,27 @@ export default function BOQGenerator() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="p-4 bg-indigo-50 text-indigo-600 rounded-[24px]">
+    <div className="w-full md:max-w-7xl md:mx-auto space-y-6 animate-in fade-in duration-500 px-4 md:px-0">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white p-4 sm:p-8 rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+        <div className="flex items-center gap-4 flex-wrap">
+          <div className="p-4 bg-indigo-50 text-indigo-600 rounded-[24px] overflow-hidden">
             <Calculator className="w-8 h-8" />
           </div>
           <div>
-            <input
+            <><label htmlFor="a11y-input-90" className="sr-only">Input</label>
+<input id="a11y-input-90"
               type="text"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               className="text-xl font-semibold text-slate-800 tabular-nums tracking-tight text-slate-800 bg-transparent border-none outline-none hover:bg-slate-50 rounded-full px-2 py-1 -ml-2 transition-colors w-full max-w-md"
-            />
+            /></>
             <p className="ml-1 text-base font-normal text-slate-600 leading-relaxed">
               Professional Bill of Quantities Generator
             </p>
           </div>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-2">
               <span className="text-base font-medium uppercase tracking-widest hidden sm:block">Round Qty:</span>
               <div className="flex items-center bg-slate-100 rounded-[16px] p-0.5 border border-slate-200">
@@ -340,7 +341,7 @@ export default function BOQGenerator() {
                 if (e.target.value) loadTemplate(e.target.value);
                 e.target.value = "";
               }}
-              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-[24px] outline-none transition-colors border border-slate-200"
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-[24px] outline-none transition-colors border border-slate-200 overflow-hidden"
             >
               <option value="">Load Template...</option>
               {Object.keys(STANDARD_TEMPLATES).map((t) => (
@@ -384,8 +385,8 @@ export default function BOQGenerator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         <div className="lg:col-span-3 space-y-6">
-          <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden">
-            <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
+          <div className="w-full bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden">
+            <div className="p-4 sm:p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden">
               <h3 className="flex items-center gap-2 text-lg font-medium text-slate-800 mb-4">
                 <FileText className="w-5 h-5 text-indigo-500" /> BOQ Items
               </h3>
@@ -399,14 +400,15 @@ export default function BOQGenerator() {
             <div className="p-0 overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead>
-                  <tr className="bg-slate-100/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 text-slate-500 text-sm uppercase tracking-wider font-bold">
+                  <tr className="bg-slate-100/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 text-slate-500 text-sm uppercase tracking-wider font-bold overflow-hidden">
                     <th className="p-4 w-12 text-center">
-                      <input 
+                      <><label htmlFor="a11y-input-91" className="sr-only">Input</label>
+<input id="a11y-input-91" 
                         type="checkbox" 
                         checked={items.length > 0 && selectedItemIds.size === items.length}
                         onChange={() => handleSelectAll()}
                         className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
-                      />
+                      /></>
                     </th>
                     <th className="p-4 w-48">Division</th>
                     <th className="p-4">Description</th>
@@ -422,7 +424,7 @@ export default function BOQGenerator() {
                     <tr>
                       <td
                         colSpan={8}
-                        className="p-12 text-center text-slate-600 font-medium border-t border-dashed border-slate-200 bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800"
+                        className="p-5 sm:p-8 md:p-12 text-center text-slate-600 font-medium border-t border-dashed border-slate-200 bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-hidden"
                       >
                         No items added yet. Click "Add Item" or load a template.
                       </td>
@@ -430,18 +432,19 @@ export default function BOQGenerator() {
                   ) : (
                     Object.entries(groupedItems).map(([division, divItems]) => (
                       <React.Fragment key={division}>
-                        <tr className="bg-slate-50/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-y border-slate-200">
+                        <tr className="bg-slate-50/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-y border-slate-200 overflow-hidden">
                           <td
                             colSpan={8}
                             className="px-4 py-2.5 font-bold text-indigo-700 text-sm"
                           >
                            <div className="flex items-center gap-2">
-                             <input 
+                             <><label htmlFor="a11y-input-92" className="sr-only">Input</label>
+<input id="a11y-input-92" 
                                 type="checkbox" 
                                 checked={divItems.length > 0 && divItems.every(i => selectedItemIds.has(i.id))}
                                 onChange={() => handleSelectAll(divItems)}
                                 className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
-                             />
+                             /></>
                              {division}
                            </div>
                           </td>
@@ -449,16 +452,17 @@ export default function BOQGenerator() {
                         {divItems.map((item, idx) => (
                           <tr
                             key={item.id}
-                            className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors animate-in fade-in slide-in-from-bottom-2 duration-300"
+                            className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors animate-in fade-in slide-in-from-bottom-2 duration-300 overflow-hidden"
                             style={{ animationFillMode: 'both', animationDelay: `${idx * 50}ms` }}
                           >
                             <td className="p-2 align-top text-center">
-                              <input 
+                              <><label htmlFor="a11y-input-93" className="sr-only">Input</label>
+<input id="a11y-input-93" 
                                 type="checkbox" 
                                 checked={selectedItemIds.has(item.id)}
                                 onChange={() => handleSelectItem(item.id)}
                                 className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 mt-2"
-                              />
+                              /></>
                             </td>
                             <td className="p-2 align-top">
                               <select
@@ -500,7 +504,8 @@ export default function BOQGenerator() {
                               />
                             </td>
                             <td className="p-2 align-top">
-                              <input
+                              <><label htmlFor="a11y-input-94" className="sr-only">Input</label>
+<input id="a11y-input-94"
                                 type="text"
                                 value={item.unit}
                                 onChange={(e) =>
@@ -511,11 +516,12 @@ export default function BOQGenerator() {
                                   )
                                 }
                                 className="w-full p-2 bg-transparent text-sm rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all rounded-full"
-                              />
+                              /></>
                             </td>
                             <td className="p-2 align-top">
                               <div className="group relative">
-                                <input
+                                <><label htmlFor="a11y-input-95" className="sr-only">Input</label>
+<input id="a11y-input-95"
                                   type="number" inputMode="decimal"
                                   min="0"
                                   step="any"
@@ -534,8 +540,8 @@ export default function BOQGenerator() {
                                     );
                                   }}
                                   className="w-full p-2 bg-transparent text-sm text-right font-bold rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all rounded-full"
-                                />
-                                <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
+                                /></>
+                                <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl overflow-hidden">
                                   Qty = L × W × D 
                                   <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></span>
                                 </span>
@@ -544,7 +550,8 @@ export default function BOQGenerator() {
                             <td className="p-2 align-top text-right">
                               <div className="flex items-center group relative">
                                 <span className="text-slate-600 ml-2">$</span>
-                                <input
+                                <><label htmlFor="a11y-input-96" className="sr-only">Input</label>
+<input id="a11y-input-96"
                                   type="number" inputMode="decimal"
                                   min="0"
                                   step="any"
@@ -563,8 +570,8 @@ export default function BOQGenerator() {
                                     );
                                   }}
                                   className="w-full p-2 bg-transparent text-sm text-right font-bold text-emerald-600 rounded outline-none border border-transparent focus:border-indigo-300 focus:bg-white transition-all rounded-full"
-                                />
-                                <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
+                                /></>
+                                <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl overflow-hidden">
                                   R = Mat + Lab + Eqp + OHP
                                   <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></span>
                                 </span>
@@ -573,14 +580,14 @@ export default function BOQGenerator() {
                             <td className="p-4 align-top text-right font-semibold tabular-nums tracking-tight text-slate-800 tabular-nums">
                               <div className="group relative inline-block">
                                 {(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
+                                <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max max-w-[200px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl overflow-hidden">
                                   Value = Qty × Rate
                                   <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></span>
                                 </span>
                               </div>
                             </td>
                             <td className="p-2 align-top text-center">
-                              <button
+                              <button aria-label="Delete"
                                 onClick={() => handleDeleteItem(item.id)}
                                 className="p-2 text-slate-600 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
                               >
@@ -600,7 +607,7 @@ export default function BOQGenerator() {
 
         {/* Summary Sidebar */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white border border-slate-200 border-l-[4px] border-l-[#6B46C1] p-6 rounded-[2rem] shadow-sm relative overflow-hidden">
+          <div className="w-full bg-white border border-slate-200 border-l-[4px] border-l-[#6B46C1] p-4 sm:p-6 rounded-[2rem] shadow-sm relative overflow-hidden">
             {/* Pattern overlay */}
             <div
               className="absolute inset-0 opacity-5 text-slate-800"
@@ -630,7 +637,8 @@ export default function BOQGenerator() {
                     Contingency <Percent className="w-3 h-3" />
                   </span>
                   <div className="flex items-center gap-2 group relative">
-                    <input
+                    <><label htmlFor="a11y-input-97" className="sr-only">Input</label>
+<input id="a11y-input-97"
                       type="number" inputMode="decimal"
                       min="0"
                       step="any"
@@ -645,15 +653,15 @@ export default function BOQGenerator() {
                         setContingencyPct(!isNaN(val) ? Math.max(0, val) : 0);
                       }}
                       className="w-12 px-1 py-0.5 bg-slate-50 border border-slate-200 text-slate-800 rounded text-right text-sm focus:outline-none focus:border-indigo-300 rounded-full"
-                    />
-                    <span className="font-bold tabular-nums text-orange-500">
+                    /></>
+                    <span className="font-bold tabular-nums text-blue-500">
                       +$
                       {contingencyAmount.toLocaleString('en-US', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                     </span>
-                    <span className="pointer-events-none absolute right-0 bottom-full mb-2 w-max max-w-[250px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
+                    <span className="pointer-events-none absolute right-0 bottom-full mb-2 w-max max-w-[250px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl overflow-hidden">
                       Risk = Subtotal × Factor
                       <span className="absolute top-full right-8 border-4 border-transparent border-t-slate-800"></span>
                     </span>
@@ -673,7 +681,8 @@ export default function BOQGenerator() {
                     GST/VAT <Percent className="w-3 h-3" />
                   </span>
                   <div className="flex items-center gap-2 group relative">
-                    <input
+                    <><label htmlFor="a11y-input-98" className="sr-only">Input</label>
+<input id="a11y-input-98"
                       type="number" inputMode="decimal"
                       min="0"
                       step="any"
@@ -688,7 +697,7 @@ export default function BOQGenerator() {
                         setGstPct(!isNaN(val) ? Math.max(0, val) : 0);
                       }}
                       className="w-12 px-1 py-0.5 bg-slate-50 border border-slate-200 text-slate-800 rounded text-right text-sm focus:outline-none focus:border-indigo-300 rounded-full"
-                    />
+                    /></>
                     <span className="font-bold tabular-nums text-rose-500">
                       +$
                       {gstAmount.toLocaleString('en-US', {
@@ -696,7 +705,7 @@ export default function BOQGenerator() {
                         maximumFractionDigits: 2,
                       })}
                     </span>
-                    <span className="pointer-events-none absolute right-0 bottom-full mb-2 w-max max-w-[250px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl">
+                    <span className="pointer-events-none absolute right-0 bottom-full mb-2 w-max max-w-[250px] px-2 py-1 bg-white text-slate-900 text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center font-normal whitespace-nowrap shadow-xl overflow-hidden">
                       Tax = Taxable Amount × Tax %
                       <span className="absolute top-full right-8 border-4 border-transparent border-t-slate-800"></span>
                     </span>
@@ -725,7 +734,7 @@ export default function BOQGenerator() {
             totalUnit="Items"
           >
             <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="bg-white p-4 rounded-[24px] border border-slate-100">
+              <div className="bg-white p-4 rounded-[24px] border border-slate-100 overflow-hidden">
                 <div className="text-base font-medium uppercase text-slate-500 mb-1">
                   Divisions
                 </div>
@@ -733,7 +742,7 @@ export default function BOQGenerator() {
                   {Object.keys(groupedItems).length}
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-[24px] border border-slate-100">
+              <div className="bg-white p-4 rounded-[24px] border border-slate-100 overflow-hidden">
                 <div className="text-base font-medium uppercase text-slate-500 mb-1">
                   Total QTY
                 </div>
@@ -758,14 +767,14 @@ export default function BOQGenerator() {
       {isExportModalOpen && (
         <div className="fixed inset-0 bg-slate-50/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+            <div className="p-4 sm:p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
               <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 <FileOutput className="w-5 h-5 text-indigo-600" />
                 Configure PDF Report
               </h2>
               <button 
                 onClick={() => setIsExportModalOpen(false)}
-                className="text-slate-600 hover:text-slate-600 bg-white hover:bg-slate-100 p-1.5 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
+                className="w-full text-slate-600 hover:text-slate-600 bg-white hover:bg-slate-100 p-1.5 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm overflow-hidden"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -773,35 +782,38 @@ export default function BOQGenerator() {
             <div className="p-6 space-y-4">
               <div>
                 <label className="block mb-1 text-sm font-medium text-slate-700">Project Name</label>
-                <input 
+                <><label htmlFor="a11y-input-99" className="sr-only">Input</label>
+<input id="a11y-input-99" 
                   type="text"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
-                />
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                /></>
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-slate-700">Client Name (Optional)</label>
-                <input 
+                <><label htmlFor="a11y-input-100" className="sr-only">e.g. Acme Corp</label>
+<input id="a11y-input-100" 
                   type="text"
                   value={exportClientName}
                   onChange={(e) => setExportClientName(e.target.value)}
                   placeholder="e.g. Acme Corp"
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
-                />
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                /></>
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-slate-700">Engineer / Surveyor Name (Optional)</label>
-                <input 
+                <><label htmlFor="a11y-input-101" className="sr-only">e.g. John Doe</label>
+<input id="a11y-input-101" 
                   type="text"
                   value={exportEngineerName}
                   onChange={(e) => setExportEngineerName(e.target.value)}
                   placeholder="e.g. John Doe"
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
-                />
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                /></>
               </div>
             </div>
-            <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+            <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
               <button 
                 onClick={() => setIsExportModalOpen(false)}
                 className="px-5 py-2 text-slate-600 font-bold hover:bg-slate-200 rounded-full transition-colors active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"

@@ -58,7 +58,7 @@ export default function RecentSidebar({
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-y-0 right-0 w-80 max-w-[90vw] bg-white shadow-2xl z-[160] flex flex-col border-l border-slate-200"
           >
-            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-100">
               <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
                 <History className="w-5 h-5 text-indigo-600" />
                 Recent Tools
@@ -85,7 +85,7 @@ export default function RecentSidebar({
                         onNavigate(id);
                         onClose();
                       }}
-                      className="w-full text-left p-4 rounded-xl border border-slate-100 bg-white hover:border-indigo-200 hover:shadow-md transition-all group flex items-center gap-4"
+                      className="w-full text-left p-4 rounded-xl border border-slate-100 bg-white hover:border-indigo-200 hover:shadow-md transition-all group flex items-center gap-4 overflow-hidden flex-wrap"
                     >
                       <div className="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors shrink-0">
                         {mod.icon && <mod.icon className="w-5 h-5" />}
@@ -108,7 +108,7 @@ export default function RecentSidebar({
                     <History className="w-8 h-8 text-slate-600" />
                   </div>
                   <h3 className="mb-1 text-lg font-medium text-slate-800 mb-4">No Recent Tools</h3>
-                  <p className=" text-base font-normal text-slate-600 leading-relaxed">
+                  <p className="text-base font-normal text-slate-600 leading-relaxed">
                     Tools you use will appear here for quick access.
                   </p>
                 </div>

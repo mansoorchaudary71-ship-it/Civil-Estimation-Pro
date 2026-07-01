@@ -136,7 +136,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: Calculator,
  styleStyle: "solid",
- colorClass: "bg-orange-500 text-slate-900 shadow-lg",
+ colorClass: "bg-blue-500 text-slate-900 shadow-lg",
  difficulty: "Beginner",
  estimatedTime: "~3 mins",
  isNew: true,
@@ -307,19 +307,6 @@ export const ALL_MODULES = [
  difficulty: "Beginner",
  estimatedTime: "~2 mins",
  isPopular: true,
- },
- {
- id: "mix-design",
- title: "Concrete Mix Design",
- desc: "Calculate IS 10262 compliant proportions for any concrete grade. Site engineers trust Civil Estimation Pro to output instant water-cement ratio reports.",
- category: "Concrete",
- icon: Droplet,
- styleStyle: "glass",
- colorClass:
- "bg-white/80 backdrop-blur-md text-[var(--primary-dark)] ",
- difficulty: "Advanced",
- estimatedTime: "~4 mins",
- isNew: true,
  },
  {
  id: "bbs-generator",
@@ -896,12 +883,12 @@ export const getCategoryTheme = (category: string, id: string) => {
  switch (category) {
  case "Concrete Tech":
  return {
- textRaw: "text-[#E55A2B] [#ff8a65]",
+ textRaw: "text-[#0D9488]",
  text: "text-slate-900",
- bg: "bg-[#E55A2B] [#E55A2B]",
- stroke: "stroke-[#E55A2B]",
- baseHex: "#E55A2B",
- border: "border-[#E55A2B] [#E55A2B]",
+ bg: "bg-[#0D9488]",
+ stroke: "stroke-[#0D9488]",
+ baseHex: "#0D9488",
+ border: "border-[#0D9488]",
  };
  case "Quantity Estimator":
  return {
@@ -985,7 +972,7 @@ const ToolsSkeleton = () => (
  <div className="h-8 w-48 bg-slate-200 rounded-lg"></div>
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
  {[1, 2, 3, 4, 5].map((card) => (
- <div key={`skeleton-card-${card}`} className="bg-white [#1e1e1e] rounded-[24px] p-6 h-[180px] border border-slate-100 flex flex-col gap-4 shadow-sm">
+ <div key={`skeleton-card-${card}`} className="w-full bg-white [#1e1e1e] rounded-[24px] p-4 sm:p-6 h-[180px] border border-slate-100 flex flex-col gap-4 shadow-sm overflow-hidden">
  <div className="flex items-center gap-3">
  <div className="w-12 h-12 rounded-xl bg-slate-100 shrink-0"></div>
  <div className="flex flex-col gap-2 flex-1">
@@ -1170,7 +1157,7 @@ export default function Dashboard({
  <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)' }} />
  <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #f97316 0%, transparent 70%)' }} />
  </div>
- <div className="w-full max-w-[1400px] mx-auto px-4 relative z-10 overflow-visible flex flex-col">
+ <div className="w-full md:max-w-[1400px] md:mx-auto px-4 relative z-10 overflow-visible flex flex-col">
  <div className="flex flex-col gap-10 w-full" id="tools-section">
  <SearchAndFilterBar
  categories={categories.map(catName => ({
@@ -1197,7 +1184,7 @@ export default function Dashboard({
  </h2>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
  {toolsInGroup.map((mod) => (
- <div key={mod.id}>
+ <div key={mod.id} id={`module-card-${mod.id}`}>
  <ToolCard mod={mod} onSelect={handleSelect} />
  </div>
  ))}
@@ -1213,12 +1200,12 @@ export default function Dashboard({
  </div>
  ) : (
  <>
- <div className="flex-shrink-0 h-[30vh] lg:h-[35vh] w-full flex flex-col justify-end px-6 xl:px-12 pb-8 relative overflow-hidden bg-[#f8f9fa] [#121212]">
- <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#FFFFFF]/10 [#FFFFFF]/20 blur-[80px] pointer-events-none"></div>
- <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#FFFFFF]/5 [#FFFFFF]/15 blur-[80px] pointer-events-none"></div>
- <div className="w-full max-w-[1400px] mx-auto z-10 flex flex-col items-start gap-1">
- <h1 className="md: lg: leading-tight text-xl font-semibold text-slate-800 tracking-tight mb-6">Civil Estimation</h1>
- <h1 className="md: lg: leading-tight mb-2 [#3399ff] text-xl font-semibold text-slate-800 tracking-tight mb-6">Pro.</h1>
+ <div className="flex-shrink-0 h-[30vh] lg:h-[35vh] w-full flex flex-col justify-end px-6 xl:px-12 pb-8 relative overflow-hidden bg-[#f8f9fa]">
+ <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-blue-600/10 blur-[80px] pointer-events-none"></div>
+ <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-blue-600/5 blur-[80px] pointer-events-none"></div>
+ <div className="w-full md:max-w-[1400px] md:mx-auto z-10 flex flex-col items-start gap-1 px-4 md:px-0">
+ <h1 className="leading-tight text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 tracking-tight">Civil Estimation</h1>
+ <h1 className="leading-tight text-3xl md:text-4xl lg:text-5xl font-bold text-blue-600 tracking-tight mb-2">Pro.</h1>
  <p className="md: max-w-lg mb-2 text-base font-normal text-slate-600 leading-relaxed">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
  </div>
  </div>
@@ -1233,7 +1220,7 @@ export default function Dashboard({
  <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)' }} />
  <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #f97316 0%, transparent 70%)' }} />
  </div>
- <div className="w-full max-w-[1400px] mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
+ <div className="w-full md:max-w-[1400px] md:mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
  <div className="mb-12">
  <WorkspaceSection onSelect={handleSelect} />
  </div>
@@ -1252,7 +1239,7 @@ export default function Dashboard({
  return (
  <div key={`recent-${t.id}`} className="relative group bg-[#F0F4F8] rounded-2xl p-4 hover:-translate-y-1 transition-all flex flex-col gap-3 shadow-[4px_4px_10px_rgba(163,177,198,0.3),-4px_-4px_10px_rgba(255,255,255,0.9)] hover:shadow-[6px_6px_15px_rgba(163,177,198,0.4),-6px_-6px_15px_rgba(255,255,255,1)]">
  <div className="flex items-center gap-2">
- <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-white shadow-sm border border-slate-100 text-indigo-600">
+ <div className="w-full w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-white shadow-sm border border-slate-100 text-indigo-600 overflow-hidden">
  {m.icon && <m.icon className="w-4 h-4" strokeWidth={1.5} />}
  </div>
  <div className="flex flex-col">
@@ -1262,7 +1249,7 @@ export default function Dashboard({
  </span>
  </div>
  </div>
- <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 transition-colors py-1.5 rounded-full text-base font-medium border border-slate-200 flex justify-center items-center gap-2 shadow-sm active:scale-95 hover:-translate-y-0.5">
+ <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white/70 backdrop-blur-md hover:bg-white text-slate-600 hover:text-blue-700 transition-colors py-1.5 rounded-full text-base font-medium border border-white/20 flex justify-center items-center gap-2 shadow-sm active:scale-95 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 overflow-hidden">
  Resume
  </button>
  </div>
@@ -1270,9 +1257,9 @@ export default function Dashboard({
  })}
  </div>
  ) : (
- <div className="p-8 bg-[#F0F4F8] shadow-[inset_4px_4px_8px_rgba(163,177,198,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.8)] rounded-3xl flex flex-col items-center justify-center text-center border-none">
+ <div className="p-4 sm:p-8 md:p-8 bg-[#F0F4F8] shadow-[inset_4px_4px_8px_rgba(163,177,198,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.8)] rounded-3xl flex flex-col items-center justify-center text-center border-none overflow-hidden">
  <History className="w-10 h-10 text-slate-600 mb-3" />
- <p className=" text-base font-normal text-slate-600 leading-relaxed">Start using tools to see your history here.</p>
+ <p className="text-base font-normal text-slate-600 leading-relaxed">Start using tools to see your history here.</p>
  </div>
  )}
  </div>
@@ -1288,7 +1275,7 @@ export default function Dashboard({
  const mod = ALL_MODULES.find(m => m.id === toolId);
  if (!mod) return null;
  return (
- <div key={`fav-${mod.id}`}>
+ <div key={`fav-${mod.id}`} id={`module-card-${mod.id}`}>
  <ToolCard mod={mod} onSelect={handleSelect} />
  </div>
  );
@@ -1296,23 +1283,23 @@ export default function Dashboard({
  </div>
  </div>
  )}
- <div className="w-full max-w-[1400px] mx-auto w-full overflow-visible flex flex-col mt-4">
+ <div className="w-full md:max-w-[1400px] md:mx-auto w-full overflow-visible flex flex-col mt-4 px-4 md:px-0">
  {/* Quick Overview Row */}
  <section className="mb-8">
  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
- <div className="bg-blue-600 text-white rounded-3xl p-5 shadow-lg shadow-blue-500/10">
+ <div className="bg-blue-600 text-white rounded-3xl p-5 shadow-lg shadow-blue-500/10 overflow-hidden">
  <div className="text-sm opacity-80 uppercase font-semibold tracking-wider">Active Project</div>
  <div className="text-xl font-bold mt-1 truncate">Disposal Well A</div>
  </div>
- <div className="bg-white [#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 ">
+ <div className="w-full bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-white/20 overflow-hidden">
  <div className="text-sm text-slate-500 uppercase font-semibold tracking-wider">Recent Estimate</div>
  <div className="text-xl font-bold mt-1 text-slate-800 truncate">Rs 1.2M</div>
  </div>
- <div className="bg-white [#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 ">
+ <div className="w-full bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-white/20 overflow-hidden">
  <div className="text-sm text-slate-500 uppercase font-semibold tracking-wider">Saved BOQs</div>
  <div className="text-xl font-bold mt-1 text-slate-800 truncate">14</div>
  </div>
- <div className="bg-white [#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 ">
+ <div className="w-full bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-white/20 overflow-hidden">
  <div className="text-sm text-slate-500 uppercase font-semibold tracking-wider">Tools Used</div>
  <div className="text-xl font-bold mt-1 text-slate-800 truncate">8</div>
  </div>
@@ -1344,7 +1331,7 @@ export default function Dashboard({
  </h2>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 tool-card-grid">
  {toolsInGroup.map((mod) => (
- <div key={mod.id}>
+ <div key={mod.id} id={`module-card-${mod.id}`}>
  <ToolCard mod={mod} onSelect={handleSelect} />
  </div>
  ))}
@@ -1397,7 +1384,7 @@ export default function Dashboard({
  </div>
 
  {/* Chat area */}
- <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-6 max-w-4xl mx-auto w-full">
+ <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-6 md:max-w-4xl md:mx-auto w-full">
  {aiMessages.map((msg, i) => (
  <div
  key={i}
@@ -1409,7 +1396,7 @@ export default function Dashboard({
  </div>
  )}
  <div
- className={`px-5 py-3 rounded-[24px] max-w-[85%] text-base font-normal leading-relaxed shadow-sm ${msg.role === "user" ? "bg-[#FFFFFF] text-slate-900 rounded-tr-sm" : "bg-slate-50 [#252525] border border-slate-100 [#333] text-slate-600 rounded-tl-sm"}`}
+ className={`px-5 py-3 rounded-[24px] max-w-[85%] text-base font-normal leading-relaxed shadow-sm ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-slate-50 border border-slate-100 text-slate-600 rounded-tl-sm"}`}
  >
  {msg.content}
  </div>
@@ -1419,11 +1406,12 @@ export default function Dashboard({
  </div>
 
  {/* Input area */}
- <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-white [#1a1b1e] border-t border-slate-100 [#333]">
+ <div className="p-4 sm:p-6 pt-4 shrink-0 w-full md:max-w-4xl md:mx-auto bg-white [#1a1b1e] border-t border-slate-100 [#333]">
  <div className="relative group">
  <div className="absolute -inset-[2px] bg-gradient-to-r from-[#3399ff] to-[#FFFFFF] rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
- <div className="relative flex items-center bg-white [#252525] rounded-full px-5 py-2.5 border border-transparent shadow-sm">
- <input
+ <div className="w-full relative flex items-center bg-white [#252525] rounded-full px-5 py-2.5 border border-transparent shadow-sm overflow-hidden">
+ <><label htmlFor="a11y-input-1" className="sr-only">Ask your assistant...</label>
+<input id="a11y-input-1"
  type="text"
  value={aiMessage}
  onChange={(e) => setAiMessage(e.target.value)}
@@ -1448,8 +1436,8 @@ export default function Dashboard({
  }}
  placeholder="Ask your assistant..."
  className="w-full bg-transparent border-none outline-none text-base text-slate-800 px-2 py-2 placeholder:text-slate-600 rounded-full"
- />
- <button className="p-2.5 bg-[#FFFFFF] hover:bg-[#FFFFFF] shadow-md shadow-[#FFFFFF]/20 text-slate-900 rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0 text-base font-semibold hover:-translate-y-0.5"
+ /></>
+ <button aria-label="ArrowUpRight" className="p-2.5 bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-600/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0 text-base font-semibold hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
  onClick={() => {
  if (aiMessage.trim()) {
  setAiMessages((prev) => [

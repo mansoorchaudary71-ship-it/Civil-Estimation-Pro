@@ -66,7 +66,8 @@ export default function RainwaterHarvesting() {
                     <div className="flex flex-col gap-2">
                       <label className="text-base font-medium">Roof Area</label>
                       <div className="flex">
-                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-l-xl px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={roofArea} onChange={(e) => setRoofArea(e.target.value)} />
+                        <><label htmlFor="a11y-input-408" className="sr-only">Input</label>
+<input id="a11y-input-408" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-l-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[#0284c7]/50 min-h-[44px]" value={roofArea} onChange={(e) => setRoofArea(e.target.value)} /></>
                         <select className="bg-slate-50 border border-l-0 border-slate-200 rounded-r-xl px-2 py-3 outline-none" value={areaUnit} onChange={(e) => setAreaUnit(e.target.value)}>
                           <option value="sqm">m²</option>
                           <option value="sqft">sq.ft</option>
@@ -76,12 +77,13 @@ export default function RainwaterHarvesting() {
                     
                     <div className="flex flex-col gap-2">
                       <label className="text-base font-medium">Ann. Rainfall (mm)</label>
-                      <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50 min-h-[44px]" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
+                      <><label htmlFor="a11y-input-409" className="sr-only">Input</label>
+<input id="a11y-input-409" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[#0284c7]/50 min-h-[44px]" value={rainfall} onChange={(e) => setRainfall(e.target.value)} /></>
                     </div>
 
                     <div className="flex flex-col gap-2 col-span-2">
                       <label className="text-base font-medium">Runoff Coefficient</label>
-                      <select className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#0284c7]/50" value={coefficient} onChange={(e) => setCoefficient(e.target.value)}>
+                      <select className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[#0284c7]/50" value={coefficient} onChange={(e) => setCoefficient(e.target.value)}>
                         <option value="0.90">Metal / Corrugated Roof (0.90)</option>
                         <option value="0.85">Concrete / Tiles (0.85)</option>
                         <option value="0.80">Asphalt Shingles (0.80)</option>
@@ -99,14 +101,16 @@ export default function RainwaterHarvesting() {
                       <label className="text-base font-medium flex items-center gap-1">Water Cost (/{`m³`})</label>
                       <div className="relative">
                         <span className="absolute left-3 top-3.5 text-slate-400 text-sm font-medium">{settings.currency.substring(0,1)}</span>
-                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={muniWaterCost} onChange={(e) => setMuniWaterCost(e.target.value)} />
+                        <><label htmlFor="a11y-input-410" className="sr-only">Input</label>
+<input id="a11y-input-410" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full pl-8 pr-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500/50 min-h-[44px]" value={muniWaterCost} onChange={(e) => setMuniWaterCost(e.target.value)} /></>
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
                       <label className="text-base font-medium">Est. Setup Cost</label>
                       <div className="relative">
                         <span className="absolute left-3 top-3.5 text-slate-400 text-sm font-medium">{settings.currency.substring(0,1)}</span>
-                        <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full pl-8 pr-4 py-3 focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]" value={setupCost} onChange={(e) => setSetupCost(e.target.value)} />
+                        <><label htmlFor="a11y-input-411" className="sr-only">Input</label>
+<input id="a11y-input-411" type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 rounded-full border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-full pl-8 pr-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-emerald-500/50 min-h-[44px]" value={setupCost} onChange={(e) => setSetupCost(e.target.value)} /></>
                       </div>
                     </div>
                   </div>

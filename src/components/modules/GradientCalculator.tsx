@@ -87,12 +87,12 @@ export default function GradientCalculator() {
 
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
       <SEO 
         title="Gradient & Slope Interpolation | Civil Estimation Pro" 
         description="Dynamic slope calculator for road cambers, longitudinal gradients, and vertical curve profiles."
       />
-      <div className="bg-white  border border-slate-200  p-6 rounded-[24px] shadow-sm">
+      <div className="w-full bg-white border border-slate-200 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
          <h2 className="flex items-center gap-2 mb-6 text-xl font-semibold text-slate-900 tracking-tight mb-4">
           <Route className="w-6 h-6 text-emerald-600" />
           Highway Gradient & Slope Engineering
@@ -190,7 +190,7 @@ export default function GradientCalculator() {
                              <h4 className="text-sm mb-2 text-lg font-medium text-slate-800 mb-4">Midpoint Interpolation</h4>
                              <div className="flex justify-between items-end">
                                  <div>
-                                     <p className=" text-base font-normal text-slate-600 leading-relaxed">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
+                                     <p className="text-base font-normal text-slate-600 leading-relaxed">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
                                      <p className="font-mono text-base font-normal text-slate-600 leading-relaxed">{longitudinalResults.midElev.toFixed(3)} m</p>
                                  </div>
                                  <ArrowRight className="text-slate-700 w-4 h-4 mb-1" />

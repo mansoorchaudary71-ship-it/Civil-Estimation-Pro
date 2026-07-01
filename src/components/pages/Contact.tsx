@@ -134,7 +134,8 @@ export default function Contact() {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-base font-medium dark:text-slate-300">First Name</label>
-                <input 
+                <><label htmlFor="a11y-input-573" className="sr-only">Jane</label>
+<input id="a11y-input-573" 
                   type="text" 
                   name="firstName"
                   value={formData.firstName}
@@ -142,11 +143,12 @@ export default function Contact() {
                   disabled={status === 'loading'}
                   className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium disabled:opacity-50" 
                   placeholder="Jane" 
-                />
+                /></>
               </div>
               <div className="space-y-2">
                 <label className="text-base font-medium dark:text-slate-300">Last Name</label>
-                <input 
+                <><label htmlFor="a11y-input-574" className="sr-only">Smith</label>
+<input id="a11y-input-574" 
                   type="text" 
                   name="lastName"
                   value={formData.lastName}
@@ -154,13 +156,14 @@ export default function Contact() {
                   disabled={status === 'loading'}
                   className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium disabled:opacity-50" 
                   placeholder="Smith" 
-                />
+                /></>
               </div>
             </div>
             
             <div className="space-y-2">
               <label className="text-base font-medium dark:text-slate-300">Email Address</label>
-              <input 
+              <><label htmlFor="a11y-input-575" className="sr-only">jane@example.com</label>
+<input id="a11y-input-575" 
                 type="email" 
                 name="email"
                 value={formData.email}
@@ -168,7 +171,7 @@ export default function Contact() {
                 disabled={status === 'loading'}
                 className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium disabled:opacity-50" 
                 placeholder="jane@example.com" 
-              />
+              /></>
             </div>
 
             <div className="space-y-2">

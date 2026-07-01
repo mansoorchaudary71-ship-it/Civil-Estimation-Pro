@@ -58,8 +58,8 @@ export default function VentilationChecker() {
   }, [roomType, climate, floorArea, windowArea, openableFraction]);
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
+      <div className="w-full bg-white dark:bg-slate-900 rounded-[24px] p-4 sm:p-4 sm:p-4 sm:p-6 shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
          <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
             <Wind className="text-cyan-600" /> Ventilation & Lighting Checker (NBC)
          </h2>
@@ -74,7 +74,7 @@ export default function VentilationChecker() {
                         <select 
                             value={roomType}
                             onChange={(e) => setRoomType(e.target.value as RoomType)}
-                            className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                            className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-cyan-500"
                         >
                             <option value="Habitable">Habitable Room (Living/Bed)</option>
                             <option value="Kitchen">Kitchen</option>
@@ -87,7 +87,7 @@ export default function VentilationChecker() {
                         <select 
                             value={climate}
                             onChange={(e) => setClimate(e.target.value as ClimateZone)}
-                            className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                            className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-cyan-500"
                         >
                             <option value="Dry Hot">Dry & Hot (1/10)</option>
                             <option value="Intermediate">Intermediate (1/8)</option>

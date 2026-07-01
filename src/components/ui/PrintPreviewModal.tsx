@@ -132,7 +132,8 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
                   <div className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${useBranding ? 'bg-[#D7BA89]' : 'bg-[#E8E4D9]'}`}>
                     <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${useBranding ? 'translate-x-5' : 'translate-x-1'}`} />
                   </div>
-                  <input 
+                  <><label htmlFor="a11y-input-585" className="sr-only">Input</label>
+<input id="a11y-input-585" 
                     type="checkbox" 
                     className="hidden" 
                     checked={useBranding} 
@@ -141,13 +142,13 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
                       if (e.target.checked) setShowOptions(true);
                       else setShowOptions(false);
                     }} 
-                  />
+                  /></>
                   <span className="text-sm font-semibold text-[#8B8476] flex items-center gap-1.5">
                     <Briefcase className="w-4 h-4"/> Custom Branding
                   </span>
                 </label>
                 {useBranding && (
-                  <button 
+                  <button aria-label="Settings2" 
                     onClick={() => setShowOptions(!showOptions)}
                     className={`p-1.5 rounded-lg transition-colors ${showOptions ? 'bg-[#D7BA89] text-white' : 'text-[#8B8476] hover:bg-[#E8E4D9]'}`}
                   >
@@ -215,16 +216,18 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
             <div className="px-6 py-4 bg-white border-t border-[#E8E4D9] flex flex-wrap items-center gap-4 animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center gap-3 flex-1 min-w-[250px]">
                 <label className="text-sm font-semibold text-[#8B8476]">Company / Name Details</label>
-                <input 
+                <><label htmlFor="a11y-input-586" className="sr-only">e.g. Acme Construction</label>
+<input id="a11y-input-586" 
                   type="text" 
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
                   placeholder="e.g. Acme Construction"
-                  className="flex-1 border border-[#E8E4D9] text-[#4A443B] px-3 py-1.5 rounded-lg text-sm bg-[#FAF8F5] focus:outline-none focus:ring-2 focus:ring-[#D7BA89]/50"
-                />
+                  className="flex-1 border border-[#E8E4D9] text-[#4A443B] px-3 py-1.5 rounded-lg text-sm bg-[#FAF8F5] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-[#D7BA89]/50"
+                /></>
               </div>
               <div className="flex items-center gap-3">
-                <input 
+                <><label htmlFor="a11y-input-587" className="sr-only">Input</label>
+<input id="a11y-input-587" 
                   type="file" 
                   accept="image/png, image/jpeg, image/webp" 
                   className="hidden" 
@@ -237,7 +240,7 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
                       } catch (err) {}
                     }
                   }}
-                />
+                /></>
                 <button 
                   onClick={() => fileInputRef.current?.click()}
                   className="flex items-center gap-2 text-sm font-semibold text-[#8B8476] border border-[#E8E4D9] px-3 py-1.5 rounded-lg hover:bg-[#FAF8F5] transition-colors"

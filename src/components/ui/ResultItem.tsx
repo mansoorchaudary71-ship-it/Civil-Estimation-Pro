@@ -144,7 +144,7 @@ export function ResultItem({
               {label}
             </span>
             {explanation && (
-              <button
+              <button aria-label="HelpCircle"
                 onClick={() => setExpanded(!expanded)}
                 className="opacity-70 hover:opacity-100 transition-opacity text-slate-500"
               >

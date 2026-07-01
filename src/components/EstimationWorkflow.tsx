@@ -23,8 +23,8 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
       title: "Auto-Generate BOQ",
       description: "One-click rate formatting",
       icon: FileSpreadsheet,
-      color: "bg-orange-100 text-orange-600  ",
-      border: "border-orange-200 "
+      color: "bg-blue-100 text-blue-600  ",
+      border: "border-blue-200 "
     },
     {
       id: "material-takeoff",
@@ -47,20 +47,20 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
   ];
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-      <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-slate-200 shadow-xl overflow-hidden relative">
+    <div className="w-full md:max-w-[1400px] md:mx-auto px-4 lg:px-8 mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
+      <div className="w-full bg-white rounded-[2.5rem] p-4 sm:p-8 md:p-5 sm:p-12 border border-slate-200 shadow-xl overflow-hidden relative">
         {/* Background Decorative elements */}
         <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
           <Zap className="w-48 h-48" />
         </div>
         <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="relative z-10 text-center max-w-2xl mx-auto mb-12">
+        <div className="w-full relative z-10 text-center md:max-w-2xl md:mx-auto mb-12 px-4 md:px-0">
           <h2 className="md: tabular-nums mb-4 text-xl font-semibold text-slate-900 tracking-tight">
             Complete Estimation Workflow
           </h2>
-          <p className=" text-base font-normal text-slate-600 leading-relaxed">
+          <p className="text-base font-normal text-slate-600 leading-relaxed">
             No Engineer Needed. Complete BOQ in Minutes.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
                       <step.icon className="w-6 h-6" />
                     </div>
                     {/* Number Badge */}
-                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-white text-slate-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white">
+                    <div className="w-full absolute -top-4 -right-4 w-9 h-9 bg-white text-slate-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white overflow-hidden">
                       {step.number}
                     </div>
                   </div>

@@ -58,13 +58,13 @@ export default function AntiTermiteCalculator() {
   }, [floorArea, perimeter, trenchDepth, selectedChemical, customRatio]);
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
       <SEO 
         title="Anti-Termite Treatment Estimator | Civil Estimation Pro" 
         description="Calculate exact chemical emulsion and water dilution rates for pre-construction treatment of foundations, floors, and perimeters."
       />
 
-      <div className="bg-white  border border-slate-200  p-6 rounded-[24px] shadow-sm">
+      <div className="w-full bg-white border border-slate-200 p-4 sm:p-6 rounded-[24px] shadow-sm overflow-hidden">
          <h2 className="flex items-center gap-2 mb-6 text-xl font-semibold text-slate-900 tracking-tight mb-4">
           <Bug className="w-6 h-6 text-indigo-600" />
           Anti-Termite Treatment & Emulsion Engine
@@ -125,7 +125,7 @@ export default function AntiTermiteCalculator() {
                     </div>
 
                     <div className="mt-6 flex flex-col gap-4">
-                        <div className="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl">
+                        <div className="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl overflow-hidden">
                             <h4 className="text-indigo-900 mb-4 flex items-center justify-between text-lg font-medium text-slate-800">
                                 <span>Pure Chemical Needed</span>
                                 <span className="text-sm bg-indigo-200 text-indigo-800 px-2 py-1 rounded-full uppercase tracking-wider">Dilution 1:{results.dilutionParts.toFixed(1)}</span>
@@ -137,7 +137,7 @@ export default function AntiTermiteCalculator() {
                             </div>
                         </div>
 
-                        <div className="bg-cyan-50 border border-cyan-200 p-5 rounded-2xl">
+                        <div className="bg-cyan-50 border border-cyan-200 p-5 rounded-2xl overflow-hidden">
                             <h4 className="text-cyan-900 mb-4 flex items-center justify-between text-lg font-medium text-slate-800">
                                 <span>Water Needed For Mixing</span>
                                 <Droplets className="w-4 h-4 text-cyan-500" />

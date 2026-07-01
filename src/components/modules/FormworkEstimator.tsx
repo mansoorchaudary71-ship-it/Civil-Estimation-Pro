@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback, memo } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
 import {
@@ -9,11 +9,13 @@ import {
   RefreshCw,
   LayoutTemplate,
   SquareStack,
+  ChevronDown
 } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ResultCard } from "../ui/ResultCard";
+import { ListInput } from "../ui/ListInput";
 
 interface FormworkElement {
   id: string;
@@ -24,6 +26,102 @@ interface FormworkElement {
   height: string;
   count: string;
 }
+
+const MemoizedFormworkRow = memo(({ 
+  el, 
+  index, 
+  updateElement, 
+  removeElement, 
+  unitStr 
+}: { 
+  el: FormworkElement, 
+  index: number, 
+  updateElement: (index: number, updates: Partial<FormworkElement>) => void, 
+  removeElement: (index: number) => void,
+  unitStr: string 
+}) => {
+  return (
+    <div className="w-full group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-amber-200 p-5 rounded-[2rem] transition-all shadow-sm hover:shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:items-center">
+      <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300 group-hover:bg-amber-400 transition-colors" />
+      <div className="flex-1 grid grid-cols-2 md:grid-cols-6 gap-4 items-end pl-0 md:pl-2">
+        <div className="col-span-2 md:col-span-2 space-y-1">
+          <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1 truncate">
+            Type & Name
+          </label>
+          <div className="flex gap-2">
+            <select
+              className="bg-gray-100 border border-slate-200 rounded-[24px] px-3 py-2.5 text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px] min-w-[44px] text-base font-normal overflow-hidden truncate"
+              value={el.type}
+              onChange={(e) => updateElement(index, { type: e.target.value as any })}
+            >
+              <option value="column">Col</option>
+              <option value="beam">Beam</option>
+              <option value="slab">Slab</option>
+            </select>
+            <><label htmlFor="a11y-input-231" className="sr-only">Input</label>
+<input id="a11y-input-231" type="text"
+              className="bg-white border border-gray-200 rounded-full px-3 py-2.5 text-slate-800 w-full outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px] min-w-[44px] text-base font-normal truncate"
+              value={el.name}
+              onChange={(e) => updateElement(index, { name: e.target.value })}
+            /></>
+          </div>
+        </div>
+        <div className="col-span-1 md:col-span-1 space-y-1">
+          <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1 truncate">
+            L ({unitStr})
+          </label>
+          <><label htmlFor="a11y-input-232" className="sr-only">Input</label>
+<input id="a11y-input-232" type="number" inputMode="decimal" min="0" step="0.1"
+            className="bg-white border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px] min-w-[44px] text-base font-normal truncate"
+            value={el.length}
+            onChange={(e) => updateElement(index, { length: e.target.value })}
+          /></>
+        </div>
+        <div className="col-span-1 md:col-span-1 space-y-1">
+          <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1 truncate">
+            W ({unitStr})
+          </label>
+          <><label htmlFor="a11y-input-233" className="sr-only">Input</label>
+<input id="a11y-input-233" type="number" inputMode="decimal" min="0" step="0.1"
+            className="bg-white border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px] min-w-[44px] text-base font-normal truncate"
+            value={el.width}
+            onChange={(e) => updateElement(index, { width: e.target.value })}
+          /></>
+        </div>
+        <div className="col-span-1 md:col-span-1 space-y-1">
+          <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1 truncate">
+            H/D ({unitStr})
+          </label>
+          <><label htmlFor="a11y-input-234" className="sr-only">Input</label>
+<input id="a11y-input-234" type="number" inputMode="decimal" min="0" step="0.1"
+            className="bg-white border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px] min-w-[44px] text-base font-normal truncate"
+            value={el.height}
+            onChange={(e) => updateElement(index, { height: e.target.value })}
+          /></>
+        </div>
+        <div className="col-span-1 md:col-span-1 space-y-1">
+          <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1 truncate">
+            Qty
+          </label>
+          <><label htmlFor="a11y-input-235" className="sr-only">Input</label>
+<input id="a11y-input-235" type="number" inputMode="decimal" min="0"
+            className="bg-white border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px] min-w-[44px] text-base font-normal truncate"
+            value={el.count}
+            onChange={(e) => updateElement(index, { count: e.target.value })}
+          /></>
+        </div>
+      </div>
+      <button
+        aria-label="Delete"
+        onClick={() => removeElement(index)}
+        className="w-11 h-11 min-h-[44px] min-w-[44px] flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white rounded-full transition-colors ml-auto md:ml-0 self-end md:self-center active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500"
+      >
+        <Trash2 className="w-5 h-5" />
+      </button>
+    </div>
+  );
+});
+
 export default function FormworkEstimator() {
   const { settings } = useSettings();
   const isMetric = settings.measurement === "SI";
@@ -52,9 +150,11 @@ export default function FormworkEstimator() {
   ]);
   const [repetitionFactor, setRepetitionFactor] = useState<number>(4);
   const [wastagePct, setWastagePct] = useState<number>(5);
-  const addElement = () => {
-    setElements([
-      ...elements,
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+
+  const handleAddElement = useCallback(() => {
+    setElements((prev) => [
+      ...prev,
       {
         id: Math.random().toString(36).substring(2, 9),
         name: "New Item",
@@ -65,7 +165,25 @@ export default function FormworkEstimator() {
         count: "1",
       },
     ]);
-  };
+  }, [isMetric]);
+
+  const renderItem = useCallback((
+    el: FormworkElement, 
+    index: number, 
+    updateElement: (idx: number, updates: Partial<FormworkElement>) => void, 
+    removeElement: (idx: number) => void
+  ) => {
+    return (
+      <MemoizedFormworkRow 
+        key={el.id} 
+        el={el} 
+        index={index} 
+        updateElement={updateElement} 
+        removeElement={removeElement} 
+        unitStr={unitStr} 
+      />
+    );
+  }, [unitStr]);
   const removeElement = (id: string) => {
     setElements(elements.filter((e) => e.id !== id));
   };
@@ -148,7 +266,7 @@ export default function FormworkEstimator() {
   return (
     <div className="w-full h-full bg-transparent text-slate-900 font-sans p-6 md:p-8">
       {" "}
-      <div className="max-w-6xl mx-auto space-y-8 pb-24">
+      <div className="w-full md:max-w-6xl md:mx-auto space-y-8 pb-24 px-4 md:px-0">
         {" "}
         {" "}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -156,180 +274,72 @@ export default function FormworkEstimator() {
           {/* Elements Config Section */}{" "}
           <section className="lg:col-span-8 space-y-6">
             {" "}
-            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
+            <div className="w-full bg-white/90 p-4 sm:p-6 md:p-4 sm:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl overflow-hidden">
               {" "}
               <div className="flex items-center justify-between mb-8">
                 {" "}
                 <div className="flex items-center gap-3">
                   {" "}
-                  <div className="p-3 bg-amber-50 rounded-[24px]">
+                  <div className="p-3 bg-amber-50 rounded-[24px] overflow-hidden">
                     {" "}
                     <Grid className="w-6 h-6 text-amber-600" />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <h2 className=" text-xl font-semibold text-slate-900 tracking-tight mb-4">
+                    <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
                       Shuttering Elements
                     </h2>{" "}
-                    <p className=" text-base font-normal text-slate-600 leading-relaxed">
+                    <p className="text-base font-normal text-slate-600 leading-relaxed">
                       Add columns, beams, or slabs
                     </p>{" "}
                   </div>{" "}
                 </div>{" "}
-                <button onClick={addElement}
-                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2.5 rounded-full shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95 text-base font-semibold hover:-translate-y-0.5"
-                >
-                  {" "}
-                  <Plus className="w-4 h-4" /> Add Item{" "}
-                </button>{" "}
               </div>{" "}
-              <div className="space-y-4">
-                {" "}
-                {elements.map((el, index) => (
-                  <div
-                    key={el.id}
-                    className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-amber-200 p-5 rounded-[2rem] transition-all shadow-sm hover:shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:items-center"
-                  >
-                    {" "}
-                    <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300 group-hover:bg-amber-400 transition-colors" />{" "}
-                    <div className="flex-1 grid grid-cols-2 md:grid-cols-6 gap-4 items-end pl-2">
-                      {" "}
-                      <div className="col-span-2 md:col-span-2 space-y-1">
-                        {" "}
-                        <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
-                          Type & Name
-                        </label>{" "}
-                        <div className="flex gap-2">
-                          {" "}
-                          <select
-                            className="bg-gray-100 border border-slate-200 rounded-[24px] px-3 py-2.5 text-slate-700 outline-none focus:ring-2 focus:ring-amber-500/30 w-24 text-base font-normal"
-                            value={el.type}
-                            onChange={(e) =>
-                              updateElement(el.id, "type", e.target.value)
-                            }
-                          >
-                            {" "}
-                            <option value="column">Col</option>{" "}
-                            <option value="beam">Beam</option>{" "}
-                            <option value="slab">Slab</option>{" "}
-                          </select>{" "}
-                          <input type="text"
-                            className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 text-slate-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
-                            value={el.name}
-                            onChange={(e) =>
-                              updateElement(el.id, "name", e.target.value)
-                            }
-                          />{" "}
-                        </div>{" "}
-                      </div>{" "}
-                      <div className="space-y-1">
-                        {" "}
-                        <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
-                          L ({unitStr})
-                        </label>{" "}
-                        <input type="number" inputMode="decimal"
-                          min="0"
-                          step="0.1"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
-                          value={el.length}
-                          onChange={(e) =>
-                            updateElement(el.id, "length", e.target.value)
-                          }
-                        />{" "}
-                      </div>{" "}
-                      <div className="space-y-1">
-                        {" "}
-                        <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
-                          W ({unitStr})
-                        </label>{" "}
-                        <input type="number" inputMode="decimal"
-                          min="0"
-                          step="0.1"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
-                          value={el.width}
-                          onChange={(e) =>
-                            updateElement(el.id, "width", e.target.value)
-                          }
-                        />{" "}
-                      </div>{" "}
-                      <div className="space-y-1">
-                        {" "}
-                        <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
-                          H/D ({unitStr})
-                        </label>{" "}
-                        <input type="number" inputMode="decimal"
-                          min="0"
-                          step="0.1"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
-                          value={el.height}
-                          onChange={(e) =>
-                            updateElement(el.id, "height", e.target.value)
-                          }
-                        />{" "}
-                      </div>{" "}
-                      <div className="space-y-1">
-                        {" "}
-                        <label className="uppercase tracking-widest block text-sm font-medium text-slate-700 mb-1">
-                          Qty
-                        </label>{" "}
-                        <input type="number" inputMode="decimal"
-                          min="0"
-                          className="bg-white dark:bg-slate-800 border border-gray-200 rounded-full px-3 py-2.5 w-full outline-none focus:ring-2 focus:ring-amber-500/30 min-h-[44px] text-base font-normal"
-                          value={el.count}
-                          onChange={(e) =>
-                            updateElement(el.id, "count", e.target.value)
-                          }
-                        />{" "}
-                      </div>{" "}
-                    </div>{" "}
-                    <button
-                      onClick={() => removeElement(el.id)}
-                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-slate-900 rounded-full transition-colors ml-auto md:ml-0 self-end md:self-center active:scale-95 hover:-translate-y-0.5"
-                    >
-                      {" "}
-                      <Trash2 className="w-4 h-4" />{" "}
-                    </button>{" "}
-                  </div>
-                ))}{" "}
-                {elements.length === 0 && (
-                  <div className="text-center py-12 bg-transparent border-2 border-dashed border-gray-200 rounded-[2rem]">
-                    {" "}
-                    <p className=" text-base font-normal text-slate-600 leading-relaxed">
-                      No formwork elements added.
-                    </p>{" "}
-                  </div>
-                )}{" "}
-              </div>{" "}
+              <ListInput
+                items={elements}
+                onChange={setElements}
+                onAdd={handleAddElement}
+                renderItem={renderItem}
+                addLabel="Add Item"
+                emptyMessage="No formwork elements added."
+              />
             </div>{" "}
-            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl flex flex-col sm:flex-row gap-6 sm:items-center">
-              {" "}
-              <div className="flex-1">
-                {" "}
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  {" "}
-                  <RefreshCw className="w-5 h-5 text-indigo-600" />{" "}
-                  <h3 className=" text-lg font-medium text-slate-800 mb-4">
-                    Repetition Factor
-                  </h3>{" "}
-                </div>{" "}
-                <p className=" text-base font-normal text-slate-600 leading-relaxed">
-                  How many times will the shuttering be reused? This drastically
-                  reduces material required.
-                </p>{" "}
-              </div>{" "}
-              <div className="flex gap-2">
-                {" "}
-                {[1, 2, 4, 6].map((factor) => (
-                  <button
-                    key={factor}
-                    onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-[24px] font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-slate-700  hover:bg-gray-200"}`}
-                  >
-                    {" "}
-                    x{factor}{" "}
-                  </button>
-                ))}{" "}
-              </div>{" "}
+            
+            <div className="w-full bg-white/90 p-4 sm:p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl overflow-hidden">
+              <button
+                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                className="w-full flex items-center justify-between gap-3 relative z-10 text-left focus:outline-none min-h-[44px]"
+              >
+                <div className="flex items-center gap-3">
+                  <RefreshCw className="w-5 h-5 text-indigo-600" />
+                  <h3 className="text-lg font-medium text-slate-800">
+                    Settings & Repetition
+                  </h3>
+                </div>
+                <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${isSettingsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isSettingsOpen && (
+                <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-6 sm:items-center animate-in slide-in-from-top-4 fade-in duration-300">
+                  <div className="flex-1">
+                    <p className="text-base font-normal text-slate-600 leading-relaxed">
+                      How many times will the shuttering be reused? This drastically
+                      reduces material required.
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    {[1, 2, 4, 6].map((factor) => (
+                      <button
+                        key={factor}
+                        onClick={() => setRepetitionFactor(factor)}
+                        className={`w-12 h-12 min-h-[44px] min-w-[44px] rounded-[24px] font-semibold tabular-nums tracking-tight transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-slate-700 hover:bg-gray-200"}`}
+                      >
+                        x{factor}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>{" "}
           </section>{" "}
           {/* Results Summary Interface */}{" "}
@@ -405,7 +415,7 @@ export default function FormworkEstimator() {
                       </PieChart>{" "}
                     </ResponsiveContainer>{" "}
                   </div>{" "}
-                  <div className="flex justify-center gap-4 mt-2 text-base font-medium uppercase tracking-wider">
+                  <div className="flex justify-center gap-4 mt-2 text-base font-medium uppercase tracking-wider flex-wrap">
                     {" "}
                     <span className="flex items-center gap-1.5">
                       <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />{" "}

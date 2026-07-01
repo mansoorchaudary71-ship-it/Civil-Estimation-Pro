@@ -136,7 +136,7 @@ const MaterialTakeoffSheet: React.FC = () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-2">
-            <Building className="w-6 h-6 text-orange-500" />
+            <Building className="w-6 h-6 text-blue-500" />
             Material Takeoff Sheet
           </h2>
           <p className="text-slate-500 mt-1">
@@ -152,18 +152,19 @@ const MaterialTakeoffSheet: React.FC = () => {
       </div>
 
       {/* Input Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-purple-100">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 sm:p-6 rounded-[24px] border border-purple-100 overflow-hidden">
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">
             Built-Up Area (per floor)
           </label>
           <div className="relative">
-            <input
+            <><label htmlFor="a11y-input-340" className="sr-only">Input</label>
+<input id="a11y-input-340"
               type="number" inputMode="decimal"
               value={area}
               onChange={(e) => setArea(parseFloat(e.target.value) || 0)}
-              className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pr-12"
-            />
+              className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none pr-12"
+            /></>
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">sq ft</span>
           </div>
         </div>
@@ -173,13 +174,14 @@ const MaterialTakeoffSheet: React.FC = () => {
           </label>
           <div className="relative">
             <Layers className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
+            <><label htmlFor="a11y-input-341" className="sr-only">Input</label>
+<input id="a11y-input-341"
               type="number" inputMode="decimal"
               value={floors}
               onChange={(e) => setFloors(parseFloat(e.target.value) || 1)}
-              className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10"
+              className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none pl-10"
               min="1"
-            />
+            /></>
           </div>
         </div>
         <div>
@@ -191,7 +193,7 @@ const MaterialTakeoffSheet: React.FC = () => {
             <select
               value={quality}
               onChange={(e) => setQuality(e.target.value as QualityType)}
-              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10 appearance-none"
+              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none pl-10 appearance-none overflow-hidden"
             >
               <option value="standard">Standard (Economy)</option>
               <option value="premium">Premium (Mid-Range)</option>
@@ -205,7 +207,7 @@ const MaterialTakeoffSheet: React.FC = () => {
       <div className="overflow-x-auto w-full border border-slate-200 rounded-[24px]">
         <table className="w-full text-left">
           <thead>
-            <tr className="bg-orange-50 text-orange-800">
+            <tr className="bg-blue-50 text-orange-800">
               <th className="p-4 font-semibold w-1/3">Material Name</th>
               <th className="p-4 font-semibold w-1/6">Unit</th>
               <th className="p-4 font-semibold w-1/6">Quantity</th>
@@ -215,19 +217,20 @@ const MaterialTakeoffSheet: React.FC = () => {
           </thead>
           <tbody className="divide-y divide-slate-100">
             {items.map((item) => (
-              <tr key={item.id} className="hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors">
+              <tr key={item.id} className="hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors overflow-hidden">
                 <td className="p-4 font-medium text-slate-800">{item.name}</td>
                 <td className="p-4 text-slate-600">{item.unit}</td>
                 <td className="p-4 font-semibold text-purple-700">{item.quantity.toLocaleString()}</td>
                 <td className="p-4">
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">{/* currency symbol placeholder if needed */}</span>
-                    <input
+                    <><label htmlFor="a11y-input-342" className="sr-only">Input</label>
+<input id="a11y-input-342"
                       type="number" inputMode="decimal"
                       value={item.rate}
                       onChange={(e) => handleRateChange(item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-full px-2 py-1.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none"
-                    />
+                      className="w-full bg-white border border-slate-300 rounded-full px-2 py-1.5 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none"
+                    /></>
                   </div>
                 </td>
                 <td className="p-4 text-right font-semibold text-slate-800">
@@ -237,11 +240,11 @@ const MaterialTakeoffSheet: React.FC = () => {
             ))}
           </tbody>
           <tfoot>
-            <tr className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-t border-slate-300">
+            <tr className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-t border-slate-300 overflow-hidden">
               <td colSpan={4} className="p-5 text-right font-bold text-slate-800 text-lg">
                 Grand Total Material Cost
               </td>
-              <td className="p-5 text-right font-bold text-orange-600 text-xl">
+              <td className="p-5 text-right font-bold text-blue-600 text-xl">
                 {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </td>
             </tr>

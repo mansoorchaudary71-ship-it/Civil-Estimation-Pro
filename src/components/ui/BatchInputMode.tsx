@@ -88,7 +88,8 @@ export function BatchInputMode({ columns, onCalculateTotal, title = "Batch Input
           <p className="text-sm text-slate-500">Add multiple rows manualy or upload a CSV template</p>
         </div>
         <div className="flex gap-2">
-           <input type="file" accept=".csv" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
+           <><label htmlFor="a11y-input-579" className="sr-only">Input</label>
+<input id="a11y-input-579" type="file" accept=".csv" className="hidden" ref={fileInputRef} onChange={handleFileUpload} /></>
            <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
               <Upload className="w-4 h-4 text-indigo-500" /> Upload CSV
            </button>
@@ -125,13 +126,14 @@ export function BatchInputMode({ columns, onCalculateTotal, title = "Batch Input
                           {col.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                         </select>
                      ) : (
-                       <input 
+                       <><label htmlFor="a11y-input-580" className="sr-only">Input</label>
+<input id="a11y-input-580" 
                          type={col.type}
                          value={row[col.id] || ''}
                          placeholder={col.label}
                          onChange={(e) => updateRow(row.id, col.id, e.target.value)}
                          className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition-colors font-medium text-slate-700"
-                       />
+                       /></>
                      )}
                   </td>
                 ))}

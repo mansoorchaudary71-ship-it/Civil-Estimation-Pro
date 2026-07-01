@@ -33,7 +33,7 @@ export function MaterialTakeoffDashboard({ costs, rates }: MaterialTakeoffDashbo
   const qCrush = rates.crush > 0 ? Math.ceil(costs.crush / rates.crush) : 0;
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 lg:p-8 shadow-sm">
+    <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 lg:p-4 sm:p-8 shadow-sm overflow-hidden">
       <div className="mb-6 flex flex-col gap-1">
         <h2 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
           <Container className="w-5 h-5 text-indigo-500" />
@@ -104,7 +104,7 @@ export function MaterialTakeoffDashboard({ costs, rates }: MaterialTakeoffDashbo
 function MTOItem({ icon, name, quantity, unit, bgColor, borderColor }: any) {
   return (
     <div className={`p-4 rounded-2xl flex items-center gap-4 border ${bgColor} ${borderColor} transition-all hover:scale-[1.02]`}>
-      <div className="shrink-0 p-3 bg-white dark:bg-slate-900 rounded-xl shadow-sm">
+      <div className="w-full shrink-0 p-3 bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden">
         {icon}
       </div>
       <div>

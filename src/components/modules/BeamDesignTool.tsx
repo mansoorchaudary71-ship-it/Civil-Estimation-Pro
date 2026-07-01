@@ -206,8 +206,8 @@ export default function BeamDesignTool() {
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
+      <div className="w-full bg-white rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
          <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
             <Layers className="text-rose-600" /> Beam Design (Limit State - IS 456)
          </h2>
@@ -284,11 +284,11 @@ export default function BeamDesignTool() {
                     </div>
                     
                     {results.isDoublyReinforced && (
-                      <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-2xl flex items-start gap-3">
-                        <AlertTriangle className="w-5 h-5 text-orange-600 mt-0.5 shrink-0" />
+                      <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-2xl flex items-start gap-3 overflow-hidden">
+                        <AlertTriangle className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
                         <div>
                           <p className="text-orange-900 mb-1 text-base font-normal text-slate-600 leading-relaxed">Doubly Reinforced Section</p>
-                          <p className="text-orange-700 text-base font-normal text-slate-600 leading-relaxed">Moment exceeds limiting moment capacity. Compression steel (Asc) required: <strong className="font-mono">{results.Asc.toFixed(0)} mm²</strong>.</p>
+                          <p className="text-blue-700 text-base font-normal text-slate-600 leading-relaxed">Moment exceeds limiting moment capacity. Compression steel (Asc) required: <strong className="font-mono">{results.Asc.toFixed(0)} mm²</strong>.</p>
                         </div>
                       </div>
                     )}

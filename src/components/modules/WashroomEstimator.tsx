@@ -141,12 +141,13 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
     <div className="flex flex-col gap-1.5">
       <label className="text-base font-medium uppercase tracking-wider">{label}</label>
       <div className="relative">
-        <input 
+        <><label htmlFor="a11y-input-568" className="sr-only">Input</label>
+<input id="a11y-input-568" 
           type="number" inputMode="decimal" 
           value={val} 
           onChange={(e)=>setVal(e.target.value)} 
-          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-4 py-2.5 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
-        />
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-full px-4 py-2.5 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none transition-all"
+        /></>
         {suffix && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-base font-medium">{suffix}</span>}
       </div>
     
@@ -159,7 +160,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      className="w-full max-w-5xl mx-auto bg-slate-50 dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[90vh]"
+      className="w-full md:max-w-5xl md:mx-auto bg-slate-50 dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[90vh] px-4 md:px-0"
     >
       <div className="bg-gradient-to-r from-[var(--accent-purple)] to-indigo-600 p-6 sm:p-8 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-4">
@@ -169,13 +170,13 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           <div>
             <div className="flex items-center gap-3">
               <h2 className="text-2xl sm:text-xl font-semibold text-slate-800 dark:text-white tracking-tight">Washroom Estimator</h2>
-              <span className="bg-orange-500 text-white text-[10px] font-bold tabular-nums tracking-tight uppercase px-2.5 py-1 rounded-full tracking-widest shadow-lg">PRO</span>
+              <span className="bg-blue-500 text-white text-[10px] font-bold tabular-nums tracking-tight uppercase px-2.5 py-1 rounded-full tracking-widest shadow-lg">PRO</span>
             </div>
             <p className="text-slate-600 dark:text-slate-400 font-medium mt-1">Complete material takeoff for bathrooms</p>
           </div>
         </div>
         {onClose && (
-          <button onClick={onClose} className="p-2 bg-slate-900/10 hover:bg-slate-900/20 rounded-full transition-colors text-slate-900 dark:text-white">
+          <button onClick={onClose} className="p-2 bg-slate-900/10 hover:bg-slate-900/20 rounded-full transition-colors text-slate-900 dark:text-white active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
             <X className="w-6 h-6" />
           </button>
         )}
@@ -192,7 +193,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           </div>
 
           <section>
-            <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
+            <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <Ruler className="w-5 h-5 text-purple-600" />
               <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white">Dimensions</h3>
             </div>
@@ -205,15 +206,19 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
               <div className="flex flex-col gap-1.5">
                 <label className="text-base font-medium uppercase tracking-wider">Door (H x W)</label>
                 <div className="flex gap-2">
-                  <input type="number" inputMode="decimal" value={doorH} onChange={e=>setDoorH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
-                  <input type="number" inputMode="decimal" value={doorW} onChange={e=>setDoorW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
+                  <><label htmlFor="a11y-input-569" className="sr-only">H</label>
+<input id="a11y-input-569" type="number" inputMode="decimal" value={doorH} onChange={e=>setDoorH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-full px-3 py-2.5 text-sm" placeholder="H" /></>
+                  <><label htmlFor="a11y-input-570" className="sr-only">W</label>
+<input id="a11y-input-570" type="number" inputMode="decimal" value={doorW} onChange={e=>setDoorW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-full px-3 py-2.5 text-sm" placeholder="W" /></>
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-base font-medium uppercase tracking-wider">Window (H x W)</label>
                 <div className="flex gap-2">
-                  <input type="number" inputMode="decimal" value={winH} onChange={e=>setWinH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
-                  <input type="number" inputMode="decimal" value={winW} onChange={e=>setWinW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
+                  <><label htmlFor="a11y-input-571" className="sr-only">H</label>
+<input id="a11y-input-571" type="number" inputMode="decimal" value={winH} onChange={e=>setWinH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-full px-3 py-2.5 text-sm" placeholder="H" /></>
+                  <><label htmlFor="a11y-input-572" className="sr-only">W</label>
+<input id="a11y-input-572" type="number" inputMode="decimal" value={winW} onChange={e=>setWinW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-full px-3 py-2.5 text-sm" placeholder="W" /></>
                 </div>
               </div>
             </div>
@@ -227,7 +232,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           </section>
 
           <section>
-            <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
+            <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2 rounded-full transition-all duration-300 active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm">
               <Grid2X2 className="w-5 h-5 text-purple-600" />
               <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white">Finishes & Ceiling</h3>
             </div>
@@ -237,7 +242,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
               {renderInput("Tile Height", tileHeight, setTileHeight, "0", unit)}
               <div className="flex flex-col gap-1.5">
                 <label className="text-base font-medium uppercase tracking-wider">Ceiling Type</label>
-                <select value={ceilingType} onChange={e=>setCeilingType(e.target.value as any)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-base font-medium outline-none focus:ring-2 focus:ring-purple-500">
+                <select value={ceilingType} onChange={e=>setCeilingType(e.target.value as any)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-base font-medium outline-none focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500">
                   <option value="None">None</option>
                   <option value="Gypsum">Gypsum Board</option>
                   <option value="PVC">PVC Panels</option>
@@ -269,7 +274,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
 
         {/* Results Column */}
         <div className="lg:col-span-7 h-full flex flex-col">
-          <div className="bg-white dark:bg-slate-800 rounded-[24px] p-6 sm:p-8 shadow-sm flex-1 border border-slate-200 dark:dark:border-slate-700 overflow-hidden flex flex-col">
+          <div className="w-full bg-white dark:bg-slate-800 rounded-[24px] p-4 sm:p-4 sm:p-4 sm:p-6 sm:p-4 sm:p-4 sm:p-4 sm:p-8 shadow-sm flex-1 border border-slate-200 dark:dark:border-slate-700 overflow-hidden flex flex-col">
             <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-900 dark:text-white mb-6">Bill of Quantities</h3>
             
             <div className="flex-1 overflow-y-auto pr-2 space-y-6">

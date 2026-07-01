@@ -167,8 +167,8 @@ export default function ColumnDesignTool() {
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
+    <div className="flex flex-col gap-8 w-full md:max-w-5xl md:mx-auto animate-in fade-in px-4 md:px-0">
+      <div className="w-full bg-white rounded-[24px] p-4 sm:p-6 shadow-sm border border-slate-200 overflow-hidden">
          <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-slate-900 tracking-tight mb-4">
             <Columns className="text-rose-600" /> Column Design & P-M Interaction
          </h2>
@@ -260,7 +260,7 @@ export default function ColumnDesignTool() {
                     </div>
                 </MaterialSummary>
 
-                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 flex-1 min-h-[400px]">
+                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-4 sm:p-6 flex-1 min-h-[400px] overflow-hidden">
                     <h3 className="mb-4 text-lg font-medium text-slate-800">P-M Interaction Diagram (IS 456)</h3>
                     <ResponsiveContainer width="100%" height={350}>
                         <ComposedChart margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>

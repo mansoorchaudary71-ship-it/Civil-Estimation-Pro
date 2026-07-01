@@ -179,7 +179,7 @@ const ConstructionCostSummary: React.FC = () => {
         <div className="flex items-center gap-3">
           <CurrencySelector />
           <button onClick={exportToPDF}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-slate-900 px-5 py-2.5 rounded-full transition-colors whitespace-nowrap text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
+            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-700 text-slate-900 px-5 py-2.5 rounded-full transition-colors whitespace-nowrap text-base font-semibold active:scale-95 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
           >
             <Download className="w-4 h-4" />
             Export Report
@@ -187,18 +187,19 @@ const ConstructionCostSummary: React.FC = () => {
         </div>
       </div>
 
-      <div className="mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-purple-100">
+      <div className="mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 sm:p-6 rounded-[24px] border border-purple-100 overflow-hidden">
         <label className="block mb-2 text-sm font-medium text-slate-700 mb-1">
           Total Built-Up Area (sq ft)
         </label>
         <div className="relative max-w-sm">
           <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
-          <input
+          <><label htmlFor="a11y-input-193" className="sr-only">Input</label>
+<input id="a11y-input-193"
             type="number" inputMode="decimal"
             value={totalArea}
             onChange={(e) => setTotalArea(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
-          />
+            className="w-full bg-white border border-slate-300 rounded-full px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-purple-500 outline-none"
+          /></>
         </div>
       </div>
 
@@ -213,16 +214,17 @@ const ConstructionCostSummary: React.FC = () => {
             </h3>
             <div className="space-y-3">
               {greyStructure.map((item, index) => (
-                <div key={item.id} className="flex items-center justify-between gap-4">
+                <div key={item.id} className="flex items-center justify-between gap-4 flex-wrap">
                   <label className="flex-1 text-sm font-medium text-slate-700 mb-1 block">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
-                    <input
+                    <><label htmlFor="a11y-input-194" className="sr-only">Input</label>
+<input id="a11y-input-194"
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("grey", item.id, e.target.value)}
                       className="w-full bg-white border border-slate-300 rounded-full py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
-                    />
+                    /></>
                   </div>
                 </div>
               ))}
@@ -240,16 +242,17 @@ const ConstructionCostSummary: React.FC = () => {
             </h3>
             <div className="space-y-3">
               {finishing.map((item, index) => (
-                <div key={item.id} className="flex items-center justify-between gap-4">
+                <div key={item.id} className="flex items-center justify-between gap-4 flex-wrap">
                   <label className="flex-1 text-sm font-medium text-slate-700 mb-1 block">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
-                    <input
+                    <><label htmlFor="a11y-input-195" className="sr-only">Input</label>
+<input id="a11y-input-195"
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("finish", item.id, e.target.value)}
                       className="w-full bg-white border border-slate-300 rounded-full py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
-                    />
+                    /></>
                   </div>
                 </div>
               ))}
@@ -267,16 +270,17 @@ const ConstructionCostSummary: React.FC = () => {
             </h3>
             <div className="space-y-3">
               {labour.map((item, index) => (
-                <div key={item.id} className="flex items-center justify-between gap-4">
+                <div key={item.id} className="flex items-center justify-between gap-4 flex-wrap">
                   <label className="flex-1 text-sm font-medium text-slate-700 mb-1 block">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
-                    <input
+                    <><label htmlFor="a11y-input-196" className="sr-only">Input</label>
+<input id="a11y-input-196"
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("labour", item.id, e.target.value)}
                       className="w-full bg-white border border-slate-300 rounded-full py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
-                    />
+                    /></>
                   </div>
                 </div>
               ))}
@@ -288,19 +292,20 @@ const ConstructionCostSummary: React.FC = () => {
           </div>
           
           {/* O&P / Contingency */}
-          <div className="bg-orange-50 p-5 rounded-[24px] border border-orange-100">
+          <div className="bg-blue-50 p-5 rounded-[24px] border border-blue-100 overflow-hidden">
             <h3 className="mb-4 flex items-center gap-2 text-lg font-medium text-slate-800">
-              <Settings2 className="w-5 h-5 text-orange-500" />
+              <Settings2 className="w-5 h-5 text-blue-500" />
               Additional Factors
             </h3>
             
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className=" text-sm font-medium text-slate-700 mb-1 block">Overhead & Profit (%)</label>
-                  <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{overheadProfitPct}%</span>
+                  <label className="text-sm font-medium text-slate-700 mb-1 block">Overhead & Profit (%)</label>
+                  <span className="bg-white px-2 py-1 rounded text-blue-600 font-bold border border-slate-200">{overheadProfitPct}%</span>
                 </div>
-                <input
+                <><label htmlFor="a11y-input-197" className="sr-only">Input</label>
+<input id="a11y-input-197"
                   type="range"
                   min="5"
                   max="25"
@@ -308,15 +313,16 @@ const ConstructionCostSummary: React.FC = () => {
                   value={overheadProfitPct}
                   onChange={(e) => setOverheadProfitPct(parseInt(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-orange-500"
-                />
+                /></>
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className=" text-sm font-medium text-slate-700 mb-1 block">Contingency (%)</label>
-                  <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{contingencyPct}%</span>
+                  <label className="text-sm font-medium text-slate-700 mb-1 block">Contingency (%)</label>
+                  <span className="bg-white px-2 py-1 rounded text-blue-600 font-bold border border-slate-200">{contingencyPct}%</span>
                 </div>
-                <input
+                <><label htmlFor="a11y-input-198" className="sr-only">Input</label>
+<input id="a11y-input-198"
                   type="range"
                   min="2"
                   max="10"
@@ -324,7 +330,7 @@ const ConstructionCostSummary: React.FC = () => {
                   value={contingencyPct}
                   onChange={(e) => setContingencyPct(parseInt(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-orange-500"
-                />
+                /></>
               </div>
             </div>
           </div>
@@ -336,7 +342,7 @@ const ConstructionCostSummary: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-slate-50 rounded-[32px] border border-slate-200 shadow-sm p-6 flex flex-col min-h-[450px] mb-2"
+            className="bg-slate-50 rounded-[32px] border border-slate-200 shadow-sm p-4 sm:p-6 flex flex-col min-h-[450px] mb-2 overflow-hidden"
           >
             <h3 className="text-center text-lg font-semibold text-slate-800 mb-1">Project Summary Dashboard</h3>
             <p className="text-center text-sm font-medium text-slate-500 mb-4">Material vs. Labor Distribution</p>
@@ -381,7 +387,7 @@ const ConstructionCostSummary: React.FC = () => {
             </div>
           </motion.div>
 
-          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[32px] p-6 md:p-8 text-white shadow-xl">
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[32px] p-6 md:p-8 text-white shadow-xl overflow-hidden">
             <h3 className="text-purple-200 uppercase tracking-wider mb-6 text-lg font-semibold">Final Cost Summary</h3>
             
             <div className="space-y-4 mb-8 text-slate-100">
@@ -405,7 +411,7 @@ const ConstructionCostSummary: React.FC = () => {
                 {formatCurrency(grandTotal)}
               </div>
               
-              <div className="bg-white rounded-[24px] shadow-sm p-5 flex items-center justify-between">
+              <div className="w-full bg-white rounded-[24px] shadow-sm p-5 flex items-center justify-between overflow-hidden">
                 <div>
                   <div className="text-slate-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
                   <div className="text-xl sm:text-2xl font-bold text-slate-900">{formatCurrency(costPerSqFt)}</div>

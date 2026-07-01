@@ -109,13 +109,14 @@ export default function QuickEstimatorWidget() {
                     </button>
                   </div>
                 </div>
-                <input
+                <><label htmlFor="a11y-input-588" className="sr-only">e.g. 2500</label>
+<input id="a11y-input-588"
                   type="number" inputMode="decimal"
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                   placeholder="e.g. 2500"
                   className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.12)] rounded-lg py-2.5 px-3 text-[#F1F5F9] text-sm placeholder:text-[#475569] focus:outline-none focus:border-[#F59E0B] focus:ring-[3px] focus:ring-[rgba(245,158,11,0.15)]"
-                />
+                /></>
               </div>
 
               <div className="flex gap-3">
